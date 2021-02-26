@@ -39,8 +39,8 @@
 
   # Enable the GNOME 3 Desktop Environment.
   services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = false;
-  services.xserver.desktopManager.gnome3.enable = false;
+  services.xserver.displayManager.defaultSession = "none+dwm";
+  services.xserver.windowManager.dwm.enable = true;
   
 
   # Configure keymap in X11
