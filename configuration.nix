@@ -34,7 +34,7 @@
   # i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    keyMap = services.xserver.layout;
+    keyMap = "de";
   };
 
   # Enable the GNOME 3 Desktop Environment.
