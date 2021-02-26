@@ -69,7 +69,15 @@
   environment.systemPackages = with pkgs; [
     wget neovim git
     firefox
+    (dwm.overrideAttrs (oldAttrs: rec {
+      src = pkgs.fetchgit {
+        url = https://gitlab.hochkamp.eu/ragon/dwm.git;
+        rev = "a0997f6d8328734dc2e3faa8878682e0266c1d1a";
+        sha256 = "04y65r6ffhjmjg0nknh73d6f5r0kvna2gg0d096pl8lrbjdx1szv";
+      };
+    }))
   ];
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
