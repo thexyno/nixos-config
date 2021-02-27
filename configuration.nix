@@ -8,13 +8,15 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./desktop/base.nix
+      ./environment.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos-test"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
@@ -37,45 +39,16 @@
     keyMap = "de";
   };
 
-  # Enable the GNOME 3 Desktop Environment.
-  services.xserver.enable = true;
-  services.xserver.displayManager.defaultSession = "none+dwm";
-  services.xserver.windowManager.dwm.enable = true;
   
-
-  # Configure keymap in X11
-  services.xserver.layout = "de";
-  services.xserver.xkbOptions = "caps:swapescape";
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.philipp = {
-    openssh.authorizedKeys.keys = 
-    [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKGX53m9XKVk+7fkja+9nlULKw8lW5J0i8wlJ43/+JeH"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvexOT9tnx2LfAE/OwfixfNc/esNAjZ+GDfLpY2iABk" ];
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     wget neovim git
-    firefox
-    (dwm.overrideAttrs (oldAttrs: rec {
-      src = pkgs.fetchgit {
-        url = https://gitlab.hochkamp.eu/ragon/dwm.git;
-        rev = "a0997f6d8328734dc2e3faa8878682e0266c1d1a";
-        sha256 = "04y65r6ffhjmjg0nknh73d6f5r0kvna2gg0d096pl8lrbjdx1szv";
-      };
-    }))
   ];
 
 
