@@ -48,7 +48,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget git nano
+    wget git
+    nodejs
+    (neovim.override {
+      vimAlias = true;
+      configure = (import ./programs/nvim/default.nix {pkgs = pkgs;});
+    })
   ];
 
 
