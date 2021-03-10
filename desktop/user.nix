@@ -17,7 +17,7 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKGX53m9XKVk+7fkja+9nlULKw8lW5J0i8wlJ43/+JeH"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvexOT9tnx2LfAE/OwfixfNc/esNAjZ+GDfLpY2iABk"
       ];
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel", "libvirtd", "tty", "audio", "dialout", "kvm", "input" ]; # Enable ‘sudo’ for the user.
     isNormalUser = true;
     shell = pkgs.zsh;
   };
