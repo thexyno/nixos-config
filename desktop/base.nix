@@ -21,8 +21,16 @@
   services.spice-vdagentd.enable = true;
   services.qemuGuest.enable = true;
 
+  # auto update
+  system.autoUpgrade.enable = true;
+
   environment.systemPackages = with pkgs; [
     firefox
+    nodejs
+    (neovim.override {
+      vimAlias = true;
+      configure = (import ./nvim/default.nix {pkgs = pkgs;});
+    })
   ];
   nixpkgs.overlays = [
     (self: super: {

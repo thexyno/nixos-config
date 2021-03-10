@@ -23,7 +23,9 @@
   nix.allowedUsers = ["philipp" "root"];
 
   home-manager.users.philipp = {
+    xdg.dataFile."nvim/coc-settings.json".source = ./nvim/coc-settings.json;
     programs = {
+      # neovim = (import ./nvim/default.nix { pkgs = pkgs; });
       git = {
         enable = true;
 	userName = "Philipp Hochkamp";

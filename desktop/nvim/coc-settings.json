@@ -1,0 +1,23 @@
+{
+  "suggest.triggerCompletionWait": 50,
+  "suggest.enablePreview": true,
+  "html.enable": true,
+  "python.linting.enabled": true,
+  "python.autoComplete.addBrackets": true,
+  "html.format.enable": true,
+  "html.suggest.html5": true,
+  "html.suggest.ionic": true,
+  "html.validate.html": true,
+  "html.validate.styles": true,
+  "tabnine.disable_filetypes": ["pandoc"],
+  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.cargo.allFeatures": true,
+  "rust-analyzer.inlayHints.refreshOnInsertMode": true,
+  "rust-analyzer.updates.channel": "nightly",
+  "html.validate.scripts": true,
+  "git.gitlab.hosts": [
+    "gitlab.com"
+  ],
+  "git.addGBlameToVirtualText": true,
+  "java.errors.incompleteClasspath.severity": "ignore"
+}
