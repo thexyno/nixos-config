@@ -4,6 +4,7 @@
   imports = [
     ./kitty.nix
     ./user.nix
+    ./development/default.nix
   ];
   # Enable dwm
   services.xserver.enable = true;
