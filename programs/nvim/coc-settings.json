@@ -18,6 +18,5 @@
   "git.gitlab.hosts": [
     "gitlab.com"
   ],
-  "git.addGBlameToVirtualText": true,
-  "java.errors.incompleteClasspath.severity": "ignore"
+  "git.addGBlameToVirtualText": true
 }
