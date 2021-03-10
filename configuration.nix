@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./desktop/base.nix
       ./environment.nix
@@ -39,7 +40,7 @@
     keyMap = "de";
   };
 
-  
+
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -48,11 +49,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget git
+    wget
+    git
     nodejs
     (neovim.override {
       vimAlias = true;
-      configure = (import ./programs/nvim/default.nix {pkgs = pkgs;});
+      configure = (import ./programs/nvim/default.nix { pkgs = pkgs; });
     })
   ];
 
@@ -85,4 +87,3 @@
   system.stateVersion = "20.09"; # Did you read the comment?
 
 }
-

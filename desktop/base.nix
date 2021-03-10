@@ -34,7 +34,7 @@
           url = "https://gitlab.hochkamp.eu/ragon/dwm/-/archive/master.tar.gz";
         };
       });
-      }
+    }
     )
   ];
 }
