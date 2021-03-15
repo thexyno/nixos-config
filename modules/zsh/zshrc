@@ -1,5 +1,5 @@
-AGKOZAK_MULTILINE=0
-AGKOZAK_PROMPT_CHAR=( ❯ ❯ "%F{red}N%f")
+#AGKOZAK_MULTILINE=0
+#AGKOZAK_PROMPT_CHAR=( ❯ ❯ "%F{red}N%f")
 autoload -Uz history-search-end
 
 zle -N history-beginning-search-backward-end history-search-end
