@@ -44,52 +44,68 @@ in
 
         };
 
-        fzf = {
-          enable = true;
-          enableZshIntegration = true;
-          defaultOptions = [
-            "--height 40%"
-            "--layout=reverse"
-            "--border"
-            "--inline-info"
-          ];
-        };
-        kitty = {
-          enable = isGui;
-          font = {
-            package = pkgs.jetbrains-mono;
-            name = "JetBrains Mono Medium";
+        programs = {
+          fzf = {
+            enable = true;
+            enableZshIntegration = true;
+            defaultOptions = [
+              "--height 40%"
+              "--layout=reverse"
+              "--border"
+              "--inline-info"
+            ];
           };
-          settings = {
-            "enable_audio_bell" = "false";
-            "allow_remote_control" = "yes";
-            "sync_to_monitor" = "yes";
-            "background" = "#282828";
-            "foreground" = "#ebdbb2";
-            "background_opacity" = "1.0";
-            "font_size" = "12";
+          kitty = {
+            enable = isGui;
+            font = {
+              package = pkgs.jetbrains-mono;
+              name = "JetBrains Mono Medium";
+            };
+            settings = {
+              "enable_audio_bell" = "false";
+              "allow_remote_control" = "yes";
+              "sync_to_monitor" = "yes";
+              "background" = "#282828";
+              "foreground" = "#ebdbb2";
+              "background_opacity" = "1.0";
+              "font_size" = "12";
+            };
+            keybindings = {
+              "ctrl+minus" = "change_font_size all -2.0";
+              "ctrl+plus" = "change_font_size all +2.0";
+            };
+
           };
-          keybindings = {
-            "ctrl+minus" = "change_font_size all -2.0";
-            "ctrl+plus" = "change_font_size all +2.0";
+          git = {
+            enable = true;
+
+            # Default configs
+            extraConfig = {
+              commit.gpgSign = true;
+
+              user.name = "Philipp Hochkamp";
+              user.email = "me@phochkamp.de";
+              user.signingKey = "26F03E1F60F5731B0CC5BDE1C4F2B751AA7341B3";
+
+              # Set default "git pull" behaviour so it doesn't try to default to
+              # either "git fetch; git merge" (default) or "git fetch; git rebase".
+              pull.ff = "only";
+            };
+          };
+          # Htop configurations
+          htop = {
+            enable = true;
+            hideUserlandThreads = true;
+            highlightBaseName = true;
+            shadowOtherUsers = true;
+            showProgramPath = false;
+            treeView = true;
+            meters = {
+              left = [  "LeftCPUs"  "Memory" "Swap"        "ZFSARC" "ZFSCARC" ];
+              right = [ "RightCPUs" "Tasks"  "LoadAverage" "Uptime" "Battery" ];
+            };
           };
 
-        };
-        programs.git = {
-          enable = true;
-
-          # Default configs
-          extraConfig = {
-            commit.gpgSign = true;
-
-            user.name = "Philipp Hochkamp";
-            user.email = "me@phochkamp.de";
-            user.signingKey = "26F03E1F60F5731B0CC5BDE1C4F2B751AA7341B3";
-
-            # Set default "git pull" behaviour so it doesn't try to default to
-            # either "git fetch; git merge" (default) or "git fetch; git rebase".
-            pull.ff = "only";
-          };
         };
 
         xdg.mimeApps = {
@@ -108,19 +124,6 @@ in
           };
         };
 
-        # Htop configurations
-        programs.htop = {
-          enable = true;
-          hideUserlandThreads = true;
-          highlightBaseName = true;
-          shadowOtherUsers = true;
-          showProgramPath = false;
-          treeView = true;
-          meters = {
-            left = [  "LeftCPUs"  "Memory" "Swap"        "ZFSARC" "ZFSCARC" ];
-            right = [ "RightCPUs" "Tasks"  "LoadAverage" "Uptime" "Battery" ];
-          };
-        };
 
         # GTK theme configs
         gtk.enable = isGui;
