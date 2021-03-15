@@ -10,30 +10,30 @@ in
     (neovim.override {
       vimAlias = true;
       viAlias = true;
-      configure = {
-      path.plugins = with pkgs.vimPlugins; [
-        sources.nnn-vim
-        vista-vim
-        undotree
-        polyglot
-        rainbow
-        vim-commentary
-        vim-table-mode
-        vim-pandoc
-        vim-pandoc-syntax
-        vim-speeddating
-        vim-nix
-        gruvbox
-        ultisnips
-        incsearch-vim
-        vim-highlightedyank
-        vim-fugitive
-        lightline-vim
-        fzf-vim
-        vim-devicons
-        sources.coc-nvim
-      ];
       customRC = "${builtins.readFile ./nvim/init.vim}";
+      configure = {
+        path.plugins = with pkgs.vimPlugins; [
+          sources.nnn-vim
+          vista-vim
+          undotree
+          polyglot
+          rainbow
+          vim-commentary
+          vim-table-mode
+          vim-pandoc
+          vim-pandoc-syntax
+          vim-speeddating
+          vim-nix
+          gruvbox
+          ultisnips
+          incsearch-vim
+          vim-highlightedyank
+          vim-fugitive
+          lightline-vim
+          fzf-vim
+          vim-devicons
+          sources.coc-nvim
+        ];
    }; 
    })
   ];
