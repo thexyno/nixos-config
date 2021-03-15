@@ -12,22 +12,22 @@ in
     let
       zshrc = builtins.readFile ./zshrc;
 
-      setOptions = [
-        "extendedglob"
-        "incappendhistory"
-        "sharehistory"
-        "histignoredups"
-        "histfcntllock"
-        "histreduceblanks"
-        "histignorespace"
-        "histallowclobber"
-        "autocd"
-        "cdablevars"
-        "nomultios"
-        "pushdignoredups"
-        "autocontinue"
-        "promptsubst"
-      ];
+      # setOptions = [
+      #   "extendedglob"
+      #   "incappendhistory"
+      #   "sharehistory"
+      #   "histignoredups"
+      #   "histfcntllock"
+      #   "histreduceblanks"
+      #   "histignorespace"
+      #   "histallowclobber"
+      #   "autocd"
+      #   "cdablevars"
+      #   "nomultios"
+      #   "pushdignoredups"
+      #   "autocontinue"
+      #   "promptsubst"
+      # ];
 
       sources = [
         "${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/git/git.plugin.zsh"
@@ -48,10 +48,5 @@ in
       ''
         ${plugins}
         ${zshrc}
-        eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
-        eval $(${pkgs.gitAndTools.hub}/bin/hub alias -s)
-        source ${pkgs.skim}/share/skim/key-bindings.zsh
-        # needs to remain at bottom so as not to be overwritten
-        bindkey jj vi-cmd-mode
       '';
 }
