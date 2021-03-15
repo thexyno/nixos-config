@@ -22,8 +22,8 @@ in
             name = "coc-nvim"
             src = sources.coc-nvim;
           };
-        
-        with pkgs.vimPlugins // sources; in [
+        in
+        with pkgs.vimPlugins // sources; [
           nnn-vim
           vista-vim
           undotree
