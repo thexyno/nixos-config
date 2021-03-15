@@ -24,7 +24,7 @@ in
   networking.hostName = "nixos-test"; # Define your hostname.
   nix.nixPath = [
     "nixpkgs=/etc/nixos/nix/nixos-unstable"
-    "nixos-config=/etc/nixos/hosts/agrajag/configuration.nix"
+    "nixos-config=/etc/nixos/hosts/enterprise/configuration.nix"
   ];
 
   # Disable root login for ssh

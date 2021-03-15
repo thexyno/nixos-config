@@ -17,7 +17,7 @@ in
       enable = true;
       enableSSHSupport = true;
     };
-
+    ragon.nvim.enable = true;
     console.font = "Lat2-Terminus16";
     console.keyMap = "de";
 

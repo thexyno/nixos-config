@@ -2,3 +2,7 @@
 	path = nix/nixpkgs-unstable
 	url = https://github.com/NixOS/nixpkgs.git
 	branch = nixpkgs-unstable
+[submodule "nix/nixos-unstable"]
+	path = nix/nixos-unstable
+	url = https://github.com/NixOS/nixpkgs
+	branch = nixos-unstable
