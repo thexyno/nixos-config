@@ -70,6 +70,7 @@ in
       neofetch
       ripgrep
       pv
+      niv
     ];
 
   };
