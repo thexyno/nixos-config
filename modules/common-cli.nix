@@ -71,6 +71,7 @@ in
       ripgrep
       pv
       niv
+      killall
     ];
 
   };

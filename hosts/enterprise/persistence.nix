@@ -19,7 +19,7 @@
     extraFiles = [
     ];
     extraDirectories = [
-      ".config/autorandr"
+      ".config/coc"
       ".config/pipewire/media-session.d"
       ".local/share/nvim"
       ".local/share/TabNine"
