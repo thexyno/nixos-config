@@ -34,12 +34,14 @@
   fileSystems."/persistent" =
     { device = "/dev/disk/by-uuid/88cad3d1-2e42-495c-988f-377fa4fcd3b6";
       fsType = "btrfs";
+      neededForBoot = true;
       options = [ "subvol=persistent" ];
     };
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/1259-3A7D";
       fsType = "vfat";
+      options = [ "noauto" "x-systemd.automount" ];
     };
 
   swapDevices = [ ];

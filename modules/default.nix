@@ -5,6 +5,7 @@ let
   sources = import ../nix/sources.nix;
 in {
   imports = [
+    "${sources.impermanence}/nixos.nix"
     ./auto-upgrade.nix
     ./common-cli.nix
     ./common-gui.nix

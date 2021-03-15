@@ -11,6 +11,18 @@
         "url": "https://github.com/agkozak/agkozak-zsh-prompt/archive/b6106d95fb9a006c7f9fd6cdc7c0cbd2fe51365a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "impermanence": {
+        "branch": "master",
+        "description": "Modules to help you handle persistent state on systems with ephemeral root storage [maintainer=@talyz]",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "impermanence",
+        "rev": "8fc761e8c348db5c31a53ae125ce29b23abfd872",
+        "sha256": "007pap1lzai967cvp615rjnxgcxz39n55p3p6phssjv1ngfcv00d",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/impermanence/archive/8fc761e8c348db5c31a53ae125ce29b23abfd872.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "coc-nvim": {
         "branch": "release",
         "description": "Nodejs extension host for vim & neovim, load extensions like VSCode and host language servers.",

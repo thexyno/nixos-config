@@ -3,6 +3,7 @@ let
   cfg = config.ragon.gamingvmhost;
 in
 {
+  options.ragon.gamingvmhost.enable = lib.mkEnableOption "Enables vm stuff";
   config = lib.mkIf cfg.enable {
 
     programs.dconf.enable = true;
@@ -37,7 +38,11 @@ in
 
     };
     # define gaming vm
-    systemd.services."libvirtd-guest-gamingvm" {
+    systemd.services."libvirtd-guest-gamingvm" =
+    let
+      name = "gamingvm";
+    in
+     {
       after = [ "libvirtd.service" ];
       requires = [ "libvirtd.service" ];
       serviceConfig = {
@@ -46,10 +51,10 @@ in
       };
       script =
         let
-          xml = pkgs.writeText "libvirt-guest-gamingvm.xml"
+          xml = pkgs.writeText "libvirt-guest-${name}.xml"
             ''
               <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
-                <name>gamingvm</name>
+                <name>${name}</name>
                 <uuid>UUID</uuid>
                 <metadata>
                   <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">

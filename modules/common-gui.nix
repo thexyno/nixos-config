@@ -1,10 +1,11 @@
 { config, lib, pkgs, ... }:
 let
   sources = import ../nix/sources.nix;
-  gui = config.ragon.gui;
+  cfg = config.ragon.gui;
 in
 {
-  config = lib.mkIf gui.enable {
+  options.ragon.gui.enable = lib.mkEnableOption "Enables ragons Gui stuff";
+  config = lib.mkIf cfg.enable {
     # Set up default fonts
     fonts.enableDefaultFonts = true;
     fonts.enableGhostscriptFonts = true;
@@ -19,7 +20,7 @@ in
     # Install some extra fonts.
     fonts.fonts = with pkgs; [
       jetbrains-mono
-      nerdfonts
+#      nerdfonts
     ];
 
     # List packages installed in system profile. To search by name, run:
