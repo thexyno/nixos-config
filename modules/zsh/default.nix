@@ -29,6 +29,7 @@ in
       in
       ''
         ${zshrc}
+        prompt off
         ${plugins}
       '';
 }
