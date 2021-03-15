@@ -51,7 +51,7 @@ in
   users.users.ragon.initialHashedPassword = secrets.hashedRagonPassword;
 
   ragon.common-cli.enable = true;
-  ragon.users.enable = true;
+  ragon.user.enable = true;
   ragon.gui.enable = true;
   ragon.auto-upgrade.enable = true;
 
