@@ -1,8 +1,11 @@
 { config, pkgs, ... }:
+
 {
   environment.systemPackages = with pkgs; [
-    jetbrains-mono
-    nerdfonts
-    kitty
+    dart
+    flutter
+    android-studio
+    android-udev-rules
+    scrcpy
   ];
 }

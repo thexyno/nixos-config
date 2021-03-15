@@ -1,0 +1,117 @@
+{
+    "agkozak-zsh-prompt": {
+        "branch": "master",
+        "description": "A fast, asynchronous ZSH prompt with color ASCII indicators of Git, exit, SSH, virtual environment, and vi mode status. Framework-agnostic and customizable.",
+        "homepage": "",
+        "owner": "agkozak",
+        "repo": "agkozak-zsh-prompt",
+        "rev": "b6106d95fb9a006c7f9fd6cdc7c0cbd2fe51365a",
+        "sha256": "04df8rp4sig41ivi06sb1c121f4hm6bxfvgqi0xy5nb1rbxlnd2m",
+        "type": "tarball",
+        "url": "https://github.com/agkozak/agkozak-zsh-prompt/archive/b6106d95fb9a006c7f9fd6cdc7c0cbd2fe51365a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "coc-nvim": {
+        "branch": "release",
+        "description": "Nodejs extension host for vim & neovim, load extensions like VSCode and host language servers.",
+        "homepage": "",
+        "owner": "neoclide",
+        "repo": "coc.nvim",
+        "rev": "d3fa3e2a184c174ccdf68051886782fbe8fb8ade",
+        "sha256": "0ywicgnld69qp4vv0x2aq9xjaks6i3vmzq1lsr4nhss02jgd0ldx",
+        "type": "tarball",
+        "url": "https://github.com/neoclide/coc.nvim/archive/d3fa3e2a184c174ccdf68051886782fbe8fb8ade.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "dwm": {
+        "sha256": "1xm2vyrv1pxxk47h2qbflgyc7215iggqk1g1qy598csnn6g95afm",
+        "type": "tarball",
+        "url": "https://gitlab.hochkamp.eu/ragon/dwm/-/archive/6.2.1/dwm-6.2.1.tar.gz",
+        "url_template": "https://gitlab.hochkamp.eu/ragon/dwm/-/archive/<version>/dwm-<version>.tar.gz",
+        "version": "6.2.1"
+    },
+    "home-manager": {
+        "branch": "master",
+        "description": "Manage a user environment using Nix  [maintainer=@rycee] ",
+        "homepage": "https://nix-community.github.io/home-manager/",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "07f6c6481e0cbbcaf3447f43e964baf99465c8e1",
+        "sha256": "0f3r4yjlysglx9a2z0qpinzilv0rhh5kdc3f0d003695yhgay7hm",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/home-manager/archive/07f6c6481e0cbbcaf3447f43e964baf99465c8e1.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "af958e8057f345ee1aca714c1247ef3ba1c15f5e",
+        "sha256": "1qjavxabbrsh73yck5dcq8jggvh3r2jkbr6b5nlz5d9yrqm9255n",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/af958e8057f345ee1aca714c1247ef3ba1c15f5e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "nixos-unstable",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "916ee862e87ac5ee2439f2fb7856386b4dc906ae",
+        "sha256": "165byy4hgg44w4ks1l289yx98bifqwyk6amil9rq7z7978d5lsj9",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/916ee862e87ac5ee2439f2fb7856386b4dc906ae.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nnn-vim": {
+        "branch": "master",
+        "description": "File manager for vim/neovim powered by n³",
+        "homepage": "",
+        "owner": "mcchrish",
+        "repo": "nnn.vim",
+        "rev": "edfc91e1189a36a5f0d5438d7f9c575571f759fa",
+        "sha256": "11dzqhd2kp537ig8zcny0j56644mmrgygiw3wvfh1ly9gb9l2r9f",
+        "type": "tarball",
+        "url": "https://github.com/mcchrish/nnn.vim/archive/edfc91e1189a36a5f0d5438d7f9c575571f759fa.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "zsh-completions": {
+        "branch": "master",
+        "description": "Additional completion definitions for Zsh.",
+        "homepage": "",
+        "owner": "zsh-users",
+        "repo": "zsh-completions",
+        "rev": "aa98bc593fee3fbdaf1acedc42a142f3c4134079",
+        "sha256": "11q3f3nm0b13xhim5r3h2vpf76g97w811f30kl0a3w5i57jkc5vq",
+        "type": "tarball",
+        "url": "https://github.com/zsh-users/zsh-completions/archive/aa98bc593fee3fbdaf1acedc42a142f3c4134079.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "zsh-syntax-highlighting": {
+        "branch": "master",
+        "description": "Fish shell like syntax highlighting for Zsh.",
+        "homepage": "github.com/zsh-users/zsh-syntax-highlighting",
+        "owner": "zsh-users",
+        "repo": "zsh-syntax-highlighting",
+        "rev": "e8517244f7d2ae4f9d979faf94608d6e4a74a73e",
+        "sha256": "1dd1l4g5hkx1pnl1dw4h8ignjhigrvkkcravfkifdl2zf3slyny7",
+        "type": "tarball",
+        "url": "https://github.com/zsh-users/zsh-syntax-highlighting/archive/e8517244f7d2ae4f9d979faf94608d6e4a74a73e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "zsh-vim-mode": {
+        "branch": "master",
+        "description": "Friendly bindings for ZSH's vi mode",
+        "homepage": "",
+        "owner": "softmoth",
+        "repo": "zsh-vim-mode",
+        "rev": "e5bf1aa6aab354007c0e041ff3f0fd091634e77b",
+        "sha256": "0l5md3ra4a99x2snydmfwix1jpls7dsyhxaz552pppx7wslm44fg",
+        "type": "tarball",
+        "url": "https://github.com/softmoth/zsh-vim-mode/archive/e5bf1aa6aab354007c0e041ff3f0fd091634e77b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
