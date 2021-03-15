@@ -10,8 +10,8 @@ in
     (neovim.override {
       vimAlias = true;
       viAlias = true;
-      customRC = "${builtins.readFile ./nvim/init.vim}";
       configure = {
+        customRC = "${builtins.readFile ./nvim/init.vim}";
         path.plugins = with pkgs.vimPlugins; [
           sources.nnn-vim
           vista-vim
@@ -34,8 +34,8 @@ in
           vim-devicons
           sources.coc-nvim
         ];
-   }; 
-   })
+    }; 
+    })
   ];
     
   environment.etc."nvim/coc-settings.json".text = (builtins.readFile ./nvim/coc-settings.json);
