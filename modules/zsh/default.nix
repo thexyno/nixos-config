@@ -3,16 +3,14 @@ let
   sources = import ../../nix/sources.nix;
 in
 {
-  enabled = true;
+  enable = true;
   histSize = 10000;
   enableAutosuggestions = true;
   enableCompletion = true;
-  autocd = true;
-
 
   interactiveShellInit =
     let
-      zshrc = fileContents ./zshrc;
+      zshrc = builtins.readFile ./zshrc;
 
       setOptions = [
         "extendedglob"
@@ -42,35 +40,13 @@ in
 
       source = map (source: "source ${source}") sources;
 
-      functions = pkgs.stdenv.mkDerivation {
-        name = "zsh-functions";
-        src = ./functions;
-
-        ripgrep = "${pkgs.ripgrep}";
-        man = "${pkgs.man}";
-        exa = "${pkgs.exa}";
-
-        installPhase =
-          let basename = "\${file##*/}";
-          in
-          ''
-            mkdir $out
-            for file in $src/*; do
-              substituteAll $file $out/${basename}
-              chmod 755 $out/${basename}
-            done
-          '';
-      };
-
-      plugins = concatStringsSep "\n" ([
+      plugins = builtins.concatStringsSep "\n" ([
         "${pkgs.any-nix-shell}/bin/any-nix-shell zsh --info-right | source /dev/stdin"
       ] ++ source);
 
       in
       ''
         ${plugins}
-        fpath+=( ${functions} )
-        autoload -Uz ${functions}/*(:t)
         ${zshrc}
         eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
         eval $(${pkgs.gitAndTools.hub}/bin/hub alias -s)

@@ -15,7 +15,7 @@
     ];
   };
 
-  my.user.persistent = {
+  ragon.user.persistent = {
     extraFiles = [
     ];
     extraDirectories = [

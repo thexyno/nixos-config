@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.home-manager;
+  isGui = config.ragon.gui.enable;
 
   # Load sources
   sources = import ../nix/sources.nix;
@@ -39,12 +40,22 @@ in
           # Nano config
           ".nanorc".text = "set constantshow # Show linenumbers -c as default";
 
-        } // lib.optionalAttrs gui.enable {
+        } // lib.optionalAttrs isGui {
 
         };
 
+        fzf = {
+          enable = true;
+          enableZshIntegration = true;
+          defaultOptions = [
+            "--height 40%"
+            "--layout=reverse"
+            "--border"
+            "--inline-info"
+          ];
+        };
         kitty = {
-          enable = gui.enable;
+          enable = isGui;
           font = {
             package = pkgs.jetbrains-mono;
             name = "JetBrains Mono Medium";
@@ -82,7 +93,7 @@ in
         };
 
         xdg.mimeApps = {
-          enable = gui.enable;
+          enable = isGui;
           defaultApplications = {
             "text/html" = [ "firefox.desktop" ];
             "x-scheme-handler/http" = [ "firefox.desktop" ];
@@ -112,19 +123,19 @@ in
         };
 
         # GTK theme configs
-        gtk.enable = gui.enable;
+        gtk.enable = isGui;
         gtk.gtk3.extraConfig = {
           gtk-application-prefer-dark-theme = 1;
         };
 
         # Set up qt theme as well
         qt = {
-          enable = gui.enable;
+          enable = isGui;
           platformTheme = "gtk";
         };
 
         # Enable the dunst notification deamon
-        services.dunst.enable = gui.enable;
+        services.dunst.enable = isGui;
         services.dunst.settings = {
           global = {
             # font = "";
@@ -216,7 +227,7 @@ in
           };
         };
 
-        services.picom.enable = gui.enable;
+        services.picom.enable = isGui;
         services.picom.vSync = true;
 
         home.stateVersion = "20.09";

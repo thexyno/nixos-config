@@ -5,8 +5,8 @@
 { pkgs, ... }:
 
 let
-  secrets = import ../../data/load-secrets.nix
-  sources = import ../../nix/sources.nix
+  secrets = import ../../data/load-secrets.nix;
+  sources = import ../../nix/sources.nix;
 in
 {
   imports =

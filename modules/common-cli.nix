@@ -36,16 +36,6 @@ in
     programs = {
       # import zsh config
       zsh = (import ./zsh/default.nix { config = config; lib = lib; pkgs = pkgs;  });
-      fzf = {
-        enable = true;
-        enableZshIntegration = true;
-        defaultOptions = [
-          "--height 40%"
-          "--layout=reverse"
-          "--border"
-          "--inline-info"
-        ];
-      };
     };
     environment.shellAliases = {
       v = "nvim";
@@ -82,6 +72,6 @@ in
       pv
     ];
 
-  }
+  };
 
 }

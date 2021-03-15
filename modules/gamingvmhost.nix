@@ -24,9 +24,9 @@ in
     virtualisation.libvirtd = {
       enable = true;
       onShutdown = "shutdown";
-      qemuPackage = pkgs.qemu_kvm
+      qemuPackage = pkgs.qemu_kvm;
       qemuVerbatimConfig = ''
-        user = "+${ragon.user.id}"
+        user = "+${config.ragon.user.id}"
         group = "wheel"
         cgroup_device_acl = [
             "/dev/input/by-id/usb-Logitech_Gaming_Mouse_G502_138334633633-event-mouse","/dev/input/by-id/usb-04d9_USB-HID_Keyboard-event-kbd","/dev/input/by-id/usb-Logitech_Gaming_Mouse_G502_138334633633-if01-event-kbd",
@@ -253,7 +253,7 @@ in
             fi
           done
         '';
-    }) guests;
+    };
 
 
   };
