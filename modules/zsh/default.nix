@@ -6,7 +6,7 @@ in
 {
   enable = true;
   histSize = 10000;
-  enableAutosuggestions = true;
+  autosuggestions.enable = true;
   enableCompletion = true;
 
   interactiveShellInit =
@@ -22,7 +22,7 @@ in
         "${sourcesnix.agkozak-zsh-prompt}/agkozak-zsh-prompt.plugin.zsh"
       ];
 
-      source = map ("source ${source}") sources;
+      source = map (concat "source ") sources;
 
       plugins = builtins.concatStringsSep "\n" (source);
 
