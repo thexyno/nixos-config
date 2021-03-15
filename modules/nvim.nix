@@ -12,8 +12,8 @@ in
       viAlias = true;
       configure = {
         customRC = (builtins.readFile ./nvim/init.vim);
-        plug.plugins = with pkgs.vimPlugins; [
-          sources.nnn-vim
+        plug.plugins = with pkgs.vimPlugins // sources; [
+          nnn-vim
           vista-vim
           undotree
           polyglot
@@ -32,7 +32,7 @@ in
           lightline-vim
           fzf-vim
           vim-devicons
-          sources.coc-nvim
+          coc-nvim
         ];
     }; 
     })
@@ -43,7 +43,3 @@ in
 
   };
 }
-
-
-
-
