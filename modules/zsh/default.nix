@@ -28,8 +28,7 @@ in
 
       in
       ''
-        prompt off
-        ${plugins}
         ${zshrc}
+        ${plugins}
       '';
 }
