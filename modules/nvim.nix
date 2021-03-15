@@ -10,9 +10,9 @@ in
     (neovim.override {
       vimAlias = true;
       viAlias = true;
+      customRC = (builtins.readFile ./nvim/init.vim});
       configure = {
-        customRC = "${builtins.readFile ./nvim/init.vim}";
-        path.plugins = with pkgs.vimPlugins; [
+        plug.plugins = with pkgs.vimPlugins; [
           sources.nnn-vim
           vista-vim
           undotree
