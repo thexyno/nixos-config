@@ -13,11 +13,11 @@ in
       configure =
         let
           nnn-vim = pkgs.vimUtils.buildVimPlugin {
-            name = "nnn-vim"
+            name = "nnn-vim";
             src = sources.nnn-vim;
           };
           coc-nvim = pkgs.vimUtils.buildVimPlugin {
-            name = "coc-nvim"
+            name = "coc-nvim";
             src = sources.coc-nvim;
           };
         in
