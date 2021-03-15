@@ -1,6 +1,7 @@
 {config, lib, pkgs, ...}:
 let
   sourcesnix = import ../../nix/sources.nix;
+  inherit (lib) fileContents;
 in
 {
   enable = true;
@@ -10,24 +11,7 @@ in
 
   interactiveShellInit =
     let
-      zshrc = builtins.readFile ./zshrc;
-
-      # setOptions = [
-      #   "extendedglob"
-      #   "incappendhistory"
-      #   "sharehistory"
-      #   "histignoredups"
-      #   "histfcntllock"
-      #   "histreduceblanks"
-      #   "histignorespace"
-      #   "histallowclobber"
-      #   "autocd"
-      #   "cdablevars"
-      #   "nomultios"
-      #   "pushdignoredups"
-      #   "autocontinue"
-      #   "promptsubst"
-      # ];
+      zshrc = builtins.fileContents ./zshrc;
 
       sources = [
         "${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/git/git.plugin.zsh"
