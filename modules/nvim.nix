@@ -7,6 +7,7 @@ in
   options.ragon.nvim.enable = lib.mkEnableOption "Enables ragons nvim config";
   config = lib.mkIf cfg.enable {
   environment.systemPackages = with pkgs; [
+    node
     (neovim.override {
       vimAlias = true;
       viAlias = true;
