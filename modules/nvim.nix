@@ -12,7 +12,6 @@ in
       viAlias = true;
       configure = {
         customRC = (builtins.readFile ./nvim/init.vim);
-        plug.plugins = 
         let
           nnn-vim = pkgs.vimUtils.buildVimPlugin {
             name = "nnn-vim"
@@ -23,7 +22,8 @@ in
             src = sources.coc-nvim;
           };
         in
-        with pkgs.vimPlugins // sources; [
+        {
+        plug.plugins = with pkgs.vimPlugins; [
           nnn-vim
           vista-vim
           undotree
@@ -45,6 +45,7 @@ in
           vim-devicons
           coc-nvim
         ];
+      };
     }; 
     })
   ];
