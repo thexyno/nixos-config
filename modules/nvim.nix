@@ -9,9 +9,10 @@ in
   environment.systemPackages = with pkgs; [
     (neovim.override {
       vimAlias = true;
+      viAlias = true;
       configure = {
-      plug.plugins = with pkgs.vimPlugins // sources; [
-        nnn-vim
+      path.plugins = with pkgs.vimPlugins; [
+        sources.nnn-vim
         vista-vim
         undotree
         polyglot
@@ -30,11 +31,11 @@ in
         lightline-vim
         fzf-vim
         vim-devicons
-        coc-nvim
+        sources.coc-nvim
       ];
-};
-      customRC = (builtins.readFile ./nvim/init.vim);
-    })
+      customRC = "${builtins.readFile ./nvim/init.vim}";
+   }; 
+   })
   ];
     
     environment.etc."nvim/coc-settings.json".text = (builtins.readFile ./nvim/coc-settings.json);
