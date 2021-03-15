@@ -11,7 +11,7 @@ in
 
   interactiveShellInit =
     let
-      zshrc = builtins.fileContents ./zshrc;
+      zshrc = builtins.readFile ./zshrc;
 
       sources = [
         "${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/git/git.plugin.zsh"
