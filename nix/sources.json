@@ -9,19 +9,8 @@
         "sha256": "04df8rp4sig41ivi06sb1c121f4hm6bxfvgqi0xy5nb1rbxlnd2m",
         "type": "tarball",
         "url": "https://github.com/agkozak/agkozak-zsh-prompt/archive/b6106d95fb9a006c7f9fd6cdc7c0cbd2fe51365a.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "impermanence": {
-        "branch": "master",
-        "description": "Modules to help you handle persistent state on systems with ephemeral root storage [maintainer=@talyz]",
-        "homepage": "",
-        "owner": "nix-community",
-        "repo": "impermanence",
-        "rev": "8fc761e8c348db5c31a53ae125ce29b23abfd872",
-        "sha256": "007pap1lzai967cvp615rjnxgcxz39n55p3p6phssjv1ngfcv00d",
-        "type": "tarball",
-        "url": "https://github.com/nix-community/impermanence/archive/8fc761e8c348db5c31a53ae125ce29b23abfd872.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz",
+        "version": "v3.9.0"
     },
     "coc-nvim": {
         "branch": "release",
@@ -52,6 +41,18 @@
         "sha256": "0f3r4yjlysglx9a2z0qpinzilv0rhh5kdc3f0d003695yhgay7hm",
         "type": "tarball",
         "url": "https://github.com/nix-community/home-manager/archive/07f6c6481e0cbbcaf3447f43e964baf99465c8e1.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "impermanence": {
+        "branch": "master",
+        "description": "Modules to help you handle persistent state on systems with ephemeral root storage [maintainer=@talyz]",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "impermanence",
+        "rev": "8fc761e8c348db5c31a53ae125ce29b23abfd872",
+        "sha256": "007pap1lzai967cvp615rjnxgcxz39n55p3p6phssjv1ngfcv00d",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/impermanence/archive/8fc761e8c348db5c31a53ae125ce29b23abfd872.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
