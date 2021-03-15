@@ -10,7 +10,7 @@ in
     (neovim.override {
       vimAlias = true;
       viAlias = true;
-      customRC = (builtins.readFile ./nvim/init.vim});
+      customRC = (builtins.readFile ./nvim/init.vim);
       configure = {
         plug.plugins = with pkgs.vimPlugins; [
           sources.nnn-vim
