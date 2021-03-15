@@ -12,6 +12,15 @@ in
       viAlias = true;
       configure = {
         customRC = (builtins.readFile ./nvim/init.vim);
+        let
+          nnn-vim = pkgs.vimUtils.buildVimPlugin {
+            name = "nnn-vim"
+            src = sources.nnn-vim;
+          };
+          coc-nvim = pkgs.vimUtils.buildVimPlugin {
+            name = "coc-nvim"
+            src = sources.coc-nvim;
+          };
         plug.plugins = with pkgs.vimPlugins // sources; [
           nnn-vim
           vista-vim
