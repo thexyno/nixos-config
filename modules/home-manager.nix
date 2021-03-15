@@ -14,7 +14,7 @@ in
 
   config = lib.mkIf cfg.enable {
     # Make sure to start the home-manager activation before I log it.
-    systemd.services."home-manager-${config.my.user.username}" = {
+    systemd.services."home-manager-${config.ragon.user.username}" = {
       before = [ "display-manager.service" ];
       wantedBy = [ "multi-user.target" ];
     };
