@@ -10,8 +10,7 @@ in
     (neovim.override {
       vimAlias = true;
       viAlias = true;
-      configure = {
-        customRC = (builtins.readFile ./nvim/init.vim);
+      configure =
         let
           nnn-vim = pkgs.vimUtils.buildVimPlugin {
             name = "nnn-vim"
@@ -23,7 +22,8 @@ in
           };
         in
         {
-        plug.plugins = with pkgs.vimPlugins; [
+        customRC = (builtins.readFile ./nvim/init.vim);
+        plug.plugins = with pkgs.vimPlugins // sources; [
           nnn-vim
           vista-vim
           undotree
@@ -45,7 +45,6 @@ in
           vim-devicons
           coc-nvim
         ];
-      };
     }; 
     })
   ];
