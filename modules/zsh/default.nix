@@ -22,11 +22,9 @@ in
         "${sourcesnix.agkozak-zsh-prompt}/agkozak-zsh-prompt.plugin.zsh"
       ];
 
-      source = map (source: "source ${source}") sources;
+      source = map ("source ${source}") sources;
 
-      plugins = builtins.concatStringsSep "\n" ([
-        "${pkgs.any-nix-shell}/bin/any-nix-shell zsh --info-right | source /dev/stdin"
-      ] ++ source);
+      plugins = builtins.concatStringsSep "\n" (source);
 
       in
       ''
