@@ -25,8 +25,11 @@
   # auto update
   system.autoUpgrade.enable = true;
 
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     firefox
+    timeular
+    bitwarden
   ];
   nixpkgs.overlays = [
     (self: super: {
