@@ -34,13 +34,16 @@ in
       kitty
       timeular
       bitwarden
+    ];
+
+    nixpkgs.overlays = [
       (self: super: {
         dwm = super.dwm.overrideAttrs (oldAttrs: rec {
           src = sources.dwm;
         });
       }
       )
-    ];
+];
 
     # enable cups
     services.printing.enable = true;
