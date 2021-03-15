@@ -1,6 +1,6 @@
 {config, lib, pkgs, ...}:
 let
-  sources = import ../../nix/sources.nix;
+  sourcesnix = import ../../nix/sources.nix;
 in
 {
   enable = true;
@@ -32,10 +32,10 @@ in
       sources = [
         "${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/git/git.plugin.zsh"
         "${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/globalias/globalias.plugin.zsh"
-        "${sources.zsh-vim-mode}/zsh-vim-mode.plugin.zsh"
-        "${sources.zsh-syntax-highlighting}/zsh-syntax-highlighting.plugin.zsh"
-        "${sources.zsh-completions}/zsh-completions.plugin.zsh"
-        "${sources.agkozak-zsh-prompt}/agkozak-zsh-prompt.plugin.zsh"
+        "${sourcesnix.zsh-vim-mode}/zsh-vim-mode.plugin.zsh"
+        "${sourcesnix.zsh-syntax-highlighting}/zsh-syntax-highlighting.plugin.zsh"
+        "${sourcesnix.zsh-completions}/zsh-completions.plugin.zsh"
+        "${sourcesnix.agkozak-zsh-prompt}/agkozak-zsh-prompt.plugin.zsh"
       ];
 
       source = map (source: "source ${source}") sources;
