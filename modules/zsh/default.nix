@@ -9,7 +9,7 @@ in
   autosuggestions.enable = true;
   enableCompletion = true;
 
-  interactiveShellInit =
+  promptInit =
     let
       zshrc = builtins.readFile ./zshrc;
 
@@ -29,7 +29,6 @@ in
       in
       ''
         ${zshrc}
-        prompt off
         ${plugins}
       '';
 }
