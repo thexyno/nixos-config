@@ -22,7 +22,7 @@ in
         "${sourcesnix.agkozak-zsh-prompt}/agkozak-zsh-prompt.plugin.zsh"
       ];
 
-      source = map (concat "source ") sources;
+      source = map (builtins.concat "source ") sources;
 
       plugins = builtins.concatStringsSep "\n" (source);
 
