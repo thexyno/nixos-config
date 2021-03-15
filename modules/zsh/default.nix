@@ -9,6 +9,7 @@ in
   autosuggestions.enable = true;
   enableCompletion = true;
 
+  # interactiveShellInit broke agkozak-zsh-prompt for some reaaaaaaaason
   promptInit =
     let
       zshrc = builtins.readFile ./zshrc;
