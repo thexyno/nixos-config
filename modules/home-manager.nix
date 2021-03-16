@@ -40,11 +40,20 @@ in
           # Nano config
           ".nanorc".text = "set constantshow # Show linenumbers -c as default";
 
+          "bin/changeVolume".source = ./bins/changeVolume;
+          "bin/devsaurgit".source = ./bins/devsaurgit;
+          "bin/getProgressString".source = ./bins/getProgressString;
+          "bin/swapDevices".source = ./bins/swapDevices;
+          "bin/toggleSpeakers".source = ./bins/toggleSpeakers;
         } // lib.optionalAttrs isGui {
-
+          "bin/changeBacklight".source = ./bins/changeBacklight;
         };
 
         programs = {
+          bat = {
+            enable = true;
+            config.theme = "gruvbox";
+          };
           fzf = {
             enable = true;
             enableZshIntegration = true;
@@ -78,6 +87,7 @@ in
           };
           git = {
             enable = true;
+            lfs.enable = true;
 
             # Default configs
             extraConfig = {
@@ -104,6 +114,18 @@ in
               left = [  "LeftCPUs"  "Memory" "Swap"        "ZFSARC" "ZFSCARC" ];
               right = [ "RightCPUs" "Tasks"  "LoadAverage" "Uptime" "Battery" ];
             };
+          };
+
+        };
+
+        rofi = {
+          enable = true;
+          font = "JetBrains Mono Medium 10";
+          terminal = "${pkgs.kitty}/bin/kitty";
+          extraConfig = {
+            modi = "drun,run,ssh,combi";
+            theme = "gruvbox-dark-soft";
+            combi-modi = "drun,run,ssh";
           };
 
         };
@@ -190,7 +212,7 @@ in
             separator_color = "frame";
 
             # dmenu path
-            dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst -theme glue_pro_blue";
+            dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst";
 
             # Browser for opening urls in context menu.
             browser = "/run/current-system/sw/bin/firefox -new-tab";

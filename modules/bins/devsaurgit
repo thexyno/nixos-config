@@ -1,0 +1,8 @@
+#!/bin/bash
+
+GIT_SSH_COMMAND='ssh -i ~/.ssh/id_devsaur' git clone $1
+cd $1
+git config user.name "Philipp Hochkamp"
+git config user.email "p.hochkamp@devsaur.com"
+git config commit.gpgsign false
+git config core.sshCommand 'ssh -i ~/.ssh/id_devsaur'

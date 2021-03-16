@@ -1,0 +1,47 @@
+#!/bin/bash
+# changeVolume
+# Script to change your volume (obviously)
+# Relies on pulsemixer, dunstify and getProgressString
+#
+# Usage in i3wm:
+#   bindsym XF86AudioRaiseVolume exec PATH=$PATH:$HOME/scripts changeVolume +5
+#   bindsym XF86AudioLowerVolume exec PATH=$PATH:$HOME/scripts changeVolume -5
+#   bindsym XF86AudioMute exec PATH=$PATH:$HOME/scripts changeVolume mute
+
+
+
+
+# Arbitrary but unique message id
+msgId="991049"
+ 
+# Change the volume using pulsemixer
+if [[ $1 == "mute" ]]; then
+    pulsemixer --toggle-mute
+elif [[ $1 == "--help" || $1 == "-h" || -z $1 ]]; then
+    cat << EOF
+changeVolume, a script to change your volume and show it via dunstify
+
+usage: changeVolume [-h] [mute] +-VOL
+
+  -h, --help    show this help message and exit
+  mute          mute
+  +-VOL         set volume
+      +10       increase volume by 10%
+      -10       lower volume by 10%
+EOF
+exit
+else
+    pulsemixer --change-volume $@ > /dev/null
+fi
+
+# Query pulsemixer for the current volume and whether or not the speaker is muted
+volume="$(pulsemixer --get-volume  | awk '{print $1}')"
+mute="$(pulsemixer --get-mute)"
+if [[ $volume == 0 || "$mute" == "1" ]]; then
+    # Show the sound muted notification
+    dunstify -a "changeVolume" -u low -i audio-volume-muted -r "$msgId" "Volume Muted" "$(getProgressString 20 "" "" $volume)"
+else
+    # Show the volume notification
+    dunstify -a "changeVolume" -u low -i audio-volume-high -r "$msgId" \
+    "Volume: ${volume}%" "$(getProgressString 20 "" "" $volume)"
+fi

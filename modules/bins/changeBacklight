@@ -1,0 +1,21 @@
+#!/bin/bash
+# changeBacklight
+# Script to change your Backlights brightness (obviously)
+# Relies on light, dunstify and getProgressString
+# can be fed all of `light`s options, see `light -h`
+#
+# Usage in i3wm:
+# 
+# bindsym XF86MonBrightnessUp exec PATH=$PATH:$HOME/scripts changeBacklight -A 5
+# bindsym XF86MonBrightnessDown exec PATH=$PATH:$HOME/scripts changeBacklight -U 5
+set -x
+
+# Arbitrary but unique message id
+msgId="921049"
+
+light $@ 
+
+brightness="$(printf %d $(light))" # printf so the number is round
+# Show the backlight notification
+dunstify -a "changeBacklight" -u low -i display -r "$msgId" \
+  "Backlight: ${brightness}%" "$(getProgressString 20 "" "" $brightness)"
