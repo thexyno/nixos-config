@@ -16,6 +16,13 @@ in
       options vfio-pci ids=10de:1b80,10de:10f0,1912:0015
     '';
     ragon.user.extraGroups = [ "kvm" "libvirt" ];
+
+    systemd.user.services."scream-gamingvm" = {
+      after = [ "libvirtd-guest-gamingvm" ];
+      requires = [ "libvirtd-guest-gamingvm" ];
+      wantedBy = [ "graphical.target" ];
+      script = "${pkgs.scream-recievers}/bin/scream-ivshmem-pulse -m /dev/shm/scream-ivshmem";
+    };
     boot.kernelModules = [ "kvm-intel" ];
     boot.kernelParams = [
       "intel_iommu=on"
