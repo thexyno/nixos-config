@@ -23,6 +23,7 @@
       ".config/pipewire/media-session.d"
       ".local/share/nvim"
       ".local/share/TabNine"
+      ".zsh_history"
       ".mozilla/"
       ".ssh"
       "Downloads"

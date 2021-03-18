@@ -138,7 +138,7 @@ set t_ut= " disables the weird black artifacts while scrolling
 set encoding=utf-8
 set number
 set relativenumber
-set undodir=~/.vim/undo-dir " setup undo directory
+set undodir=~/.local/share/nvim/undo-dir " setup undo directory
 set undofile                " save undo chages even after computer restart
 set showcmd                 " show (partial) command in status line
 set showmatch               " show match brackets

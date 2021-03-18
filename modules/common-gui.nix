@@ -34,6 +34,7 @@ in
       kitty
       timeular
       bitwarden
+      discord-canary
     ];
 
     nixpkgs.overlays = [
