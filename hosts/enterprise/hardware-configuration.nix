@@ -36,7 +36,7 @@
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/BDC7-CFCC";
+    { device = "/dev/nvme0n1p2";
       fsType = "vfat";
       options = [ "noauto" "x-systemd.automount" ];
     };
