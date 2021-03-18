@@ -38,7 +38,7 @@ let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
 map /  <Plug>(incsearch-forward)
 " COC
-let g:coc_config_home = '/etc/nvim/coc-settings.json'
+let g:coc_config_home = '/etc/nvim/'
 let g:coc_snippet_next = '<C-j>'
 let g:coc_snippet_prev = '<C-k>'
 map ,f :CocFix<CR>
