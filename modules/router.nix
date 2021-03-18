@@ -114,7 +114,7 @@ in
             option subnet-mask          ${netMask};
             option broadcast-address    ${broadcastAddress};
             option routers              ${gatewayIP};
-            option domain-name-servers  ${commaSepDNSServers};
+            option domain-name-servers  ${(builtins.concatStringsSep ", " dnsServers)};
           }
         '';
       };
