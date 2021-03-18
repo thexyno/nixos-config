@@ -17,6 +17,7 @@
 
   ragon.user.persistent = {
     extraFiles = [
+      ".zsh_history"
     ];
     extraDirectories = [
       ".config/coc"
@@ -24,7 +25,6 @@
       ".config/discordcanary"
       ".local/share/nvim"
       ".local/share/TabNine"
-      ".zsh_history"
       ".mozilla/"
       ".ssh"
       "Downloads"
