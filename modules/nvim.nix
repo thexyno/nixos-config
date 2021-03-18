@@ -4,12 +4,15 @@ let
   sources = import ../nix/sources.nix;
 in
 {
-  #  TODO: make a minimal vim config (without coc) <18.03.21 13:36, Philipp Hochkamp> # 
   options.ragon.nvim.enable = lib.mkEnableOption "Enables ragons nvim config";
+  options.ragon.nvim.maximal = lib.mkOption {
+    default = true;
+    type = lib.types.bool;
+    description = "enable coc.nvim and other heavy plugins"
+  };
   config = lib.mkIf cfg.enable {
   environment.systemPackages = with pkgs; [
-    nodejs
-    (import sources.rnix-lsp)
+    nnn
     (neovim.override {
       vimAlias = true;
       viAlias = true;
@@ -34,25 +37,30 @@ in
           rainbow
           vim-commentary
           vim-table-mode
-          vim-pandoc
-          vim-pandoc-syntax
           vim-speeddating
           vim-nix
           gruvbox
-          ultisnips
           incsearch-vim
           vim-highlightedyank
           vim-fugitive
           lightline-vim
           fzf-vim
           vim-devicons
+        ] // lib.mkIf cfg.maximal [
+          vim-pandoc
+          vim-pandoc-syntax
+          ultisnips
           coc-nvim
         ];
     }; 
     })
+  ] // lib.mkIf cfg.maximal [
+    nodejs
+    (import sources.rnix-lsp)
   ];
     
   environment.etc."nvim/coc-settings.json".text = (builtins.readFile ./nvim/coc-settings.json);
+  environment.etc."nvim/coc-settings.json".enable = cfg.maximal;
 
 
   };
