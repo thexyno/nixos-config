@@ -33,7 +33,7 @@ in
       onShutdown = "shutdown";
       qemuPackage = pkgs.qemu_kvm;
       qemuVerbatimConfig = ''
-        user = "+${config.ragon.user.id}"
+        user = "+${config.ragon.user.uid}"
         group = "wheel"
         cgroup_device_acl = [
             "/dev/input/by-id/usb-Logitech_Gaming_Mouse_G502_138334633633-event-mouse","/dev/input/by-id/usb-04d9_USB-HID_Keyboard-event-kbd","/dev/input/by-id/usb-Logitech_Gaming_Mouse_G502_138334633633-if01-event-kbd",
