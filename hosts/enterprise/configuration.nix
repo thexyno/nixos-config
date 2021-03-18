@@ -34,7 +34,6 @@ in
 
   networking.useDHCP = false;
   networking.networkmanager.enable = true;
-  networking.interfaces.enp9s0.useDHCP = true;
   networking.hostId = "7b45236a";
 
   # This value determines the NixOS release from which the default
