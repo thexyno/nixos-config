@@ -7,7 +7,9 @@ in
   config = lib.mkIf cfg.enable {
 
     programs.dconf.enable = true;
-    environment.systemPackages = with pkgs; [ virt-manager ];
+    environment.systemPackages = with pkgs; [
+      scream-recievers
+      virt-manager ];
     #virtualisation.spiceUSBRedirection.enable = true;
     # common settings
     boot.extraModprobeConfig = ''
@@ -21,7 +23,7 @@ in
       after = [ "libvirtd-guest-gamingvm" ];
       requires = [ "libvirtd-guest-gamingvm" ];
       wantedBy = [ "graphical.target" ];
-      script = "${pkgs.scream-recievers}/bin/scream-ivshmem-pulse -m /dev/shm/scream-ivshmem";
+      script = "${pkgs.scream-receivers}/bin/scream-ivshmem-pulse -m /dev/shm/scream-ivshmem";
     };
     boot.kernelModules = [ "kvm-intel" ];
     boot.kernelParams = [
