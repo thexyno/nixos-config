@@ -55,7 +55,7 @@ in
   ragon.user.enable = true;
   ragon.home-manager.enable = true;
   ragon.gui.enable = true;
-  ragon.auto-upgrade.enable = true;
+#  ragon.auto-upgrade.enable = true;
 
 
 }
