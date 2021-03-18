@@ -58,6 +58,7 @@ in
   ragon.gui.enable = true;
   ragon.auto-upgrade.enable = true;
   ragon.gamingvmhost.enable = true;
+  ragon.develop.enable = true;
 
   environment.etc."smb-secrets" = {
     text = secrets.smbSecret;
