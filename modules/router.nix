@@ -11,7 +11,7 @@ let
   maxLeaseTime = cfg.maxLeaseTime;
   defaultLeaseTime = cfg.defaultLeaseTime;
   dnsServers = cfg.dnsServers;
-  gatewayIP = cfg.gatewayIP
+  gatewayIP = cfg.gatewayIP;
 in
 {
   options.ragon.router = {
