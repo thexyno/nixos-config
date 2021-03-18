@@ -8,5 +8,6 @@ in {
   # $ nix-shell --run 'mkpasswd -m SHA-512 -s' -p mkpasswd
   hashedRagonPassword = "$6$kgc3X2Axq$EJf5ivmtpNh2KlfQcLtaIdnsZ2cePLFUQ4E6pdedej028Z057WADHlQTIKoNdjQXIP1rmcinrWa/.Brh0z0lA.";
   hashedRootPassword = "$6$kgc3X2Axq$EJf5ivmtpNh2KlfQcLtaIdnsZ2cePLFUQ4E6pdedej028Z057WADHlQTIKoNdjQXIP1rmcinrWa/.Brh0z0lA.";
+  wirenixWgPrivateKey = "";
 } // realHashes
 

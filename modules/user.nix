@@ -34,7 +34,7 @@ in
     persistent = {
       homeDir = lib.mkOption {
         type = lib.types.str;
-        default = "/persistent/home/ragon";
+        default = "/persistent/home/${username}";
         description = "Location of persistent home files";
       };
       extraFiles = lib.mkOption {

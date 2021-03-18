@@ -10,6 +10,7 @@ in {
     ./common-cli.nix
     ./common-gui.nix
     ./nvim.nix
+    ./router.nix
     ./home-manager.nix
     ./user.nix
     ./gamingvmhost.nix
