@@ -8,7 +8,7 @@ in
 
     programs.dconf.enable = true;
     environment.systemPackages = with pkgs; [
-      misc.scream-recievers
+#      scream-recievers
       virt-manager ];
     #virtualisation.spiceUSBRedirection.enable = true;
     # common settings
@@ -19,13 +19,12 @@ in
     '';
     ragon.user.extraGroups = [ "kvm" "libvirt" ];
 
-    systemd.user.services."scream-gamingvm" = {
-      after = [ "libvirtd-guest-gamingvm" ];
-      requires = [ "libvirtd-guest-gamingvm" ];
-      wantedBy = [ "graphical.target" ];
-      script = "${pkgs.misc.scream-receivers}/bin/scream-ivshmem-pulse -m /dev/shm/scream-ivshmem";
-    };
-    boot.kernelModules = [ "kvm-intel" ];
+#    systemd.user.services."scream-gamingvm" = {
+#      after = [ "libvirtd-guest-gamingvm" ];
+#      requires = [ "libvirtd-guest-gamingvm" ];
+#      wantedBy = [ "graphical.target" ];
+#      script = "${pkgs.misc.scream-receivers}/bin/scream-ivshmem-pulse -m /dev/shm/scream-ivshmem";
+#    };
     boot.kernelParams = [
       "intel_iommu=on"
       "iommu=pt"
