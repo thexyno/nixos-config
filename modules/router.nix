@@ -8,6 +8,7 @@ let
   subnet = cfg.subnet;
   netMask = cfg.netMask;
   prefixLength = cfg.prefixLength;
+  broadcastAddress = cfg.broadcastAddress;
   maxLeaseTime = cfg.maxLeaseTime;
   defaultLeaseTime = cfg.defaultLeaseTime;
   dnsServers = cfg.dnsServers;
@@ -55,6 +56,12 @@ in
       type = lib.types.int;
       default = 24;
       description = "The NetMask for NATted clients";
+    };
+
+    broadcastAddress = lib.mkOption {
+      type = lib.types.str;
+      default = "192.168.2.255";
+      description = "The Brotkasten address";
     };
 
     maxLeaseTime = lib.mkOption {
