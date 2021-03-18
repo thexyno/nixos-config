@@ -4,6 +4,7 @@ let
   sources = import ../nix/sources.nix;
 in
 {
+  #  TODO: make a minimal vim config (without coc) <18.03.21 13:36, Philipp Hochkamp> # 
   options.ragon.nvim.enable = lib.mkEnableOption "Enables ragons nvim config";
   config = lib.mkIf cfg.enable {
   environment.systemPackages = with pkgs; [
