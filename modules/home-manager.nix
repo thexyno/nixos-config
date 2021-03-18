@@ -39,6 +39,8 @@ in
 
           # Nano config
           ".nanorc".text = "set constantshow # Show linenumbers -c as default";
+          # empty zshrc to stop zsh-newuser-install from running
+          ".zshrc".text = ""; 
 
           "bin/changeVolume".source = ./bins/changeVolume;
           "bin/devsaurgit".source = ./bins/devsaurgit;
