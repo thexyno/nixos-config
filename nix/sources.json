@@ -91,6 +91,18 @@
         "url": "https://github.com/mcchrish/nnn.vim/archive/edfc91e1189a36a5f0d5438d7f9c575571f759fa.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "rnix-lsp": {
+        "branch": "master",
+        "description": "WIP Language Server for Nix! [maintainer=@jD91mZM2]",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "rnix-lsp",
+        "rev": "fd1ad49a598a5d9c3e14b71fa47ff95ccecdf3d7",
+        "sha256": "0da4lzpfzn8ymi2xgwf7g6dpi9ks091bb7g64irm7mgp451wmxhs",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/rnix-lsp/archive/fd1ad49a598a5d9c3e14b71fa47ff95ccecdf3d7.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "zsh-completions": {
         "branch": "master",
         "description": "Additional completion definitions for Zsh.",
