@@ -9,7 +9,7 @@ in
   config = lib.mkIf cfg.enable {
   environment.systemPackages = with pkgs; [
     nodejs
-    rnix-lsp 
+    (import sources.rnix-lsp)
     (neovim.override {
       vimAlias = true;
       viAlias = true;
