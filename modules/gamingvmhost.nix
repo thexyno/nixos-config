@@ -8,7 +8,7 @@ in
 
     programs.dconf.enable = true;
     environment.systemPackages = with pkgs; [
-      scream-recievers
+      misc.scream-recievers
       virt-manager ];
     #virtualisation.spiceUSBRedirection.enable = true;
     # common settings
@@ -23,7 +23,7 @@ in
       after = [ "libvirtd-guest-gamingvm" ];
       requires = [ "libvirtd-guest-gamingvm" ];
       wantedBy = [ "graphical.target" ];
-      script = "${pkgs.scream-receivers}/bin/scream-ivshmem-pulse -m /dev/shm/scream-ivshmem";
+      script = "${pkgs.misc.scream-receivers}/bin/scream-ivshmem-pulse -m /dev/shm/scream-ivshmem";
     };
     boot.kernelModules = [ "kvm-intel" ];
     boot.kernelParams = [
