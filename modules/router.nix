@@ -87,7 +87,7 @@ in
   config =
     lib.mkIf cfg.enable {
       networking.nat.enable = true;
-      networking.nat.internalIPs = [ ipRange ];
+      networking.nat.internalIPs = [ "${subnet}/${prefixLength}" ];
       networking.nat.externalInterface = externalInterface;
       networking.interfaces."${internalInterface}" = { 
         ipAddress = gatewayIP;
