@@ -23,6 +23,7 @@
       ".config/coc"
       ".config/pipewire/media-session.d"
       ".config/discordcanary"
+      ".config/Bitwarden"
       ".local/share/nvim"
       ".local/share/TabNine"
       ".mozilla/"
