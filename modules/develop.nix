@@ -6,8 +6,17 @@ in
   options.ragon.develop.enable = lib.mkEnableOption "Enables ragons development stuff";
   config = lib.mkIf cfg.enable {
     nixpkgs.config.allowUnfree = true;
-    imports = [
-      ./develop/flutter.nix
+    environment.systemPackages = with pkgs; [
+      dart
+      flutter
+      android-studio
+      android-udev-rules
+      scrcpy
+      arduino-cli
+      fritzting
+      arduino
+      esptool
+      platformio
     ];
   };
 }
