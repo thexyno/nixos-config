@@ -8,7 +8,7 @@ in
 
     programs.dconf.enable = true;
     environment.systemPackages = with pkgs; [ virt-manager ];
-    virtualisation.spiceUSBRedirection.enable = true;
+    #virtualisation.spiceUSBRedirection.enable = true;
     # common settings
     boot.extraModprobeConfig = ''
       options kvm ignore_msrs=1

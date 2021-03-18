@@ -46,7 +46,7 @@ in
           lightline-vim
           fzf-vim
           vim-devicons
-        ] // lib.mkIf cfg.maximal [
+#        ] // lib.mkIf cfg.maximal [
           vim-pandoc
           vim-pandoc-syntax
           ultisnips
@@ -54,7 +54,7 @@ in
         ];
     }; 
     })
-  ] // lib.mkIf cfg.maximal [
+#  ] // lib.mkIf cfg.maximal [
     nodejs
     (import sources.rnix-lsp)
   ];

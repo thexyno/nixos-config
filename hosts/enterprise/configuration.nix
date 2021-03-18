@@ -21,7 +21,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos-test"; # Define your hostname.
+  networking.hostName = "enterprise"; # Define your hostname.
   nix.nixPath = [
     "nixpkgs=/etc/nixos/nix/nixos-unstable"
     "nixos-config=/etc/nixos/hosts/enterprise/configuration.nix"
@@ -32,7 +32,7 @@ in
 
 
   networking.useDHCP = false;
-  networking.interfaces.enp1s0.useDHCP = true;
+  networking.interfaces.enp9s0.useDHCP = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

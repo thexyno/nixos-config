@@ -18,28 +18,24 @@
       fsType = "tmpfs";
       options = [ "size=3G" "defaults" "mode=755" ];
     };
-
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/88cad3d1-2e42-495c-988f-377fa4fcd3b6";
-      fsType = "btrfs";
-      options = [ "subvol=nix" ];
-    };
-
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-uuid/88cad3d1-2e42-495c-988f-377fa4fcd3b6";
-      fsType = "btrfs";
-      options = [ "subvol=var/log" ];
+    { device = "pool/nix";
+      fsType = "zfs";
     };
 
   fileSystems."/persistent" =
-    { device = "/dev/disk/by-uuid/88cad3d1-2e42-495c-988f-377fa4fcd3b6";
-      fsType = "btrfs";
+    { device = "pool/persist";
+      fsType = "zfs";
       neededForBoot = true;
-      options = [ "subvol=persistent" ];
+    };
+
+  fileSystems."/var/log" =
+    { device = "pool/varlog";
+      fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/1259-3A7D";
+    { device = "/dev/nvme0n1p2";
       fsType = "vfat";
       options = [ "noauto" "x-systemd.automount" ];
     };
