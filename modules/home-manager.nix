@@ -116,16 +116,17 @@ in
             };
           };
 
-        };
 
-        rofi = {
-          enable = true;
-          font = "JetBrains Mono Medium 10";
-          terminal = "${pkgs.kitty}/bin/kitty";
-          extraConfig = {
-            modi = "drun,run,ssh,combi";
-            theme = "gruvbox-dark-soft";
-            combi-modi = "drun,run,ssh";
+          rofi = {
+            enable = true;
+            font = "JetBrains Mono Medium 10";
+            terminal = "${pkgs.kitty}/bin/kitty";
+            extraConfig = {
+              modi = "drun,run,ssh,combi";
+              theme = "gruvbox-dark-soft";
+              combi-modi = "drun,run,ssh";
+            };
+
           };
 
         };
