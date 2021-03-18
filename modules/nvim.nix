@@ -9,7 +9,7 @@ in
   config = lib.mkIf cfg.enable {
   environment.systemPackages = with pkgs; [
     nodejs
-    (rnixlsp.override {
+    (sources.rnix-lsp.override {
       src = sources.rnix-lsp;
     })
     (neovim.override {
