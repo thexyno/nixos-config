@@ -49,7 +49,7 @@ in
     # enable cups
     services.printing.enable = true;
 
-    services.pulseaudio.enable = true;
+    hardware.pulseaudio.enable = true;
     # # Set up Pipewire for audio
     # services.pipewire.enable = true;
     # services.pipewire.alsa.enable = true;
