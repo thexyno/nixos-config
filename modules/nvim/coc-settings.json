@@ -18,5 +18,13 @@
   "git.gitlab.hosts": [
     "gitlab.com"
   ],
-  "git.addGBlameToVirtualText": true
+  "git.addGBlameToVirtualText": true,
+  "languageserver": {
+   "nix": {
+     "command": "rnix-lsp",
+     "filetypes": [
+       "nix"
+     ]
+   }
+  }
 }
