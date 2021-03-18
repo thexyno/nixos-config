@@ -13,7 +13,7 @@ in
       android-udev-rules
       scrcpy
       arduino-cli
-      fritzting
+      fritzing
       arduino
       esptool
       platformio
