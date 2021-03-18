@@ -10,7 +10,7 @@
 
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
   boot.initrd.kernelModules = [ ];
-  boot.initrd.luks.devices.crypt.device = "/dev/nvme0n1p1";
+  boot.initrd.luks.devices.crypted.device = "/dev/disk/by-uuid/dea4bd74-087a-4ad5-8757-cb21268d3dc6";
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
@@ -36,7 +36,7 @@
     };
 
   fileSystems."/boot" =
-    { device = "/dev/nvme0n1p2";
+    { device = "BDC7-CFCC";
       fsType = "vfat";
       options = [ "noauto" "x-systemd.automount" ];
     };
