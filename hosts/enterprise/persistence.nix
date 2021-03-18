@@ -21,6 +21,7 @@
     extraDirectories = [
       ".config/coc"
       ".config/pipewire/media-session.d"
+      ".config/discordcanary"
       ".local/share/nvim"
       ".local/share/TabNine"
       ".zsh_history"
