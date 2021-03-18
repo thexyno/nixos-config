@@ -96,7 +96,7 @@ in
           one-lease-per-client true;
 
           subnet ${subnet} netmask ${netMask} {
-            range ${ipRangeFrom} ${ipRangeTo};
+            range ${dhcpRangeFrom} ${dhcpRangeTo};
             authoritative;
 
             # Allows clients to request up to a week (although they won't)
