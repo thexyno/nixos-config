@@ -8,7 +8,7 @@ in
   options.ragon.nvim.maximal = lib.mkOption {
     default = true;
     type = lib.types.bool;
-    description = "enable coc.nvim and other heavy plugins"
+    description = "enable coc.nvim and other heavy plugins";
   };
   config = lib.mkIf cfg.enable {
   environment.systemPackages = with pkgs; [
