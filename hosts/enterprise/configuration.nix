@@ -92,7 +92,7 @@ in
          enable = true;
          port = 2222; 
          hostECDSAKey = /etc/ssh/ssh_host_rsa_key;
-         authorizedKeys = pubkeys.computers;
+         authorizedKeys = pubkeys.ragon.computers;
       };
     };
   };

@@ -35,6 +35,7 @@ in
       feh
       pulsemixer
       firefox
+      thunderbird
       mpv
       kitty
       timeular
