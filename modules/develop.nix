@@ -7,8 +7,6 @@ in
   config = lib.mkIf cfg.enable {
     nixpkgs.config.allowUnfree = true;
     environment.systemPackages = with pkgs; [
-      dart
-      flutter
       android-studio
       android-udev-rules
       scrcpy
