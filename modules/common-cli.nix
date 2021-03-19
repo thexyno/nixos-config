@@ -72,6 +72,7 @@ in
       pv
       niv
       killall
+      pciutils
     ];
 
   };
