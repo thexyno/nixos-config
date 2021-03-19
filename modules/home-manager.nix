@@ -167,17 +167,17 @@ in
         services.dunst.enable = isGui;
         services.dunst.settings = {
           global = {
-            # font = "";
+            font = "JetBrainsMono Nerd Font 12";
 
             # Allow a small subset of html markup
-            markup = "yes";
+            markup = "full";
             plain_text = "no";
 
             # The format of the message
             format = "<b>%s</b>\\n%b";
 
             # Alignment of message text
-            alignment = "center";
+            alignment = "left";
 
             # Split notifications into multiple lines
             word_wrap = "yes";
@@ -190,7 +190,8 @@ in
             hide_duplicates_count = "yes";
 
             # The geometry of the window
-            geometry = "420x100-15+49";
+            geometry = "400x7-30+20";
+            follow = "mouse";
 
             # Shrink window if it's smaller than the width
             shrink = "no";
@@ -199,7 +200,7 @@ in
             idle_threshold = 0;
 
             # Which monitor should the notifications be displayed on.
-            monitor = -1;
+            monitor = 0;
 
             # The height of a single line. If the notification is one line it will be
             # filled out to be three lines.
@@ -227,32 +228,30 @@ in
 
             # Define frame size and color
             frame_width = 3;
-            frame_color = "#8EC07C";
+            frame_color = "#A89984";
           };
 
           shortcuts = {
             close = "ctrl+space";
             close_all = "ctrl+shift+space";
+            context = "ctrl+period";
           };
 
           urgency_low = {
-            frame_color = "#3B7C87";
-            foreground = "#3B7C87";
-            background = "#191311";
-            timeout = 4;
+            background = "#282828";
+            foreground = "#EBDBB2";
+            timeout = 10;
           };
           urgency_normal = {
-            frame_color = "#5B8234";
-            foreground = "#5B8234";
-            background = "#191311";
-            timeout = 6;
+            background = "#262626";
+            foreground = "#EBDBB2";
+            timeout = 10;
           };
 
           urgency_critical = {
-            frame_color = "#B7472A";
-            foreground = "#B7472A";
-            background = "#191311";
-            timeout = 8;
+            background = "#242424";
+            foreground = "#EBDBB2";
+            timeout = 10;
           };
         };
 
