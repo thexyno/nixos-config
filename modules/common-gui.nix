@@ -42,7 +42,7 @@ in
       bitwarden
       discord-canary
       # stuff needed for nextshot:
-      imagemagic
+      imagemagick
       slop
       xclip
       xdotool
