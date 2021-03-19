@@ -39,6 +39,7 @@ in
       mpv
       kitty
       timeular
+      signal-desktop
       bitwarden
       discord-canary
       # stuff needed for nextshot:
