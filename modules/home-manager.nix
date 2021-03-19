@@ -51,7 +51,7 @@ in
           "bin/nosrebuild".source = ./bins/nosrebuild;
         } // lib.optionalAttrs isGui {
           "bin/changeBacklight".source = ./bins/changeBacklight;
-          "bin/nextshot".source = (import sources.nextshot)/nextshot.sh;
+          "bin/nextshot".source = "${sources.nextshot}/nextshot.sh";
           ".config/nextshot/nextshot.conf".text = secrets.nextshotconf;
         };
 
