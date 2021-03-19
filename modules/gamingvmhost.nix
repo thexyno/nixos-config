@@ -24,6 +24,16 @@ in
     systemd.tmpfiles.rules = [
       "f /dev/shm/scream-ivshmem 0660 alex qemu-libvirtd -"
     ];
+
+    nixpkgs.overlays = [
+      (self: super: {
+        scream-recievers = super.scream-recievers.overrideAttrs (oldAttrs: rec {
+          pulseSupport = true;
+        });
+      }
+      )
+    ];
+
     
     systemd.user.services.scream-ivshmem = {
       enable = true;
