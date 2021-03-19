@@ -24,6 +24,7 @@
       ".config/pipewire/media-session.d"
       ".config/discordcanary"
       ".config/Bitwarden"
+      ".config/TabNine"
       ".local/share/nvim"
       ".local/share/TabNine"
       ".mozilla/"
