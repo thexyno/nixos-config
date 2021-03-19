@@ -104,7 +104,7 @@ in
                 </cputune>
                 <os>
                   <type arch='x86_64' machine='pc-q35-5.2'>hvm</type>
-                  <loader readonly='yes' type='pflash'>${pkgs.OVMF}/FV/OVMF_CODE.fd</loader>
+                  <loader readonly='yes' type='pflash'>${pkgs.OVMF.fd}/FV/OVMF_CODE.fd</loader>
                   <nvram>/tmp/OVMF_VARS.fd</nvram>
                   <bootmenu enable='no'/>
                 </os>
@@ -263,7 +263,7 @@ in
           ''
             uuid="$(${pkgs.libvirt}/bin/virsh domuuid '${name}' || true)"
             ${pkgs.libvirt}/bin/virsh define <(sed "s/UUID/$uuid/" '${xml}')
-            cp ${pkgs.OVMF}/FV/OVMF_VARS.fd /tmp/OVMF_VARS.fd
+            cp ${pkgs.OVMF.fd}/FV/OVMF_VARS.fd /tmp/OVMF_VARS.fd
             chmod 777 /tmp/OVMF_VARS.fd
             ${pkgs.libvirt}/bin/virsh start '${name}'
           '';
