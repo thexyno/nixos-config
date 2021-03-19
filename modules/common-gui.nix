@@ -43,7 +43,7 @@ in
       bitwarden
       discord-canary
       obs-studio
-      obs-v4l2sink
+#      obs-v4l2sink now in obs-studio
       # stuff needed for nextshot:
       imagemagick
       slop
