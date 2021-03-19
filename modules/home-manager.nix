@@ -58,7 +58,7 @@ in
         programs = {
           bat = {
             enable = true;
-            config.theme = "gruvbox";
+            config.theme = "gruvbox-dark";
           };
           fzf = {
             enable = true;
