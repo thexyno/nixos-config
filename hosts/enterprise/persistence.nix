@@ -29,6 +29,7 @@
       ".local/share/nvim"
       ".local/share/TabNine"
       ".mozilla/"
+      ".thunderbird/" # Because of cause this isn't in .mozilla
       ".ssh"
       "Downloads"
       "proj"
