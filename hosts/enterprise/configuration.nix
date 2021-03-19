@@ -67,22 +67,25 @@ in
   };
 
   services.zfs.autoScrub.enable = true;
-  services.zfs.autoSnapshot = {
-    enable = true;
-    frequent = 2; # keep the latest eight 15-minute snapshots (instead of four)
-    hourly = 8;
-    daily = 2;
-    weekly = 2;
-    monthly = 2;  # keep only one monthly snapshot (instead of twelve)
-  };
 
-  services.zfs.autoReplication = {
+  services.znapzend = {
     enable = true;
-    localFilesystem = "pool/persist";
-    remoteFilesystem = "data/Backups/enterprise";
-    identityFilePath = "/home/ragon/.ssh/id_ed25519";
-    username = "root";
-    host = "10.0.0.2";
+    pure = true;
+    features.compressed = true;
+    autoCreation = true;
+    zetup = {
+      "pool/persist" = {
+        # Make snapshots of tank/home every hour, keep those for 1 day,
+        # keep every days snapshot for 1 month, etc.
+        plan = "1d=>1h,1m=>1d,1y=>1m";
+        recursive = true;
+        # Send all those snapshots to john@example.com:rtank/john as well
+        destinations.remote = {
+          host = "root@pve";
+          dataset = "data/Backups/enterprise";
+        };
+      };
+    };
   };
 
   boot = {
