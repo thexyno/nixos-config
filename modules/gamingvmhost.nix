@@ -24,22 +24,12 @@ in
     systemd.tmpfiles.rules = [
       "f /dev/shm/scream-ivshmem 0660 alex qemu-libvirtd -"
     ];
-
-    nixpkgs.overlays = [
-      (self: super: {
-        scream-recievers = super.scream-recievers.overrideAttrs (oldAttrs: rec {
-          pulseSupport = true;
-        });
-      }
-      )
-    ];
-
     
     systemd.user.services.scream-ivshmem = {
       enable = true;
       description = "Scream IVSHMEM";
       serviceConfig = {
-        ExecStart = "${pkgs.scream-receivers}/bin/scream-ivshmem-pulse /dev/shm/scream-ivshmem";
+        ExecStart = "${pkgs.scream-receivers.override { pulseSupport = true; }}/bin/scream-ivshmem-pulse /dev/shm/scream-ivshmem";
         Restart = "always";
       };
       wantedBy = [ "multi-user.target" ];
