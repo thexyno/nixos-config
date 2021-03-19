@@ -5,6 +5,7 @@ let
 
   # Load sources
   sources = import ../nix/sources.nix;
+  secrets = import ../data/load-secrets.nix;
 in
 {
   options.ragon.home-manager.enable = lib.mkEnableOption "Enables my home-manager config";
