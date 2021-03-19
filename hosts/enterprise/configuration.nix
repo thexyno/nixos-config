@@ -6,6 +6,7 @@
 
 let
   secrets = import ../../data/load-secrets.nix;
+  secrets = import ../../data/pubkeys.nix;
   sources = import ../../nix/sources.nix;
 in
 {
@@ -64,6 +65,38 @@ in
     text = secrets.smbSecret;
     mode = "0400";
   };
+
+  services.zfs.autoScrub.enable = true;
+  services.zfs.autoSnapshot = {
+    enable = true;
+    frequent = 2; # keep the latest eight 15-minute snapshots (instead of four)
+    hourly = 8;
+    daily = 2;
+    weekly = 2;
+    monthly = 2;  # keep only one monthly snapshot (instead of twelve)
+  };
+
+  services.zfs.autoReplication = {
+    enable = true;
+    localFilesystem = "pool/persist";
+    remoteFilesystem = "data/Backups/enterprise";
+    identityFilePath = "/home/ragon/.ssh/id_ed25519";
+    username = "root";
+    host = "pve";
+  };
+
+  boot = {
+    initrd.network = {
+      enable = true;
+      ssh = {
+         enable = true;
+         port = 2222; 
+         hostECDSAKey = /etc/ssh/ssh_host_rsa_key;
+         authorizedKeys = pubkeys.computers;
+      };
+    };
+  };
+
 
   fileSystems."/media/data" = {
     device = "//10.0.0.2/data";
