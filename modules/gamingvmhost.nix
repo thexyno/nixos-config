@@ -28,6 +28,7 @@ in
     boot.kernelParams = [
       "intel_iommu=on"
       "iommu=pt"
+      "vfio-pci.ids=10de:13c2,10de:0fbb"
     ];
     virtualisation.libvirtd = {
       enable = true;
