@@ -19,17 +19,34 @@ in
     '';
     ragon.user.extraGroups = [ "kvm" "libvirt" ];
 
-#    systemd.user.services."scream-gamingvm" = {
-#      after = [ "libvirtd-guest-gamingvm" ];
-#      requires = [ "libvirtd-guest-gamingvm" ];
-#      wantedBy = [ "graphical.target" ];
-#      script = "${pkgs.misc.scream-receivers}/bin/scream-ivshmem-pulse -m /dev/shm/scream-ivshmem";
-#    };
+     	
+
+    systemd.tmpfiles.rules = [
+      "f /dev/shm/scream-ivshmem 0660 alex qemu-libvirtd -"
+    ];
+    
+    systemd.user.services.scream-ivshmem = {
+      enable = true;
+      description = "Scream IVSHMEM";
+      serviceConfig = {
+        ExecStart = "${pkgs.scream-receivers}/bin/scream-ivshmem-pulse /dev/shm/scream-ivshmem";
+        Restart = "always";
+      };
+      wantedBy = [ "multi-user.target" ];
+      requires = [ "pulseaudio.service" ];
+    };
+
     boot.kernelParams = [
       "intel_iommu=on"
       "iommu=pt"
-      "vfio-pci.ids=10de:13c2,10de:0fbb"
     ];
+    boot.initrd.preDeviceCommands = ''
+      DEVS="0000:06:00.0 0000:06:00.1"
+      for DEV in $DEVS; do
+        echo "vfio-pci" > /sys/bus/pci/devices/$DEV/driver_override
+      done
+      modprobe -i vfio-pci
+    '';
     virtualisation.libvirtd = {
       enable = true;
       onShutdown = "shutdown";
