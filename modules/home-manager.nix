@@ -190,7 +190,7 @@ in
             hide_duplicates_count = "yes";
 
             # The geometry of the window
-            geometry = "420x50-15+49";
+            geometry = "420x100-15+49";
 
             # Shrink window if it's smaller than the width
             shrink = "no";
@@ -199,7 +199,7 @@ in
             idle_threshold = 0;
 
             # Which monitor should the notifications be displayed on.
-            monitor = 0;
+            monitor = -1;
 
             # The height of a single line. If the notification is one line it will be
             # filled out to be three lines.
@@ -257,7 +257,7 @@ in
         };
 
         services.picom.enable = isGui;
-        services.picom.vSync = true;
+        services.picom.vSync = "opengl";
 
         home.stateVersion = "20.09";
       };
