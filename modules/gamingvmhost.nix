@@ -135,7 +135,7 @@ in
                   <suspend-to-disk enabled='no'/>
                 </pm>
                 <devices>
-                  <emulator>/usr/bin/qemu-system-x86_64</emulator>
+                  <emulator>/run/libvirt/nix-emulators/qemu-system-x86_64</emulator>
                   <disk type='block' device='disk'>
                     <driver name='qemu' type='raw' cache='none' io='native'/>
                     <source dev='/dev/disk/by-id/ata-Crucial_CT500MX200SSD1_14500E6E39CA'/>
