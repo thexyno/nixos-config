@@ -44,6 +44,7 @@ in
       # stuff needed for nextshot:
       imagemagick
       slop
+      bc
       xclip
       xdotool
       yad
