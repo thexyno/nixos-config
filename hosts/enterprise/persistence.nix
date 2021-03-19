@@ -5,6 +5,7 @@
     directories = [
       "/etc/nixos"
       "/etc/NetworkManager/system-connections"
+      "/root/.ssh"
     ];
     files = [
       "/etc/machine-id"
