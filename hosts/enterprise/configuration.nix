@@ -91,7 +91,7 @@ in
       ssh = {
          enable = true;
          port = 2222; 
-         hostECDSAKey = /etc/ssh/ssh_host_rsa_key;
+         hostKeys = [ "/etc/ssh/ssh_host_rsa_key" "/etc/ssh/ssh_host_ed25519_key" ];
          authorizedKeys = pubkeys.ragon.computers;
       };
     };
