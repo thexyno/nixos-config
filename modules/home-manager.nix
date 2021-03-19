@@ -47,6 +47,7 @@ in
           "bin/getProgressString".source = ./bins/getProgressString;
           "bin/swapDevices".source = ./bins/swapDevices;
           "bin/toggleSpeakers".source = ./bins/toggleSpeakers;
+          "bin/nosrebuild".source = ./bins/nosrebuild;
         } // lib.optionalAttrs isGui {
           "bin/changeBacklight".source = ./bins/changeBacklight;
         };
