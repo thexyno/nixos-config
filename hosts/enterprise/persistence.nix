@@ -31,6 +31,7 @@
       ".mozilla/"
       ".thunderbird/" # Because of cause this isn't in .mozilla
       ".ssh"
+      ".gnupg"
       "Downloads"
       "proj"
       "git"
