@@ -105,7 +105,7 @@ in
                 <os>
                   <type arch='x86_64' machine='pc-q35-5.2'>hvm</type>
                   <loader readonly='yes' type='pflash'>${pkgs.OVMF}/FV/OVMF_CODE.fd</loader>
-                  <nvram>${pkgs.OVMF}/FV/OVMF_VARS.fd</nvram>
+                  <nvram>/tmp/OVMF_VARS.fd</nvram>
                   <bootmenu enable='no'/>
                 </os>
                 <features>
@@ -263,6 +263,8 @@ in
           ''
             uuid="$(${pkgs.libvirt}/bin/virsh domuuid '${name}' || true)"
             ${pkgs.libvirt}/bin/virsh define <(sed "s/UUID/$uuid/" '${xml}')
+            cp ${pkgs.OVMF}/FV/OVMF_VARS.fd /tmp/OVMF_VARS.fd
+            chmod 777 /tmp/OVMF_VARS.fd
             ${pkgs.libvirt}/bin/virsh start '${name}'
           '';
       preStop =
