@@ -9,7 +9,7 @@
     ];
 
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "ehci_pci" "nvme" "usbhid" "sd_mod" "sr_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "vfio-pci" ];
   boot.initrd.luks.devices.crypt.device = "/dev/nvme0n1p1";
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
