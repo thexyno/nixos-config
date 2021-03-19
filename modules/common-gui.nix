@@ -42,6 +42,8 @@ in
       signal-desktop
       bitwarden
       discord-canary
+      obs-studio
+      obs-v4l2sink
       # stuff needed for nextshot:
       imagemagick
       slop
