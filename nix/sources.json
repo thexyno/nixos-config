@@ -55,6 +55,18 @@
         "url": "https://github.com/nix-community/impermanence/archive/8fc761e8c348db5c31a53ae125ce29b23abfd872.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nextshot": {
+        "branch": "develop",
+        "description": "A simple tool for taking screenshots on Linux and sharing via Nextcloud",
+        "homepage": "",
+        "owner": "dshoreman",
+        "repo": "nextshot",
+        "rev": "e0e520a038479e161fee34cf7a9d7078a7a680c4",
+        "sha256": "1fvklcn0b9ja61q9x9fm6pxdrm734kbwnfh16ncya03q7lizhfcq",
+        "type": "tarball",
+        "url": "https://github.com/dshoreman/nextshot/archive/e0e520a038479e161fee34cf7a9d7078a7a680c4.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",

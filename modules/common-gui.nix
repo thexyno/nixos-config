@@ -41,6 +41,13 @@ in
       timeular
       bitwarden
       discord-canary
+      # stuff needed for nextshot:
+      imagemagic
+      slop
+      xclip
+      xdotool
+      yad
+      libnotify
     ];
 
     nixpkgs.overlays = [
