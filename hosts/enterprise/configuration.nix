@@ -6,7 +6,7 @@
 
 let
   secrets = import ../../data/load-secrets.nix;
-  secrets = import ../../data/pubkeys.nix;
+  pubkeys = import ../../data/pubkeys.nix;
   sources = import ../../nix/sources.nix;
 in
 {
