@@ -257,7 +257,7 @@ in
         };
 
         services.picom.enable = isGui;
-        services.picom.vSync = "opengl";
+        services.picom.vSync = true;
 
         home.stateVersion = "20.09";
       };
