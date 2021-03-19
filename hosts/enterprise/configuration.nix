@@ -82,7 +82,7 @@ in
     remoteFilesystem = "data/Backups/enterprise";
     identityFilePath = "/home/ragon/.ssh/id_ed25519";
     username = "root";
-    host = "pve";
+    host = "10.0.0.2";
   };
 
   boot = {
