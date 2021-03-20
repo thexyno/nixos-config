@@ -39,6 +39,7 @@ in
       mpv
       kitty
       timeular
+      sxiv
       signal-desktop
       bitwarden
       discord-canary
