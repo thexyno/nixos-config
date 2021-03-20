@@ -41,6 +41,9 @@
       options = [ "noauto" "x-systemd.automount" ];
     };
 
-  swapDevices = [ ];
+  swapDevices =
+    [ { device = "/dev/zvol/pool/swap"; }
+    ];
+
 
 }
