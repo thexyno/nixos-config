@@ -25,6 +25,7 @@
       ".config/pipewire/media-session.d"
       ".config/discordcanary"
       ".config/Bitwarden"
+      ".config/Timeular"
       ".config/Signal"
       ".config/obs-studio"
       ".config/TabNine"
