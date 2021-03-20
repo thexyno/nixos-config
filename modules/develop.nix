@@ -5,6 +5,7 @@ in
 {
   options.ragon.develop.enable = lib.mkEnableOption "Enables ragons development stuff";
   config = lib.mkIf cfg.enable {
+    services.lorri.enable = true;
     nixpkgs.config.allowUnfree = true;
     environment.systemPackages = with pkgs; [
       android-studio
