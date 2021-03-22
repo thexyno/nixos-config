@@ -273,7 +273,7 @@ in
           	{ ram_free, "RAM: %s | ",           NULL },
           	{ load_avg, "LOAD: %s | ",           NULL },
           	{ disk_free, "NAS: %s | ",           "/media/data" },
-          	{ disk_free, "SSD: %s" | ,           "/nix" },
+          	{ disk_free, "SSD: %s" | ",           "/nix" },
           	{ datetime, "%s",           "%F %T" },
           };
         '';
