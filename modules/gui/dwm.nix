@@ -3,7 +3,7 @@ let
   sources = import ../../nix/sources.nix;
   cfg = config.ragon.gui;
   username = config.ragon.user.username;
-  astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL") cfg.autostart);
+  astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
 in
 {
   config = lib.mkIf cfg.enable {
@@ -62,7 +62,7 @@ in
             };
             
             static const char *const autostart[] = {
-              ${astart},
+              ${astart}
             	NULL /* terminate */
             };
             
