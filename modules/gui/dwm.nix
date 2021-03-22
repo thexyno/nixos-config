@@ -91,7 +91,8 @@ in
             };
           '';
 
-        });
+        }); })
+        (self: super: {
         dwm = super.dwm.overrideAttrs (oldAttrs: rec {
           prePatch = ''
             sed -i "s@/usr/local@$out@" config.mk
