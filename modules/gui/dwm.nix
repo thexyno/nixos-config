@@ -14,7 +14,7 @@ in
 
     services.dwm-status = {
       enable = true;
-      package  = (import sources.dwm-status);
+      package  = (pkg.dwm-status.override { src = sources.dwm-status; });
       order = [ "audio" "cpu_load" "network" "time" ];
     };
     nixpkgs.overlays = [
