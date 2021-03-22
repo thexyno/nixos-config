@@ -29,10 +29,10 @@ in
     type = lib.types.str;
     default = "timeular";
   };
+  imports = [
+    ./gui/default.nix
+  ];
   config = lib.mkIf cfg.enable {
-    imports = [
-      ./gui/default.nix
-    ];
     # Set up default fonts
     fonts.enableDefaultFonts = true;
     fonts.enableGhostscriptFonts = true;

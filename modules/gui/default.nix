@@ -3,5 +3,4 @@
   imports = [
     ./dwm.nix
   ];
-
 }

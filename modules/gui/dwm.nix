@@ -6,6 +6,7 @@ let
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL") cfg.autostart);
 in
 {
+  config = lib.mkIf cfg.enable {
     services.picom = {
       enable = true;
       vSync = true;
@@ -212,4 +213,5 @@ in
       libnotify
     ];
 
+  };
 }
