@@ -7,7 +7,7 @@ in
 {
   options.ragon.gui.enable = lib.mkEnableOption "Enables ragons Gui stuff";
   options.ragon.gui.autostart = lib.mkOption {
-    type = lib.types.listOf (lib.types.listOf lib.types.str);
+    type = lib.types.listOf (lib.types.listOf lib.types.strG;
     default = [
       [ "nvidia-settings" "--assign" "CurrentMetaMode=DPY-1: nvidia-auto-select @1680x1050 +0+0 {ForceCompositionPipeline=On ViewPortIn=1680x1050 ViewPortOut=1680x1050+0+0} DPY-2: nvidia-auto-select @2560x1440 +1680+0 {ForceCompositionPipeline=On ViewPortIn=2560x1440 ViewPortOut=2560x1440+0+0} DPY-5: nvidia-auto-select @2560x1440 +4240+0 {ForceCompositionPipeline=On ViewPortIn=2560x1440 ViewPortOut=2560x1440+0+0}" ]
       [ "sh" "-c" "cd /home/${username}/proj/pulse-launch; pipenv run python pulse_launch.py --term_cmd 'toggleSpeakers turn_off' --other_cmd 'toggleSpeakers turn_off' 'alsa_output.usb-BEHRINGER_UMC202HD_192k-00.analog-stereo' 'toggleSpeakers turn_on'" ]
@@ -93,6 +93,10 @@ in
 
     # 8000 is for random web sharing things.
     networking.firewall.allowedTCPPorts = [ 8000 ];
+
+    # Enable networkmanager.
+    networking.networkmanager.enable = true;
+    networking.networkmanager.wifi.backend = "iwd";
 
     # Define extra groups for user.
     ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" ];
