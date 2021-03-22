@@ -200,7 +200,7 @@ in
     services.xserver.windowManager.dwm.enable = true;
     environment.systemPackages = with pkgs; [
       playerctl
-      slstatus.overrideAttrs (oldAttrs: rec {
+      (slstatus.overrideAttrs (oldAttrs: rec {
         conf = ''
           /* See LICENSE file for copyright and license details. */
           
@@ -277,7 +277,7 @@ in
           };
         '';
 
-      })
+      }))
       scrot
       # stuff needed for nextshot:
       imagemagick
