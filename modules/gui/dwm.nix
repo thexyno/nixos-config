@@ -25,7 +25,7 @@ in
           '';
           src = sources.dwm;
           postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
-          configFile = lib.writeText "config.def.h" ''
+          configFile = pkgs.writeText "config.def.h" ''
             /* See LICENSE file for copyright and license details. */
             
             /* appearance */
