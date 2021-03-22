@@ -24,7 +24,8 @@ in
             rm config.h
           '';
           src = sources.dwm;
-          postPatch = ''
+          postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
+          configFile = writeText "config.def.h" ''
             /* See LICENSE file for copyright and license details. */
             
             /* appearance */
