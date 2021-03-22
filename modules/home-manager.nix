@@ -19,6 +19,9 @@ in
       before = [ "display-manager.service" ];
       wantedBy = [ "multi-user.target" ];
     };
+    environment.systemPackages = with pkgs;[
+      dunst # dunstify
+    ];
 
     home-manager.users.${config.ragon.user.username} = { pkgs, ... }:
       let
