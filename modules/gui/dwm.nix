@@ -279,6 +279,7 @@ in
     services.xserver.windowManager.dwm.enable = true;
     environment.systemPackages = with pkgs; [
       playerctl
+      slstatus
       scrot
       # stuff needed for nextshot:
       imagemagick
