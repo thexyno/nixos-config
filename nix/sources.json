@@ -31,6 +31,18 @@
         "url_template": "https://gitlab.hochkamp.eu/ragon/dwm/-/archive/<version>/dwm-<version>.tar.gz",
         "version": "6.2.1"
     },
+    "dwm-status": {
+        "branch": "master",
+        "description": "Highly performant and configurable DWM status service",
+        "homepage": "",
+        "owner": "Gerschtli",
+        "repo": "dwm-status",
+        "rev": "e8f09911f9f2b91a399fb5e789c20c12b9c24df8",
+        "sha256": "0dyc2q4xhn0mw0j0wvskh3jvm8gy2drjzapcr17va7gyabzpwz2b",
+        "type": "tarball",
+        "url": "https://github.com/Gerschtli/dwm-status/archive/e8f09911f9f2b91a399fb5e789c20c12b9c24df8.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "home-manager": {
         "branch": "master",
         "description": "Manage a user environment using Nix  [maintainer=@rycee] ",
