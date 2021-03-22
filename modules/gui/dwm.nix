@@ -269,10 +269,11 @@ in
            */
           static const struct arg args[] = {
           	/* function format          argument */
-          	{ run_command, "AUDIO: %s",           "pulsemixer --list-sinks | rg Default | sed -z 's/^.*Name: //g;s/,.*//g'; echo -n ' '; (pulsemixer --get-mute | rg 1 && echo -n 'Muted') || pulsemixer --get-volume | awk '{print($1,\"%\")}'" },
-          	{ ram_free, "RAM: %s",           NULL },
-          	{ disk_free, "NAS: %s",           "/media/data" },
-          	{ disk_free, "SSD: %s",           "/nix" },
+          	{ run_command, "AUDIO: %s | ",           "pulsemixer --list-sinks | rg Default | sed -z 's/^.*Name: //g;s/,.*//g'; echo -n ' '; (pulsemixer --get-mute | rg 1 && echo -n 'Muted') || pulsemixer --get-volume | awk '{print($1,\"%\")}'" },
+          	{ ram_free, "RAM: %s | ",           NULL },
+          	{ load_avg, "LOAD: %s | ",           NULL },
+          	{ disk_free, "NAS: %s | ",           "/media/data" },
+          	{ disk_free, "SSD: %s" | ,           "/nix" },
           	{ datetime, "%s",           "%F %T" },
           };
         '';
