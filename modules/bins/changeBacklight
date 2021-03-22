@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # changeBacklight
 # Script to change your Backlights brightness (obviously)
 # Relies on light, dunstify and getProgressString

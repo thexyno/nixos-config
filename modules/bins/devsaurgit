@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 GIT_SSH_COMMAND='ssh -i ~/.ssh/id_devsaur' git clone $1
 cd $1

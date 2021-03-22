@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # changeVolume
 # Script to change your volume (obviously)
 # Relies on pulsemixer, dunstify and getProgressString

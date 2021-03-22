@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -ae
 
 STATE_CHANGE=${1:-toggle}

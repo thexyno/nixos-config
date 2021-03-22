@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # getProgressString <TOTAL ITEMS> <FILLED LOOK> <NOT FILLED LOOK> <STATUS>
 # For instance:
 # $ getProgressString 10 "#" "-" 50
