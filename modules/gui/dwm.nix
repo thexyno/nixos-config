@@ -276,7 +276,7 @@ in
           	{ datetime, "%s",           "%F %T" },
           };
         '';
-        configFile = (pkgs.writeTex "config.def.h" conf);
+        configFile = (pkgs.writeText "config.def.h" conf);
         preBuild = "cp ${configFile} config.def.h";
 
       }))
