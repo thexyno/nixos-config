@@ -68,6 +68,7 @@ in
       fzf
       git
       gitAndTools.git-annex
+      lsof # needed for git-annex
       neofetch
       ripgrep
       pv
