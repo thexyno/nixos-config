@@ -261,9 +261,7 @@ in
             '';
         in
           ''
-            if ${pkgs.libvirt}/bin/virsh list --all | grep -q gamingvm; then
-              # nothing to do, vm is running
-            else
+            if ! (${pkgs.libvirt}/bin/virsh list --all | grep -q gamingvm); then
               uuid="$(${pkgs.libvirt}/bin/virsh domuuid '${name}' || true)"
               ${pkgs.libvirt}/bin/virsh define <(sed "s/UUID/$uuid/" '${xml}')
               cp ${pkgs.OVMF.fd}/FV/OVMF_VARS.fd /tmp/OVMF_VARS.fd
