@@ -8,7 +8,7 @@ in
     services.lorri.enable = true;
     nixpkgs.config.allowUnfree = true;
     programs.adb.enable = true;
-    users.users."${ragon.user.username}".extraGroups = ["adbusers"];
+    users.users."${config.ragon.user.username}".extraGroups = ["adbusers"];
     services.udev.packages = [
       pkgs.android-udev-rules
     ];
