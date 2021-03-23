@@ -67,6 +67,7 @@ in
       file
       fzf
       git
+      gitAndTools.git-annex
       neofetch
       ripgrep
       pv
