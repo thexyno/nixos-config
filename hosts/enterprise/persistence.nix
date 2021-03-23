@@ -18,9 +18,9 @@
 
   ragon.user.persistent = {
     extraFiles = [
-      ".zsh_history"
     ];
     extraDirectories = [
+      ".config/zsh"
       ".config/coc"
       ".config/pipewire/media-session.d"
       ".config/discordcanary"
