@@ -7,6 +7,11 @@ in
   config = lib.mkIf cfg.enable {
     services.lorri.enable = true;
     nixpkgs.config.allowUnfree = true;
+    programs.adb.enable = true;
+    users.users."${ragon.user.username}".extraGroups = ["adbusers"];
+    services.udev.packages = [
+      pkgs.android-udev-rules
+    ];
     environment.systemPackages = with pkgs; [
       android-studio
       android-udev-rules
