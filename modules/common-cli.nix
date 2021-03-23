@@ -6,7 +6,7 @@ in
 {
   options.ragon.common-cli.enable = lib.mkEnableOption "Enables ragons common CLI stuff";
   imports = [
-    ./gui/default.nix
+    ./cli/default.nix
   ];
   config = lib.mkIf cfg.enable {
     uncommon.pandoc.enable = true;
