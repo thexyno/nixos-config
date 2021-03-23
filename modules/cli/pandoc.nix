@@ -10,6 +10,7 @@ in
       pandoc
       pandoc-plantuml-filter
       texlive.combined.scheme-full
+      zathura
     ];
 
   };
