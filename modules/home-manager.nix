@@ -40,6 +40,7 @@ in
         home.file = {
           # Home nix config.
           ".config/nixpkgs/config.nix".text = "{ allowUnfree = true; }";
+          ".config/pandoc/templates/default.latex".source = "${sources.pandoc-latex-template}/eisvogel.tex";
 
           # Nano config
           ".nanorc".text = "set constantshow # Show linenumbers -c as default";
