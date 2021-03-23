@@ -267,20 +267,21 @@ in
             chmod 777 /tmp/OVMF_VARS.fd
             ${pkgs.libvirt}/bin/virsh start '${name}'
           '';
-      preStop =
-        ''
-          ${pkgs.libvirt}/bin/virsh shutdown '${name}'
-          let "timeout = $(date +%s) + 10"
-          while [ "$(${pkgs.libvirt}/bin/virsh list --name | grep --count '^${name}$')" -gt 0 ]; do
-            if [ "$(date +%s)" -ge "$timeout" ]; then
-              # Meh, we warned it...
-              ${pkgs.libvirt}/bin/virsh destroy '${name}'
-            else
-              # The machine is still running, let's give it some time to shut down
-              sleep 0.5
-            fi
-          done
-        '';
+      preStop = "";
+      #preStop =
+      #  ''
+      #    ${pkgs.libvirt}/bin/virsh shutdown '${name}'
+      #    let "timeout = $(date +%s) + 10"
+      #    while [ "$(${pkgs.libvirt}/bin/virsh list --name | grep --count '^${name}$')" -gt 0 ]; do
+      #      if [ "$(date +%s)" -ge "$timeout" ]; then
+      #        # Meh, we warned it...
+      #        ${pkgs.libvirt}/bin/virsh destroy '${name}'
+      #      else
+      #        # The machine is still running, let's give it some time to shut down
+      #        sleep 0.5
+      #      fi
+      #    done
+      #  '';
     };
 
 
