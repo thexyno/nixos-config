@@ -4,8 +4,11 @@ let
 in
 {
   options.ragon.common-cli.enable = lib.mkEnableOption "Enables ragons common CLI stuff";
-
+  imports = [
+    ./gui/default.nix
+  ];
   config = lib.mkIf cfg.enable {
+    config.ragon.cli.pandoc.enable = true;
     # Set your time zone.
     time.timeZone = "Europe/Berlin";
 
