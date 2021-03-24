@@ -15,6 +15,7 @@ in {
     ./home-manager.nix
     ./user.nix
     ./gamingvmhost.nix
+    ./prometheus.nix
   ];
 }
 
