@@ -23,6 +23,8 @@ in
 
   config = lib.mkIf cfg.enable {
     services.prometheus = {
+      enable = true;
+      port = 9001;
       exporters = {
         node = {
           enable = isNode;
@@ -33,7 +35,7 @@ in
 
       scrapeConfigs = [
         {
-          job_name = "${hostName}_node";
+          job_name = "${hostName}";
           staticConfigs = [
             {
               targets = [ "127.0.0.1:${toString config.servies.prometheus.exporters.node.port}" ];
