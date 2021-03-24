@@ -141,6 +141,21 @@ in
 
         };
 
+        xdg.dataFile = {
+          "applications/Firefox (Work).desktop".text = ''
+            [Desktop Entry]
+            Categories=Network;WebBrowser;
+            Comment=
+            Exec=firefox -P Work %U
+            GenericName=Web Browser (Work)
+            Icon=firefox
+            Name=Firefox (Work)
+            Terminal=false
+            Type=Application
+          '';
+
+        };
+
         xdg.mimeApps = {
           enable = isGui;
           defaultApplications = {
