@@ -10,6 +10,7 @@
 
   boot.initrd.availableKernelModules = [ "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "nvme" "usbhid" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
+  boot.kernelParams = ["zfs.zfs_arc_max=8589934592"]; # arc size max 8GB
   boot.initrd.luks.devices.crypt.device = "/dev/nvme0n1p1";
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];

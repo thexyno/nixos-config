@@ -23,7 +23,7 @@ in
 
   config = lib.mkIf cfg.enable {
     services.prometheus = {
-      enable = true;
+      enable = isNode;
       port = 9001;
       exporters = {
         node = {
