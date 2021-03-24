@@ -16,7 +16,7 @@ in
     };
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "grafana.enterprise.hailsatan.eu";
+      default = "enterprise.hailsatan.eu";
       description = "Domain of the grafana (duh)";
     };
   };
