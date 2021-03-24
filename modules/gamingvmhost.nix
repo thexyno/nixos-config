@@ -271,7 +271,7 @@ in
               cp ${pkgs.OVMF.fd}/FV/OVMF_VARS.fd /tmp/OVMF_VARS.fd
               chmod 777 /tmp/OVMF_VARS.fd
             fi
-            ${pkgs.libvirt}/bin/virsh start '${name}'
+            ${pkgs.libvirt}/bin/virsh start '${name}' || true # ignore fail
           '';
       preStop = "";
       #preStop =
