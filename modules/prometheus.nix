@@ -5,6 +5,7 @@ let
   isMaster = mode ? "master";
   isNode = mode ? "node";
   domain = cfg.domain;
+  hostName = networking.hostName;
 in
 {
   options.ragon.prometheus = {
@@ -32,10 +33,10 @@ in
 
       scrapeConfigs = [
         {
-          job_name = "${networking.hostName}_node";
+          job_name = "${hostName}_node";
           staticConfigs = [
             {
-              targets = [ "127.0.0.1:${toString config.sercies.prometheus.exporters.node.port}" ];
+              targets = [ "127.0.0.1:${toString config.servies.prometheus.exporters.node.port}" ];
             }
           ];
         }
@@ -65,7 +66,7 @@ in
               max_age = "12h";
               labels = {
                 job = "systemd-journal";
-                host = "${networking.hostName}";
+                host = "${hostName}";
               };
               relabel_configs = [
                 {
