@@ -5,7 +5,7 @@ let
   isMaster = mode ? "master";
   isNode = mode ? "node";
   domain = cfg.domain;
-  hostName = networking.hostName;
+  hostName = config.networking.hostName;
 in
 {
   options.ragon.prometheus = {
