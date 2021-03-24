@@ -38,7 +38,7 @@ in
           job_name = "${hostName}";
           staticConfigs = [
             {
-              targets = [ "127.0.0.1:${toString config.servies.prometheus.exporters.node.port}" ];
+              targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
             }
           ];
         }
