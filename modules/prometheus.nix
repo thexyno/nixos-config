@@ -91,6 +91,11 @@ in
             http_listen_port = 3100;
           };
 
+          compactor = {
+            working_directory = "/tmp/loki/boltdb-shipper-compactor";
+            shared_store = "filesystem";
+          };
+
           ingester = {
             lifecycler = {
               address = "0.0.0.0";
