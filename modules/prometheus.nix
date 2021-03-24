@@ -2,8 +2,8 @@
 let
   cfg = config.ragon.prometheus;
   mode = cfg.mode;
-  isMaster = builtins.elem mode "master";
-  isNode = builtins.elem mode "node";
+  isMaster = builtins.elem "master" mode;
+  isNode = builtins.elem "node" mode;
   domain = cfg.domain;
   hostName = config.networking.hostName;
 in
