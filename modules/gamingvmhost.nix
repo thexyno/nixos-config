@@ -1,9 +1,16 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.gamingvmhost;
+  name = cfg.name;
 in
 {
-  options.ragon.gamingvmhost.enable = lib.mkEnableOption "Enables vm stuff";
+  options.ragon.gamingvmhost = {
+    enable = lib.mkEnableOption "Enables vm stuff";
+    name = lib.mkOption {
+      type = lib.types.str;
+      default = "gamingvm";
+    };
+  };
   config = lib.mkIf cfg.enable {
 
     programs.dconf.enable = true;
@@ -29,7 +36,7 @@ in
       enable = true;
       description = "Scream IVSHMEM";
       serviceConfig = {
-        ExecStart = "${pkgs.scream-receivers.override { pulseSupport = true; }}/bin/scream-ivshmem-pulse /dev/shm/scream-ivshmem";
+        ExecStart = "${pkgs.scream-receivers.override { pulseSupport = true; }}/bin/scream-ivshmem-pulse /dev/shm/scream-ivshmem-${name}";
         Restart = "always";
       };
       wantedBy = [ "multi-user.target" ];
@@ -65,9 +72,6 @@ in
     };
     # define gaming vm
     systemd.services."libvirtd-guest-gamingvm" =
-    let
-      name = "gamingvm";
-    in
      {
       after = [ "libvirtd.service" ];
       requires = [ "libvirtd.service" ];
@@ -243,7 +247,7 @@ in
                   <memballoon model='virtio'>
                     <address type='pci' domain='0x0000' bus='0x06' slot='0x00' function='0x0'/>
                   </memballoon>
-                  <shmem name='scream-ivshmem'>
+                  <shmem name='scream-ivshmem-${name}'>
                     <model type='ivshmem-plain'/>
                     <size unit='M'>2</size>
                     <address type='pci' domain='0x0000' bus='0x0a' slot='0x01' function='0x0'/>
@@ -261,13 +265,13 @@ in
             '';
         in
           ''
-            if ! (${pkgs.libvirt}/bin/virsh list --all | grep -q gamingvm); then
+            if ! (${pkgs.libvirt}/bin/virsh list --all | grep -q ${name}); then
               uuid="$(${pkgs.libvirt}/bin/virsh domuuid '${name}' || true)"
               ${pkgs.libvirt}/bin/virsh define <(sed "s/UUID/$uuid/" '${xml}')
               cp ${pkgs.OVMF.fd}/FV/OVMF_VARS.fd /tmp/OVMF_VARS.fd
               chmod 777 /tmp/OVMF_VARS.fd
-              ${pkgs.libvirt}/bin/virsh start '${name}'
             fi
+            ${pkgs.libvirt}/bin/virsh start '${name}'
           '';
       preStop = "";
       #preStop =
