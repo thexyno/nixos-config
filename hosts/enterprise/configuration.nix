@@ -19,8 +19,19 @@ in
     ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    ipxe.netbootxyz = ''
+      #!ipxe
+      dhcp
+      chain --autofree https://boot.netboot.xyz/ipxe/netboot.xyz.efi
+    '';
+    efiSupport = true;
+    useOSProber = true;
+  };
+
+
   services.xserver.videoDrivers = [ "nvidia" ];
 
   networking.hostName = "enterprise"; # Define your hostname.
