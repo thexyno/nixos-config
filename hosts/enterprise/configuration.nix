@@ -29,7 +29,7 @@ in
     '';
     efiSupport = true;
     useOSProber = true;
-    device = "/dev/disk/by-label/boot";
+    device = "nodev";
   };
 
 
