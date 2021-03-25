@@ -29,7 +29,7 @@ in
     '';
     efiSupport = true;
     useOSProber = true;
-    device = "/dev/nvme0n1";
+    device = "/dev/disk/by-label/boot";
   };
 
 
