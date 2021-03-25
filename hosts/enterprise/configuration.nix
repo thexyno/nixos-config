@@ -20,6 +20,7 @@ in
 
   # Use the systemd-boot EFI boot loader.
   # boot.loader.systemd-boot.enable = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest; # BLUTIGE ECKE
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub = {
     ipxe.netbootxyz = ''
