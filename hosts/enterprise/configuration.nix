@@ -29,6 +29,7 @@ in
     '';
     efiSupport = true;
     useOSProber = true;
+    device = "/dev/nvme0n1";
   };
 
 
