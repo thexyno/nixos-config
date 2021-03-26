@@ -16,7 +16,7 @@ in
     programs.dconf.enable = true;
     environment.systemPackages = with pkgs; [
 #      scream-recievers
-      scream-receivers.override { pulseSupport = true; }
+      (scream-receivers.override { pulseSupport = true; })
       virt-manager ];
     #virtualisation.spiceUSBRedirection.enable = true;
     # common settings
