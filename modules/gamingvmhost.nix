@@ -109,7 +109,7 @@ in
                 <os>
                   <type arch='x86_64' machine='pc-q35-5.2'>hvm</type>
                   <loader readonly='yes' type='pflash'>/run/libvirt/nix-ovmf/OVMF_CODE.fd</loader>
-                  <nvram>/run/libvirt/nix-ovmf/OVMF_VARS.fd</nvram>
+                  <nvram>/tmp/OVMF_VARS.fd</nvram>
                   <bootmenu enable='no'/>
                 </os>
                 <features>
@@ -268,6 +268,8 @@ in
             if ! (${pkgs.libvirt}/bin/virsh list --all | grep -q ${name}); then
               uuid="$(${pkgs.libvirt}/bin/virsh domuuid '${name}' || true)"
               ${pkgs.libvirt}/bin/virsh define <(sed "s/UUID/$uuid/" '${xml}')
+              cp /run/libvirt/nix-ovmf/OVMF_VARS.fd /tmp/OVMF_VARS.fd
+              chmod 777 /tmp/OVMF_VARS.fd
             fi
             ${pkgs.libvirt}/bin/virsh start '${name}' || true # ignore fail
           '';
