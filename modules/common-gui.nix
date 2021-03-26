@@ -59,6 +59,7 @@ in
       arc-icon-theme
       feh
       pulsemixer
+      gimp
       firefox
       thunderbird
       mpv
