@@ -72,6 +72,7 @@ in
       fzf
       git
       gitAndTools.git-annex
+      libqalculate
       lsof # needed for git-annex
       neofetch
       ripgrep
