@@ -13,8 +13,8 @@ in
   imports =
     [
       # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./persistence.nix
+#      ./hardware-configuration.nix
+#      ./persistence.nix
       ../../modules
     ];
 
@@ -33,9 +33,10 @@ in
   services.openssh.permitRootLogin = "no";
 
   networking.useDHCP = false;
-  networking.networkmanager.enable = true;
+  networking.interfaces.eth0.useDHCP = true;
+  #networking.networkmanager.enable = true;
   networking.hostId = "7b45236b";
-
+  networking.firewall.enable = false;
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -56,15 +57,17 @@ in
     roles = [ "master" "node" ];
     masterAddress = "localhost";
   };
+  environment.systemPackages = with pkgs; [
+    kubectl
+  ];
 
   ragon.common-cli.enable = true;
   ragon.user.enable = true;
-  ragon.home-manager.enable = true;
   ragon.auto-upgrade.enable = true;
   ragon.prometheus.enable = true;
   ragon.prometheus.mode = ["node"];
 
-  services.zfs.autoScrub.enable = true;
+#  services.zfs.autoScrub.enable = true;
 
 #  boot = {
 #    initrd.network = {

@@ -9,7 +9,6 @@ in
     ./cli/default.nix
   ];
   config = lib.mkIf cfg.enable {
-    ragon.cli.pandoc.enable = true;
     # Set your time zone.
     time.timeZone = "Europe/Berlin";
 
@@ -30,8 +29,8 @@ in
     services.openssh.passwordAuthentication = false;
 
     # firewall
-    networking.firewall.enable = true;
-    networking.firewall.allowPing = true;
+    # networking.firewall.enable = true;
+    # networking.firewall.allowPing = true;
 
     # root shell
     users.extraUsers.root.shell = pkgs.zsh;
