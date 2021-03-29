@@ -13,6 +13,7 @@ in
       pkgs.android-udev-rules
     ];
     environment.systemPackages = with pkgs; [
+      nixos-generators
       android-studio
       android-udev-rules
       scrcpy
