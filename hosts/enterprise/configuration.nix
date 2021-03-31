@@ -84,25 +84,37 @@ in
 
   services.zfs.autoScrub.enable = true;
 
-  services.znapzend = {
+  services.sanoid = {
     enable = true;
-    pure = true;
-    features.compressed = true;
-    autoCreation = true;
-    zetup = {
-      "pool/persist" = {
-        # Make snapshots of tank/home every hour, keep those for 1 day,
-        # keep every days snapshot for 1 month, etc.
-        plan = "1d=>1h,1m=>1d,1y=>1m";
-        recursive = true;
-        # Send all those snapshots to john@example.com:rtank/john as well
-        destinations.remote = {
-          host = "root@pve";
-          dataset = "-x encryption data/Backups/enterprise";
-        };
-      };
+    datasets."pool/persist" = {};
+  };
+  services.syncoid = {
+    sshKey = /root/.ssh/id_rsa;
+    enable = true;
+    commands."pool/persist" = {
+      target = "root@pve:data/Backups/enterprise";
+      recvOptions = "x encryption";
     };
   };
+  #services.znapzend = {
+  #  enable = true;
+  #  pure = true;
+  #  features.compressed = true;
+  #  autoCreation = true;
+  #  zetup = {
+  #    "pool/persist" = {
+  #      # Make snapshots of tank/home every hour, keep those for 1 day,
+  #      # keep every days snapshot for 1 month, etc.
+  #      plan = "1d=>1h,1m=>1d,1y=>1m";
+  #      recursive = true;
+  #      # Send all those snapshots to john@example.com:rtank/john as well
+  #      destinations.remote = {
+  #        host = "root@pve";
+  #        dataset = "-x encryption data/Backups/enterprise";
+  #      };
+  #    };
+  #  };
+  #};
 
   # does not work
   #boot = {
