@@ -89,10 +89,11 @@ in
     datasets."pool/persist" = {};
   };
   services.syncoid = {
+    user = "root";
+    group = "root";
     sshKey = /persistent/root/.ssh/id_rsa;
     enable = true;
     commonArgs = [
-      "--sshoption=\"StrictHostKeyChecking=no\""
     ];
     commands."pool/persist" = {
       target = "root@pve:data/Backups/enterprise";
