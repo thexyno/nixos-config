@@ -35,6 +35,7 @@ in
         home.persistence.${config.ragon.user.persistent.homeDir} = {
           files = [ ] ++ config.ragon.user.persistent.extraFiles;
           directories = [ ] ++ config.ragon.user.persistent.extraDirectories;
+          allowOther = true;
         };
 
         home.file = {
