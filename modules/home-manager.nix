@@ -22,6 +22,7 @@ in
     environment.systemPackages = with pkgs;[
       dunst # dunstify
     ];
+    programs.fuse.userAllowOther = true; # for persistence user dirs to work
 
     home-manager.users.${config.ragon.user.username} = { pkgs, ... }:
       let
