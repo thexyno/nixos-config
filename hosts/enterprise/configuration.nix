@@ -91,9 +91,13 @@ in
   services.syncoid = {
     sshKey = /persistent/root/.ssh/id_rsa;
     enable = true;
+    commonArgs = [
+      "--sshoption StrictHostKeyChecking=no"
+    ];
     commands."pool/persist" = {
       target = "root@pve:data/Backups/enterprise";
       recvOptions = "x encryption";
+      
     };
   };
   #services.znapzend = {
