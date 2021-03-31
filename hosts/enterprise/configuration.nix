@@ -89,7 +89,7 @@ in
     datasets."pool/persist" = {};
   };
   services.syncoid = {
-    sshKey = /root/.ssh/id_rsa;
+    sshKey = /persistent/root/.ssh/id_rsa;
     enable = true;
     commands."pool/persist" = {
       target = "root@pve:data/Backups/enterprise";
