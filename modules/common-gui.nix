@@ -68,7 +68,7 @@ in
       sxiv
       signal-desktop
       bitwarden
-      discord-canary
+      discord
       obs-studio
 #      obs-v4l2sink now in obs-studio
     ];
