@@ -36,6 +36,7 @@
       ".ssh"
       ".gnupg"
       "Downloads"
+      "Backgrounds"
       "proj"
       "git"
     ];
