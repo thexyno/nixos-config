@@ -186,6 +186,12 @@ in
           enable = isGui;
           platformTheme = "gtk";
         };
+        services.random-background = {
+          enable = isGui;
+          enableXinerama = true;
+          imageDirectory = "%h/Backgrounds";
+          interval = "1h";
+        };
 
         # Enable the dunst notification deamon
         services.dunst.enable = isGui;
