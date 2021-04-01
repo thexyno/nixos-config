@@ -24,6 +24,7 @@
       ".config/coc"
       ".config/pipewire/media-session.d"
       ".config/discordcanary"
+      ".config/discord"
       ".config/Bitwarden"
       ".config/Timeular"
       ".config/Signal"
