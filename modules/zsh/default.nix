@@ -7,14 +7,14 @@ in
   enable = true;
   histSize = 10000;
   histFile = "$HOME/.config/zsh/history";
-  autosuggestions.enable = true;
+  # autosuggestions.enable = true;
   enableCompletion = true;
   setOptions = [
     "HIST_IGNORE_DUPS"
     "SHARE_HISTORY"
     "HIST_FCNTL_LOCK"
-    "AUDO_CD"
-    "AUDO_MENU"
+    "AUTO_CD"
+    "AUTO_MENU"
   ];
 
   # interactiveShellInit broke agkozak-zsh-prompt for some reaaaaaaaason
