@@ -28,9 +28,11 @@
       ".config/Bitwarden"
       ".config/Timeular"
       ".config/Signal"
+      ".config/spotify"
       ".config/obs-studio"
       ".config/TabNine"
       ".local/share/nvim"
+      ".local/share/direnv" # lorri
       ".local/share/TabNine"
       ".mozilla/"
       ".thunderbird/" # Because of cause this isn't in .mozilla
