@@ -69,6 +69,7 @@ in
       signal-desktop
       bitwarden
       discord
+      spotify
       obs-studio
 #      obs-v4l2sink now in obs-studio
     ];
