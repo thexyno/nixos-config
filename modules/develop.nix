@@ -13,6 +13,7 @@ in
       pkgs.android-udev-rules
     ];
     environment.systemPackages = with pkgs; [
+      direnv # needed for lorri
       nixos-generators
       android-studio
       android-udev-rules
