@@ -47,7 +47,7 @@ in
           # Nano config
           ".nanorc".text = "set constantshow # Show linenumbers -c as default";
           # empty zshrc to stop zsh-newuser-install from running
-          ".zshrc".text = ""; 
+          ".zshrc".text = "";
 
           "bin/changeVolume".source = ./bins/changeVolume;
           "bin/devsaurgit".source = ./bins/devsaurgit;
@@ -123,8 +123,8 @@ in
             showProgramPath = false;
             treeView = true;
             meters = {
-              left = [  "LeftCPUs"  "Memory" "Swap"        "ZFSARC" "ZFSCARC" ];
-              right = [ "RightCPUs" "Tasks"  "LoadAverage" "Uptime" "Battery" ];
+              left = [ "LeftCPUs" "Memory" "Swap" "ZFSARC" "ZFSCARC" ];
+              right = [ "RightCPUs" "Tasks" "LoadAverage" "Uptime" "Battery" ];
             };
           };
 

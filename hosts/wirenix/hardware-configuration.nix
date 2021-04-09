@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
+    [
+      (modulesPath + "/profiles/qemu-guest.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
@@ -14,32 +15,37 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "none";
+    {
+      device = "none";
       fsType = "tmpfs";
       options = [ "size=2G" "defaults" "mode=755" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/vda1";
+    {
+      device = "/dev/vda1";
       fsType = "btrfs";
       options = [ "subvol=nix" ];
     };
 
   fileSystems."/var/log" =
-    { device = "/dev/vda1";
+    {
+      device = "/dev/vda1";
       fsType = "btrfs";
       options = [ "subvol=var/log" ];
     };
 
   fileSystems."/persistent" =
-    { device = "/dev/vda1";
+    {
+      device = "/dev/vda1";
       fsType = "btrfs";
       neededForBoot = true;
       options = [ "subvol=persistent" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/vda2";
+    {
+      device = "/dev/vda2";
       fsType = "vfat";
       options = [ "noauto" "x-systemd.automount" ];
     };

@@ -11,8 +11,8 @@ in
   options.ragon.prometheus = {
     enable = lib.mkEnableOption "Enable prometheus monitoring";
     mode = lib.mkOption {
-      type = lib.types.listOf (lib.types.enum ["master" "node"]);
-      default = ["node"];
+      type = lib.types.listOf (lib.types.enum [ "master" "node" ]);
+      default = [ "node" ];
     };
     domain = lib.mkOption {
       type = lib.types.str;
@@ -60,7 +60,7 @@ in
           grpc_listen_port = 0;
         };
         positions.filename = "/tmp/positions.yaml";
-        clients = [ { url = "http://127.0.0.1:3100/loki/api/v1/push"; } ];
+        clients = [{ url = "http://127.0.0.1:3100/loki/api/v1/push"; }];
         scrape_configs = [
           {
             job_name = "journal";
@@ -73,7 +73,7 @@ in
             };
             relabel_configs = [
               {
-                source_labels = ["__journal__systemd_unit"];
+                source_labels = [ "__journal__systemd_unit" ];
                 target_label = "unit";
               }
             ];
@@ -133,7 +133,7 @@ in
             boltdb_shipper = {
               active_index_directory = "/var/lib/loki/boltdb-shipper-active";
               cache_location = "/var/lib/loki/boltdb-shipper-cache";
-              cache_ttl = "24h";         # Can be increased for faster performance over longer query periods, uses more disk space
+              cache_ttl = "24h"; # Can be increased for faster performance over longer query periods, uses more disk space
               shared_store = "filesystem";
             };
             filesystem = {
@@ -156,13 +156,13 @@ in
           };
         };
     };
-    
+
     # nginx reverse proxy
     services.nginx.enable = isMaster;
     services.nginx.virtualHosts.${config.services.grafana.domain} = {
       locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}";
-          proxyWebsockets = true;
+        proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}";
+        proxyWebsockets = true;
       };
     };
 

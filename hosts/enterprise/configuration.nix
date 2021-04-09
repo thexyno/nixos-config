@@ -75,7 +75,7 @@ in
   ragon.develop.enable = true;
   ragon.prometheus.enable = true;
   ragon.cli.pandoc.enable = true;
-  ragon.prometheus.mode = [ "master" "node"];
+  ragon.prometheus.mode = [ "master" "node" ];
 
   environment.etc."smb-secrets" = {
     text = secrets.smbSecret;
@@ -86,7 +86,7 @@ in
 
   services.sanoid = {
     enable = true;
-    datasets."pool/persist" = {};
+    datasets."pool/persist" = { };
   };
   services.syncoid = {
     user = "root";
@@ -98,7 +98,7 @@ in
     commands."pool/persist" = {
       target = "root@pve:data/Backups/enterprise";
       recvOptions = "x encryption";
-      
+
     };
   };
   #services.znapzend = {
@@ -138,10 +138,12 @@ in
   fileSystems."/media/data" = {
     device = "//10.0.0.2/data";
     fsType = "cifs";
-    options = let
+    options =
+      let
         # this line prevents hanging on network split
         automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-      in ["${automount_opts},credentials=/etc/smb-secrets,uid=1000,gid=1"];
+      in
+      [ "${automount_opts},credentials=/etc/smb-secrets,uid=1000,gid=1" ];
 
   };
 

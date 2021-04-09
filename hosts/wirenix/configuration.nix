@@ -10,7 +10,8 @@ let
 in
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./persistence.nix
       ../../modules
@@ -43,7 +44,8 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim wireguard-tools
+    neovim
+    wireguard-tools
   ];
 
   # Immutable users due to tmpfs
@@ -65,38 +67,39 @@ in
     enable = true;
   };
 
-  environment.etc."wireguard_key" = {
-    text = secrets.wirenixWgPrivateKey;
-    mode = "0400";
-  }
+  environment.etc."wireguard_key" =
+    {
+      text = secrets.wirenixWgPrivateKey;
+      mode = "0400";
+    }
 
-  networking.wg-quick.interfaces.wg0 = {
-      privateKeyFile = "/etc/wireguard_key";
-      address = [ "10.65.203.192/32"  "fc00:bbbb:bbbb:bb01::2:cbbf/128"];
-      dns = ["193.138.218.74"];
-      postUp = ''
-      ${pkgs.iptables}/bin/iptables -I OUTPUT -o wg0 -m mark ! --mark $(wg show wg0 fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
-      ${pkgs.iptables}/bin/ip6tables -I OUTPUT ! -o wg0 -m mark ! --mark $(wg show wg0 fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
-      '';
-      preDown = ''
-      ${pkgs.iptables}/bin/iptables -D OUTPUT ! -o wg0 -m mark ! --mark $(wg show wg0 fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
-      ${pkgs.iptables}/bin/ip6tables -D OUTPUT ! -o wg0 -m mark ! --mark $(wg show wg0 fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
-      '';
-      
-      peers = [{
-        publicKey = "hnRyse6QxPPcZOoSwRsHUtK1W+APWXnIoaDTmH6JsHQ=";
-        allowedIPs = [ "0.0.0.0/0" "::0/0" ];
-        endpoint = "193.32.249.69:51820";
-      }];
-    };
+      networking.wg-quick.interfaces.wg0 = {
+  privateKeyFile = "/etc/wireguard_key";
+  address = [ "10.65.203.192/32" "fc00:bbbb:bbbb:bb01::2:cbbf/128" ];
+  dns = [ "193.138.218.74" ];
+  postUp = ''
+    ${pkgs.iptables}/bin/iptables -I OUTPUT -o wg0 -m mark ! --mark $(wg show wg0 fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
+    ${pkgs.iptables}/bin/ip6tables -I OUTPUT ! -o wg0 -m mark ! --mark $(wg show wg0 fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
+  '';
+  preDown = ''
+    ${pkgs.iptables}/bin/iptables -D OUTPUT ! -o wg0 -m mark ! --mark $(wg show wg0 fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
+    ${pkgs.iptables}/bin/ip6tables -D OUTPUT ! -o wg0 -m mark ! --mark $(wg show wg0 fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
+  '';
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.09"; # Did you read the comment?
+  peers = [{
+    publicKey = "hnRyse6QxPPcZOoSwRsHUtK1W+APWXnIoaDTmH6JsHQ=";
+    allowedIPs = [ "0.0.0.0/0" "::0/0" ];
+    endpoint = "193.32.249.69:51820";
+  }];
+};
+
+# This value determines the NixOS release from which the default
+# settings for stateful data, like file locations and database versions
+# on your system were taken. It‘s perfectly fine and recommended to leave
+# this value at the release version of the first install of this system.
+# Before changing this value read the documentation for this option
+# (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+system.stateVersion = "20.09"; # Did you read the comment?
 
 }
 

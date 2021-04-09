@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 let
   sources = import ../../nix/sources.nix;
   cfg = config.ragon.cli.pandoc;

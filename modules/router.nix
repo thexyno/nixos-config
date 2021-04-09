@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.ragon.router;
   externalInterface = cfg.externalInterface;
@@ -39,7 +39,7 @@ in
       default = "192.168.2.240";
       description = "The End of the DHCP Range";
     };
-    
+
     subnet = lib.mkOption {
       type = lib.types.str;
       default = "192.168.2.0";
@@ -89,36 +89,36 @@ in
       networking.nat.enable = true;
       networking.nat.internalIPs = [ "${subnet}/${prefixLength}" ];
       networking.nat.externalInterface = externalInterface;
-      networking.interfaces."${internalInterface}" = { 
+      networking.interfaces."${internalInterface}" = {
         ipAddress = gatewayIP;
         prefixLength = prefixLength;
       };
 
-      services.dhcpd4 = 
-      {
-        enable = true;
-        interfaces = [ internalInterface ]; 
-        extraConfig = ''
-          ddns-update-style none;
-          one-lease-per-client true;
+      services.dhcpd4 =
+        {
+          enable = true;
+          interfaces = [ internalInterface ];
+          extraConfig = ''
+            ddns-update-style none;
+            one-lease-per-client true;
 
-          subnet ${subnet} netmask ${netMask} {
-            range ${dhcpRangeFrom} ${dhcpRangeTo};
-            authoritative;
+            subnet ${subnet} netmask ${netMask} {
+              range ${dhcpRangeFrom} ${dhcpRangeTo};
+              authoritative;
 
-            # Allows clients to request up to a week (although they won't)
-            max-lease-time              ${maxLeaseTime};
-            # By default a lease will expire in 24 hours.
-            default-lease-time          ${defaultLeaseTime};
+              # Allows clients to request up to a week (although they won't)
+              max-lease-time              ${maxLeaseTime};
+              # By default a lease will expire in 24 hours.
+              default-lease-time          ${defaultLeaseTime};
 
-            option subnet-mask          ${netMask};
-            option broadcast-address    ${broadcastAddress};
-            option routers              ${gatewayIP};
-            option domain-name-servers  ${(builtins.concatStringsSep ", " dnsServers)};
-          }
-        '';
-      };
-  };
+              option subnet-mask          ${netMask};
+              option broadcast-address    ${broadcastAddress};
+              option routers              ${gatewayIP};
+              option domain-name-servers  ${(builtins.concatStringsSep ", " dnsServers)};
+            }
+          '';
+        };
+    };
 
 
 }

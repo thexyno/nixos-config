@@ -5,46 +5,51 @@
 
 {
   imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
+    [
+      (modulesPath + "/profiles/qemu-guest.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "nvme" "usbhid" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelParams = ["zfs.zfs_arc_max=8589934592"]; # arc size max 8GB
+  boot.kernelParams = [ "zfs.zfs_arc_max=8589934592" ]; # arc size max 8GB
   boot.initrd.luks.devices.crypt.device = "/dev/nvme0n1p1";
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
 
   fileSystems."/" =
-    { device = "none";
+    {
+      device = "none";
       fsType = "tmpfs";
       options = [ "size=8G" "defaults" "mode=755" ];
     };
   fileSystems."/nix" =
-    { device = "pool/nix";
+    {
+      device = "pool/nix";
       fsType = "zfs";
     };
 
   fileSystems."/persistent" =
-    { device = "pool/persist";
+    {
+      device = "pool/persist";
       fsType = "zfs";
       neededForBoot = true;
     };
 
   fileSystems."/var/log" =
-    { device = "pool/varlog";
+    {
+      device = "pool/varlog";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/BDC7-CFCC";
+    {
+      device = "/dev/disk/by-uuid/BDC7-CFCC";
       fsType = "vfat";
       options = [ "noauto" "x-systemd.automount" ];
     };
 
   swapDevices =
-    [ { device = "/dev/zvol/pool/swap"; }
-    ];
+    [{ device = "/dev/zvol/pool/swap"; }];
 
 
 }

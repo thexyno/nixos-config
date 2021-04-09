@@ -3,7 +3,8 @@
 let
   # Load sources
   sources = import ../nix/sources.nix;
-in {
+in
+{
   imports = [
     "${sources.impermanence}/nixos.nix"
     ./auto-upgrade.nix

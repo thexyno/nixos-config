@@ -71,7 +71,7 @@ in
       discord
       spotify
       obs-studio
-#      obs-v4l2sink now in obs-studio
+      #      obs-v4l2sink now in obs-studio
     ];
 
 

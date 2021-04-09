@@ -13,8 +13,8 @@ in
   imports =
     [
       # Include the results of the hardware scan.
-#      ./hardware-configuration.nix
-#      ./persistence.nix
+      #      ./hardware-configuration.nix
+      #      ./persistence.nix
       ../../modules
     ];
 
@@ -65,20 +65,20 @@ in
   ragon.user.enable = true;
   ragon.auto-upgrade.enable = true;
   ragon.prometheus.enable = true;
-  ragon.prometheus.mode = ["node"];
+  ragon.prometheus.mode = [ "node" ];
 
-#  services.zfs.autoScrub.enable = true;
+  #  services.zfs.autoScrub.enable = true;
 
-#  boot = {
-#    initrd.network = {
-#      enable = true;
-#      ssh = {
-#         enable = true;
-#         port = 2222; 
-#         hostKeys = [ "/etc/ssh/ssh_host_rsa_key" "/etc/ssh/ssh_host_ed25519_key" ];
-#         authorizedKeys = pubkeys.ragon.computers;
-#      };
-#    };
-#  };
+  #  boot = {
+  #    initrd.network = {
+  #      enable = true;
+  #      ssh = {
+  #         enable = true;
+  #         port = 2222; 
+  #         hostKeys = [ "/etc/ssh/ssh_host_rsa_key" "/etc/ssh/ssh_host_ed25519_key" ];
+  #         authorizedKeys = pubkeys.ragon.computers;
+  #      };
+  #    };
+  #  };
 
 }

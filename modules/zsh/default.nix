@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 let
   sourcesnix = import ../../nix/sources.nix;
   inherit (lib) fileContents;
@@ -35,9 +35,9 @@ in
 
       plugins = builtins.concatStringsSep "\n" (source);
 
-      in
-      ''
-        ${zshrc}
-        ${plugins}
-      '';
+    in
+    ''
+      ${zshrc}
+      ${plugins}
+    '';
 }

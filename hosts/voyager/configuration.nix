@@ -56,7 +56,7 @@ in
   ragon.user.enable = true;
   ragon.home-manager.enable = true;
   ragon.gui.enable = true;
-  ragon.gui.autostart = []; # disable nvidia stuff
+  ragon.gui.autostart = [ ]; # disable nvidia stuff
   ragon.auto-upgrade.enable = true;
   ragon.gamingvmhost.enable = true;
   ragon.develop.enable = true;
@@ -73,7 +73,7 @@ in
 
   services.sanoid = {
     enable = true;
-    datasets."pool/persist" = {};
+    datasets."pool/persist" = { };
   };
   services.syncoid = {
     user = "root";
@@ -85,17 +85,19 @@ in
     commands."pool/persist" = {
       target = "backup@ds9.hailsatan.eu:data/Backups/voyager";
       recvOptions = "x encryption";
-      
+
     };
   };
 
   fileSystems."/media/data" = {
     device = "//10.0.0.2/data";
     fsType = "cifs";
-    options = let
+    options =
+      let
         # this line prevents hanging on network split
         automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-      in ["${automount_opts},credentials=/etc/smb-secrets,uid=1000,gid=1"];
+      in
+      [ "${automount_opts},credentials=/etc/smb-secrets,uid=1000,gid=1" ];
 
   };
 

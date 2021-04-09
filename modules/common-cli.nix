@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.ragon.common-cli;
   ragon = config.ragon;
@@ -16,7 +16,7 @@ in
     i18n = {
       defaultLocale = "en_DK.UTF-8";
     };
-     programs.gnupg.agent = {
+    programs.gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
     };
@@ -38,7 +38,7 @@ in
     # programs 
     programs = {
       # import zsh config
-      zsh = (import ./zsh/default.nix { config = config; lib = lib; pkgs = pkgs;  });
+      zsh = (import ./zsh/default.nix { config = config; lib = lib; pkgs = pkgs; });
     };
     environment.shellAliases = {
       v = "nvim";
