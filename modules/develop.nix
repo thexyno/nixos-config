@@ -14,6 +14,7 @@ in
     ];
     environment.systemPackages = with pkgs; [
       direnv # needed for lorri
+      unixtools.xxd
       nixos-generators
       android-studio
       android-udev-rules
