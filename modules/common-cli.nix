@@ -28,7 +28,7 @@ in
     services.openssh.enable = true;
     services.openssh.passwordAuthentication = false;
 
-    secruity.sudo.extraConfig = "Defaults lecture = never";
+    security.sudo.extraConfig = "Defaults lecture = never";
 
     # firewall
     # networking.firewall.enable = true;
