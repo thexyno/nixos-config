@@ -45,6 +45,7 @@ in
               vim-fugitive
               lightline-vim
               fzf-vim
+              fzfWrapper
               vim-devicons
               #        ] // lib.mkIf cfg.maximal [
               vim-pandoc
