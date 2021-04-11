@@ -133,10 +133,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "rnix-lsp",
-        "rev": "fd1ad49a598a5d9c3e14b71fa47ff95ccecdf3d7",
-        "sha256": "0da4lzpfzn8ymi2xgwf7g6dpi9ks091bb7g64irm7mgp451wmxhs",
+        "rev": "23df7ab20b71896ac47da8dab6d4bcc6e8f994d5",
+        "sha256": "1jrvpw3dfnyj6hplmxd0l0qxxga8fw8mykdnscismcj585ckv3a2",
         "type": "tarball",
-        "url": "https://github.com/nix-community/rnix-lsp/archive/fd1ad49a598a5d9c3e14b71fa47ff95ccecdf3d7.tar.gz",
+        "url": "https://github.com/nix-community/rnix-lsp/archive/23df7ab20b71896ac47da8dab6d4bcc6e8f994d5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "zsh-completions": {
