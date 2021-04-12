@@ -30,7 +30,7 @@ in
       VAONETRACKOUTPUTFORMAT='$\{OUTPUT}/Various/$\{ALBUMFILE}/$\{ALBUMFILE}'
       mungefilename ()
       {
-        echo "$@" | ${pkgs.sed}/bin/sed -e 's/^\.*//' | tr -d ":><|*/\"'?[:cntrl:]"
+        echo "$@" | sed -e 's/^\.*//' | tr -d ":><|*/\"'?[:cntrl:]"
       }
       
       ACTIONS=cddb,encode,move,embedalbumart,clean
