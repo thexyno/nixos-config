@@ -12,6 +12,7 @@ in
     ./common-gui.nix
     ./nvim.nix
     ./develop.nix
+    ./abcde.nix
     ./router.nix
     ./home-manager.nix
     ./user.nix

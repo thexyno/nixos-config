@@ -70,6 +70,7 @@ in
   ragon.user.enable = true;
   ragon.home-manager.enable = true;
   ragon.gui.enable = true;
+  ragon.abcde.enable = true;
   ragon.auto-upgrade.enable = true;
   ragon.gamingvmhost.enable = true;
   ragon.develop.enable = true;
