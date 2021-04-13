@@ -139,6 +139,13 @@
         "url": "https://github.com/nix-community/rnix-lsp/archive/23df7ab20b71896ac47da8dab6d4bcc6e8f994d5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "timeular": {
+        "sha256": "10yjjlsrv50a7ryck3gqwf8g7d96j9gbcbxafhphsr7lwx2hzybv",
+        "type": "file",
+        "url": "https://s3.amazonaws.com/timeular-desktop-packages/linux/production/Timeular.AppImage",
+        "url_template": "https://s3.amazonaws.com/timeular-desktop-packages/linux/production/Timeular.AppImage",
+        "version": "3.9.0"
+    },
     "zsh-completions": {
         "branch": "master",
         "description": "Additional completion definitions for Zsh.",

@@ -75,6 +75,16 @@ in
       #      obs-v4l2sink now in obs-studio
     ];
 
+    nixpkgs.overlays = [
+      (self: super: {
+        timeular = super.timeular.overrideAttrs (oldAttrs: rec {
+          version = "3.9.0";
+          src = sources.timeular;
+        });
+      }
+      )
+    ];
+
 
     # enable cups
     services.printing.enable = true;
