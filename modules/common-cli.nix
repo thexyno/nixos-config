@@ -63,6 +63,8 @@ in
     };
 
     environment.systemPackages = with pkgs; [
+      unzip
+      bsdtar
       nnn
       bat
       htop
