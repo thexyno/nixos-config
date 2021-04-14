@@ -2,6 +2,8 @@
 let
   cfg = config.ragon.gamingvmhost;
   name = cfg.name;
+  pciAddrs = cfg.pciAddrs;
+  pciIds = cfg.pciIds;
 in
 {
   options.ragon.gamingvmhost = {
@@ -9,6 +11,14 @@ in
     name = lib.mkOption {
       type = lib.types.str;
       default = "gamingvm";
+    };
+    pciAddrs = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ "0000:06:00.0" "0000:06:00.1" ];
+    };
+    pciIds = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ "10de:1b80" "10de:10f0" "1912:0015" ];
     };
   };
   config = lib.mkIf cfg.enable {
@@ -24,7 +34,7 @@ in
     boot.extraModprobeConfig = ''
       options kvm ignore_msrs=1
       options kvm report_ignored_msrs=0
-      options vfio-pci ids=10de:1b80,10de:10f0,1912:0015
+      options vfio-pci ids=${builtins.concatStringsSep "," pciIds}
     '';
     ragon.user.extraGroups = [ "kvm" "libvirt" ];
 
@@ -50,7 +60,7 @@ in
       "iommu=pt"
     ];
     boot.initrd.preDeviceCommands = ''
-      DEVS="0000:06:00.0 0000:06:00.1"
+      DEVS="${builtins.concatStringsSep " " pciAddrs}"
       for DEV in $DEVS; do
         echo "vfio-pci" > /sys/bus/pci/devices/$DEV/driver_override
       done
@@ -64,7 +74,7 @@ in
         user = "+${toString config.ragon.user.uid}"
         group = "wheel"
         cgroup_device_acl = [
-            "/dev/input/by-id/usb-Logitech_Gaming_Mouse_G502_138334633633-event-mouse","/dev/input/by-id/usb-04d9_USB-HID_Keyboard-event-kbd","/dev/input/by-id/usb-Logitech_Gaming_Mouse_G502_138334633633-if01-event-kbd",
+            "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-mouse","/dev/input/by-id/usb-04d9_USB-HID_Keyboard-event-kbd",
             "/dev/null", "/dev/full", "/dev/zero",
             "/dev/random", "/dev/urandom",
             "/dev/ptmx", "/dev/kvm"
@@ -257,11 +267,9 @@ in
                   </devices>
                   <qemu:commandline>
                     <qemu:arg value='-object'/>
-                    <qemu:arg value='input-linux,id=mouse1,evdev=/dev/input/by-id/usb-Logitech_Gaming_Mouse_G502_138334633633-event-mouse'/>
+                    <qemu:arg value='input-linux,id=mouse1,evdev=/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-mouse'/>
                     <qemu:arg value='-object'/>
                     <qemu:arg value='input-linux,id=kbd1,evdev=/dev/input/by-id/usb-04d9_USB-HID_Keyboard-event-kbd,grab_all=on,repeat=on'/>
-                    <qemu:arg value='-object'/>
-                    <qemu:arg value='input-linux,id=kbd2,evdev=/dev/input/by-id/usb-Logitech_Gaming_Mouse_G502_138334633633-if01-event-kbd,grab_all=on,repeat=on'/>
                   </qemu:commandline>
                 </domain>
               '';
