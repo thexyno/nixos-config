@@ -54,6 +54,7 @@ in
     nixpkgs.config.allowUnfree = true;
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
+    services.ratbagd.enable = true; # mx master control daemon
     environment.systemPackages = with pkgs; [
       piper # mx master control software
       libreoffice-fresh
