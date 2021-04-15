@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   version = "1.0.1";
   name = "pandocode-${version}";
   buildInputs = [ python zip python38Packages.pylint python38Packages.panflute ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = [ "PREFIX=$(out)" "PY=$(pkgs.python3)/bin/python" ];
   src = sources.pandocode;
   meta = with lib; {
     description = "pandocode is a pandoc filter that converts Python (-like) code to LaTeX-Pseudocode";
