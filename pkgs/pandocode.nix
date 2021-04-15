@@ -1,12 +1,12 @@
-{ pkgs, lib, stdenv, fetchurl, python3, python38Packages, zip }:
+{ pkgs, lib, stdenv, fetchurl, python3, python3Packages, zip }:
 let
   sources = import ../nix/sources.nix;
 in
 stdenv.mkDerivation rec {
   version = "1.0.1";
   name = "pandocode-${version}";
-  buildInputs = [ python zip python38Packages.panflute python38Packages.pylint ];
-  propagatedBuildInputs = [python38Packages.panflute];
+  buildInputs = [ python3 zip python3Packages.panflute python3Packages.pylint ];
+  propagatedBuildInputs = [python3Packages.panflute];
   src = sources.pandocode;
   buildPhase = ''
     make PREFIX=$out \
