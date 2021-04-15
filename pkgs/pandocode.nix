@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [python38Packages.panflute];
   src = sources.pandocode;
   buildPhase = ''
-    make PREFIX=$(out) \
+    make PREFIX=$out \
       PY=${python}/bin/python \
       PYLINT=true \
       pandocode.pyz.zip
