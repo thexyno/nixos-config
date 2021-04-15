@@ -9,8 +9,8 @@ stdenv.mkDerivation rec {
   src = sources.pandocode;
   installPhase = ''
     make PREFIX=$(out) \
-      PY="${pkgs.python3}/bin/python" \
-      PYLINT="`which true`" \
+      PY=${pkgs.python3}/bin/python \
+      PYLINT=true \
       pandocode.pyz.zip
 
     echo "${pkgs.python3}/bin/python" | cat - pandocode.pyz.zip > pandocode
