@@ -1,7 +1,7 @@
 { lib, stdenv, python3, python3Packages, zip }:
 let
   sources = import ../nix/sources.nix;
-  py = pkgs.python3.withPackages (pythonPackages: with pythonPackages; [ panflute ]);
+  py = python3.withPackages (pythonPackages: with pythonPackages; [ panflute ]);
 in
 stdenv.mkDerivation rec {
   version = "1.0.1";
