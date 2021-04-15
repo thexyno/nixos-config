@@ -9,6 +9,9 @@ stdenv.mkDerivation rec {
   python3Path = [python3Packages.panflute];
   propagatedBuildInputs = [python3Packages.panflute];
   src = sources.pandocode;
+  customPython = python3.buildEnv.override {
+    extraLibs = [ panflute ];
+  };
   buildPhase = ''
     make PREFIX=$out \
       PY=${python3}/bin/python3 \
