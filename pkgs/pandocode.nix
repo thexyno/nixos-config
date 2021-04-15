@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
       PYLINT=true \
       pandocode.pyz.zip
 
-    echo "${pkgs.python3}/bin/python" | cat - pandocode.pyz.zip > pandocode
+    echo "#!${pkgs.python3}/bin/python" | cat - pandocode.pyz.zip > pandocode
   '';
   installPhase = ''
     install -D -m 755 pandocode $out/bin/pandocode
