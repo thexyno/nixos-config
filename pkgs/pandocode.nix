@@ -1,14 +1,14 @@
-{ pkgs, lib, stdenv, fetchurl, python3, python3Packages, zip }:
+{ pkgs, lib, python3, python3Packages, zip }:
 let
   sources = import ../nix/sources.nix;
 in
 python3Packages.buildPythonApplication rec {
   version = "1.0.1";
   name = "pandocode-${version}";
-  buildInputs = [ zip ];
   nativeBuildInputs = [ zip ];
   propagatedBuildInputs = [python3Packages.panflute];
   src = sources.pandocode;
+  format = "other";
   doCheck = false;
   buildPhase = ''
     pip install -r requirements.txt
