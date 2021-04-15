@@ -8,9 +8,7 @@ python3Packages.buildPythonApplication rec {
   buildInputs = [ python3 zip python3Packages.panflute python3Packages.pylint python3Packages.wrapPython ];
   propagatedBuildInputs = [python3Packages.panflute];
   src = sources.pandocode;
-  customPython = python3.buildEnv.override {
-    extraLibs = [ python3Packages.panflute ];
-  };
+  doCheck = false;
   buildPhase = ''
     make PREFIX=$out \
       PY=${python3}/bin/python3 \
