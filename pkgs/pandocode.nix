@@ -1,6 +1,6 @@
 { stdenv, fetchurl, python, zip }:
 let
-  sources = import ../../nix/sources.nix;
+  sources = import ../nix/sources.nix;
 in
 stdenv.mkDerivation rec {
   version = "1.0.1";

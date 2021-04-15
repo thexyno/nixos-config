@@ -6,9 +6,10 @@ in
 {
   options.ragon.cli.pandoc.enable = lib.mkEnableOption "Enables Ragons Pandoc Configuration";
   config = lib.mkIf cfg.enable {
+    nixpkgs.overlays = [ (import ../../pkgs) ];
     environment.systemPackages = with pkgs; [
-      (import ./pandocode.nix)
       pandoc
+      pandocode
       pandoc-plantuml-filter
       haskellPackages.pandoc-include-code
       texlive.combined.scheme-full
