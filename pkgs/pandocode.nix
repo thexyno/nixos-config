@@ -1,4 +1,4 @@
-{ pkgs, lib, stdenv, python3, python3Packages, zip }:
+{ lib, python3, python3Packages, zip }:
 let
   sources = import ../nix/sources.nix;
 in
@@ -7,6 +7,7 @@ python3Packages.buildPythonPackage rec {
   name = "pandocode-${version}";
   nativeBuildInputs = [ zip ];
   propagatedBuildInputs = [python3Packages.panflute];
+  pythonPath = [python3Packages.panflute];
   src = sources.pandocode;
   format = "other";
   doCheck = false;
@@ -25,7 +26,7 @@ python3Packages.buildPythonPackage rec {
     description = "pandocode is a pandoc filter that converts Python (-like) code to LaTeX-Pseudocode";
     homepage = "https://github.com/nzbr/pandocode";
     license = licenses.isc;
-    platforms = stdenv.lib.platforms.linux ++ stdenv.lib.platforms.darwin;
+    platforms = platforms.linux ++ platforms.darwin;
   };
 
 }
