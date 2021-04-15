@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [python3Packages.panflute];
   src = sources.pandocode;
   customPython = python3.buildEnv.override {
-    extraLibs = [ panflute ];
+    extraLibs = [ python3Packages.panflute ];
   };
   buildPhase = ''
     make PREFIX=$out \
