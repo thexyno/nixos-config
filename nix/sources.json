@@ -127,6 +127,19 @@
         "url": "https://github.com/Wandmalfarbe/pandoc-latex-template/archive/ad404d04461ecf92772e3f4defac2d649092b4ce.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "pandocode": {
+        "branch": "master",
+        "description": "Pandocode is a program/pandoc-filter that converts Python(-like) code to LaTeX Pseudocode",
+        "homepage": null,
+        "owner": "nzbr",
+        "repo": "pandocode",
+        "rev": "8f9a36ac7ff3ad9c87fededf3bae317f0670c6d6",
+        "sha256": "0hk0llsm1iv527kq65096dkv3k7dry840cqddgmcb1n1glyqlnj9",
+        "type": "tarball",
+        "url": "https://github.com/nzbr/pandocode/archive/8f9a36ac7ff3ad9c87fededf3bae317f0670c6d6.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz",
+        "version": "1.0.1"
+    },
     "rnix-lsp": {
         "branch": "master",
         "description": "WIP Language Server for Nix! [maintainer=@jD91mZM2]",

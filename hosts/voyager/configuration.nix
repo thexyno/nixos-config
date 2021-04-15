@@ -60,9 +60,7 @@ in
   ragon.auto-upgrade.enable = true;
   ragon.gamingvmhost.enable = true;
   ragon.develop.enable = true;
-  ragon.prometheus.enable = true;
   ragon.cli.pandoc.enable = true;
-  # ragon.prometheus.mode = ["node"];
 
   environment.etc."smb-secrets" = {
     text = secrets.smbSecret;

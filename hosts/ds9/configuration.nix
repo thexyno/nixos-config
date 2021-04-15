@@ -64,8 +64,6 @@ in
   ragon.common-cli.enable = true;
   ragon.user.enable = true;
   ragon.auto-upgrade.enable = true;
-  ragon.prometheus.enable = true;
-  ragon.prometheus.mode = [ "node" ];
 
   #  services.zfs.autoScrub.enable = true;
 
