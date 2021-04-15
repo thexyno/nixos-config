@@ -8,10 +8,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ python zip python38Packages.panflute ];
   src = sources.pandocode;
   installPhase = ''
-    make pandocode.pyz.zip \
-      PREFIX=$(out) \
+    make PREFIX=$(out) \
       PY="${pkgs.python3}/bin/python" \
-      PYLINT="true"
+      PYLINT="true" \
+      pandocode.pyz.zip
 
     echo "${pkgs.python3}/bin/python" | cat - pandocode.pyz.zip > pandocode
     install -D -m 755 pandocode $(PREFIX)/bin/pandocode
