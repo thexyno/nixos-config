@@ -2,11 +2,10 @@
 let
   sources = import ../nix/sources.nix;
 in
-stdenv.mkDerivation rec {
+python3Packages.buildPythonApplication rec {
   version = "1.0.1";
   name = "pandocode-${version}";
   buildInputs = [ python3 zip python3Packages.panflute python3Packages.pylint python3Packages.wrapPython ];
-  python3Path = [python3Packages.panflute];
   propagatedBuildInputs = [python3Packages.panflute];
   src = sources.pandocode;
   customPython = python3.buildEnv.override {
