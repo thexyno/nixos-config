@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     echo "${pkgs.python3}/bin/python" | cat - pandocode.pyz.zip > pandocode
   '';
   installPhase = ''
-    install -D -m 755 pandocode $(out)/bin/pandocode
+    install -D -m 755 pandocode $out/bin/pandocode
   '';
   meta = with lib; {
     description = "pandocode is a pandoc filter that converts Python (-like) code to LaTeX-Pseudocode";
