@@ -5,7 +5,7 @@ in
 stdenv.mkDerivation rec {
   version = "1.0.1";
   name = "pandocode-${version}";
-  buildInputs = [ python zip python38Packages.pylint ];
+  buildInputs = [ python zip python38Packages.pylint python38Packages.panflute ];
   makeFlags = [ "PREFIX=$(out)" ];
   src = sources.pandocode;
   meta = with lib; {
