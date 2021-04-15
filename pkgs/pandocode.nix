@@ -10,11 +10,11 @@ stdenv.mkDerivation rec {
   src = sources.pandocode;
   buildPhase = ''
     make PREFIX=$out \
-      PY=${python}/bin/python3 \
+      PY=${python3}/bin/python3 \
       PYLINT=true \
       pandocode.pyz.zip
 
-    echo "#!${python}/bin/python3" | cat - pandocode.pyz.zip > pandocode
+    echo "#!${python3}/bin/python3" | cat - pandocode.pyz.zip > pandocode
   '';
   installPhase = ''
     install -D -m 755 pandocode $out/bin/pandocode
