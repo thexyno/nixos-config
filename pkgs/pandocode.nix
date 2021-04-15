@@ -1,4 +1,4 @@
-{ pkgs, lib, python3, python3Packages, zip }:
+{ pkgs, lib, stdenv, python3, python3Packages, zip }:
 let
   sources = import ../nix/sources.nix;
 in
