@@ -5,7 +5,7 @@ in
 stdenv.mkDerivation rec {
   version = "1.0.1";
   name = "pandocode-${version}";
-  buildInputs = [ python3 zip python3Packages.panflute python3Packages.pylint ];
+  buildInputs = [ python3 zip python3Packages.panflute python3Packages.pylint python3Packages.wrapPython ];
   propagatedBuildInputs = [python3Packages.panflute];
   src = sources.pandocode;
   buildPhase = ''
@@ -18,8 +18,6 @@ stdenv.mkDerivation rec {
   '';
   installPhase = ''
     install -D -m 755 pandocode $out/bin/pandocode
-  '';
-  postFixupPhase = ''
     wrapPythonPrograms
   '';
   meta = with lib; {
