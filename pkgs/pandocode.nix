@@ -1,19 +1,18 @@
-{ lib, python3, python3Packages, zip }:
+{ lib, stdenv, python3, python3Packages, zip }:
 let
   sources = import ../nix/sources.nix;
+  py = pkgs.python3.withPackages (pythonPackages: with pythonPackages; [ panflute ]);
 in
-python3Packages.buildPythonPackage rec {
+stdenv.mkDerivation rec {
   version = "1.0.1";
   name = "pandocode-${version}";
   nativeBuildInputs = [ zip ];
-  propagatedBuildInputs = [python3Packages.panflute];
-  pythonPath = [python3Packages.panflute];
   src = sources.pandocode;
   format = "other";
   doCheck = false;
   buildPhase = ''
     make PREFIX=$out \
-      PY=${python3}/bin/python3 \
+      PY=${py}/bin/python3 \
       PYLINT=true \
       pandocode.pyz.zip
 
