@@ -19,6 +19,9 @@ stdenv.mkDerivation rec {
   installPhase = ''
     install -D -m 755 pandocode $out/bin/pandocode
   '';
+  postFixupPhase = ''
+    wrapPythonPrograms
+  '';
   meta = with lib; {
     description = "pandocode is a pandoc filter that converts Python (-like) code to LaTeX-Pseudocode";
     homepage = "https://github.com/nzbr/pandocode";
