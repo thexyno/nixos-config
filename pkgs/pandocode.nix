@@ -2,7 +2,7 @@
 let
   sources = import ../nix/sources.nix;
 in
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonPackage rec {
   version = "1.0.1";
   name = "pandocode-${version}";
   nativeBuildInputs = [ zip ];
