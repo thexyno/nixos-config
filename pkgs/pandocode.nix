@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, python, python38Packages, zip }:
+{ pkgs, lib, stdenv, fetchurl, python, python38Packages, zip }:
 let
   sources = import ../nix/sources.nix;
 in
