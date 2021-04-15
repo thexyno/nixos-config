@@ -5,12 +5,13 @@ in
 python3Packages.buildPythonApplication rec {
   version = "1.0.1";
   name = "pandocode-${version}";
-  buildInputs = [ python3 zip python3Packages.panflute python3Packages.pylint python3Packages.wrapPython ];
+  buildInputs = [ zip ];
   nativeBuildInputs = [ zip ];
   propagatedBuildInputs = [python3Packages.panflute];
   src = sources.pandocode;
   doCheck = false;
   buildPhase = ''
+    pip install -r requirements.txt
     make PREFIX=$out \
       PY=${python3}/bin/python3 \
       PYLINT=true \
@@ -20,9 +21,6 @@ python3Packages.buildPythonApplication rec {
   '';
   installPhase = ''
     install -D -m 755 pandocode $out/bin/pandocode
-  '';
-  postFixupPhase = ''
-    wrapPythonPrograms
   '';
   meta = with lib; {
     description = "pandocode is a pandoc filter that converts Python (-like) code to LaTeX-Pseudocode";
