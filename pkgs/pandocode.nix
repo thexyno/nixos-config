@@ -7,13 +7,15 @@ stdenv.mkDerivation rec {
   name = "pandocode-${version}";
   buildInputs = [ python zip python38Packages.panflute python38Packages.pylint ];
   src = sources.pandocode;
-  installPhase = ''
+  buildPhase = ''
     make PREFIX=$(out) \
       PY=${pkgs.python3}/bin/python \
       PYLINT=true \
       pandocode.pyz.zip
 
     echo "${pkgs.python3}/bin/python" | cat - pandocode.pyz.zip > pandocode
+  '';
+  installPhase = ''
     install -D -m 755 pandocode $(PREFIX)/bin/pandocode
   '';
   meta = with lib; {
