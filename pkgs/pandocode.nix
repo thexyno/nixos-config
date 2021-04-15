@@ -6,6 +6,7 @@ python3Packages.buildPythonApplication rec {
   version = "1.0.1";
   name = "pandocode-${version}";
   buildInputs = [ python3 zip python3Packages.panflute python3Packages.pylint python3Packages.wrapPython ];
+  nativeBuildInputs = [ zip ];
   propagatedBuildInputs = [python3Packages.panflute];
   src = sources.pandocode;
   doCheck = false;
