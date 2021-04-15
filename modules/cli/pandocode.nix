@@ -2,7 +2,7 @@
 let
   sources = import ../../nix/sources.nix;
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   version = "1.0.1";
   name = "pandocode-${version}";
   buildInputs = [ python zip ];
