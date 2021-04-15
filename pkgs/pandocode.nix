@@ -11,7 +11,6 @@ python3Packages.buildPythonApplication rec {
   format = "other";
   doCheck = false;
   buildPhase = ''
-    pip install -r requirements.txt
     make PREFIX=$out \
       PY=${python3}/bin/python3 \
       PYLINT=true \
