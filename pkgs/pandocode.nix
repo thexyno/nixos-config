@@ -1,4 +1,4 @@
-{ pkgs, lib, stdenv, fetchurl, python, python38Packages, zip }:
+{ pkgs, lib, stdenv, fetchurl, python3, python38Packages, zip }:
 let
   sources = import ../nix/sources.nix;
 in
@@ -10,11 +10,11 @@ stdenv.mkDerivation rec {
   src = sources.pandocode;
   buildPhase = ''
     make PREFIX=$out \
-      PY=${python}/bin/python \
+      PY=${python}/bin/python3 \
       PYLINT=true \
       pandocode.pyz.zip
 
-    echo "#!${python}/bin/python" | cat - pandocode.pyz.zip > pandocode
+    echo "#!${python}/bin/python3" | cat - pandocode.pyz.zip > pandocode
   '';
   installPhase = ''
     install -D -m 755 pandocode $out/bin/pandocode
