@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   version = "1.0.1";
   name = "pandocode-${version}";
   buildInputs = [ python zip python38Packages.panflute python38Packages.pylint ];
-  propagatedBuildInputs = [python38Packages.panflute]
+  propagatedBuildInputs = [python38Packages.panflute];
   src = sources.pandocode;
   buildPhase = ''
     make PREFIX=$(out) \
