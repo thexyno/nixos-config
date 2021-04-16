@@ -7,6 +7,9 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    environment.variables = {
+      _JAVA_AWT_WM_NONREPARENTING = "1";
+    };
     services.picom = {
       enable = true;
       vSync = true;

@@ -36,7 +36,7 @@ in
   networking.interfaces.eth0.useDHCP = true;
   #networking.networkmanager.enable = true;
   networking.hostId = "7b45236b";
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -52,14 +52,6 @@ in
   # Set passwords
   users.users.root.initialHashedPassword = secrets.hashedRootPassword;
   users.users.ragon.initialHashedPassword = secrets.hashedRagonPassword;
-
-  services.kubernetes = {
-    roles = [ "master" "node" ];
-    masterAddress = "localhost";
-  };
-  environment.systemPackages = with pkgs; [
-    kubectl
-  ];
 
   ragon.common-cli.enable = true;
   ragon.user.enable = true;
