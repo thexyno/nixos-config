@@ -21,6 +21,8 @@
     ];
     extraDirectories = [
       ".config/zsh"
+      ".android"
+      "Android"
       ".config/coc"
       ".config/pipewire/media-session.d"
       ".config/discordcanary"
