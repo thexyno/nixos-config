@@ -38,7 +38,7 @@ in
     system.autoUpgrade.channel = "https://nixos.org/channels/nixos-unstable";
 
     # Auto garbage collect
-    nix.gc.automatic = true;
+    nix.gc.automatic = !config.ragon.gui.enable;
     nix.gc.options = "--delete-older-than 30d";
 
     # Set up service
