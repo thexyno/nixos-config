@@ -77,6 +77,7 @@ in
   ragon.prometheus.enable = true;
   ragon.cli.pandoc.enable = true;
   ragon.prometheus.mode = [ "master" "node" ];
+  virtualisation.docker.enable = true;
 
   environment.etc."smb-secrets" = {
     text = secrets.smbSecret;
