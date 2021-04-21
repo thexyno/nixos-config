@@ -272,7 +272,7 @@ in
            */
           static const struct arg args[] = {
             /* function format          argument */
-            { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_2/capacity_level" },
+            { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level" },
             { run_command, "AUDIO: %s | ",           "pulsemixer --list-sinks | rg Default | sed -z 's/^.*Name: //g;s/,.*//g'; echo -n ' '; (pulsemixer --get-mute | rg 1 && echo -n 'Muted') || pulsemixer --get-volume | awk '{print($1,\"%\")}'" },
             { ram_free,    "RAM: %s | ",           NULL },
             { load_avg,    "LOAD: %s | ",           NULL },
