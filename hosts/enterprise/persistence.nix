@@ -23,6 +23,7 @@
       ".config/zsh"
       ".android"
       "Android"
+      ".cache/flutter" # so that flutter get all does not need to ALWAYS be run
       ".config/coc"
       ".config/pipewire/media-session.d"
       ".config/discordcanary"
