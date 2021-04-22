@@ -23,7 +23,7 @@ in
   };
   options.ragon.gui.spcmd2cmd = lib.mkOption {
     type = lib.types.str;
-    default = "timeular";
+    default = "${pkgs.timeular}/bin/timeular";
   };
   options.ragon.gui.spcmd2class = lib.mkOption {
     type = lib.types.str;
