@@ -29,6 +29,7 @@
       ".config/discordcanary"
       ".config/discord"
       ".config/Bitwarden"
+      ".config/libreoffice"
       ".config/Timeular"
       ".config/Signal"
       ".config/spotify"
