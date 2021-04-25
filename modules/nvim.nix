@@ -56,12 +56,14 @@ in
           };
       })
       #  ] // lib.mkIf cfg.maximal [
+      python3 # ultisnips
       nodejs
       (import sources.rnix-lsp)
     ];
 
     environment.etc."nvim/coc-settings.json".text = (builtins.readFile ./nvim/coc-settings.json);
     environment.etc."nvim/coc-settings.json".enable = cfg.maximal;
+    environment.etc."nvim/completion".source = ./nvim/completion;
 
 
   };

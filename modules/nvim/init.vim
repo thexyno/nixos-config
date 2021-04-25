@@ -4,7 +4,7 @@ let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debu
 nnoremap <tab> ::NnnPicker %:p:h<CR>
 imap <C-q> <C-x><C-o>
 let g:UltiSnipsEditSplit = "horizontal"
-let g:UltiSnipsSnippetDirectories = [$HOME."/.config/nvim/coc/ultisnips"]
+let g:UltiSnipsSnippetDirectories = ["/etc/nixos/modules/nvim/completion"]
 let g:UltiSnipsExpandTrigger = "5ß52395834" " Garbage, cause it's handled by coc
 let g:UltiSnipsJumpForwardTrigger = "<C-k>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-j>"
