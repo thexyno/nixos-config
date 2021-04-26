@@ -80,7 +80,7 @@ in
     nixpkgs.overlays = [
       (self: super: {
         timeular = super.timeular.overrideAttrs (oldAttrs: rec {
-          version = "3.9.0";
+          version = "3.9.1";
           src = sources.timeular;
         });
       }
