@@ -36,8 +36,10 @@
   users.mutableUsers = false;
 
   # Set passwords
-  users.users.root.initialHashedPassword =  pkgs.secrets.hashedRootPassword;
-  users.users.ragon.initialHashedPassword = pkgs.secrets.hashedRagonPassword;
+  age.secrets.ragonpasswd.file = ../../secrets/ragonpasswd.age;
+  age.secrets.rootpasswd.file = ../../secrets/rootpasswd.age;
+  users.users.root.passwordFile =  age.secrets.rootpasswd.path;
+  users.users.ragon.passwordFile = age.secrets.ragonpasswd.path;
 
   ragon.common-cli.enable = true;
   ragon.user.enable = true;
@@ -74,6 +76,7 @@
     };
   };
 
+  age.secrets.smb.file = ../../secrets/smb.age;
   fileSystems."/media/data" = {
     device = "//10.0.0.2/data";
     fsType = "cifs";
@@ -82,7 +85,7 @@
         # this line prevents hanging on network split
         automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
       in
-      [ "${automount_opts},credentials=/etc/smb-secrets,uid=1000,gid=1" ];
+      [ "${automount_opts},credentials=/run/secrets/smb,uid=1000,gid=1" ];
 
   };
 

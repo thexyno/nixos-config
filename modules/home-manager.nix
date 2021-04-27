@@ -1,7 +1,6 @@
 { inputs, config, lib, pkgs, ... }:
 let
   cfg = config.ragon.home-manager;
-  secrets = pkgs.secrets;
   isGui = config.ragon.gui.enable;
 
 in
@@ -21,6 +20,9 @@ in
       dunst # dunstify
     ];
     programs.fuse.userAllowOther = true; # for persistence user dirs to work
+
+    age.secrets.nextshot.file = ../secrets/nextshot.age;
+    age.secrets.nextshot.owner = config.ragon.user.username;
 
     home-manager.users.${config.ragon.user.username} = { pkgs, ... }:
       let
@@ -57,7 +59,7 @@ in
         } // lib.optionalAttrs isGui {
           "bin/changeBacklight".source = ./bins/changeBacklight;
           "bin/nextshot".source = "${inputs.nextshot}/nextshot.sh";
-          ".config/nextshot/nextshot.conf".text = secrets.nextshotconf;
+          ".config/nextshot/nextshot.conf".source = age.secrets.nextshot.path;
         };
 
         programs = {

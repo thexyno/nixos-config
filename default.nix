@@ -3,7 +3,8 @@
 with lib;
 with lib.my;
 {
-  imports = [ inputs.impermanence.nixosModules.impermanence ] ++ (mapModulesRec' (toString ./modules) import); # import ./modules/*
+  imports = [ inputs.agenix.nixosModules.agenix inputs.impermanence.nixosModules.impermanence ] ++ (mapModulesRec' (toString ./modules) import); # import ./modules/*
+
 
   # Common config for all nixos machines; and to ensure the flake operates
   # soundly
