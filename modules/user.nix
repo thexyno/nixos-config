@@ -1,13 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ pubkeys, config, lib, pkgs, ... }:
 let
   cfg = config.ragon.user;
   uid = cfg.uid;
   username = cfg.username;
   extraGroups = cfg.extraGroups;
   extraAuthorizedKeys = cfg.extraAuthorizedKeys;
-
-  # Import my ssh public keys
-  keys = import ../data/pubkeys.nix;
 
 in
 {
@@ -58,7 +55,7 @@ in
       uid = uid;
       extraGroups = [ "wheel" "docker" ] ++ extraGroups;
       shell = pkgs.zsh;
-      openssh.authorizedKeys.keys = keys.ragon.computers ++ extraAuthorizedKeys;
+      openssh.authorizedKeys.keys = pubkeys.ragon.computers ++ extraAuthorizedKeys;
     };
 
     # List packages installed in system profile. To search by name, run:

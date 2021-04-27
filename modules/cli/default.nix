@@ -1,7 +1,0 @@
-{ pkgs, ... }:
-{
-  imports = [
-    ./pandoc.nix
-  ];
-
-}

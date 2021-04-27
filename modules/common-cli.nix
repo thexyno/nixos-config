@@ -1,20 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let
   cfg = config.ragon.common-cli;
   ragon = config.ragon;
 in
 {
   options.ragon.common-cli.enable = lib.mkEnableOption "Enables ragons common CLI stuff";
-  imports = [
-    ./cli/default.nix
-  ];
   config = lib.mkIf cfg.enable {
-    # flakes
-    nix = {
-     package = pkgs.nixFlakes;
-     extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
-       "experimental-features = nix-command flakes";
-    };
     # Set your time zone.
     time.timeZone = "Europe/Berlin";
 
@@ -45,8 +36,8 @@ in
 
     # programs 
     programs = {
-      # import zsh config
-      zsh = (import ./zsh/default.nix { config = config; lib = lib; pkgs = pkgs; });
+      # import zsh config TODO auslagern
+      zsh = (import ./zsh/default.nix { config = config; lib = lib; pkgs = pkgs; inputs = inputs; });
     };
     environment.shellAliases = {
       v = "nvim";
@@ -79,13 +70,10 @@ in
       file
       fzf
       git
-      gitAndTools.git-annex
       libqalculate
-      lsof # needed for git-annex
       neofetch
       ripgrep
       pv
-      niv
       killall
       pciutils
     ];

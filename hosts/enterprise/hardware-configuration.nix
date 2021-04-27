@@ -15,6 +15,8 @@
   boot.initrd.luks.devices.crypt.device = "/dev/nvme0n1p1";
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+  nix.maxJobs = lib.mkDefault 12;
+  powerManagement.cpuFreqGovernor = "performance";
 
   fileSystems."/" =
     {

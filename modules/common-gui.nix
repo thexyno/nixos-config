@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
 let
-  sources = import ../nix/sources.nix;
   cfg = config.ragon.gui;
   username = config.ragon.user.username;
 in
@@ -29,9 +28,6 @@ in
     type = lib.types.str;
     default = "timeular";
   };
-  imports = [
-    ./gui/default.nix
-  ];
   config = lib.mkIf cfg.enable {
     # Set up default fonts
     fonts.enableDefaultFonts = true;
@@ -74,17 +70,6 @@ in
       discord
       spotify
       obs-studio
-      #      obs-v4l2sink now in obs-studio
-    ];
-
-    nixpkgs.overlays = [
-      (self: super: {
-        timeular = super.timeular.overrideAttrs (oldAttrs: rec {
-          version = "3.9.0";
-          src = sources.timeular;
-        });
-      }
-      )
     ];
 
 

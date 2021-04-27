@@ -1,7 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, inputs, pkgs, ... }:
 let
   cfg = config.ragon.nvim;
-  sources = import ../nix/sources.nix;
 in
 {
   options.ragon.nvim.enable = lib.mkEnableOption "Enables ragons nvim config";
@@ -20,11 +19,11 @@ in
           let
             nnn-vim = pkgs.vimUtils.buildVimPlugin {
               name = "nnn-vim";
-              src = sources.nnn-vim;
+              src = inputs.nnn-vim;
             };
             coc-nvim = pkgs.vimUtils.buildVimPlugin {
               name = "coc-nvim";
-              src = sources.coc-nvim;
+              src = inputs.coc-nvim;
             };
           in
           {
@@ -58,7 +57,7 @@ in
       #  ] // lib.mkIf cfg.maximal [
       python3 # ultisnips
       nodejs
-      (import sources.rnix-lsp)
+      (import inputs.rnix-lsp)
     ];
 
     environment.etc."nvim/coc-settings.json".text = (builtins.readFile ./nvim/coc-settings.json);

@@ -1,17 +1,14 @@
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 let
   cfg = config.ragon.home-manager;
   isGui = config.ragon.gui.enable;
 
-  # Load sources
-  sources = import ../nix/sources.nix;
-  secrets = import ../data/load-secrets.nix;
 in
 {
   options.ragon.home-manager.enable = lib.mkEnableOption "Enables my home-manager config";
 
   # Import the home-manager module
-  imports = [ "${sources.home-manager}/nixos" ];
+  imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   config = lib.mkIf cfg.enable {
     # Make sure to start the home-manager activation before I log it.
@@ -29,7 +26,8 @@ in
       in
       {
         # Import a persistance module for home-manager.
-        imports = [ "${sources.impermanence}/home-manager.nix" ];
+        ## TODO this can be done less ugly
+        imports = [ "${inputs.impermanence}/home-manager.nix" ];
 
         programs.home-manager.enable = true;
 
@@ -42,7 +40,7 @@ in
         home.file = {
           # Home nix config.
           ".config/nixpkgs/config.nix".text = "{ allowUnfree = true; }";
-          ".local/share/pandoc/templates/default.latex".source = "${sources.pandoc-latex-template}/eisvogel.tex";
+          ".local/share/pandoc/templates/default.latex".source = "${inputs.pandoc-latex-template}/eisvogel.tex";
 
           # Nano config
           ".nanorc".text = "set constantshow # Show linenumbers -c as default";
@@ -57,7 +55,7 @@ in
           "bin/nosrebuild".source = ./bins/nosrebuild;
         } // lib.optionalAttrs isGui {
           "bin/changeBacklight".source = ./bins/changeBacklight;
-          "bin/nextshot".source = "${sources.nextshot}/nextshot.sh";
+          "bin/nextshot".source = "${inputs.nextshot}/nextshot.sh";
           ".config/nextshot/nextshot.conf".text = secrets.nextshotconf;
         };
 

@@ -35,7 +35,6 @@ in
   config = lib.mkIf cfg.enable {
     # Enable auto upgrader
     system.autoUpgrade.enable = true;
-    system.autoUpgrade.channel = "https://nixos.org/channels/nixos-unstable";
 
     # Auto garbage collect
     nix.gc.automatic = !config.ragon.gui.enable;

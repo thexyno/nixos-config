@@ -2,49 +2,31 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }:
+{ pkgs, secrets, pubkeys, ... }:
 
-let
-  secrets = import ../../data/load-secrets.nix;
-  pubkeys = import ../../data/pubkeys.nix;
-  sources = import ../../nix/sources.nix;
-in
 {
   imports =
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./persistence.nix
-      ../../modules
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  # boot.loader.systemd-boot.enable = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest; # BLUTIGE ECKE
-  boot.loader.efi.canTouchEfiVariables = true;
+  # Don't Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = false;
+  # grubbi grub grub
   boot.loader.grub = {
-    ipxe.netbootxyz = ''
-      #!ipxe
-      dhcp
-      chain --autofree https://boot.netboot.xyz/ipxe/netboot.xyz.efi
-    '';
     efiSupport = true;
     useOSProber = true;
     device = "nodev";
   };
 
 
+  # nivea
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  networking.hostName = "enterprise"; # Define your hostname.
-  nix.nixPath = [
-    "nixpkgs=/etc/nixos/nix/nixos-unstable"
-    "nixos-config=/etc/nixos/hosts/enterprise/configuration.nix"
-  ];
-
-  # Disable root login for ssh
+  # Disable root login for ssh TODO move this elsewhere
   services.openssh.permitRootLogin = "no";
-
 
   networking.useDHCP = false;
   networking.networkmanager.enable = true;
@@ -56,7 +38,7 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.09"; # Did you read the comment?
+  system.stateVersion = "21.05"; # Did you read the comment?
 
 
   # Immutable users due to tmpfs
@@ -103,39 +85,6 @@ in
 
     };
   };
-  #services.znapzend = {
-  #  enable = true;
-  #  pure = true;
-  #  features.compressed = true;
-  #  autoCreation = true;
-  #  zetup = {
-  #    "pool/persist" = {
-  #      # Make snapshots of tank/home every hour, keep those for 1 day,
-  #      # keep every days snapshot for 1 month, etc.
-  #      plan = "1d=>1h,1m=>1d,1y=>1m";
-  #      recursive = true;
-  #      # Send all those snapshots to john@example.com:rtank/john as well
-  #      destinations.remote = {
-  #        host = "root@pve";
-  #        dataset = "-x encryption data/Backups/enterprise";
-  #      };
-  #    };
-  #  };
-  #};
-
-  # does not work
-  #boot = {
-  #  initrd.network = {
-  #    enable = true;
-  #    ssh = {
-  #       enable = true;
-  #       port = 2222; 
-  #       hostKeys = [ "/etc/ssh/ssh_host_rsa_key" "/etc/ssh/ssh_host_ed25519_key" ];
-  #       authorizedKeys = pubkeys.ragon.computers;
-  #    };
-  #  };
-  #};
-
 
   fileSystems."/media/data" = {
     device = "//10.0.0.2/data";

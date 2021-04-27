@@ -1,6 +1,5 @@
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 let
-  sources = import ../../nix/sources.nix;
   cfg = config.ragon.gui;
   username = config.ragon.user.username;
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
@@ -22,7 +21,7 @@ in
             sed -i "s@/usr/local@$out@" config.mk
             rm config.h
           '';
-          src = sources.dwm;
+          src = inputs.dwm;
           postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
           configFile = pkgs.writeText "config.def.h" ''
              /* See LICENSE file for copyright and license details. */
