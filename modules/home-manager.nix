@@ -25,6 +25,12 @@ in
       let
       in
       {
+        home.activation = 
+        {
+          myActivationAction = lib.hm.dag.entryAfter ["writeBoundary"] ''
+            ln -s /run/secrets/nextshotconf /home/${config.ragon.user.username}/.config/nextshot/nextshot.conf
+          '';
+        };
         # Import a persistance module for home-manager.
         ## TODO this can be done less ugly
         imports = [ "${inputs.impermanence}/home-manager.nix" ];
