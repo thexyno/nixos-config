@@ -1,5 +1,5 @@
-{ config, lib, pkgs, inputs, ... }:
-let inherit (inputs) agenix;
+{  config, lib, pkgs, inputs, ... }:
+let
   cfg = config.ragon.common-cli;
   ragon = config.ragon;
 in
@@ -8,8 +8,8 @@ in
   config = lib.mkIf cfg.enable {
     # TODO move this somwhere else
     # Set passwords
-    users.users.root.initialHashedPassword =  options.age.secrets.rootpasswd.path;
-    users.users.ragon.initialHashedPassword = options.age.secrets.ragonpasswd.path;
+    users.users.root.initialHashedPassword =  config.age.secrets.rootpasswd.path;
+    users.users.ragon.initialHashedPassword = config.age.secrets.ragonpasswd.path;
 
     # Set your time zone.
     time.timeZone = "Europe/Berlin";
