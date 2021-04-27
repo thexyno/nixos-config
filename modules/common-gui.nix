@@ -54,6 +54,7 @@ in
     environment.systemPackages = with pkgs; [
       piper # mx master control software
       libreoffice-fresh
+      master.timeular
       cinnamon.nemo
       arc-icon-theme
       feh
