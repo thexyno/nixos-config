@@ -16,6 +16,7 @@ with lib.my;
       modulesDir = mkOpt t "${config.conf.dir}/modules";
       themesDir  = mkOpt t "${config.conf.modulesDir}/themes";
     };
+  };
 
   config = {
   };
