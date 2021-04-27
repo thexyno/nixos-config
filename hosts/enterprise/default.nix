@@ -36,8 +36,8 @@
   users.mutableUsers = false;
 
   # Set passwords
-  users.users.root.passwordFile =  "/run/secrets/rootpasswd";
-  users.users.ragon.passwordFile = "/run/secrets/ragonpasswd";
+  users.users.root.initialHashedPassword =  age.secrets.rootpasswd.path;
+  users.users.ragon.initialHashedPassword = age.secrets.ragonpasswd.path;
 
   ragon.common-cli.enable = true;
   ragon.user.enable = true;
