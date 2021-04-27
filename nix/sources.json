@@ -153,11 +153,11 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "timeular": {
-        "sha256": "d579e016d5e43bc2d875b0fd157622557d27b9b51ead0e67067d2b720c3c6a40",
+        "sha256": "0h3a7h674avx0rkhxb8ynnwjfzam49v1bzdhfpcc4fz4slbf0yfm",
         "type": "file",
-        "url": "https://s3.amazonaws.com/timeular-desktop-packages/linux/production/Timeular.AppImage",
-        "url_template": "https://s3.amazonaws.com/timeular-desktop-packages/linux/production/Timeular.AppImage",
-        "version": "3.9.1"
+        "url": "https://s3.amazonaws.com/timeular-desktop-packages/linux/production/Timeular-3.9.0.AppImage",
+        "url_template": "https://s3.amazonaws.com/timeular-desktop-packages/linux/production/Timeular-<version>.AppImage",
+        "version": "3.9.0"
     },
     "zsh-completions": {
         "branch": "master",
