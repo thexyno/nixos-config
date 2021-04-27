@@ -1,4 +1,5 @@
-{ age, inputs, config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
+with lib;
 let
   cfg = config.ragon.home-manager;
   isGui = config.ragon.gui.enable;
@@ -28,7 +29,7 @@ in
         home.activation = 
         {
           myActivationAction = lib.hm.dag.entryAfter ["writeBoundary"] ''
-            ln -s /run/secrets/nextshotconf /home/${config.ragon.user.username}/.config/nextshot/nextshot.conf
+            $DRY_RUN_CMD ln $VERBOSE_ARG -s /run/secrets/nextshotconf /home/${config.ragon.user.username}/.config/nextshot/nextshot.conf
           '';
         };
         # Import a persistance module for home-manager.
