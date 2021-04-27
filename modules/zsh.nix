@@ -21,7 +21,7 @@ in
       # interactiveShellInit broke agkozak-zsh-prompt for some reaaaaaaaason
       promptInit =
         let
-          zshrc = builtins.readFile ./zshrc;
+          zshrc = builtins.readFile ./zsh/zshrc;
 
           sources = [
             "${inputs.agkozak-zsh-prompt}/agkozak-zsh-prompt.plugin.zsh"
