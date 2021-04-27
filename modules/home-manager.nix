@@ -155,7 +155,7 @@ in
 
         };
 
-        xdg.configFile."nextshot/nextshot.conf".target = "../../../${config.age.secrets.nextshot.path}";
+        config.age.secrets.nextshot.path = "/home/${config.ragon.user.username}/.config/nextshot/nextshot.conf;
 
         xdg.mimeApps = {
           enable = isGui;
