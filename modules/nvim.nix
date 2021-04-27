@@ -57,7 +57,7 @@ in
       #  ] // lib.mkIf cfg.maximal [
       python3 # ultisnips
       nodejs
-      (import inputs.rnix-lsp)
+      #(import inputs.rnix-lsp)
     ];
 
     environment.etc."nvim/coc-settings.json".text = (builtins.readFile ./nvim/coc-settings.json);
