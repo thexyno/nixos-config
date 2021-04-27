@@ -35,9 +35,6 @@
   # Immutable users due to tmpfs
   users.mutableUsers = false;
 
-  # Set passwords
-  users.users.root.initialHashedPassword =  age.secrets.rootpasswd.path;
-  users.users.ragon.initialHashedPassword = age.secrets.ragonpasswd.path;
 
   ragon.common-cli.enable = true;
   ragon.user.enable = true;
