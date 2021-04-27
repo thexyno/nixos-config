@@ -9,6 +9,12 @@ in
     ./cli/default.nix
   ];
   config = lib.mkIf cfg.enable {
+    # flakes
+    nix = {
+     package = pkgs.nixFlakes;
+     extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
+       "experimental-features = nix-command flakes";
+    };
     # Set your time zone.
     time.timeZone = "Europe/Berlin";
 
