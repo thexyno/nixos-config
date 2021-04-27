@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ age, config, lib, pkgs, inputs, ... }:
 let
   cfg = config.ragon.common-cli;
   ragon = config.ragon;
