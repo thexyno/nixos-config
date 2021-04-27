@@ -6,6 +6,11 @@ in
 {
   options.ragon.common-cli.enable = lib.mkEnableOption "Enables ragons common CLI stuff";
   config = lib.mkIf cfg.enable {
+    # TODO move this somwhere else
+    age.secrets.ragonpasswd.file = ../../secrets/ragonpasswd.age;
+    age.secrets.rootpasswd.file = ../../secrets/rootpasswd.age;
+    age.secrets.smb.file = ../../secrets/smb.age;
+
     # Set your time zone.
     time.timeZone = "Europe/Berlin";
 

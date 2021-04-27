@@ -10,7 +10,6 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./persistence.nix
-      inputs.agenix.nixosModules.age
     ];
 
   # Don't Use the systemd-boot EFI boot loader.
@@ -37,10 +36,8 @@
   users.mutableUsers = false;
 
   # Set passwords
-  age.secrets.ragonpasswd.file = ../../secrets/ragonpasswd.age;
-  age.secrets.rootpasswd.file = ../../secrets/rootpasswd.age;
-  users.users.root.passwordFile =  age.secrets.rootpasswd.path;
-  users.users.ragon.passwordFile = age.secrets.ragonpasswd.path;
+  users.users.root.passwordFile =  "/run/secrets/rootpasswd";
+  users.users.ragon.passwordFile = "/run/secrets/ragonpasswd";
 
   ragon.common-cli.enable = true;
   ragon.user.enable = true;
@@ -77,7 +74,6 @@
     };
   };
 
-  age.secrets.smb.file = ../../secrets/smb.age;
   fileSystems."/media/data" = {
     device = "//10.0.0.2/data";
     fsType = "cifs";
