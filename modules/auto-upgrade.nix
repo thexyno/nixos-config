@@ -31,7 +31,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf false {
     # Enable auto upgrader
     system.autoUpgrade.enable = true;
 
