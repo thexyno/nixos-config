@@ -56,7 +56,6 @@ in
         } // lib.optionalAttrs isGui {
           "bin/changeBacklight".source = ./bins/changeBacklight;
           "bin/nextshot".source = "${inputs.nextshot}/nextshot.sh";
-          ".config/nextshot/nextshot.conf".source = config.age.secrets.nextshot.path;
         };
 
         programs = {
@@ -155,6 +154,8 @@ in
           '';
 
         };
+
+        xdg.configFile."nextshot/nextshot.conf".source = config.age.secrets.nextshot.path;
 
         xdg.mimeApps = {
           enable = isGui;
