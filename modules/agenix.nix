@@ -15,7 +15,7 @@ in {
       if pathExists secretsFile
       then mapAttrs' (n: _: nameValuePair (removeSuffix ".age" n) {
         file = "${secretsDir}/${n}";
-        owner = mkDefault config.user.name;
+        owner = mkDefault config.ragon.user.username;
       }) (import secretsFile)
       else {};
     sshKeyPaths =
