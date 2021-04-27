@@ -155,7 +155,7 @@ in
 
         };
 
-        xdg.configFile."nextshot/nextshot.conf".target = "../../../config.age.secrets.nextshot.path;
+        xdg.configFile."nextshot/nextshot.conf".target = "../../../${config.age.secrets.nextshot.path}";
 
         xdg.mimeApps = {
           enable = isGui;
