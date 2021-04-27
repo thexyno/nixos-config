@@ -1,5 +1,5 @@
 { config, lib, pkgs, inputs, ... }:
-let
+let inherit (inputs) agenix;
   cfg = config.ragon.common-cli;
   ragon = config.ragon;
 in
