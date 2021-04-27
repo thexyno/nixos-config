@@ -7,11 +7,6 @@ in
   options.ragon.persist.enable = lib.mkEnableOption "Enables persistence"; # TODO this needs to be fixed up fully
   config = lib.mkIf cfg.enable {
 
-    environment.etc."smb-secrets" = {
-      text = pkgs.secrets.smbSecret;
-      mode = "0400";
-    };
-
     environment.persistence."/persistent" = {
       directories = [
         "/etc/nixos"
