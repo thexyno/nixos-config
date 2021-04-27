@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, ... }:
+{ age, inputs, config, lib, pkgs, ... }:
 let
   cfg = config.ragon.home-manager;
   isGui = config.ragon.gui.enable;
