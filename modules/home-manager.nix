@@ -21,9 +21,6 @@ in
     ];
     programs.fuse.userAllowOther = true; # for persistence user dirs to work
 
-    age.secrets.nextshot.file = ../secrets/nextshot.age;
-    age.secrets.nextshot.owner = config.ragon.user.username;
-
     home-manager.users.${config.ragon.user.username} = { pkgs, ... }:
       let
       in
@@ -59,7 +56,7 @@ in
         } // lib.optionalAttrs isGui {
           "bin/changeBacklight".source = ./bins/changeBacklight;
           "bin/nextshot".source = "${inputs.nextshot}/nextshot.sh";
-          ".config/nextshot/nextshot.conf".source = age.secrets.nextshot.path;
+          ".config/nextshot/nextshot.conf".source = config.age.secrets.nextshot.path;
         };
 
         programs = {
