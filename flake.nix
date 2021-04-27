@@ -82,7 +82,7 @@
         mapModules ./packages (p: pkgs.callPackage p {}); # load my own packages (pandocode)
 
       nixosModules =
-        { nixos = import ./.; } // mapModulesRec ./modules import; # load all the juicy modules
+        { conf = import ./.; } // mapModulesRec ./modules import; # load all the juicy modules
 
       nixosConfigurations =
         mapHosts ./hosts {};
