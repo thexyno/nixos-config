@@ -1,4 +1,4 @@
-{ age, config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let
   cfg = config.ragon.common-cli;
   ragon = config.ragon;
@@ -6,6 +6,8 @@ in
 {
   options.ragon.common-cli.enable = lib.mkEnableOption "Enables ragons common CLI stuff";
   config = lib.mkIf cfg.enable {
+    imports = [ agenix.nixosModules.age ];
+    environment.systemPackages = [ agenix.defaultPackage.x86_64-linux ];
     # TODO move this somwhere else
     age.secrets.ragonpasswd.file = ../../secrets/ragonpasswd.age;
     age.secrets.rootpasswd.file = ../../secrets/rootpasswd.age;
