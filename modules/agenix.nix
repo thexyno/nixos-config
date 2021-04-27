@@ -24,5 +24,6 @@ in {
         "/home/${config.ragon.user.username}/.ssh/id_rsa"
       ]);
   };
+  age.secrets.nextshot.path = "/home/${config.ragon.user.username}/.config/nextshot/nextshot.conf";
 }
 
