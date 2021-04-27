@@ -28,7 +28,7 @@ in
           in
           {
             customRC = (builtins.readFile ./nvim/init.vim);
-            plug.plugins = with pkgs.vimPlugins // sources; [
+            plug.plugins = with pkgs.vimPlugins; [
               nnn-vim
               vista-vim
               undotree
