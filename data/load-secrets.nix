@@ -10,5 +10,6 @@ in
   hashedRagonPassword = "$6$kgc3X2Axq$EJf5ivmtpNh2KlfQcLtaIdnsZ2cePLFUQ4E6pdedej028Z057WADHlQTIKoNdjQXIP1rmcinrWa/.Brh0z0lA.";
   hashedRootPassword = "$6$kgc3X2Axq$EJf5ivmtpNh2KlfQcLtaIdnsZ2cePLFUQ4E6pdedej028Z057WADHlQTIKoNdjQXIP1rmcinrWa/.Brh0z0lA.";
   wirenixWgPrivateKey = "";
+  nextshotconf = "";
 } // realHashes
 
