@@ -20,8 +20,8 @@ in {
       else {};
     sshKeyPaths =
       options.age.sshKeyPaths.default ++ (filter pathExists [
-        "${config.user.home}/.ssh/id_ed25519"
-        "${config.user.home}/.ssh/id_rsa"
+        "/home/${config.ragon.user.username}/.ssh/id_ed25519"
+        "/home/${config.ragon.user.username}/.ssh/id_rsa"
       ]);
   };
 }
