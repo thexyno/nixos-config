@@ -70,7 +70,6 @@
       overlay =
         final: prev: {
           # TODO figure agenix out
-          secrets = import ./data/load-secrets.nix;
           pubkeys = import ./data/pubkeys.nix;
           master = pkgs';
           my = self.packages."${system}"; # idk
