@@ -57,6 +57,7 @@ in
           "bin/changeBacklight".source = ./bins/changeBacklight;
           "bin/nextshot".source = "${inputs.nextshot}/nextshot.sh";
         };
+        config.age.secrets.nextshot.path = "/home/${config.ragon.user.username}/.config/nextshot/nextshot.conf";
 
         programs = {
           bat = {
@@ -155,7 +156,6 @@ in
 
         };
 
-        config.age.secrets.nextshot.path = "/home/${config.ragon.user.username}/.config/nextshot/nextshot.conf;
 
         xdg.mimeApps = {
           enable = isGui;
