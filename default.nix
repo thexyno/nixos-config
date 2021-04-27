@@ -3,7 +3,7 @@
 with lib;
 with lib.my;
 {
-  imports = (mapModulesRec' (toString ./modules) import); # import ./modules/*
+  imports = [ inputs.impermanence.nixosModules.impermanence ] ++ (mapModulesRec' (toString ./modules) import); # import ./modules/*
 
   # Common config for all nixos machines; and to ensure the flake operates
   # soundly
@@ -35,15 +35,10 @@ with lib.my;
   system.stateVersion = "21.05";
 
 
-  ## muh tmpfs
+  ## Some reasonable, global defaults
   # This is here to appease 'nix flake check' for generic hosts with no
   # hardware-configuration.nix or fileSystem config.
-  fileSystems."/" =
-    {
-      device = "tmpfs";
-      fsType = "tmpfs";
-      options = [ "size=8G" "defaults" "mode=755" ];
-    };
+  fileSystems."/".device = mkDefault "/dev/disk/by-label/nixos";
 
   # Use the latest kernel
   boot = {
@@ -54,5 +49,4 @@ with lib.my;
       systemd-boot.enable = mkDefault true;
     };
   };
-
-
+}

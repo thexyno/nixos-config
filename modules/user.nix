@@ -1,4 +1,4 @@
-{ pubkeys, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.ragon.user;
   uid = cfg.uid;
@@ -55,7 +55,7 @@ in
       uid = uid;
       extraGroups = [ "wheel" "docker" ] ++ extraGroups;
       shell = pkgs.zsh;
-      openssh.authorizedKeys.keys = pubkeys.ragon.computers ++ extraAuthorizedKeys;
+      openssh.authorizedKeys.keys = pkgs.pubkeys.ragon.computers ++ extraAuthorizedKeys;
     };
 
     # List packages installed in system profile. To search by name, run:
@@ -71,4 +71,3 @@ in
     ];
   };
 }
-

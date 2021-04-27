@@ -1,13 +1,12 @@
-{ lib, stdenv, python3, python3Packages, zip }:
+{ inputs, lib, stdenv, python3, python3Packages, zip }:
 let
-  sources = import ../nix/sources.nix;
   py = python3.withPackages (pythonPackages: with pythonPackages; [ panflute ]);
 in
 stdenv.mkDerivation rec {
   version = "1.0.1";
   name = "pandocode-${version}";
   nativeBuildInputs = [ zip ];
-  src = sources.pandocode;
+  src = inputs.pandocode;
   format = "other";
   doCheck = false;
   buildPhase = ''

@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, secrets, pubkeys, ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -38,15 +38,15 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.05"; # Did you read the comment?
+  system.stateVersion = "20.09"; # Did you read the comment?
 
 
   # Immutable users due to tmpfs
   users.mutableUsers = false;
 
   # Set passwords
-  users.users.root.initialHashedPassword = secrets.hashedRootPassword;
-  users.users.ragon.initialHashedPassword = secrets.hashedRagonPassword;
+  users.users.root.initialHashedPassword =  pkgs.secrets.hashedRootPassword;
+  users.users.ragon.initialHashedPassword = pkgs.secrets.hashedRagonPassword;
 
   ragon.common-cli.enable = true;
   ragon.user.enable = true;
@@ -61,10 +61,6 @@
   ragon.prometheus.mode = [ "master" "node" ];
   virtualisation.docker.enable = true;
 
-  environment.etc."smb-secrets" = {
-    text = secrets.smbSecret;
-    mode = "0400";
-  };
 
   services.zfs.autoScrub.enable = true;
 

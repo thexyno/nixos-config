@@ -104,4 +104,3 @@ in
     ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" ];
   };
 }
-

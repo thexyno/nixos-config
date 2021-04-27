@@ -6,7 +6,6 @@ in
 {
   options.ragon.cli.pandoc.enable = lib.mkEnableOption "Enables Ragons Pandoc Configuration";
   config = lib.mkIf cfg.enable {
-    nixpkgs.overlays = [ (import ../../pkgs) ];
     environment.systemPackages = with pkgs; [
       pandoc
       pandocode
@@ -17,6 +16,4 @@ in
     ];
 
   };
-
-
 }

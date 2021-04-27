@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.auto-upgrade;
-
 in
 {
   options.ragon.auto-upgrade = {
@@ -68,4 +67,3 @@ in
     };
   };
 }
-

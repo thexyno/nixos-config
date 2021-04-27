@@ -34,11 +34,6 @@ in
     # root shell
     users.extraUsers.root.shell = pkgs.zsh;
 
-    # programs 
-    programs = {
-      # import zsh config TODO auslagern
-      zsh = (import ./zsh/default.nix { config = config; lib = lib; pkgs = pkgs; inputs = inputs; });
-    };
     environment.shellAliases = {
       v = "nvim";
       vim = "nvim";

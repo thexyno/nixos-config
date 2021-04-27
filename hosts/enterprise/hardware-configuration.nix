@@ -4,10 +4,7 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [
-      (modulesPath + "/profiles/qemu-guest.nix")
-    ];
+  imports = [ "${modulesPath}/installer/scan/not-detected.nix" ];
 
   boot.initrd.availableKernelModules = [ "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "nvme" "usbhid" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];

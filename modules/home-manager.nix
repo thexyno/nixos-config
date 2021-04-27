@@ -1,6 +1,7 @@
 { inputs, config, lib, pkgs, ... }:
 let
   cfg = config.ragon.home-manager;
+  secrets = pkgs.secrets;
   isGui = config.ragon.gui.enable;
 
 in
