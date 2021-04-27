@@ -79,7 +79,7 @@
         mapModules ./overlays import; # placeholder for when I add my own overlays
 
       packages."${system}" =
-        mapModules ./packages (p: pkgs.callPackage p {inputs = inputs;}); # load my own packages (pandocode)
+        mapModules ./packages (p: pkgs.callPackage p {}); # load my own packages (pandocode)
 
       nixosModules =
         { conf = import ./.; } // mapModulesRec ./modules import; # load all the juicy modules
