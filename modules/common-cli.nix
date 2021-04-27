@@ -7,7 +7,6 @@ in
   options.ragon.common-cli.enable = lib.mkEnableOption "Enables ragons common CLI stuff";
   config = lib.mkIf cfg.enable {
     imports = [ agenix.nixosModules.age ];
-    environment.systemPackages = [ agenix.defaultPackage.x86_64-linux ];
     # TODO move this somwhere else
     age.secrets.ragonpasswd.file = ../../secrets/ragonpasswd.age;
     age.secrets.rootpasswd.file = ../../secrets/rootpasswd.age;
@@ -81,6 +80,7 @@ in
       pv
       killall
       pciutils
+      agenix.defaultPackage.x86_64-linux 
     ];
 
   };
