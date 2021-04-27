@@ -1,5 +1,4 @@
 { inputs, config, lib, pkgs, ... }:
-with lib;
 let
   cfg = config.ragon.home-manager;
   isGui = config.ragon.gui.enable;
@@ -22,7 +21,7 @@ in
     ];
     programs.fuse.userAllowOther = true; # for persistence user dirs to work
 
-    home-manager.users.${config.ragon.user.username} = { pkgs, ... }:
+    home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
       let
       in
       {
