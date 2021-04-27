@@ -8,7 +8,6 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       pandoc
-      pandocode
       pandoc-plantuml-filter
       haskellPackages.pandoc-include-code
       texlive.combined.scheme-full
