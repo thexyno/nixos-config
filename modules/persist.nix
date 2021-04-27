@@ -8,7 +8,7 @@ in
   config = lib.mkIf cfg.enable {
 
     environment.etc."smb-secrets" = {
-      text = secrets.smbSecret;
+      text = pkgs.secrets.smbSecret;
       mode = "0400";
     };
 
