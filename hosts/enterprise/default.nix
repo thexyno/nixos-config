@@ -48,6 +48,7 @@
   ragon.gamingvmhost.enable = true;
   ragon.develop.enable = true;
   ragon.prometheus.enable = true;
+  ragon.persist.enable = true;
   ragon.cli.pandoc.enable = true;
   ragon.prometheus.mode = [ "master" "node" ];
   virtualisation.docker.enable = true;
