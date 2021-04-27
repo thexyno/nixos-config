@@ -10,7 +10,7 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./persistence.nix
-      agenix.nixosModules.age
+      inputs.agenix.nixosModules.age
     ];
 
   # Don't Use the systemd-boot EFI boot loader.
