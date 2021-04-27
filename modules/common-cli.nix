@@ -12,7 +12,7 @@ in
     age.secrets.rootpasswd.file = ../../secrets/rootpasswd.age;
     age.secrets.smb.file = ../../secrets/smb.age;
     # Set passwords
-    users.users.root.initialHashedPassword =  age.secrets.rootpasswd.path;
+    #users.users.root.initialHashedPassword =  age.secrets.rootpasswd.path;
     users.users.ragon.initialHashedPassword = age.secrets.ragonpasswd.path;
 
     # Set your time zone.
