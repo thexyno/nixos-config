@@ -22,6 +22,6 @@ in {
       [
         "/persistent/etc/ssh/ssh_host_rsa_key"
         "/persistent/etc/ssh/ssh_host_ed25519_key"
-      ]);
+      ];
   };
 }
