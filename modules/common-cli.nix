@@ -9,8 +9,7 @@ in
     # TODO move this somwhere else
     # Set passwords
     users.users.root. passwordFile =  "${config.age.secrets.rootPasswd.path}";
-    users.users.ragon.initialHashedPassword =  "$6$MrQDP6pCC$qmOD8sE9wucjtJJ5aSAig2nzO9Rsok0/tNWryWKvCCN5I1Ar34uitG5dF1NQZIOm5NTqYGvSzWczLMEg2AE7d0"; # FIXME
-
+    users.users.ragon.passwordFile =  "${config.age.secrets.rootRagonPasswd.path}";
     # Set your time zone.
     time.timeZone = "Europe/Berlin";
 
