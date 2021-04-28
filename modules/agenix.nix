@@ -19,7 +19,9 @@ in {
       }) (import secretsFile)
       else {};
     sshKeyPaths =
-      options.age.sshKeyPaths.default ++ (filter pathExists [
+      (filter pathExists [
+        "/persistent/etc/ssh/ssh_host_rsa_key"
+        "/persistent/etc/ssh/ssh_host_ed25519_key"
         "/home/${config.ragon.user.username}/.ssh/id_ed25519"
         "/home/${config.ragon.user.username}/.ssh/id_rsa"
       ]);
