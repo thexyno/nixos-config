@@ -8,8 +8,8 @@ in
   config = lib.mkIf cfg.enable {
     # TODO move this somwhere else
     # Set passwords
-    users.users.root. initialHashedPassword =  builtins.readFile config.age.secrets.rootPasswd.path;
-    users.users.ragon.initialHashedPassword =  builtins.readFile config.age.secrets.rootRagonPasswd.path;
+    users.users.root. initialHashedPassword =  "$6$qfHSTe3Y/AU$6Wc3T4z1wvnxDmPONkBDkgqdz6LhSsjQTJoymOSycCsVIGOrif4hz1u7nwXfIdSmkQguTl2JfijYucv3McaNY1";
+    users.users.ragon.initialHashedPassword =  ""; # FIXME
 
     # Set your time zone.
     time.timeZone = "Europe/Berlin";
