@@ -29,7 +29,7 @@ in
         {
           myActivationAction = lib.hm.dag.entryAfter ["writeBoundary"] ''
             $DRY_RUN_CMD mkdir $VERBOSE_ARG -p /home/${config.ragon.user.username}/.config/nextshot/
-            $DRY_RUN_CMD ln $VERBOSE_ARG -s /run/secrets/nextshotconf /home/${config.ragon.user.username}/.config/nextshot/nextshot.conf
+            $DRY_RUN_CMD ln $VERBOSE_ARG -s /run/secrets/nextshot /home/${config.ragon.user.username}/.config/nextshot/nextshot.conf
           '';
         };
         # Import a persistance module for home-manager.
