@@ -9,7 +9,7 @@ in
     # TODO move this somwhere else
     # Set passwords
     users.users.root. initialHashedPassword =  "$6$qfHSTe3Y/AU$6Wc3T4z1wvnxDmPONkBDkgqdz6LhSsjQTJoymOSycCsVIGOrif4hz1u7nwXfIdSmkQguTl2JfijYucv3McaNY1";
-    users.users.ragon.initialHashedPassword =  ""; # FIXME
+    users.users.ragon.initialHashedPassword =  "$6$MrQDP6pCC$qmOD8sE9wucjtJJ5aSAig2nzO9Rsok0/tNWryWKvCCN5I1Ar34uitG5dF1NQZIOm5NTqYGvSzWczLMEg2AE7d0"; # FIXME
 
     # Set your time zone.
     time.timeZone = "Europe/Berlin";
