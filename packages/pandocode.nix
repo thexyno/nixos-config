@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ zip ];
   src = fetchTarball {
     url = "https://github.com/nzbr/pandocode/archive/8f021538b71029e7f9efa7d04b4dfffd4d72a0ca.tar.gz";
-    sha256 = "1wadrv5mfyhk4qvglc398wprisn4wg2v44ghamgb79zqr3znhi1q";
+    sha256 = "0aa498dy287c77mcxp4bjlkpkrc7r1ibbpvnwm2c6wsmmjpsrwq9";
   };
   format = "other";
   doCheck = false;
