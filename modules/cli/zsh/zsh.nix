@@ -1,6 +1,6 @@
 { inputs, config, lib, pkgs, ... }:
 let
-  cfg = config.ragon.common-cli;
+  cfg = config.ragon.cli;
 in
 {
   config = lib.mkIf cfg.enable {
