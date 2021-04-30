@@ -75,5 +75,5 @@ in
     swapDevices =
       [{ device = "/dev/zvol/pool/swap"; }];
 
-    }
+    };
 }
