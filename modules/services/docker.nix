@@ -4,7 +4,7 @@ let
 in
 {
   options.ragon.services.docker.enable = lib.mkEnableOption "Enables docker";
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     virtualisation.docker.enable = true;
     ragon.user.extraGroups = [ "docker" ];
   };
