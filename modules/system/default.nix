@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.system.fs;
-  arcSize = cfg.arcSize
-  bootUUID = 
+  arcSize = cfg.arcSize;
 in
 {
   options.ragon.system.fs.enable = lib.mkEnableOption "Enables ragons fs stuff, (tmpfs,zfs,backups,...)"
