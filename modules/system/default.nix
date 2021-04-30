@@ -29,7 +29,7 @@ in
         recvOptions = "x encryption";
       };
     };
-    boot.kernelParams = [ "zfs.zfs_arc_max=${arcSize * 1024 * 1024 * 1024}" ];
+    boot.kernelParams = [ "zfs.zfs_arc_max=${toString (arcSize * 1024 * 1024 * 1024)}" ];
     fileSystems."/" =
       {
         device = "none";
