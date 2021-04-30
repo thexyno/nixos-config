@@ -7,7 +7,7 @@ in
     ragon.user.persistent = {
       extraDirectories = [
         ".config/zsh"
-      ]
+      ];
     };
     programs.zsh = {
       enable = true;
