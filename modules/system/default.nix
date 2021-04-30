@@ -2,6 +2,7 @@
 let
   cfg = config.ragon.system.fs;
   arcSize = cfg.arcSize;
+  hostName = config.networking.hostName;
 in
 {
   options.ragon.system.fs.enable = lib.mkEnableOption "Enables ragons fs stuff, (tmpfs,zfs,backups,...)";
@@ -24,7 +25,7 @@ in
       commonArgs = [
       ];
       commands."pool/persist" = {
-        target = "root@pve:data/Backups/${networking.hostName}";
+        target = "root@pve:data/Backups/${hostName}";
         recvOptions = "x encryption";
       };
     };
