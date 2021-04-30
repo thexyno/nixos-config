@@ -10,7 +10,7 @@ in
     default = 2;
     description = "Sets the ZFS Arc Size (in GB)";
   };
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.zfs.autoScrub.enable = true;
     services.sanoid = {
       enable = true;
