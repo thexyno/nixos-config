@@ -13,5 +13,5 @@
   nix.maxJobs = lib.mkDefault 12;
   powerManagement.cpuFreqGovernor = "performance";
   ragon.hardware.nvidia.enable = true;
-  ragon.fs.enable = true;
+  ragon.system.fs.enable = true;
 }
