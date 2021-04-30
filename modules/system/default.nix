@@ -7,7 +7,7 @@ in
 {
   options.ragon.system.fs.enable = lib.mkEnableOption "Enables ragons fs stuff, (tmpfs,zfs,backups,...)";
   options.ragon.system.fs.arcSize = lib.mkOption {
-    type = lib.types.u16;
+    type = lib.types.int;
     default = 2;
     description = "Sets the ZFS Arc Size (in GB)";
   };
