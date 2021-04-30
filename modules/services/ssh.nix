@@ -5,7 +5,7 @@ let
 in
 {
   options.ragon.services.ssh.enable = lib.mkEnableOption "Enables sshd"
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.openssh.permitRootLogin = "no";
     services.openssh.enable = true;
     services.openssh.passwordAuthentication = false;
