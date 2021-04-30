@@ -4,7 +4,7 @@ let
   arcSize = cfg.arcSize;
 in
 {
-  options.ragon.system.fs.enable = lib.mkEnableOption "Enables ragons fs stuff, (tmpfs,zfs,backups,...)"
+  options.ragon.system.fs.enable = lib.mkEnableOption "Enables ragons fs stuff, (tmpfs,zfs,backups,...)";
   options.ragon.system.fs.arcSize = lib.mkOption {
     type = lib.types.integer;
     default = 2;
