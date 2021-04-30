@@ -9,5 +9,5 @@ in
     services.openssh.permitRootLogin = "no";
     services.openssh.enable = true;
     services.openssh.passwordAuthentication = false;
-  }
+  };
 }
