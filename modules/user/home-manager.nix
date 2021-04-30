@@ -40,7 +40,14 @@ in
 
         home.persistence.${config.ragon.user.persistent.homeDir} = {
           files = [ ] ++ config.ragon.user.persistent.extraFiles;
-          directories = [ ] ++ config.ragon.user.persistent.extraDirectories;
+          directories = [
+            ".ssh"
+            ".gnupg"
+            "Downloads"
+            "Backgrounds"
+            "proj"
+            "git"
+          ] ++ config.ragon.user.persistent.extraDirectories;
           allowOther = true;
         };
 

@@ -5,6 +5,18 @@ with lib.my;
 {
   imports = [ inputs.impermanence.nixosModules.impermanence ] ++ (mapModulesRec' (toString ./modules) import); # import ./modules/*
 
+  # Set passwords
+  users.users.root. passwordFile =  "${config.age.secrets.rootPasswd.path}";
+  users.users.ragon.passwordFile =  "${config.age.secrets.rootRagonPasswd.path}";
+  # Set your time zone.
+  time.timeZone = "Europe/Berlin";
+  console.font = "Lat2-Terminus16";
+  console.keyMap = "de";
+
+  # Select internationalisation properties.
+  i18n = {
+    defaultLocale = "en_DK.UTF-8";
+  };
 
   # Common config for all nixos machines; and to ensure the flake operates
   # soundly

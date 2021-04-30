@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.ragon.abcde;
+  cfg = config.ragon.cli.abcde;
 in
 {
   # TODO fix
-  options.ragon.abcde.enable = lib.mkEnableOption "Enables ragons abcde (CD Ripper) config";
+  options.ragon.cli.abcde.enable = lib.mkEnableOption "Enables ragons abcde (CD Ripper) config";
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       abcde

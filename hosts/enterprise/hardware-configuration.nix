@@ -7,48 +7,11 @@
   imports = [ "${modulesPath}/installer/scan/not-detected.nix" ];
 
   boot.initrd.availableKernelModules = [ "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "nvme" "usbhid" "sd_mod" "sr_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelParams = [ "zfs.zfs_arc_max=2147483648" ]; # arc size max 2GB
   boot.initrd.luks.devices.crypt.device = "/dev/nvme0n1p1";
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   nix.maxJobs = lib.mkDefault 12;
   powerManagement.cpuFreqGovernor = "performance";
-
-  fileSystems."/" =
-    {
-      device = "none";
-      fsType = "tmpfs";
-      options = [ "size=8G" "defaults" "mode=755" ];
-    };
-  fileSystems."/nix" =
-    {
-      device = "pool/nix";
-      fsType = "zfs";
-    };
-
-  fileSystems."/persistent" =
-    {
-      device = "pool/persist";
-      fsType = "zfs";
-      neededForBoot = true;
-    };
-
-  fileSystems."/var/log" =
-    {
-      device = "pool/varlog";
-      fsType = "zfs";
-    };
-
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/BDC7-CFCC";
-      fsType = "vfat";
-      options = [ "noauto" "x-systemd.automount" ];
-    };
-
-  swapDevices =
-    [{ device = "/dev/zvol/pool/swap"; }];
-
-
+  ragon.hardware.nvidia.enable = true;
+  ragon.fs.enable = true;
 }

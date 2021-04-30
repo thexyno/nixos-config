@@ -9,7 +9,6 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./persistence.nix
     ];
 
   # Don't Use the systemd-boot EFI boot loader.
@@ -17,16 +16,9 @@
   # grubbi grub grub
   boot.loader.grub = {
     efiSupport = true;
-    useOSProber = true;
+    useOSProber = true; # needed for windoof
     device = "nodev";
   };
-
-
-  # nivea
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  # Disable root login for ssh TODO move this elsewhere
-  services.openssh.permitRootLogin = "no";
 
   networking.useDHCP = false;
   networking.networkmanager.enable = true;
@@ -36,52 +28,16 @@
   users.mutableUsers = false;
 
 
-  ragon.common-cli.enable = true;
+  ragon.cli.enable = true;
+  ragon.cli.pandoc.enable = true;
+  ragon.cli.abcde.enable = true;
   ragon.user.enable = true;
   ragon.home-manager.enable = true;
   ragon.gui.enable = true;
-  ragon.abcde.enable = true;
-  ragon.auto-upgrade.enable = true;
-  ragon.gamingvmhost.enable = true;
   ragon.develop.enable = true;
-  ragon.prometheus.enable = true;
   ragon.persist.enable = true;
-  ragon.cli.pandoc.enable = true;
-  ragon.prometheus.mode = [ "master" "node" ];
-  virtualisation.docker.enable = true;
-
-
-  services.zfs.autoScrub.enable = true;
-
-  services.sanoid = {
-    enable = true;
-    datasets."pool/persist" = { };
-  };
-  services.syncoid = {
-    user = "root";
-    group = "root";
-    sshKey = /persistent/root/.ssh/id_rsa;
-    enable = true;
-    commonArgs = [
-    ];
-    commands."pool/persist" = {
-      target = "root@pve:data/Backups/enterprise";
-      recvOptions = "x encryption";
-
-    };
-  };
-
-  fileSystems."/media/data" = {
-    device = "//10.0.0.2/data";
-    fsType = "cifs";
-    options =
-      let
-        # this line prevents hanging on network split
-        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-      in
-      [ "${automount_opts},credentials=/run/secrets/smb,uid=1000,gid=1" ];
-
-  };
-
+  ragon.services.gamingvmhost.enable = true;
+  ragon.services.docker.enable = true;
+  ragon.services.ssh.enable = true;
 
 }

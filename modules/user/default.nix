@@ -53,7 +53,7 @@ in
     users.extraUsers.${username} = {
       isNormalUser = true;
       uid = uid;
-      extraGroups = [ "wheel" "docker" ] ++ extraGroups;
+      extraGroups = [ "wheel" ] ++ extraGroups;
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = pkgs.pubkeys.ragon.computers ++ extraAuthorizedKeys;
     };

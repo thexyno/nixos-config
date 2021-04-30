@@ -73,6 +73,17 @@ in
       obs-studio
     ];
 
+    ragon.user.persistent.extraDirectories = [
+      ".config/discord"
+      ".config/Bitwarden"
+      ".config/libreoffice"
+      ".config/Timeular"
+      ".config/Signal"
+      ".config/spotify"
+      ".config/obs-studio"
+      ".mozilla/"
+      ".thunderbird/" # Because of cause this isn't in .mozilla
+    ];
 
     # enable cups
     services.printing.enable = true;

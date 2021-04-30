@@ -1,33 +1,17 @@
 {  config, lib, pkgs, inputs, ... }:
 let
-  cfg = config.ragon.common-cli;
+  cfg = config.ragon.cli;
   ragon = config.ragon;
 in
 {
-  options.ragon.common-cli.enable = lib.mkEnableOption "Enables ragons common CLI stuff";
+  options.ragon.cli.enable = lib.mkEnableOption "Enables ragons CLI stuff";
   config = lib.mkIf cfg.enable {
-    # TODO move this somwhere else
-    # Set passwords
-    users.users.root. passwordFile =  "${config.age.secrets.rootPasswd.path}";
-    users.users.ragon.passwordFile =  "${config.age.secrets.rootRagonPasswd.path}";
-    # Set your time zone.
-    time.timeZone = "Europe/Berlin";
-
-    # Select internationalisation properties.
-    i18n = {
-      defaultLocale = "en_DK.UTF-8";
-    };
     programs.gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
     };
     ragon.nvim.enable = true;
-    console.font = "Lat2-Terminus16";
-    console.keyMap = "de";
 
-    # openssh
-    services.openssh.enable = true;
-    services.openssh.passwordAuthentication = false;
 
     security.sudo.extraConfig = "Defaults lecture = never";
 

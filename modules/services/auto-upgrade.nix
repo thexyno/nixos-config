@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.ragon.auto-upgrade;
+  cfg = config.ragon.services.auto-upgrade;
 in
 {
-  options.ragon.auto-upgrade = {
+  options.ragon.services.auto-upgrade = {
     enable = lib.mkEnableOption "Enable auto updating of the nix config";
     user = lib.mkOption {
       type = lib.types.str;

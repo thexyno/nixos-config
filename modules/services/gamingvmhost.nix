@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.ragon.gamingvmhost;
+  cfg = config.ragon.services.gamingvmhost;
   name = cfg.name;
   pciAddrs = cfg.pciAddrs;
   pciIds = cfg.pciIds;
 in
 {
-  options.ragon.gamingvmhost = {
+  options.ragon.services.gamingvmhost = {
     enable = lib.mkEnableOption "Enables vm stuff";
     name = lib.mkOption {
       type = lib.types.str;

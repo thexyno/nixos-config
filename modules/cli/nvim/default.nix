@@ -59,10 +59,16 @@ in
       nodejs
       #(import inputs.rnix-lsp)
     ];
+    ragon.user.persistent.extraDirectories = [
+      ".config/coc"
+      ".local/share/nvim"
+      ".config/TabNine"
 
-    environment.etc."nvim/coc-settings.json".text = (builtins.readFile ./nvim/coc-settings.json);
+    ];
+
+    environment.etc."nvim/coc-settings.json".text = (builtins.readFile ./coc-settings.json);
     environment.etc."nvim/coc-settings.json".enable = cfg.maximal;
-    environment.etc."nvim/completion".source = ./nvim/completion;
+    environment.etc."nvim/completion".source = ./completion;
 
 
   };

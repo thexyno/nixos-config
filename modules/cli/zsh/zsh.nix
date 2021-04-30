@@ -4,6 +4,11 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    ragon.user.persistent = {
+      extraDirectories = [
+        ".config/zsh"
+      ]
+    };
     programs.zsh = {
       enable = true;
       histSize = 10000;
@@ -21,7 +26,7 @@ in
       # interactiveShellInit broke agkozak-zsh-prompt for some reaaaaaaaason
       promptInit =
         let
-          zshrc = builtins.readFile ./zsh/zshrc;
+          zshrc = builtins.readFile ./zshrc;
 
           sources = [
             "${inputs.agkozak-zsh-prompt}/agkozak-zsh-prompt.plugin.zsh"
