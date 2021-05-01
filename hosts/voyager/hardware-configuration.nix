@@ -6,8 +6,8 @@
 {
   imports = [ "${modulesPath}/installer/scan/not-detected.nix" ];
 
-  boot.initrd.availableKernelModules = [ "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "nvme" "usbhid" "sd_mod" "sr_mod" ];
-  boot.initrd.luks.devices.crypt.device = "/dev/nvme0n1p1";
+  boot.initrd.availableKernelModules = [ "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "usbhid" "sd_mod" "sr_mod" ];
+  boot.initrd.luks.devices.crypt.device = "/dev/sda1";
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   nix.maxJobs = lib.mkDefault 8;
