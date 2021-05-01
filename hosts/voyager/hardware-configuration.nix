@@ -5,7 +5,7 @@
 
 {
   imports = [ "${modulesPath}/installer/scan/not-detected.nix" 
-  inputs.nixos-hardware.nixosModules.lenovo-t440p
+  inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t440p
 ];
 
   boot.initrd.availableKernelModules = [ "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "usbhid" "sd_mod" "sr_mod" ];
