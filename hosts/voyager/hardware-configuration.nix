@@ -13,11 +13,6 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   nix.maxJobs = lib.mkDefault 8;
-  powerManagement.cpuFreqGovernor = "powersave";
   ragon.system.fs.enable = true;
-  services.xserver.libinput = {
-
-    enable = true;
-
-  };
+  ragon.hardware.laptop.enable = true;
 }
