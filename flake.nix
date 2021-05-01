@@ -11,6 +11,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";
     impermanence.inputs.nixpkgs.follows = "nixpkgs";
+    inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
 
     #rnix-lsp.url = "github:nix-community/rnix-lsp";
     #rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
