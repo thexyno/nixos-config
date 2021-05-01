@@ -6,8 +6,10 @@ with lib.my;
   imports = [ inputs.impermanence.nixosModules.impermanence ] ++ (mapModulesRec' (toString ./modules) import); # import ./modules/*
 
   # Set passwords
-  users.users.root. passwordFile =  "${config.age.secrets.rootPasswd.path}";
-  users.users.ragon.passwordFile =  "${config.age.secrets.rootRagonPasswd.path}";
+  #users.users.root. passwordFile =  "${config.age.secrets.rootPasswd.path}";
+  #users.users.ragon.passwordFile =  "${config.age.secrets.rootRagonPasswd.path}";
+  users.users.root.password = "asdf"
+  users.users.ragon.password = "asdf"
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
   console.font = "Lat2-Terminus16";
