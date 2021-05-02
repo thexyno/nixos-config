@@ -271,9 +271,9 @@ in
            */
           static const struct arg args[] = {
             /* function format          argument */
-            ${mkIf !cfg.laptop ''{ run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },''}
-            ${mkIf cfg.laptop ''{ battery_perc,    "BAT: %s | ",           "BAT0" },''}
-            ${mkIf cfg.laptop ''{ run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },''}
+            ''+ lib.mkIf !cfg.laptop ''{ run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },''+''
+            ''+ lib.mkIf cfg.laptop ''{ battery_perc,    "BAT: %s | ",           "BAT0" },''+''
+            ''+ lib.mkIf cfg.laptop ''{ run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },''+''
             { run_command, "AUDIO: %s | ",           "pulsemixer --list-sinks | rg Default | sed -z 's/^.*Name: //g;s/,.*//g'; echo -n ' '; (pulsemixer --get-mute | rg 1 && echo -n 'Muted') || pulsemixer --get-volume | awk '{print($1,\"%\")}'" },
             { ram_free,    "RAM: %s | ",           NULL },
             { load_avg,    "LOAD: %s | ",           NULL },
