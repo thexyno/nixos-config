@@ -3,12 +3,6 @@ let
   cfg = config.ragon.gui;
   username = config.ragon.user.username;
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
-  args = if config.ragon.gui.laptop then ''
-    { battery_perc,    "BAT: %s | ",           "BAT0" },
-    { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
-  '' else ''
-    { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },
-  '';
 in
 {
   config = lib.mkIf cfg.enable {
@@ -209,7 +203,15 @@ in
     environment.systemPackages = with pkgs; [
       playerctl
       (slstatus.overrideAttrs (oldAttrs: rec {
-        conf = ''
+        conf = let
+          args = if cfg.laptop then ''
+            { battery_perc,    "BAT: %s | ",           "BAT0" },
+            { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
+          '' else ''
+            { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },
+          '';
+        in
+          ''
           /* See LICENSE file for copyright and license details. */
           
           /* interval between updates (in ms) */
