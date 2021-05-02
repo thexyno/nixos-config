@@ -3,6 +3,14 @@ let
   cfg = config.ragon.gui;
   username = config.ragon.user.username;
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
+          laptopargs = lib.mkIf cfg.laptop ''
+            { battery_perc,    "BAT: %s | ",           "BAT0" },
+            { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
+          '' ;
+          nonlaptopargs = lib.mkIf cfg.laptop == false ''
+            { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },
+            { disk_free,   "NAS: %s | ",           "/media/data" },
+          '';
 in
 {
   config = lib.mkIf cfg.enable {
@@ -203,16 +211,7 @@ in
     environment.systemPackages = with pkgs; [
       playerctl
       (slstatus.overrideAttrs (oldAttrs: rec {
-        conf = let
-          laptopargs = lib.mkIf cfg.laptop ''
-            { battery_perc,    "BAT: %s | ",           "BAT0" },
-            { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
-          '' ;
-          nonlaptopargs = lib.mkIf cfg.laptop == false ''
-            { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },
-          '';
-        in
-          ''
+        conf = ''
           /* See LICENSE file for copyright and license details. */
           
           /* interval between updates (in ms) */
@@ -285,7 +284,6 @@ in
             { run_command, "AUDIO: %s | ",           "pulsemixer --list-sinks | rg Default | sed -z 's/^.*Name: //g;s/,.*//g'; echo -n ' '; (pulsemixer --get-mute | rg 1 && echo -n 'Muted') || pulsemixer --get-volume | awk '{print($1,\"%\")}'" },
             { ram_free,    "RAM: %s | ",           NULL },
             { load_avg,    "LOAD: %s | ",           NULL },
-            { disk_free,   "NAS: %s | ",           "/media/data" },
             { disk_free,   "SSD: %s | ",           "/nix" },
             { datetime,    "%s",           "%F %T" },
           };
