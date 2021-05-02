@@ -204,11 +204,11 @@ in
       playerctl
       (slstatus.overrideAttrs (oldAttrs: rec {
         conf = let
-          args = lib.mkIf cfg.laptop ''
+          laptopargs = lib.mkIf cfg.laptop ''
             { battery_perc,    "BAT: %s | ",           "BAT0" },
             { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
           '' ;
-          args = lib.mkIf !cfg.laptop ''
+          nonlaptopargs = lib.mkIf !cfg.laptop ''
             { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },
           '';
         in
@@ -280,7 +280,8 @@ in
            */
           static const struct arg args[] = {
             /* function format          argument */
-            ${args}
+            ${laptopargs}
+            ${nonlaptopargs}
             { run_command, "AUDIO: %s | ",           "pulsemixer --list-sinks | rg Default | sed -z 's/^.*Name: //g;s/,.*//g'; echo -n ' '; (pulsemixer --get-mute | rg 1 && echo -n 'Muted') || pulsemixer --get-volume | awk '{print($1,\"%\")}'" },
             { ram_free,    "RAM: %s | ",           NULL },
             { load_avg,    "LOAD: %s | ",           NULL },
