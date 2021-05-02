@@ -3,7 +3,7 @@ let
   cfg = config.ragon.gui;
   username = config.ragon.user.username;
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
-  args = if cfg.laptop then ''
+  args = if config.ragon.gui.laptop then ''
     { battery_perc,    "BAT: %s | ",           "BAT0" },
     { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
   '' else ''
