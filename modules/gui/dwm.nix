@@ -3,6 +3,12 @@ let
   cfg = config.ragon.gui;
   username = config.ragon.user.username;
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
+  args = if cfg.laptop then ''
+    { battery_perc,    "BAT: %s | ",           "BAT0" },
+    { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
+  '' else ''
+    { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },
+  '';
 in
 {
   config = lib.mkIf cfg.enable {
@@ -271,9 +277,7 @@ in
            */
           static const struct arg args[] = {
             /* function format          argument */
-            ''+ lib.mkIf !cfg.laptop ''{ run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },''+''
-            ''+ lib.mkIf cfg.laptop ''{ battery_perc,    "BAT: %s | ",           "BAT0" },''+''
-            ''+ lib.mkIf cfg.laptop ''{ run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },''+''
+            ${args}
             { run_command, "AUDIO: %s | ",           "pulsemixer --list-sinks | rg Default | sed -z 's/^.*Name: //g;s/,.*//g'; echo -n ' '; (pulsemixer --get-mute | rg 1 && echo -n 'Muted') || pulsemixer --get-volume | awk '{print($1,\"%\")}'" },
             { ram_free,    "RAM: %s | ",           NULL },
             { load_avg,    "LOAD: %s | ",           NULL },
