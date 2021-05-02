@@ -14,6 +14,8 @@ in
     services.xserver.libinput = {
       enable = true;
     };
+    hardware.acpilight.enable = true;
+    config.ragon.gui.laptop = true;
 
   };
 }
