@@ -208,11 +208,11 @@ in
             { battery_perc,    "BAT: %s | ",           "BAT0" },
             { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
           '' ;
-          nonlaptopargs = ''
+          nonlaptopargs = lib.mkIf cfg.laptop == false ''
             { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },
             { disk_free,   "NAS: %s | ",           "/media/data" },
           '';
-        in
+          templ = 
           ''
           /* See LICENSE file for copyright and license details. */
           
@@ -281,8 +281,8 @@ in
            */
           static const struct arg args[] = {
             /* function format          argument */
-            ''+laptopargs+''
-            ''+nonlaptopargs+''
+            ${laptopargs}
+            ${nonlaptopargs}
             { run_command, "AUDIO: %s | ",           "pulsemixer --list-sinks | rg Default | sed -z 's/^.*Name: //g;s/,.*//g'; echo -n ' '; (pulsemixer --get-mute | rg 1 && echo -n 'Muted') || pulsemixer --get-volume | awk '{print($1,\"%\")}'" },
             { ram_free,    "RAM: %s | ",           NULL },
             { load_avg,    "LOAD: %s | ",           NULL },
@@ -290,6 +290,8 @@ in
             { datetime,    "%s",           "%F %T" },
           };
         '';
+        in
+        templ
         configFile = (pkgs.writeText "config.def.h" conf);
         preBuild = "cp ${configFile} config.def.h";
 
