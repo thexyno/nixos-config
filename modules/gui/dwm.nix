@@ -4,7 +4,7 @@ let
   laptop = cfg.laptop;
   username = config.ragon.user.username;
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
-  laptopargs = lib.mkIf laptop ''
+  laptopargs = ''
     { battery_perc,    "BAT: %s | ",           "BAT0" },
     { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
   '' ;
