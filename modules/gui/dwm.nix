@@ -1,17 +1,18 @@
 { inputs, config, lib, pkgs, ... }:
 let
   cfg = config.ragon.gui;
+  laptop = cfg.laptop;
   username = config.ragon.user.username;
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
-          laptopargs = lib.mkIf cfg.laptop ''
-            { battery_perc,    "BAT: %s | ",           "BAT0" },
-            { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
-          '' ;
-          nonlaptopargs = ''
-            { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },
-            { disk_free,   "NAS: %s | ",           "/media/data" },
-          '';
-          # TODO figure this out
+  laptopargs = lib.mkIf laptop ''
+    { battery_perc,    "BAT: %s | ",           "BAT0" },
+    { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
+  '' ;
+  nonlaptopargs = ''
+    { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },
+    { disk_free,   "NAS: %s | ",           "/media/data" },
+  '';
+  # TODO figure this out
 in
 {
   config = lib.mkIf cfg.enable {
