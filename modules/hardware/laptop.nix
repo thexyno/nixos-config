@@ -15,7 +15,7 @@ in
       enable = true;
     };
     hardware.acpilight.enable = true;
-    config.ragon.gui.laptop = true;
+    ragon.gui.laptop = true;
 
   };
 }
