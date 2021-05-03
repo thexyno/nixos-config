@@ -208,7 +208,7 @@ in
             { battery_perc,    "BAT: %s | ",           "BAT0" },
             { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
           '' ;
-          nonlaptopargs = lib.optionalString !cfg.laptop ''
+          nonlaptopargs = lib.optionalString (cfg.laptop == false) ''
             { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },
             { disk_free,   "NAS: %s | ",           "/media/data" },
           '';
