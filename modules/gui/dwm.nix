@@ -204,11 +204,11 @@ in
       playerctl
       (slstatus.overrideAttrs (oldAttrs: rec {
         conf = let
-          laptopargs = lib.mkIf cfg.laptop ''
+          laptopargs = ''
             { battery_perc,    "BAT: %s | ",           "BAT0" },
             { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
           '' ;
-          nonlaptopargs = lib.mkIf cfg.laptop == false ''
+          nonlaptopargs = ''
             { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },
             { disk_free,   "NAS: %s | ",           "/media/data" },
           '';
