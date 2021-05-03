@@ -291,7 +291,7 @@ in
           };
         '';
         in
-        templ
+        templ;
         configFile = (pkgs.writeText "config.def.h" conf);
         preBuild = "cp ${configFile} config.def.h";
 
