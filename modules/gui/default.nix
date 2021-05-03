@@ -92,6 +92,12 @@ in
 
     # enable cups
     services.printing.enable = true;
+    services.printing.drivers = [ pkgs.hplip ];
+    services.avahi.enable = true;
+    # Important to resolve .local domains of printers, otherwise you get an error
+    # like  "Impossible to connect to XXX.local: Name or service not known"
+    services.avahi.nssmdns = true;
+
 
     hardware.pulseaudio.enable = true;
     # # Set up Pipewire for audio
