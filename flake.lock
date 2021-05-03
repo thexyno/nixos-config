@@ -57,11 +57,11 @@
     "dwm": {
       "flake": false,
       "locked": {
-        "lastModified": 1615809470,
-        "narHash": "sha256-1amSnrFWM5SKx+GFid+LJYjD/KNuYQEPmb3fsLPfovY=",
+        "lastModified": 1620048194,
+        "narHash": "sha256-KuLEV12MMjx49apulLe/AwNtN6EmHcw+3pavtyJYsO0=",
         "ref": "master",
-        "rev": "c90a540f113dcd78c75ca1fb0659707dd0d0d636",
-        "revCount": 1691,
+        "rev": "bccb198e8f716311fd22446cda38970a74c8d5cc",
+        "revCount": 1692,
         "type": "git",
         "url": "https://gitlab.hochkamp.eu/ragon/dwm"
       },
