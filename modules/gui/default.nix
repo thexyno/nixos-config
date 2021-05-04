@@ -27,7 +27,7 @@ in
   };
   options.ragon.gui.spcmd2cmd = lib.mkOption {
     type = lib.types.str;
-    default = "${pkgs.timeular}/bin/timeular";
+    default = "timeular";
   };
   options.ragon.gui.spcmd2class = lib.mkOption {
     type = lib.types.str;
@@ -78,6 +78,10 @@ in
       obs-studio
     ];
 
+    ragon.user.persistent.extraFiles = [
+      ".cache/rofi3.druncache" # rofi cache so the search priorities are not garbage
+    ];
+
     ragon.user.persistent.extraDirectories = [
       ".config/discord"
       ".config/Bitwarden"
@@ -85,8 +89,10 @@ in
       ".config/Timeular"
       ".config/Signal"
       ".config/spotify"
+      ".cache/spotify" # downloaded songs
       ".config/obs-studio"
       ".mozilla/"
+      ".cache/mozilla" # firefox cache
       ".thunderbird/" # Because of cause this isn't in .mozilla
     ];
 

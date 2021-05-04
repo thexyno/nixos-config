@@ -76,8 +76,8 @@ in
                /* class      instance    title       tags mask     isfloating   monitor */
                { "floating", NULL,       NULL,       0,            1,           -1 },
             //   { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
-               { NULL,       "timeular", NULL,       SPTAG(0),     1,           2 },
-               { NULL,       "bitwarden", NULL,      SPTAG(1),     1,           2 },
+               { NULL,       "${cfg.spcmd1class}", NULL,       SPTAG(0),     1,           2 },
+               { NULL,       "${cfg.spcmd2class}", NULL,      SPTAG(1),     1,           2 },
              };
             
              /* layout(s) */
