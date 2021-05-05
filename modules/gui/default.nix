@@ -102,7 +102,7 @@ in
     services.avahi.enable = true;
     # scanning
     hardware.sane.enable = true;
-    ragon.user.extraGroups = [ "scanner" "lp" ];
+    hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
 
     # Important to resolve .local domains of printers, otherwise you get an error
     # like  "Impossible to connect to XXX.local: Name or service not known"
@@ -134,6 +134,6 @@ in
     networking.networkmanager.wifi.backend = "iwd";
 
     # Define extra groups for user.
-    ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" ];
+    ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" "scanner" "lp" ];
   };
 }
