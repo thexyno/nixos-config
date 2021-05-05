@@ -102,7 +102,7 @@ in
     services.avahi.enable = true;
     # scanning
     hardware.sane.enable = true;
-    hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
+    hardware.sane.extraBackends = [ pkgs.hplipWithPlugin pkgs.sane-airscan ];
 
     # Important to resolve .local domains of printers, otherwise you get an error
     # like  "Impossible to connect to XXX.local: Name or service not known"
