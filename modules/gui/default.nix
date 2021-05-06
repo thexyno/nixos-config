@@ -76,6 +76,7 @@ in
       discord
       spotify
       obs-studio
+      mullvad-vpn
     ];
 
     services.mullvad-vpn.enable = true;
