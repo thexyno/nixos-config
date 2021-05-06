@@ -78,6 +78,8 @@ in
       obs-studio
     ];
 
+    services.mullvad-vpn.enable = true;
+
     ragon.user.persistent.extraFiles = [
       ".cache/rofi3.druncache" # rofi cache so the search priorities are not garbage
     ];
