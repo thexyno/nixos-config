@@ -26,7 +26,7 @@ in
     programs.dconf.enable = true;
     environment.systemPackages = with pkgs; [
       #      scream-recievers
-      (scream-receivers.override { pulseSupport = true; })
+      scream
       virt-manager
     ];
     #virtualisation.spiceUSBRedirection.enable = true;
@@ -48,7 +48,7 @@ in
       enable = true;
       description = "Scream IVSHMEM";
       serviceConfig = {
-        ExecStart = "${pkgs.scream-receivers.override { pulseSupport = true; }}/bin/scream-ivshmem-pulse /dev/shm/scream-ivshmem-${name}";
+        ExecStart = "${pkgs.scream}/bin/scream -m /dev/shm/scream-ivshmem-${name}";
         Restart = "always";
       };
       wantedBy = [ "multi-user.target" ];
