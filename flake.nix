@@ -34,6 +34,8 @@
     coc-nvim.flake = false;
     nnn-vim.url = "github:mcchrish/nnn.vim";
     nnn-vim.flake = false;
+    dart-vim.url = "github:dart-lang/dart-vim-plugin/master"
+    dart-vim.flake = false;
 
     ## zsh
     zsh-completions.url = "github:zsh-users/zsh-completions";                                                   

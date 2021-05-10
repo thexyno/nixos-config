@@ -25,6 +25,10 @@ in
               name = "coc-nvim";
               src = inputs.coc-nvim;
             };
+            dart-vim = pkgs.vimUtils.buildVimPlugin {
+              name = "dart-vim";
+              src = inputs.dart-vim;
+            };
           in
           {
             customRC = (builtins.readFile ./init.vim);
@@ -51,6 +55,7 @@ in
               vim-pandoc-syntax
               ultisnips
               coc-nvim
+              dart-vim
             ];
           };
       })

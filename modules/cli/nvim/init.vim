@@ -1,4 +1,7 @@
 nnoremap <F5> :UndotreeToggle <CR>
+" flutter
+let g:dart_format_on_save = 1
+" endflutter
 let g:nnn#set_default_mappings = 0
 let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
 nnoremap <tab> ::NnnPicker %:p:h<CR>
@@ -172,6 +175,9 @@ noremap <A-l> :vertical resize +5<CR>
 noremap <A-j> :resize -5<CR>
 noremap <A-k> :resize +5<CR>
 
+" cocaction
+xmap ,a  <Plug>(coc-codeaction-selected)
+nmap ,a  <Plug>(coc-codeaction-selected)
 
 " Make man open o
 " map ,.
