@@ -54,6 +54,23 @@
         "type": "github"
       }
     },
+    "dart-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1617657005,
+        "narHash": "sha256-+iwF7X7ha1LeKIZDLqh661ecse8hqjqQbszQXHlNPMQ=",
+        "owner": "dart-lang",
+        "repo": "dart-vim-plugin",
+        "rev": "d874c13dca7300178546de62e1aff7d4812640c7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dart-lang",
+        "ref": "master",
+        "repo": "dart-vim-plugin",
+        "type": "github"
+      }
+    },
     "dwm": {
       "flake": false,
       "locked": {
@@ -237,6 +254,7 @@
         "agenix": "agenix",
         "agkozak-zsh-prompt": "agkozak-zsh-prompt",
         "coc-nvim": "coc-nvim",
+        "dart-vim": "dart-vim",
         "dwm": "dwm",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
