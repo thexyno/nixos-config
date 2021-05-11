@@ -1,4 +1,4 @@
-{ lib, stdenv, python3, python3Packages, zip }:
+{ lib, fetchFromGitHub, stdenv, python3, python3Packages, zip }:
 let
   py = python3.withPackages (pythonPackages: with pythonPackages; [ panflute ]);
 in
