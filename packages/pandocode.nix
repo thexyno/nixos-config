@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   version = "1.0.1";
   name = "pandocode-${version}";
   nativeBuildInputs = [ zip ];
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "nzbr";
     repo = "pandocode";
     rev = "2e19dd35e55ec50c2fc4a52a4e5041c5d93b76dc";
