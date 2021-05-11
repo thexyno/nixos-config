@@ -6,9 +6,11 @@ stdenv.mkDerivation rec {
   version = "1.0.1";
   name = "pandocode-${version}";
   nativeBuildInputs = [ zip ];
-  src = fetchTarball {
-    url = "https://github.com/nzbr/pandocode/archive/8f021538b71029e7f9efa7d04b4dfffd4d72a0ca.tar.gz";
-    sha256 = "0aa498dy287c77mcxp4bjlkpkrc7r1ibbpvnwm2c6wsmmjpsrwq9";
+  src = pkgs.fetchFromGitHub {
+    owner = "nzbr";
+    repo = "pandocode";
+    rev = "2e19dd35e55ec50c2fc4a52a4e5041c5d93b76dc";
+    sha256 = "I25ueMVJcVbauwblw0E10EccfRLAUAB/1ashkf01ixk=";
   };
   format = "other";
   doCheck = false;
