@@ -77,7 +77,7 @@ in
       spotify
       obs-studio
       mullvad-vpn
-      gnome3.meld
+      kompare
     ];
 
     services.mullvad-vpn.enable = true;
