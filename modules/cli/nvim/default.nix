@@ -31,7 +31,7 @@ in
             };
             vim-pandoc-live-preview = pkgs.vimUtils.buildVimPlugin {
               name = "vim-pandoc-live-preview";
-              src = inputs.dart-vim;
+              src = inputs.vim-pandoc-live-preview;
             };
           in
           {
