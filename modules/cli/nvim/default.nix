@@ -29,6 +29,10 @@ in
               name = "dart-vim";
               src = inputs.dart-vim;
             };
+            vim-pandoc-live-preview = pkgs.vimUtils.buildVimPlugin {
+              name = "vim-pandoc-live-preview";
+              src = inputs.dart-vim;
+            };
           in
           {
             customRC = (builtins.readFile ./init.vim);
@@ -52,6 +56,7 @@ in
               vim-devicons
               #        ] // lib.mkIf cfg.maximal [
               vim-pandoc
+              vim-pandoc-live-preview
               vim-pandoc-syntax
               ultisnips
               coc-nvim

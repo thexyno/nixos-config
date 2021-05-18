@@ -36,6 +36,8 @@
     nnn-vim.flake = false;
     dart-vim.url = "github:dart-lang/dart-vim-plugin/master";
     dart-vim.flake = false;
+    vim-pandoc-live-preview.url = "github:ragon000/vim-pandoc-live-preview/master";
+    vim-pandoc-live-preview.flake = false;
 
     ## zsh
     zsh-completions.url = "github:zsh-users/zsh-completions";                                                   

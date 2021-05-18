@@ -249,9 +249,27 @@
         "nnn-vim": "nnn-vim",
         "pandoc-latex-template": "pandoc-latex-template",
         "pandocode": "pandocode",
+        "vim-pandoc-live-preview": "vim-pandoc-live-preview",
         "zsh-completions": "zsh-completions",
         "zsh-syntax-highlighting": "zsh-syntax-highlighting",
         "zsh-vim-mode": "zsh-vim-mode"
+      }
+    },
+    "vim-pandoc-live-preview": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1547318775,
+        "narHash": "sha256-6LG59vNxRGVpFCnSMefuKL6lE6d/QUPmibqDrreYDuw=",
+        "owner": "ragon000",
+        "repo": "vim-pandoc-live-preview",
+        "rev": "993c3389054148260610210022668a16a1a916ad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ragon000",
+        "ref": "master",
+        "repo": "vim-pandoc-live-preview",
+        "type": "github"
       }
     },
     "zsh-completions": {

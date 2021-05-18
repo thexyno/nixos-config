@@ -228,4 +228,5 @@ set showtabline=2 "Always show tab line
 " yaml
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-let g:livepreview_arguments = "--filter pandoc-plantuml "
+let g:livepreview_arguments = "--filter pandoc-plantuml --filter pandocode --listing -V pagesize=a4 --pdf-engine=pdflatex"
+let g:livepreview_previewer = "zathura"
