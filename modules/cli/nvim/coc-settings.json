@@ -10,6 +10,8 @@
   "html.validate.html": true,
   "html.validate.styles": true,
   "tabnine.disable_filetypes": ["pandoc"],
+  "flutter.provider.hot-reload": true,
+  "flutter.provider.enableSnippet": true,
   "rust-analyzer.procMacro.enable": true,
   "rust-analyzer.cargo.allFeatures": true,
   "rust-analyzer.inlayHints.refreshOnInsertMode": true,
