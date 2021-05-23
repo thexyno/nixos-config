@@ -15,7 +15,7 @@ in
       vulkan-tools
       vulkan-loader
       wineWowPackages.staging
-      (winetricks.override { wine = wineWowPackages.staging })
+      (winetricks.override { wine = wineWowPackages.staging; })
       gnome3.adwaita-icon-theme
     ];
     ragon.user.persistent.extraDirectories = [
