@@ -11,6 +11,10 @@ in
     environment.systemPackages = with pkgs; [
       lutris
       wineWowPackages.stable
+      gnome3.adwaita-icon-theme
+    ];
+    ragon.user.persistent.extraDirectories = [
+      "Games"
     ];
 
   };
