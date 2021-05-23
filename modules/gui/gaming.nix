@@ -14,7 +14,7 @@ in
       gnome3.adwaita-icon-theme
     ];
     ragon.user.persistent.extraDirectories = [
-      "Games"
+      "games"
     ];
 
   };
