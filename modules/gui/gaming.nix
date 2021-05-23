@@ -12,6 +12,8 @@ in
     programs.steam.enable = true;
     environment.systemPackages = with pkgs; [
       lutris
+      vulkan-tools
+      vulkan-loader
       wineWowPackages.stable
       gnome3.adwaita-icon-theme
     ];
