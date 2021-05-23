@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.ragon.hardware.nvidia;
+  cfg = config.ragon.hardware.laptop;
 in
 {
   options.ragon.hardware.laptop.enable = lib.mkEnableOption "Enables laptop stuff (tlp,...)";

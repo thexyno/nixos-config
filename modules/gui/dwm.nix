@@ -1,6 +1,7 @@
 { inputs, config, lib, pkgs, ... }:
 let
   cfg = config.ragon.gui;
+  laptop = config.ragon.hardware.laptop.enable;
   username = config.ragon.user.username;
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
 in
@@ -121,6 +122,8 @@ in
              static const char *sharenix2cmd[] = { "nextshot", "-a", 0 };
              static const char *sharenix3cmd[] = { "nextshot", "-w", 0 };
              static const char *sharenix4cmd[] = { "nextshot", "-f", 0 };
+             static const char *brightnessupcmdcmd[] =   { "xbacklight", "-inc", "5", 0 };
+             static const char *brightnessdowncmdcmd[] = { "xbacklight", "-dec", "5", 0 };
             
              static Key keys[] = {
                /* modifier                     key          function        argument */
@@ -140,6 +143,8 @@ in
                { 0,                            0x1008ff14,  spawn,          {.v = playpausecmd } },
                { 0,                            0x1008ff16,  spawn,          {.v = previouscmd } },
                { 0,                            0x1008ff17,  spawn,          {.v = nextcmd } },
+               { 0,                            0x1008ff02,  spawn,          {.v = brightnessupcmd } },
+               { 0,                            0x1008ff03,  spawn,          {.v = brightnessdowncmd } },
                { MODKEY,                        XK_period,   togglescratch,  {.ui = 0 } },
                { MODKEY,                        XK_minus,     togglescratch,  {.ui = 1 } },
                { MODKEY,                       XK_s,         togglesticky,   {0} },
@@ -204,11 +209,11 @@ in
       playerctl
       (slstatus.overrideAttrs (oldAttrs: rec {
         conf = let
-          laptopargs = lib.optionalString cfg.laptop ''
+          laptopargs = lib.optionalString laptop ''
             { battery_perc,    "BAT: %s | ",           "BAT0" },
             { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
           '' ;
-          nonlaptopargs = lib.optionalString (cfg.laptop == false) ''
+          nonlaptopargs = lib.optionalString (laptop == false) ''
             { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },
             { disk_free,   "NAS: %s | ",           "/media/data" },
           '';
