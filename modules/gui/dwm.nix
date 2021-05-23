@@ -122,8 +122,8 @@ in
              static const char *sharenix2cmd[] = { "nextshot", "-a", 0 };
              static const char *sharenix3cmd[] = { "nextshot", "-w", 0 };
              static const char *sharenix4cmd[] = { "nextshot", "-f", 0 };
-             static const char *brightnessupcmdcmd[] =   { "xbacklight", "-inc", "5", 0 };
-             static const char *brightnessdowncmdcmd[] = { "xbacklight", "-dec", "5", 0 };
+             static const char *brightnessupcmd[] =   { "xbacklight", "-inc", "5", 0 };
+             static const char *brightnessdowncmd[] = { "xbacklight", "-dec", "5", 0 };
             
              static Key keys[] = {
                /* modifier                     key          function        argument */
