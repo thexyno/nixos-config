@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.services.node-red;
-  tz = time.timeZone;
+  tz = config.time.timeZone;
   domain = config.ragon.nginx.domain;
 in
 {
