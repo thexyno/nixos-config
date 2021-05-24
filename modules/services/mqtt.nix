@@ -31,11 +31,11 @@ in
 
     };
     networking.firewall.allowedTCPPorts = [
-      services.mosquitto.port
-      services.mosquitto.ssl.port
+      config.services.mosquitto.port
+      config.services.mosquitto.ssl.port
     ];
     persist.extraDirectories = [
-      services.mosquitto.dataDir
+      config.services.mosquitto.dataDir
     ];
   };
 }
