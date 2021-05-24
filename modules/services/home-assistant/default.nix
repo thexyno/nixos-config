@@ -12,15 +12,16 @@ in
       default = "h";
     };
   config = lib.mkIf cfg.enable {
+    # https://github.com/Mic92/dotfiles/tree/master/nixos/eve/modules/home-assistant for orientation
     services.home-assistant = {
       enable = true;
       package = pkgs.home-assistant.override {
         extraPackages = ps: [
           ps.psycopg2
         ];
-        config.recorder.db_url = "postgresql://@/hass";
-        applyDefaultConfig = false;
       };
+      config.recorder.db_url = "postgresql://@/hass";
+      applyDefaultConfig = false;
 
     };
     
