@@ -35,24 +35,21 @@ in
       };
     }];
   };
+  services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
+    useACMEHost = "${domain}";
+    addSSL = true;
+    extraConfig = ''
+      proxy_buffering off;
+    '';
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:8123";
+      proxyWebsockets = true;
+    };
+  };
 
-    };
-    services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
-      useACMEHost = "${domain}";
-      addSSL = true;
-      extraConfig = ''
-        proxy_buffering off;
-      '';
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:8123";
-        proxyWebsockets = true;
-      };
-    };
-
-    };
-    persist.extraDirectories = [
-      "/var/lib/hass"
-      services.postgresql.dataDir
-    ];
+  persist.extraDirectories = [
+    "/var/lib/hass"
+    services.postgresql.dataDir
+  ];
   };
 }
