@@ -34,7 +34,7 @@ in
       config.services.mosquitto.port
       config.services.mosquitto.ssl.port
     ];
-    persist.extraDirectories = [
+    config.ragon.persist.extraDirectories = [
       config.services.mosquitto.dataDir
     ];
   };

@@ -12,7 +12,7 @@ in
         "/var/lib/signal:/home/.local/share/signal-cli"
       ];
     };
-    persist.extraDirectories = [
+    config.ragon.persist.extraDirectories = [
       "/var/lib/signal"
     ];
   };
