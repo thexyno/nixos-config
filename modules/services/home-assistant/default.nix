@@ -3,6 +3,7 @@ let
   cfg = config.ragon.services.home-assistant;
   persist = config.ragon.persist;
   domain = config.ragon.nginx.domain;
+  psql = services.postgresql;
 in
 {
   options.ragon.services.home-assistant.enable = lib.mkEnableOption "Enables hass";
@@ -49,7 +50,7 @@ in
 
     persist.extraDirectories = [
       "/var/lib/hass"
-      "${services.postgresql.dataDir}"
+      "${psql.dataDir}"
     ];
   };
 }
