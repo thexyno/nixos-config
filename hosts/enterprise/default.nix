@@ -38,6 +38,7 @@
   ragon.persist.enable = true;
   ragon.services.gamingvmhost.enable = true;
   ragon.services.docker.enable = true;
+  ragon.services.signal.enable = true;
   ragon.services.ssh.enable = true;
 
 }
