@@ -21,9 +21,9 @@ in
       # ports = [
       #   "1880:1880"
       # ];
-      environment = [
+      environment = {
         TZ = tz;
-      ];
+      };
 
     };
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
