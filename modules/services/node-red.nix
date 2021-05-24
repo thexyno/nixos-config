@@ -30,7 +30,7 @@ in
       useACMEHost = "${domain}";
       locations."/".proxyPass = "http://node-red:1880";
     };
-    config.ragon.persist.extraDirectories = [
+    ragon.persist.extraDirectories = [
       "/var/lib/node-red"
     ];
   };
