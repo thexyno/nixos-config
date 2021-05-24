@@ -24,9 +24,9 @@ in
       host = "0.0.0.0";
       ssl = {
         enable = nginx.enable;
-        keyfile = "/var/lib/acme/${nginx.domain}/${nginx.domain}.key"
-        certfile = "/var/lib/acme/${nginx.domain}/${nginx.domain}.crt"
-        cafile = "/var/lib/acme/${nginx.domain}/${nginx.domain}.issuer.crt"
+        keyfile = "/var/lib/acme/${nginx.domain}/${nginx.domain}.key";
+        certfile = "/var/lib/acme/${nginx.domain}/${nginx.domain}.crt";
+        cafile = "/var/lib/acme/${nginx.domain}/${nginx.domain}.issuer.crt";
       };
 
     };
