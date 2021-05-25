@@ -2,7 +2,8 @@
 
 with lib;
 with lib.my;
-let sys = "x86_64-linux";
+let 
+  sys = "x86_64-linux";
 in {
   mkHost = path: attrs @ { system ? sys, ... }:
     nixosSystem {
@@ -10,7 +11,16 @@ in {
       specialArgs = { inherit lib inputs system; };
       modules = [
         {
-          nixpkgs.pkgs = pkgs;
+          nixpkgs = {
+            packageOverrides = {
+              master = import inputs.nixpkgs-master {
+                system = sys;
+                config.allowUnfree = true;
+              };
+            }
+            pkgs = pkgs;
+            config.allowUnfree = true;
+          };
           networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
         }
         (filterAttrs (n: v: !elem n [ "system" ]) attrs)
