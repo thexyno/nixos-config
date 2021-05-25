@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.services.home-assistant;
-  persist = config.ragon.persist;
   domain = config.ragon.nginx.domain;
 in
 {
@@ -47,7 +46,7 @@ in
       };
     };
 
-    persist.extraDirectories = [
+    ragon.persist.extraDirectories = [
       "/var/lib/hass"
       "${config.services.postgresql.dataDir}"
     ];
