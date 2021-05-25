@@ -60,7 +60,6 @@ in
     environment.systemPackages =
       let
         mkPkgs = pkg: import pkg { # apply config and overlays to following pkgs
-          inherit system;
           config.allowUnfree = true; # fuck rms and his cult
         };
         a = mkPkgs inputs.nixpkgs-master;
