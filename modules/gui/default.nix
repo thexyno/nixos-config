@@ -1,4 +1,4 @@
-{ config, inputs,  options, lib, pkgs, ... }:
+{ config, inputs, options, lib, pkgs, ... }:
 let
   cfg = config.ragon.gui;
   username = config.ragon.user.username;
@@ -62,7 +62,7 @@ in
         mkPkgs = pkg: import pkg { # apply config and overlays to following pkgs
           config.allowUnfree = true; # fuck rms and his cult
         };
-        a = mkPkgs inputs.nixpkgs-master;
+        a = mkPkgs inputs.nixpkgs-master.legacyPackages.x86_64-linux;
       in
       with pkgs; [
       piper # mx master control software
