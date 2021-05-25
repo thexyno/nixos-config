@@ -8,6 +8,6 @@ in
     virtualisation.oci-containers.backend = "podman";
     virtualisation.podman.enable = true;
     virtualisation.podman.dockerCompat = true;
-    ragon.user.extraGroups = [ "docker" ];
+    ragon.user.extraGroups = [ "docker" "podman" ];
   };
 }
