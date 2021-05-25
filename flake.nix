@@ -66,7 +66,7 @@
       pkgs' = mkPkgs nixpkgs-master [];
 
       lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
-          (self: super: { my = import ./lib { inherit pkgs pkgs' inputs; lib = self; }; });
+          (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
 
     in
     {
@@ -77,7 +77,7 @@
         final: prev: {
           unstable = pkgs';
           pubkeys = import ./data/pubkeys.nix;
-          my = self.packages."${system}"; # idk
+          my = self.packages."${system}";
         };
       overlays =
         mapModules ./overlays import; # placeholder for when I add my own overlays
