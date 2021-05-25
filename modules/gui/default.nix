@@ -73,7 +73,7 @@ in
       sxiv
       signal-desktop
       bitwarden
-      discord
+      master.discord
       spotify
       obs-studio
       mullvad-vpn
