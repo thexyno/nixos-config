@@ -12,14 +12,16 @@ in {
       modules = [
         {
           nixpkgs = {
+            pkgs = pkgs;
+            config = {
             packageOverrides = {
               master = import inputs.nixpkgs-master {
                 system = sys;
                 config.allowUnfree = true;
               };
             };
-            pkgs = pkgs;
-            config.allowUnfree = true;
+            allowUnfree = true;
+          };
           };
           networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
         }
