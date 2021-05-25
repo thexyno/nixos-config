@@ -16,7 +16,7 @@ in {
             config = {
             packageOverrides = {
               master = import inputs.nixpkgs-master {
-                config = config.nixpkgs.config
+                config = config.nixpkgs.config;
               };
             };
             allowUnfree = true;
