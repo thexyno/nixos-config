@@ -17,7 +17,7 @@ in {
                 system = sys;
                 config.allowUnfree = true;
               };
-            }
+            };
             pkgs = pkgs;
             config.allowUnfree = true;
           };
