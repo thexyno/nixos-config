@@ -57,30 +57,26 @@ in
     # $ nix-env -qaP | grep wget
     services.ratbagd.enable = true; # mx master control daemon
     documentation.info.enable = false; # https://github.com/NixOS/nixpkgs/issues/124215#issuecomment-846762260
-    environment.systemPackages = with pkgs; [
-      piper # mx master control software
-      libreoffice-fresh
-      nixpkgs-master.timeular
-      cinnamon.nemo
-      arc-icon-theme
-      feh
-      pulsemixer
-      gimp
-      firefox
-      thunderbird
-      mpv
-      kitty
-      sxiv
-      signal-desktop
-      bitwarden
-      nixpkgs-master.discord
-      spotify
-      obs-studio
-      mullvad-vpn
-      kompare
+    environment.systemPackages = [
+      pkgs.piper # mx master control software
+      pkgs.libreoffice-fresh
+      master.timeular
+      pkgs.cinnamon.nemo
+      pkgs.arc-icon-theme
+      pkgs.feh
+      pkgs.pulsemixer
+      pkgs.gimp
+      pkgs.firefox
+      pkgs.thunderbird
+      pkgs.mpv
+      pkgs.kitty
+      pkgs.sxiv
+      pkgs.signal-desktop
+      pkgs.bitwarden
+      master.discord
+      master.spotify
+      pkgs.obs-studio
     ];
-
-    services.mullvad-vpn.enable = true;
 
     ragon.user.persistent.extraFiles = [
       ".cache/rofi3.druncache" # rofi cache so the search priorities are not garbage
