@@ -58,11 +58,11 @@ in
     services.ratbagd.enable = true; # mx master control daemon
     documentation.info.enable = false; # https://github.com/NixOS/nixpkgs/issues/124215#issuecomment-846762260
     environment.systemPackages =
-      mkPkgs = pkg: import pkg { # apply config and overlays to following pkgs
-        inherit system;
-        config.allowUnfree = true; # fuck rms and his cult
-      };
       let
+        mkPkgs = pkg: import pkg { # apply config and overlays to following pkgs
+          inherit system;
+          config.allowUnfree = true; # fuck rms and his cult
+        };
         a = mkPkgs inputs.nixpkgs-master;
       in
       with pkgs; [
