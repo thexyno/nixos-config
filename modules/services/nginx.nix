@@ -12,8 +12,8 @@ in
   config = lib.mkIf cfg.enable {
     services.nginx = {
       enable = true;
-      reccomendedProxySettings = true;
-      reccomendedTlsSettings = true;
+      recomendedProxySettings = true;
+      recomendedTlsSettings = true;
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
     };
