@@ -4,7 +4,7 @@
   inputs = {
     # nix inputs
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:NixOS/nixpkgs";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -75,7 +75,6 @@
 
       overlay =
         final: prev: {
-          # TODO figure agenix out
           pubkeys = import ./data/pubkeys.nix;
           master = pkgs';
           my = self.packages."${system}"; # idk
