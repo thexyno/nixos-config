@@ -1,4 +1,4 @@
-{ config, options, lib, pkgs, ... }:
+{ config, inputs, options, lib, pkgs, ... }:
 let
   cfg = config.ragon.gui;
   username = config.ragon.user.username;
@@ -73,9 +73,9 @@ in
       signal-desktop
       bitwarden
       obs-studio
-      unstable.discord
-      unstable.spotify
-      unstable.timeular
+      inputs.nixpkgs-master.discord
+      inputs.nixpkgs-master.spotify
+      inputs.nixpkgs-master.timeular
     ];
 
     ragon.user.persistent.extraFiles = [
