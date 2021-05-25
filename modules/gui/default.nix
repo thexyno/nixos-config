@@ -60,7 +60,7 @@ in
     environment.systemPackages = with pkgs; [
       piper # mx master control software
       libreoffice-fresh
-      master.timeular
+      nixpkgs-master.timeular
       cinnamon.nemo
       arc-icon-theme
       feh
@@ -73,7 +73,7 @@ in
       sxiv
       signal-desktop
       bitwarden
-      master.discord
+      nixpkgs-master.discord
       spotify
       obs-studio
       mullvad-vpn
