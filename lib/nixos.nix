@@ -18,7 +18,7 @@ in {
       modules = [
         {
           nixpkgs = {
-            overlays = [ unstableOverlay ]
+            overlays = [ unstableOverlay ];
             pkgs = pkgs;
             config.allowUnfree = true;
           };
