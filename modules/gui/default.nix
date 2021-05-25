@@ -60,7 +60,7 @@ in
     environment.systemPackages = [
       pkgs.piper # mx master control software
       pkgs.libreoffice-fresh
-      master.timeular
+      pkgs.master.timeular
       pkgs.cinnamon.nemo
       pkgs.arc-icon-theme
       pkgs.feh
@@ -73,8 +73,8 @@ in
       pkgs.sxiv
       pkgs.signal-desktop
       pkgs.bitwarden
-      master.discord
-      master.spotify
+      pkgs.master.discord
+      pkgs.master.spotify
       pkgs.obs-studio
     ];
 
