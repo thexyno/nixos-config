@@ -74,9 +74,9 @@ in
       signal-desktop
       bitwarden
       obs-studio
-      master.discord
-      master.spotify
-      master.timeular
+      unstable.discord
+      unstable.spotify
+      unstable.timeular
     ];
 
     ragon.user.persistent.extraFiles = [
