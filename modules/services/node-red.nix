@@ -18,9 +18,9 @@ in
       volumes = [
         "/var/lib/node-red:/data"
       ];
-      # ports = [
-      #   "1880:1880"
-      # ];
+      ports = [
+        "1880:1880"
+      ];
       environment = {
         TZ = tz;
       };
@@ -28,7 +28,7 @@ in
     };
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       useACMEHost = "${domain}";
-      locations."/".proxyPass = "http://node-red:1880";
+      locations."/".proxyPass = "http://localhost:1880";
     };
     ragon.persist.extraDirectories = [
       "/var/lib/node-red"
