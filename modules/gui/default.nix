@@ -57,25 +57,25 @@ in
     # $ nix-env -qaP | grep wget
     services.ratbagd.enable = true; # mx master control daemon
     documentation.info.enable = false; # https://github.com/NixOS/nixpkgs/issues/124215#issuecomment-846762260
-    environment.systemPackages = [
-      pkgs.piper # mx master control software
-      pkgs.libreoffice-fresh
-      pkgs.master.timeular
-      pkgs.cinnamon.nemo
-      pkgs.arc-icon-theme
-      pkgs.feh
-      pkgs.pulsemixer
-      pkgs.gimp
-      pkgs.firefox
-      pkgs.thunderbird
-      pkgs.mpv
-      pkgs.kitty
-      pkgs.sxiv
-      pkgs.signal-desktop
-      pkgs.bitwarden
-      pkgs.master.discord
-      pkgs.master.spotify
-      pkgs.obs-studio
+    environment.systemPackages = with pkgs; [
+      piper # mx master control software
+      libreoffice-fresh
+      cinnamon.nemo
+      arc-icon-theme
+      feh
+      pulsemixer
+      gimp
+      firefox
+      thunderbird
+      mpv
+      kitty
+      sxiv
+      signal-desktop
+      bitwarden
+      unstable.discord
+      unstable.spotify
+      unstable.timeular
+      obs-studio
     ];
 
     ragon.user.persistent.extraFiles = [
