@@ -63,7 +63,7 @@
         overlays = extraOverlays ++ (lib.attrValues self.overlays);
       };
       pkgs = mkPkgs nixpkgs [ self.overlay ];
-      pkgs-master = mkPkgs nixpkgs-master [ self.overlay ];
+      pkgs' = mkPkgs nixpkgs-master [ ];
 
       lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
           (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
@@ -76,7 +76,7 @@
       overlay =
         final: prev: {
           pubkeys = import ./data/pubkeys.nix;
-          master = pkgs-master;
+          master = pkgs';
           my = self.packages."${system}"; # idk
         };
       overlays =
