@@ -1,7 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 let
   cfg = config.ragon.persist;
-  ragon = config.ragon;
 in
 {
   options.ragon.persist.enable = lib.mkEnableOption "Enables persistence"; # TODO this needs to be fixed up fully
