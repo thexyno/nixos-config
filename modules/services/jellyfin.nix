@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.services.jellyfin;
-  persist = config.ragon.persist;
   domain = config.ragon.nginx.domain;
 in
 {
@@ -50,7 +49,7 @@ in
     };
 
     };
-    persist.extraDirectories = [
+    ragon.persist.extraDirectories = [
       "/var/cache/jellyfin"
       "/var/lib/jellyfin"
     ];
