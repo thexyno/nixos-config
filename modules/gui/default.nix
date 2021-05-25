@@ -73,9 +73,9 @@ in
       signal-desktop
       bitwarden
       obs-studio
-      inputs.nixpkgs-master.discord
-      inputs.nixpkgs-master.spotify
-      inputs.nixpkgs-master.timeular
+      inputs.nixpkgs-master.defaultPackage.x86_64-linux.discord
+      inputs.nixpkgs-master.defaultPackage.x86_64-linux.spotify
+      inputs.nixpkgs-master.defaultPackage.x86_64-linux.timeular
     ];
 
     ragon.user.persistent.extraFiles = [
