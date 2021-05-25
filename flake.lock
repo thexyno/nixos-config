@@ -164,26 +164,24 @@
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
+        "id": "nixpkgs",
         "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "indirect"
       }
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1621951307,
-        "narHash": "sha256-5VJADor96tGn4fb+KXS80VCZGmAbjW/f2qGxokZdiZk=",
+        "lastModified": 1621952836,
+        "narHash": "sha256-YMLdPaCY8nU8IejO4270xX43PF+1dkDsZBUP5qX3UYs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "7eddab91f59a14704eceb117cc6cadb44eacb8b2",
+        "rev": "a143b7f3ce16322cbdcdf3f560e07e3d93412726",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
+        "id": "nixpkgs",
         "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "indirect"
       }
     },
     "nnn-vim": {
