@@ -69,7 +69,6 @@ in
       thunderbird
       mpv
       kitty
-      timeular
       sxiv
       signal-desktop
       bitwarden
