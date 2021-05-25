@@ -52,14 +52,11 @@ in
     ];
 
 
-    nixpkgs.config.allowUnfree = true;
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
-    services.ratbagd.enable = true; # mx master control daemon
     documentation.info.enable = false; # https://github.com/NixOS/nixpkgs/issues/124215#issuecomment-846762260
     environment.systemPackages =
       with pkgs; [
-      piper # mx master control software
       libreoffice-fresh
       cinnamon.nemo
       arc-icon-theme
