@@ -3,8 +3,8 @@
 
   inputs = {
     # nix inputs
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "nixpkgs/master";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -63,7 +63,7 @@
         overlays = extraOverlays ++ (lib.attrValues self.overlays);
       };
       pkgs = mkPkgs nixpkgs [ self.overlay ];
-      pkgs' = mkPkgs nixpkgs-master [ ];
+      pkgs' = mkPkgs nixpkgs-master [];
 
       lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
           (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
@@ -75,8 +75,8 @@
 
       overlay =
         final: prev: {
-          pubkeys = import ./data/pubkeys.nix;
           unstable = pkgs';
+          pubkeys = import ./data/pubkeys.nix;
           my = self.packages."${system}"; # idk
         };
       overlays =
