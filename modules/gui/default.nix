@@ -58,12 +58,6 @@ in
     services.ratbagd.enable = true; # mx master control daemon
     documentation.info.enable = false; # https://github.com/NixOS/nixpkgs/issues/124215#issuecomment-846762260
     environment.systemPackages =
-      let
-        mkPkgs = pkg: import pkg { # apply config and overlays to following pkgs
-          config.allowUnfree = true; # fuck rms and his cult
-        };
-        a = mkPkgs inputs.nixpkgs-master.legacyPackages.x86_64-linux;
-      in
       with pkgs; [
       piper # mx master control software
       libreoffice-fresh
@@ -80,9 +74,9 @@ in
       signal-desktop
       bitwarden
       obs-studio
-      a.discord
-      a.spotify
-      a.timeular
+      unstable.discord
+      unstable.spotify
+      unstable.timeular
     ];
 
     ragon.user.persistent.extraFiles = [
