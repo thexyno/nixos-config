@@ -5,7 +5,7 @@ with lib.my;
 let 
   sys = "x86_64-linux";
   unstableOverlay = final: prev: {
-    unstable = inputs.nixpkgs-master {
+    unstable = import inputs.nixpkgs-master {
       system = sys;
       config.allowUnfree = true;
     };
