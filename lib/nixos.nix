@@ -14,13 +14,13 @@ in {
           nixpkgs = {
             pkgs = pkgs;
             config = {
-            packageOverrides = {
-              master = import inputs.nixpkgs-master {
-                config = config.nixpkgs.config;
+              packageOverrides = {
+                unstable = import inputs.nixpkgs-master {
+                  config = config.nixpkgs.config;
+                };
               };
+              allowUnfree = true;
             };
-            allowUnfree = true;
-          };
           };
           networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
         }
