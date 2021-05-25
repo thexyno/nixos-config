@@ -13,7 +13,7 @@ in
     };
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.backend = "podman";
-    virtualisation.oci-contaiers.containers."node-red" = {
+    virtualisation.oci-containers.containers."node-red" = {
       image = "nodered/node-red";
       volumes = [
         "/var/lib/node-red:/data"
