@@ -76,7 +76,7 @@
       overlay =
         final: prev: {
           pubkeys = import ./data/pubkeys.nix;
-          master = pkgs';
+          unstable = pkgs';
           my = self.packages."${system}"; # idk
         };
       overlays =
