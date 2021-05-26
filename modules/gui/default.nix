@@ -69,6 +69,7 @@ in
       kitty
       sxiv
       signal-desktop
+      wireguard
       bitwarden
       obs-studio
       unstable.discord
@@ -129,6 +130,8 @@ in
 
     # Enable networkmanager.
     networking.networkmanager.enable = true;
+    networking.firewall.checkReversePath = false;
+
     networking.networkmanager.wifi.backend = "iwd";
 
     # Define extra groups for user.
