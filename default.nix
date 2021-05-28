@@ -29,7 +29,7 @@ with lib.my;
         nixPathInputs  = mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
         registryInputs = mapAttrs (_: v: { flake = v; }) filteredInputs;
     in {
-      package = pkgs.nixFlakes;
+      package = pkgs.unstable.nixFlakes;
       extraOptions = "experimental-features = nix-command flakes";
       nixPath = nixPathInputs ++ [
         "nixpkgs-overlays=${config.conf.dir}/overlays"
