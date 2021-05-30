@@ -74,10 +74,9 @@ in
               coc-nvim
               dart-vim
             ];
+      customRC = (builtins.readFile ./init.vim);
           };
       
-      customRC = (builtins.readFile ./init.vim);
-};      
       
       defaultEditor = true;
 enable = true;
