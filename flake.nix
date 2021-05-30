@@ -93,7 +93,7 @@
         { conf = import ./.; } // mapModulesRec ./modules import; # load all the juicy modules
 
       nixosConfigurations =
-        mapHosts ./hosts { };
+        mapHosts ./hosts { inherit overlay overlays; };
 
       devShell."${system}" =
         import ./shell.nix { inherit pkgs; };
