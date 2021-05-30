@@ -4,7 +4,7 @@
   inputs = {
     # nix inputs
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    masterpkgs.url = "github:NixOS/nixpkgs/master";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -53,7 +53,7 @@
   };
 
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-master, ... }: 
+  outputs = inputs @ { self, nixpkgs, masterpkgs, ... }: 
     let
       inherit (lib.my) mapModules mapModulesRec mapHosts;
       system = "x86_64-linux"; # when rpis get into play, that needs changes
@@ -63,7 +63,7 @@
         overlays = extraOverlays ++ (lib.attrValues self.overlays);
       };
       pkgs = mkPkgs nixpkgs [ self.overlay ];
-      pkgsmaster = mkPkgs nixpkgs-master [];
+      pkgsmaster = mkPkgs masterpkgs [];
 
       lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
           (self: super: { pkgsmaster = pkgsmaster; my = import ./lib { inherit pkgs inputs; lib = self; }; });
