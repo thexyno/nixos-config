@@ -62,16 +62,16 @@
         config.allowUnfree = true; # fuck rms and his cult
         overlays = extraOverlays ++ (lib.attrValues self.overlays);
       };
-      mkPkgs' = pkgsmaster: extraOverlays: import pkgsmaster { # apply config and overlays to following pkgs
-        inherit system;
-        config.allowUnfree = true; # fuck rms and his cult
-        overlays = extraOverlays ++ (lib.attrValues self.overlays);
+      unstableOverlay = final: prev: {
+        unstable = import masterpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        }
       };
-      pkgs = mkPkgs nixpkgs [ self.overlay ];
-      pkgsmaster = mkPkgs' masterpkgs [];
+      pkgs = mkPkgs nixpkgs [ self.overlay unstableOverlay ];
 
       lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
-          (self: super: { pkgsmaster = pkgsmaster; my = import ./lib { inherit pkgs inputs; lib = self; }; });
+          (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
 
     in
     {
@@ -80,7 +80,6 @@
 
       overlay =
         final: prev: {
-          unstable = pkgsmaster;
           pubkeys = import ./data/pubkeys.nix;
           my = self.packages."${system}";
         };
