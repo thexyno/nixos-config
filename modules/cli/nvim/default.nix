@@ -24,7 +24,7 @@ in
     ];
 
     programs.neovim = {
-      package = lib.unstable.neovim-unwrapped;
+      package = lib.pkgsmaster.neovim-unwrapped;
       vimAlias = true;
       viAlias = true;
       defaultEditor = true;
