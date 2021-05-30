@@ -3,8 +3,8 @@
 
   inputs = {
     # nix inputs
-    nixpkgs.url = "nixpkgs/nixos-unstable";
-    masterpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -53,7 +53,7 @@
   };
 
 
-  outputs = inputs @ { self, nixpkgs, masterpkgs, ... }: 
+  outputs = inputs @ { self, nixpkgs-unstable, nixpkgs-master, ... }: 
     let
       inherit (lib.my) mapModules mapModulesRec mapHosts;
       system = "x86_64-linux"; # when rpis get into play, that needs changes
@@ -62,14 +62,10 @@
         config.allowUnfree = true; # fuck rms and his cult
         overlays = extraOverlays ++ (lib.attrValues self.overlays);
       };
-      unstableOverlay = final: prev: {
-        unstable = masterpkgs.legacyPackages."x86_64-linux";
-        masterpkgs.nixpkgs.allowUnfree = true;
-      };
-      pkgs = mkPkgs nixpkgs [ self.overlay ];
-      pkgs' = mkPkgs masterpkgs [ ];
+      pkgs = mkPkgs nixpkgs-unstable [ self.overlay ];
+      pkgs' = mkPkgs nixpkgs-master [ ];
 
-      lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
+      lib = nixpkgs-unstable.lib.extend # extend lib with the stuff in ./lib
           (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
 
     in
