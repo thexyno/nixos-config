@@ -64,6 +64,7 @@
       };
       unstableOverlay = final: prev: {
         unstable = masterpkgs.legacyPackages."x86_64-linux";
+        unstable.allowUnfree = true;
       };
       pkgs = mkPkgs nixpkgs [ self.overlay unstableOverlay ];
 
