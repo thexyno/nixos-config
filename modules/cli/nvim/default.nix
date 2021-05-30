@@ -24,8 +24,9 @@ in
     ];
 
     programs.neovim = {
-      package = pkgs.neovim.override {
-        vimAlias = true;
+      package = pkgs.neovim-unwrapped;
+
+              vimAlias = true;
         viAlias = true;
         configure =
           let
@@ -74,12 +75,12 @@ in
               dart-vim
             ];
           };
-      };
-      configure.customRC = (builtins.readFile ./init.vim);
-      viAlias = true;
-      vimAlias = true;
+      
+      customRC = (builtins.readFile ./init.vim);
+};      
+      
       defaultEditor = true;
-
+enable = true;
     };
 
     environment.etc."nvim/coc-settings.json".text = (builtins.readFile ./coc-settings.json);
