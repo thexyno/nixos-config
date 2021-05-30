@@ -11,7 +11,7 @@ in {
       modules = [
         {
           nixpkgs.pkgs = pkgs;
-          nixpkgs.overlays= pkgs.overlays
+          nixpkgs.overlays= pkgs.overlays;
           networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
         }
         (filterAttrs (n: v: !elem n [ "system" ]) attrs)
