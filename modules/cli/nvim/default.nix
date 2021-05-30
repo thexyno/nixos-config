@@ -24,62 +24,59 @@ in
     ];
 
     programs.neovim = {
-      package = pkgs.neovim-unwrapped;
-
-              vimAlias = true;
-        viAlias = true;
-        configure =
-          let
-            nnn-vim = pkgs.vimUtils.buildVimPlugin {
-              name = "nnn-vim";
-              src = inputs.nnn-vim;
-            };
-            coc-nvim = pkgs.vimUtils.buildVimPlugin {
-              name = "coc-nvim";
-              src = inputs.coc-nvim;
-            };
-            dart-vim = pkgs.vimUtils.buildVimPlugin {
-              name = "dart-vim";
-              src = inputs.dart-vim;
-            };
-            vim-pandoc-live-preview = pkgs.vimUtils.buildVimPlugin {
-              name = "vim-pandoc-live-preview";
-              src = inputs.vim-pandoc-live-preview;
-            };
-          in
-          {
-            plug.plugins = with pkgs.vimPlugins; [
-              nnn-vim
-              vista-vim
-              undotree
-              polyglot
-              rainbow
-              vim-commentary
-              vim-table-mode
-              vim-speeddating
-              vim-nix
-              gruvbox
-              incsearch-vim
-              vim-highlightedyank
-              vim-fugitive
-              lightline-vim
-              fzf-vim
-              fzfWrapper
-              vim-devicons
-              #        ] // lib.mkIf cfg.maximal [
-              vim-pandoc
-              vim-pandoc-live-preview
-              vim-pandoc-syntax
-              ultisnips
-              coc-nvim
-              dart-vim
-            ];
-      customRC = (builtins.readFile ./init.vim);
-          };
-      
-      
+      package = pkgs.unstable.neovim-unwrapped;
+      vimAlias = true;
+      viAlias = true;
       defaultEditor = true;
-enable = true;
+      enable = true;
+      configure =
+        let
+          nnn-vim = pkgs.vimUtils.buildVimPlugin {
+            name = "nnn-vim";
+            src = inputs.nnn-vim;
+          };
+          coc-nvim = pkgs.vimUtils.buildVimPlugin {
+            name = "coc-nvim";
+            src = inputs.coc-nvim;
+          };
+          dart-vim = pkgs.vimUtils.buildVimPlugin {
+            name = "dart-vim";
+            src = inputs.dart-vim;
+          };
+          vim-pandoc-live-preview = pkgs.vimUtils.buildVimPlugin {
+            name = "vim-pandoc-live-preview";
+            src = inputs.vim-pandoc-live-preview;
+          };
+        in
+        {
+          plug.plugins = with pkgs.vimPlugins; [
+            nnn-vim
+            vista-vim
+            undotree
+            polyglot
+            rainbow
+            vim-commentary
+            vim-table-mode
+            vim-speeddating
+            vim-nix
+            gruvbox
+            incsearch-vim
+            vim-highlightedyank
+            vim-fugitive
+            lightline-vim
+            fzf-vim
+            fzfWrapper
+            vim-devicons
+            #        ] // lib.mkIf cfg.maximal [
+            vim-pandoc
+            vim-pandoc-live-preview
+            vim-pandoc-syntax
+            ultisnips
+            coc-nvim
+            dart-vim
+          ];
+          customRC = (builtins.readFile ./init.vim);
+        };
     };
 
     environment.etc."nvim/coc-settings.json".text = (builtins.readFile ./coc-settings.json);
