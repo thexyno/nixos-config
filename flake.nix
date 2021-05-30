@@ -64,7 +64,7 @@
         config.allowUnfree = true; # fuck rms and his cult
         overlays = extraOverlays ++ (lib.attrValues self.overlays);
       };
-      pkgs = mkPkgs nixpkgs [ self.overlay neovim-nightly-overlay ];
+      pkgs = mkPkgs nixpkgs [ self.overlay];
       pkgs' = mkPkgs nixpkgs-master [ ];
 
       lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
