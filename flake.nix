@@ -66,7 +66,7 @@
       pkgs' = mkPkgs nixpkgs-master [];
 
       lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
-          (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
+          (self: super: { unstable = pkgs'; my = import ./lib { inherit pkgs inputs; lib = self; }; });
 
     in
     {
