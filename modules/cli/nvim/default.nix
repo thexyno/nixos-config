@@ -12,7 +12,6 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       nnn
-      ()
       #  ] // lib.mkIf cfg.maximal [ python3 # ultisnips
       nodejs
       #(import inputs.rnix-lsp)
