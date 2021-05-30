@@ -121,6 +121,22 @@
         "type": "github"
       }
     },
+    "masterpkgs": {
+      "locked": {
+        "lastModified": 1622386366,
+        "narHash": "sha256-pDQjGxTLScgrwQx4yjgeiFpqBXbbv+ljzNWo9btVl4M=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "219d8381bdebfc37468953f8b5edfb2ddafa2961",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nextshot": {
       "flake": false,
       "locked": {
@@ -167,22 +183,6 @@
         "id": "nixpkgs",
         "ref": "nixos-unstable",
         "type": "indirect"
-      }
-    },
-    "nixpkgs-master": {
-      "locked": {
-        "lastModified": 1622383400,
-        "narHash": "sha256-RGjMRrpoyA+FBixVPvzayabvek67DEkkjB7KNNvWYJ8=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "544db849a172f03c7eda038705e303e94bf5a53e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
       }
     },
     "nnn-vim": {
@@ -242,10 +242,10 @@
         "dwm": "dwm",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "masterpkgs": "masterpkgs",
         "nextshot": "nextshot",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-master": "nixpkgs-master",
         "nnn-vim": "nnn-vim",
         "pandoc-latex-template": "pandoc-latex-template",
         "pandocode": "pandocode",
