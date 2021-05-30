@@ -62,7 +62,7 @@
         config.allowUnfree = true; # fuck rms and his cult
         overlays = extraOverlays ++ (lib.attrValues self.overlays);
       };
-      pkgs = mkPkgs nixpkgs [ self.overlay final: prev: { unstable = masterpkgs.legacyPackages."x86_64-linux"; }; ];
+      pkgs = mkPkgs nixpkgs [ self.overlay (final: prev: { unstable = masterpkgs.legacyPackages."x86_64-linux"; };) ];
       pkgsmaster = mkPkgs masterpkgs [];
 
       lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
