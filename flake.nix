@@ -63,10 +63,8 @@
         overlays = extraOverlays ++ (lib.attrValues self.overlays);
       };
       unstableOverlay = final: prev: {
-        unstable = import masterpkgs {
-          system = "x86_64-linux"; # when rpis get into play, that needs changes
-          config.allowUnfree = true;
-        };
+        unstable = masterpkgs.legacyPackages."x86_64-linux";
+        unstable.config.allowUnfree = true;
       };
       pkgs = mkPkgs nixpkgs [ self.overlay unstableOverlay ];
 
