@@ -1,4 +1,4 @@
-{ inputs, lib, pkgs, ... }:
+{ inputs, lib, pkgs, overlays, overlay, ... }:
 
 with lib;
 with lib.my;
@@ -11,6 +11,7 @@ in {
       modules = [
         {
           nixpkgs.pkgs = pkgs;
+          nixpkgs.overlays = [ overlay ] ++ overlays;
           networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
         }
         (filterAttrs (n: v: !elem n [ "system" ]) attrs)

@@ -66,7 +66,8 @@
         unstable = masterpkgs.legacyPackages."x86_64-linux";
         masterpkgs.nixpkgs.allowUnfree = true;
       };
-      pkgs = mkPkgs nixpkgs [ self.overlay unstableOverlay ];
+      pkgs = mkPkgs nixpkgs [ self.overlay ];
+      pkgs' = mkPkgs masterpkgs [ ];
 
       lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
           (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
@@ -78,6 +79,7 @@
 
       overlay =
         final: prev: {
+          unstable = pkgs';
           pubkeys = import ./data/pubkeys.nix;
           my = self.packages."${system}";
         };
