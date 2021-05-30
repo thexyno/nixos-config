@@ -66,7 +66,7 @@
         unstable = import masterpkgs {
           inherit system;
           config.allowUnfree = true;
-        }
+        };
       };
       pkgs = mkPkgs nixpkgs [ self.overlay unstableOverlay ];
 
