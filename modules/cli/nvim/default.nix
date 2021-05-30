@@ -12,7 +12,20 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       nnn
-      (neovim.override {
+      ()
+      #  ] // lib.mkIf cfg.maximal [ python3 # ultisnips
+      nodejs
+      #(import inputs.rnix-lsp)
+    ];
+    ragon.user.persistent.extraDirectories = [
+      ".config/coc"
+      ".local/share/nvim"
+      ".config/TabNine"
+
+    ];
+
+    programs.neovim = {
+      package = pkgs.neovim.override {
         vimAlias = true;
         viAlias = true;
         configure =
@@ -35,7 +48,6 @@ in
             };
           in
           {
-            customRC = (builtins.readFile ./init.vim);
             plug.plugins = with pkgs.vimPlugins; [
               nnn-vim
               vista-vim
@@ -63,18 +75,13 @@ in
               dart-vim
             ];
           };
-      })
-      #  ] // lib.mkIf cfg.maximal [
-      python3 # ultisnips
-      nodejs
-      #(import inputs.rnix-lsp)
-    ];
-    ragon.user.persistent.extraDirectories = [
-      ".config/coc"
-      ".local/share/nvim"
-      ".config/TabNine"
+      };
+      configure.customRC = (builtins.readFile ./init.vim);
+      viAlias = true;
+      vimAlias = true;
+      defaultEditor = true;
 
-    ];
+    };
 
     environment.etc."nvim/coc-settings.json".text = (builtins.readFile ./coc-settings.json);
     environment.etc."nvim/coc-settings.json".enable = cfg.maximal;
