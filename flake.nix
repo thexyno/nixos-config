@@ -14,6 +14,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    neovim-nightly-overlay.inputs.neovim-flake.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
 
     #rnix-lsp.url = "github:nix-community/rnix-lsp";
