@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, ... }:
+{ inputs, config, lib, inputs, pkgs, ... }:
 let
   cfg = config.ragon.nvim;
 in
@@ -24,7 +24,7 @@ in
     ];
 
     programs.neovim = {
-      package = pkgs.unstable.neovim-unwrapped;
+      package = pkgs.callPackage inputs.nixpkgs-master.neovim-unwrapped;
       vimAlias = true;
       viAlias = true;
       defaultEditor = true;
