@@ -12,6 +12,8 @@
     impermanence.url = "github:nix-community/impermanence";
     impermanence.inputs.nixpkgs.follows = "nixpkgs-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
 
     #rnix-lsp.url = "github:nix-community/rnix-lsp";
@@ -53,7 +55,7 @@
   };
 
 
-  outputs = inputs @ { self, nixpkgs-unstable, nixpkgs-master, ... }: 
+  outputs = inputs @ { self, nixpkgs-unstable, nixpkgs-master, neovim-nightly-overlay, ... }: 
     let
       inherit (lib.my) mapModules mapModulesRec mapHosts;
       system = "x86_64-linux"; # when rpis get into play, that needs changes
@@ -62,7 +64,7 @@
         config.allowUnfree = true; # fuck rms and his cult
         overlays = extraOverlays ++ (lib.attrValues self.overlays);
       };
-      pkgs = mkPkgs nixpkgs-unstable [ self.overlay ];
+      pkgs = mkPkgs nixpkgs-unstable [ self.overlay neovim-nightly-overlay ];
       pkgs' = mkPkgs nixpkgs-master [ ];
 
       lib = nixpkgs-unstable.lib.extend # extend lib with the stuff in ./lib
