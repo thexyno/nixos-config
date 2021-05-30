@@ -64,7 +64,7 @@
       };
       unstableOverlay = final: prev: {
         unstable = import masterpkgs {
-          inherit system;
+          system = "x86_64-linux"; # when rpis get into play, that needs changes
           config.allowUnfree = true;
         };
       };
