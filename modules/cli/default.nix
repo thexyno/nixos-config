@@ -11,6 +11,7 @@ in
       enableSSHSupport = true;
     };
     ragon.nvim.enable = true;
+    ragon.cli.weechat.enable = true;
 
 
     security.sudo.extraConfig = "Defaults lecture = never";
