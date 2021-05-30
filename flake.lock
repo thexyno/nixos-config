@@ -3,7 +3,7 @@
     "agenix": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-unstable"
         ]
       },
       "locked": {
@@ -89,7 +89,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-unstable"
         ]
       },
       "locked": {
@@ -118,22 +118,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "impermanence",
-        "type": "github"
-      }
-    },
-    "masterpkgs": {
-      "locked": {
-        "lastModified": 1622386366,
-        "narHash": "sha256-pDQjGxTLScgrwQx4yjgeiFpqBXbbv+ljzNWo9btVl4M=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "219d8381bdebfc37468953f8b5edfb2ddafa2961",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "master",
-        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -170,7 +154,23 @@
         "type": "github"
       }
     },
-    "nixpkgs": {
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1622386945,
+        "narHash": "sha256-xdeYmZEQoHAvBeJ+50qjqRXAf+6QVHKzpKUAIwm4OiU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "83c102f66c3ee9252cf012b9a9c85c6f953f7cf3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1622194753,
         "narHash": "sha256-76qtvFp/vFEz46lz5iZMJ0mnsWQYmuGYlb0fHgKqqMg=",
@@ -180,9 +180,10 @@
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
+        "owner": "NixOS",
         "ref": "nixos-unstable",
-        "type": "indirect"
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nnn-vim": {
@@ -242,10 +243,10 @@
         "dwm": "dwm",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "masterpkgs": "masterpkgs",
         "nextshot": "nextshot",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs-master": "nixpkgs-master",
+        "nixpkgs-unstable": "nixpkgs-unstable",
         "nnn-vim": "nnn-vim",
         "pandoc-latex-template": "pandoc-latex-template",
         "pandocode": "pandocode",

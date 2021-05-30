@@ -6,11 +6,11 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     agenix.url = "github:ryantm/agenix";
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.inputs.nixpkgs.follows = "nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
     impermanence.url = "github:nix-community/impermanence";
-    impermanence.inputs.nixpkgs.follows = "nixpkgs";
+    impermanence.inputs.nixpkgs.follows = "nixpkgs-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
 
