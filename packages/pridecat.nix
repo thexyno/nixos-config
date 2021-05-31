@@ -1,10 +1,7 @@
 { lib, fetchFromGitHub, stdenv }:
-let
-  pname = "pridecat";
-in
 stdenv.mkDerivation rec {
   version = "1.0.0";
-  pname = pname;
+  pname = "pridecat";
   src = fetchFromGitHub {
     owner = "lunasorcery";
     repo = "pridecat";
