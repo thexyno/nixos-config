@@ -1,4 +1,4 @@
-{  config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let
   cfg = config.ragon.cli;
   ragon = config.ragon;
@@ -11,8 +11,12 @@ in
       enableSSHSupport = true;
     };
     ragon.nvim.enable = true;
-    ragon.cli.weechat.enable = true;
 
+
+    services.lorri.enable = true;
+    ragon.user.persistent.extraDirectories = [
+      ".local/share/direnv" # lorri
+    ];
 
     security.sudo.extraConfig = "Defaults lecture = never";
 
@@ -44,7 +48,9 @@ in
     };
 
     environment.systemPackages = with pkgs; [
+      direnv # needed for lorri
       unzip
+      my.pridecat
       nnn
       bat
       htop

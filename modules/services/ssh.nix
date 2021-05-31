@@ -1,4 +1,3 @@
-
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.services.ssh;

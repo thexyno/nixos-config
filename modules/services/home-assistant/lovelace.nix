@@ -9,7 +9,8 @@ in
     services.home-assistant.lovelaceConfig = {
       title = "The mighty Citadel of Dundee";
       views = [
-        { # dashboard
+        {
+          # dashboard
           title = "The Chaos Portal to the galactic nexus";
           cards = [
 

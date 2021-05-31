@@ -21,7 +21,7 @@
   };
 
   networking.useDHCP = false;
-  networking.networkmanager.enable = true;
+  networking.interfaces.enp9s0.useDHCP = true;
   networking.hostId = "7b45236a";
 
   # Immutable users due to tmpfs
@@ -38,7 +38,6 @@
   ragon.persist.enable = true;
   ragon.services.gamingvmhost.enable = true;
   ragon.services.docker.enable = true;
-  ragon.services.signal.enable = true;
   ragon.services.ssh.enable = true;
 
 }

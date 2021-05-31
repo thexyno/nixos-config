@@ -5,7 +5,7 @@ let
 in
 {
   options.ragon.services.home-assistant.enable = lib.mkEnableOption "Enables hass";
-  options.ragon.services.home-assistant.domainPrefix = 
+  options.ragon.services.home-assistant.domainPrefix =
     lib.mkOption {
       type = lib.types.str;
       default = "h";
@@ -23,7 +23,7 @@ in
       applyDefaultConfig = false;
 
     };
-    
+
     services.postgresql = {
       enable = true;
       ensureDatabases = [ "hass" ];

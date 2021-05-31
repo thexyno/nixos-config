@@ -4,9 +4,10 @@
 { inputs, config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ "${modulesPath}/installer/scan/not-detected.nix" 
-  inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t440p
-];
+  imports = [
+    "${modulesPath}/installer/scan/not-detected.nix"
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t440p
+  ];
 
   boot.initrd.availableKernelModules = [ "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "usbhid" "sd_mod" "sr_mod" ];
   boot.initrd.luks.devices.crypt.device = "/dev/sda1";

@@ -6,7 +6,7 @@ let
 in
 {
   options.ragon.services.node-red.enable = lib.mkEnableOption "Enables node-red";
-  options.ragon.services.node-red.domainPrefix = 
+  options.ragon.services.node-red.domainPrefix =
     lib.mkOption {
       type = lib.types.str;
       default = "nr";

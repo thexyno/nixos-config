@@ -5,7 +5,7 @@ let
 in
 {
   options.ragon.services.jellyfin.enable = lib.mkEnableOption "Enables jellyfin";
-  options.ragon.services.jellyfin.domainPrefix = 
+  options.ragon.services.jellyfin.domainPrefix =
     lib.mkOption {
       type = lib.types.str;
       default = "j";
@@ -46,7 +46,7 @@ in
             proxy_set_header X-Forwarded-Host $http_host;
           '';
         };
-    };
+      };
 
     };
     ragon.persist.extraDirectories = [

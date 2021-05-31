@@ -3,21 +3,26 @@
 with builtins;
 with lib;
 with lib.my;
-let inherit (inputs) agenix;
-    secretsDir = "${toString ../secrets}";
-    secretsFile = "${secretsDir}/secrets.nix";
-in {
+let
+  inherit (inputs) agenix;
+  secretsDir = "${toString ../secrets}";
+  secretsFile = "${secretsDir}/secrets.nix";
+in
+{
   imports = [ agenix.nixosModules.age ];
   environment.systemPackages = [ agenix.defaultPackage.x86_64-linux ];
 
   age = {
     secrets =
       if pathExists secretsFile
-      then mapAttrs' (n: _: nameValuePair (removeSuffix ".age" n) {
-        file = "${secretsDir}/${n}";
-        owner = if (hasInfix "root" n) then mkDefault "root" else mkDefault config.ragon.user.username;
-      }) (import secretsFile)
-      else {};
+      then
+        mapAttrs'
+          (n: _: nameValuePair (removeSuffix ".age" n) {
+            file = "${secretsDir}/${n}";
+            owner = if (hasInfix "root" n) then mkDefault "root" else mkDefault config.ragon.user.username;
+          })
+          (import secretsFile)
+      else { };
     sshKeyPaths =
       [
         "/persistent/etc/ssh/ssh_host_rsa_key"

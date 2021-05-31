@@ -25,13 +25,13 @@ in
       let
       in
       {
-        home.activation = 
-        {
-          myActivationAction = lib.hm.dag.entryAfter ["writeBoundary"] ''
-            $DRY_RUN_CMD mkdir $VERBOSE_ARG -p /home/${config.ragon.user.username}/.config/nextshot/
-            $DRY_RUN_CMD ln $VERBOSE_ARG -s /run/secrets/nextshot /home/${config.ragon.user.username}/.config/nextshot/nextshot.conf
-          '';
-        };
+        home.activation =
+          {
+            myActivationAction = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+              $DRY_RUN_CMD mkdir $VERBOSE_ARG -p /home/${config.ragon.user.username}/.config/nextshot/
+              $DRY_RUN_CMD ln $VERBOSE_ARG -s /run/secrets/nextshot /home/${config.ragon.user.username}/.config/nextshot/nextshot.conf || true
+            '';
+          };
         # Import a persistance module for home-manager.
         ## TODO this can be done less ugly
         imports = [ "${inputs.impermanence}/home-manager.nix" ];
@@ -61,14 +61,14 @@ in
           # empty zshrc to stop zsh-newuser-install from running
           ".zshrc".text = "";
 
-          "bin/changeVolume".source =      ../bins/changeVolume;
-          "bin/devsaurgit".source =        ../bins/devsaurgit;
+          "bin/changeVolume".source = ../bins/changeVolume;
+          "bin/devsaurgit".source = ../bins/devsaurgit;
           "bin/getProgressString".source = ../bins/getProgressString;
-          "bin/swapDevices".source =       ../bins/swapDevices;
-          "bin/toggleSpeakers".source =    ../bins/toggleSpeakers;
-          "bin/nosrebuild".source =        ../bins/nosrebuild;
+          "bin/swapDevices".source = ../bins/swapDevices;
+          "bin/toggleSpeakers".source = ../bins/toggleSpeakers;
+          "bin/nosrebuild".source = ../bins/nosrebuild;
         } // lib.optionalAttrs isGui {
-          "bin/changeBacklight".source =   ../bins/changeBacklight;
+          "bin/changeBacklight".source = ../bins/changeBacklight;
           "bin/nextshot".source = "${inputs.nextshot}/nextshot.sh";
         };
         #config.age.secrets.nextshot.path = "/home/${config.ragon.user.username}/.config/nextshot/nextshot.conf";

@@ -6,8 +6,8 @@ with lib.my;
   imports = [ inputs.impermanence.nixosModules.impermanence ] ++ (mapModulesRec' (toString ./modules) import); # import ./modules/*
 
   # Set passwords
-  users.users.root. passwordFile =  "${config.age.secrets.rootPasswd.path}";
-  users.users.ragon.passwordFile =  "${config.age.secrets.rootRagonPasswd.path}";
+  users.users.root. passwordFile = "${config.age.secrets.rootPasswd.path}";
+  users.users.ragon.passwordFile = "${config.age.secrets.rootRagonPasswd.path}";
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
   console.font = "Lat2-Terminus16";
@@ -25,10 +25,12 @@ with lib.my;
   # Configure nix and nixpkgs
   environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
   nix =
-    let filteredInputs = filterAttrs (n: _: n != "self") inputs;
-        nixPathInputs  = mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
-        registryInputs = mapAttrs (_: v: { flake = v; }) filteredInputs;
-    in {
+    let
+      filteredInputs = filterAttrs (n: _: n != "self") inputs;
+      nixPathInputs = mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
+      registryInputs = mapAttrs (_: v: { flake = v; }) filteredInputs;
+    in
+    {
       package = pkgs.unstable.nixFlakes;
       extraOptions = "experimental-features = nix-command flakes";
       nixPath = nixPathInputs ++ [

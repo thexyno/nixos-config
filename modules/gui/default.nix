@@ -57,25 +57,25 @@ in
     documentation.info.enable = false; # https://github.com/NixOS/nixpkgs/issues/124215#issuecomment-846762260
     environment.systemPackages =
       with pkgs; [
-      libreoffice-fresh
-      cinnamon.nemo
-      arc-icon-theme
-      feh
-      pulsemixer
-      gimp
-      firefox
-      thunderbird
-      mpv
-      kitty
-      sxiv
-      signal-desktop
-      wireguard
-      bitwarden
-      obs-studio
-      unstable.discord
-      unstable.spotify
-      unstable.timeular
-    ];
+        libreoffice-fresh
+        cinnamon.nemo
+        arc-icon-theme
+        feh
+        pulsemixer
+        gimp
+        firefox
+        thunderbird
+        mpv
+        kitty
+        sxiv
+        signal-desktop
+        wireguard
+        bitwarden
+        obs-studio
+        unstable.discord
+        unstable.spotify
+        unstable.timeular
+      ];
 
     ragon.user.persistent.extraFiles = [
       ".cache/rofi3.druncache" # rofi cache so the search priorities are not garbage
@@ -94,6 +94,8 @@ in
       ".cache/mozilla" # firefox cache
       ".thunderbird/" # Because of cause this isn't in .mozilla
     ];
+
+    services.gvfs.enable = true;
 
     # enable cups
     services.printing.enable = true;
@@ -128,13 +130,7 @@ in
     # 8000 is for random web sharing things.
     networking.firewall.allowedTCPPorts = [ 8000 ];
 
-    # Enable networkmanager.
-    networking.networkmanager.enable = true;
-    networking.firewall.checkReversePath = false;
-
-    networking.networkmanager.wifi.backend = "iwd";
-
     # Define extra groups for user.
-    ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" "scanner" "lp" ];
+    ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" "scanner" "lp" "video" ];
   };
 }

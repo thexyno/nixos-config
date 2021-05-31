@@ -4,7 +4,7 @@ let
 in
 {
   options.ragon.services.nginx.enable = lib.mkEnableOption "Enables nginx";
-  options.ragon.services.nginx.domain = 
+  options.ragon.services.nginx.domain =
     lib.mkOption {
       type = lib.types.str;
       default = "hailsatan.eu";

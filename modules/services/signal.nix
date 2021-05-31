@@ -4,7 +4,7 @@ let
 in
 {
   options.ragon.services.signal.enable = lib.mkEnableOption "Enables signal-cli-rest-api";
-  options.ragon.services.signal.port = 
+  options.ragon.services.signal.port =
     lib.mkOption {
       type = lib.types.uint;
       default = 54321;

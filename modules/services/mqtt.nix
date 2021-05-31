@@ -5,12 +5,12 @@ let
 in
 {
   options.ragon.services.mqtt.enable = lib.mkEnableOption "Enables mosquitto";
-  options.ragon.services.mqtt.userName = 
+  options.ragon.services.mqtt.userName =
     lib.mkOption {
       type = lib.types.str;
       default = "mqtt";
     };
-  options.ragon.services.mqtt.hashedPasswordFile = 
+  options.ragon.services.mqtt.hashedPasswordFile =
     lib.mkOption {
       description = "Specifies the path to a file containing the hashed password for the MQTT user. To generate hashed password install mosquitto package and use mosquitto_passwd";
       type = lib.types.str;
