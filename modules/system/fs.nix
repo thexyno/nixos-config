@@ -62,7 +62,7 @@ in
         options = [ "noauto" "x-systemd.automount" ];
       };
     fileSystems."/media/data" = {
-      enable = (ragon.hardware.laptop.enable == false);
+      enable = (config.ragon.hardware.laptop.enable == false);
       device = "//10.0.0.2/data";
       fsType = "cifs";
       options =
