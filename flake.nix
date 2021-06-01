@@ -3,7 +3,7 @@
 
   inputs = {
     # nix inputs
-    nixpkgs.url = "github:NixOS/nixpkgs/4aa2e32246c6b9d765191baba60969a27d484ccf";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -22,7 +22,7 @@
     # other inputs
 
     ## applications
-    dwm.url = "git+https://gitlab.hochkamp.eu/ragon/dwm";
+    dwm.url = "git+ssh://git@gitlab.hochkamp.eu/ragon/dwm";
     dwm.flake = false;
     nextshot.url = "github:dshoreman/nextshot/develop";
     nextshot.flake = false;
