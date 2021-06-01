@@ -20,9 +20,8 @@ in
       locations = {
         "/".proxyPass = "http://127.0.0.1:${config.services.grafana.port}";
         };
-      };
-
     };
+
     ragon.persist.extraDirectories = [
       "${config.services.grafana.dataDir}"
     ];
