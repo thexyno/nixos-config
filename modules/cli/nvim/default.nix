@@ -24,10 +24,7 @@ in
     ];
 
     programs.neovim = {
-      package = pkgs.neovim-nightly.override {
-        configure.customRC = (builtins.readFile ./init.vim);
-
-      };
+      package = pkgs.neovim-nightly;
       vimAlias = true;
       viAlias = true;
       defaultEditor = true;
