@@ -95,7 +95,21 @@ in
       ".thunderbird/" # Because of cause this isn't in .mozilla
     ];
 
+    services.gnome.glib-networking.enable = true;
+    services.gnome.gnome-keyring.enable = true;
     services.gvfs.enable = true;
+    services.udisks2.enable = true;
+    services.xserver.updateDbusEnvironment = true;
+
+    # Enable colord server
+    services.colord.enable = true;
+
+    # Enable dconf
+    programs.dconf.enable = true;
+
+    # Enable org.a11y.Bus
+    services.gnome.at-spi2-core.enable = true;
+
 
     # enable cups
     services.printing.enable = true;

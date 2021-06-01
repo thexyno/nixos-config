@@ -24,7 +24,10 @@ in
     ];
 
     programs.neovim = {
-      package = pkgs.neovim-nightly;
+      package = pkgs.neovim-nightly.override {
+        customRC = (builtins.readFile ./init.vim);
+
+      };
       vimAlias = true;
       viAlias = true;
       defaultEditor = true;
@@ -75,7 +78,6 @@ in
             coc-nvim
             dart-vim
           ];
-          customRC = (builtins.readFile ./init.vim);
         };
     };
 
