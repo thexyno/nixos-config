@@ -57,7 +57,7 @@ with lib.my;
 
   # Use the latest kernel
   boot = {
-    kernelPackages = mkDefault pkgs.linux_latest_zfs;
+    kernelPackages = mkDefault pkgs.linuxPackages_5_12;
     loader = {
       efi.canTouchEfiVariables = mkDefault true;
       systemd-boot.configurationLimit = 10;
