@@ -25,7 +25,7 @@ in
 
     programs.neovim = {
       package = pkgs.neovim-nightly.override {
-        customRC = (builtins.readFile ./init.vim);
+        configure.customRC = (builtins.readFile ./init.vim);
 
       };
       vimAlias = true;
