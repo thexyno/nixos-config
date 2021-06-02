@@ -49,6 +49,7 @@ in
           };
         in
         {
+          customRC = builtins.readFile ./init.vim;
           plug.plugins = with pkgs.vimPlugins; [
             nnn-vim
             vista-vim
