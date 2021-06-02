@@ -78,8 +78,6 @@
 
       overlay =
         final: prev: {
-          programs.neovim = pkgs'.programs.neovim;
-          discord = pkgs'.discord;
           unstable = pkgs';
           pubkeys = import ./data/pubkeys.nix;
           my = self.packages."${system}";
