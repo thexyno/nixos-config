@@ -49,7 +49,7 @@ in
           };
         in
         {
-          plug.plugins = with pkgs.vimPlugins; [
+          packages.myVimPackage.start = with pkgs.vimPlugins; [
             nnn-vim
             vista-vim
             undotree
