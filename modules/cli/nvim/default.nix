@@ -49,7 +49,6 @@ in
           };
         in
         {
-          customRC = builtins.readFile ./init.vim;
           plug.plugins = with pkgs.vimPlugins; [
             nnn-vim
             vista-vim
@@ -76,6 +75,8 @@ in
             coc-nvim
             dart-vim
           ];
+
+          customRC = builtins.readFile ./init.vim;
         };
     };
 
