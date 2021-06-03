@@ -72,9 +72,9 @@ in
         wireguard
         bitwarden
         obs-studio
-        discord
+        unstable.discord
         spotify
-        timeular
+        unstable.timeular
       ];
 
     ragon.user.persistent.extraFiles = [
