@@ -5,6 +5,7 @@ in
 {
   options.ragon.develop.enable = lib.mkEnableOption "Enables ragons development stuff";
   config = lib.mkIf cfg.enable {
+    boot.binfmt.emulatedSystems = [ "aarch64-linux" ]; # cross compiling nixos for arm
     programs.adb.enable = true;
     users.users."${config.ragon.user.username}".extraGroups = [ "adbusers" ];
     services.udev.packages = [

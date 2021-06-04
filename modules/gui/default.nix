@@ -1,4 +1,6 @@
 { config, inputs, options, lib, pkgs, ... }:
+with lib;
+with lib.my;
 let
   cfg = config.ragon.gui;
   username = config.ragon.user.username;

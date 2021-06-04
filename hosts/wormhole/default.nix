@@ -1,5 +1,8 @@
-{ config, pkgs, lib, ... }:
+{ config, inputs, pkgs, lib, ... }:
 {
+  imports = [
+    "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix"
+  ];
   boot = {
     kernelPackages = pkgs.linuxPackages_rpi4;
     tmpOnTmpfs = true;
@@ -34,7 +37,7 @@
   };
   powerManagement.cpuFreqGovernor = "ondemand";
 
-    # Assuming this is installed on top of the disk image.
+  # Assuming this is installed on top of the disk image.
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";

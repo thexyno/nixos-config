@@ -35,7 +35,7 @@ with lib.my;
       extraOptions = "experimental-features = nix-command flakes";
       nixPath = nixPathInputs ++ [
         "nixpkgs-overlays=${config.conf.dir}/overlays"
-        "dotfiles=${config.conf.dir}"
+        "conf=${config.conf.dir}"
       ];
       binaryCaches = [
         "https://nix-community.cachix.org"
