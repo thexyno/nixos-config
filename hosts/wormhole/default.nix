@@ -4,7 +4,7 @@
     "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix"
   ];
   boot = {
-    kernelPackages = pkgs.linuxPackages_rpi4;
+    kernelPackages = pkgs.linuxPackages_5_11;
     tmpOnTmpfs = true;
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
     # ttyAMA0 is the serial console broken out to the GPIO
