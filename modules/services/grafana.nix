@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.services.grafana;
-  domain = config.ragon.nginx.domain;
+  domain = config.ragon.services.nginx.domain;
 in
 {
   options.ragon.services.grafana.enable = lib.mkEnableOption "Enables grafana";

@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.services.jellyfin;
-  domain = config.ragon.nginx.domain;
+  domain = config.ragon.services.nginx.domain;
 in
 {
   options.ragon.services.jellyfin.enable = lib.mkEnableOption "Enables jellyfin";

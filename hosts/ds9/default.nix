@@ -16,29 +16,30 @@
 
   networking =
     let
-      if = "enp3s0";
-      in
-      {
+      primaryInterface = "enp3s0";
+    in
+    {
       useDHCP = false;
       domain = "hailsatan.eu";
       vlans = {
         lan = {
           id = 4;
-          interface = "${if}";};
-      iot = { id=2; interface="${if}";};
-    };
-    interfaces.lan.ipv4.addresses = [{
+          interface = "${primaryInterface}";
+        };
+        iot = { id = 2; interface = "${primaryInterface}"; };
+      };
+      interfaces.lan.ipv4.addresses = [{
         address = "10.0.0.2";
-        prefixLength = "16";
-    }];
-    interfaces.iot.ipv4.addresses = [{
+        prefixLength = 16;
+      }];
+      interfaces.iot.ipv4.addresses = [{
         address = "10.1.0.2";
-        prefixLength = "16";
-    }];
-    hostId = "7b45236c";
-    defaultGateway = "10.0.0.1";
-    nameservers = [ "10.0.0.1" "1.1.1.1" ];
-  };
+        prefixLength = 16;
+      }];
+      hostId = "7b45236c";
+      defaultGateway = "10.0.0.1";
+      nameservers = [ "10.0.0.1" "1.1.1.1" ];
+    };
 
   # Immutable users due to tmpfs
   users.mutableUsers = false;

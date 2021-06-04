@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, stdenv, pkgs, ... }:
 let
   cfg = config.ragon.networking.router;
   waninterface = "enpasdf";
@@ -16,13 +16,20 @@ let
   };
   iot = {
     internet = false;
-    ipv4 = "10.1.0.1/16";
+    ipv4addr = "10.1.0.1";
+    netipv4addr = "10.1.0.0";
+    dhcpv4start = "10.1.1.1";
+    dhcpv4end = "10.1.255.240";
+    ipv4size = 16;
     vlan = 1;
   };
   guest = {
-    internet = true;
-    guest = true;
-    ipv4 = "192.168.178.1/24";
+    internet = false;
+    ipv4addr = "192.168.178.1";
+    netipv4addr = "192.168.178.0";
+    dhcpv4start = "192.168.178.10";
+    dhcpv4end = "192.168.178.240";
+    ipv4size = 24;
     vlan = 2;
   };
   nets = [ lan iot guest ];
@@ -56,15 +63,14 @@ in
       "net.ipv6.conf.default.forwarding" = 1;
     };
 
-    networking.interfaces = {
+    networking.interfaces = let
+      genAllInterfaces = map // (map interfaceGenerator nets);
+
+    in {
       "${waninterface}" = {
         useDHCP = true;
       };
-      (interfaceGenerator lan)
-      (interfaceGenerator iot);
-      (interfaceGenerator guest);
-
-      };
+      } // genAllInterfaces;
       networking.dhcpcd = {
         enable = true;
         allowInterfaces = [
@@ -102,8 +108,8 @@ in
             gen = obj: ''
               dhcp-range=${obj},${obj.dhcpv4start},${obj.dhcpv4end},12h
             '';
-            genall = buitins.concatStringsSep "\n" (map gen nets);
-            genstatics = buitins.concatStringsSep "\n" (map (a: "address=/${a.name}/${a.ip}") statics);
+            genall = builtins.concatStringsSep "\n" (map gen nets);
+            genstatics = builtins.concatStringsSep "\n" (map (a: "address=/${a.name}/${a.ip}") statics);
             netbootxyz = builtins.fetchurl {
               url = "https://boot.netboot.xyz/ipxe/netboot.xyz.efi";
               sha256 = "06lmq4l97pxwg6pp93qmrlgi0ajhjz8xn70833m03lxih00mnxxa";

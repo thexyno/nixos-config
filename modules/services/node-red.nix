@@ -2,7 +2,7 @@
 let
   cfg = config.ragon.services.node-red;
   tz = config.time.timeZone;
-  domain = config.ragon.nginx.domain;
+  domain = config.ragon.services.nginx.domain;
 in
 {
   options.ragon.services.node-red.enable = lib.mkEnableOption "Enables node-red";
