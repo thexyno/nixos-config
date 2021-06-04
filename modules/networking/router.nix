@@ -1,10 +1,11 @@
 { config, lib, stdenv, pkgs, ... }:
 let
   cfg = config.ragon.networking.router;
-  waninterface = "enpasdf";
-  laninterface = "enpasdg";
-  prefixSize = 59; # set ipv6 prefix size (Vodafone gives us 59 for some reason)
-  domain = "hailsatan.eu";
+  waninterface = cfg.waninterface;
+  laninterface = cfg.laninterface;
+  prefixSize = cfg.prefixSize;
+  statics = cfg.statics;
+  domain = cfg.domain;
   lan = {
     internet = true;
     ipv4addr = "10.0.0.1";
@@ -45,14 +46,38 @@ let
       }];
     };
   };
-  statics = [
-    { name = "j.hailsatan.eu"      ; ip = "10.0.0.2"; }
-    { name = "h.hailsatan.eu"      ; ip = "10.0.0.2"; }
-    { name = "grafana.hailsatan.eu"; ip = "10.0.0.2"; }
-  ];
 in
 {
   options.ragon.networking.router.enable = lib.mkEnableOption "Makes this host a router";
+  options.ragon.networking.router.waninterface =
+    lib.mkOption {
+      type = lib.types.str;
+      default = "eth1";
+    };
+  options.ragon.networking.router.laninterface =
+    lib.mkOption {
+      type = lib.types.str;
+      default = "eth0";
+    };
+  options.ragon.networking.router.domain =
+    lib.mkOption {
+      type = lib.types.str;
+      default = "hailsatan.eu";
+    };
+  options.ragon.networking.router.prefixSize =
+    lib.mkOption {
+      type = lib.types.int;
+      default = 59;
+    };
+  options.ragon.networking.router.statics =
+    lib.mkOption {
+      type = lib.types.listOf lib.types.attrs;
+      default = [
+        { name = "j.hailsatan.eu"; ip = "10.0.0.2"; }
+        { name = "h.hailsatan.eu"; ip = "10.0.0.2"; }
+        { name = "grafana.hailsatan.eu"; ip = "10.0.0.2"; }
+      ];
+    };
   config = lib.mkIf cfg.enable {
     # https://www.willghatch.net/blog/2020/06/22/nixos-raspberry-pi-4-google-fiber-router/
 
@@ -63,63 +88,66 @@ in
       "net.ipv6.conf.default.forwarding" = 1;
     };
 
-    networking.interfaces = let
-      genAllInterfaces = map // (map interfaceGenerator nets);
+    networking.interfaces =
+      let
+        genAllInterfaces = map // (map interfaceGenerator nets);
 
-    in {
-      "${waninterface}" = {
-        useDHCP = true;
-      };
+      in
+      {
+        "${waninterface}" = {
+          useDHCP = true;
+        };
       } // genAllInterfaces;
-      networking.dhcpcd = {
-        enable = true;
-        allowInterfaces = [
-          "wan"
-          "lan"
-        ];
-        extraConfig =
-          ''
-            # The man page says that ipv6rs should be disabled globally when
-            # using a prefix delegation.
-            noipv6rs
+    networking.dhcpcd = {
+      enable = true;
+      allowInterfaces = [
+        "wan"
+        "lan"
+      ];
+      extraConfig =
+        ''
+          # The man page says that ipv6rs should be disabled globally when
+          # using a prefix delegation.
+          noipv6rs
 
-            interface wan
-            # On the wan interface, we want to ask for a prefix delegation.
-            ipv6rs
-            ia_pd 2/::/${prefixSize} lan/0/64
+          interface wan
+          # On the wan interface, we want to ask for a prefix delegation.
+          ipv6rs
+          ia_pd 2/::/${prefixSize} lan/0/64
 
-            # We don’t want dhcpcd to give us an address on the internal interface.
-            interface lan
-            noipv4
+        '' + (map + (map (obj: ''
+          # We don’t want dhcpcd to give us an address on the ${obj} interface.
+          interface ${obj}
+          noipv4
+        '') nets));
+    };
+
+    networking.nat = {
+      enable = true;
+      externalInterface = waninterface;
+      internalInterfaces = [ "lan" "iot" "guest" ];
+      internalIPs = [ "${guest.netipv4addr}/${guest.ipv4size}" "${iot.netipv4addr}/${iot.ipv4size}" "${lan.netipv4addr}/${lan.ipv4size}" "127.0.0.1/32" ];
+    };
+
+    services.dnsmasq = {
+      enable = true;
+      extraConfig =
+        let
+          gen = obj: ''
+            dhcp-range=${obj},${obj.dhcpv4start},${obj.dhcpv4end},12h
           '';
-      };
-
-      networking.nat = {
-        enable = true;
-        externalInterface = waninterface;
-        internalInterfaces = [ "lan" "iot" "guest" ];
-        internalIPs = [ "${guest.netipv4addr}/${guest.ipv4size}" "${iot.netipv4addr}/${iot.ipv4size}" "${lan.netipv4addr}/${lan.ipv4size}" "127.0.0.1/32" ];
-      };
-
-      services.dnsmasq = {
-        enable = true;
-        extraConfig = 
-          let
-            gen = obj: ''
-              dhcp-range=${obj},${obj.dhcpv4start},${obj.dhcpv4end},12h
-            '';
-            genall = builtins.concatStringsSep "\n" (map gen nets);
-            genstatics = builtins.concatStringsSep "\n" (map (a: "address=/${a.name}/${a.ip}") statics);
-            netbootxyz = builtins.fetchurl {
-              url = "https://boot.netboot.xyz/ipxe/netboot.xyz.efi";
-              sha256 = "06lmq4l97pxwg6pp93qmrlgi0ajhjz8xn70833m03lxih00mnxxa";
-            };
-            netbootxyzpath = stdenv.runCommand "netbootpath" {} ''
-              mkdir $out
-              ln -s ${netbootxyz} $out/netbootxyz.efi
-            '';
-          in
-          ''
+          genall = builtins.concatStringsSep "\n" (map gen nets);
+          genstatics = builtins.concatStringsSep "\n" (map (a: "address=/${a.name}/${a.ip}") statics);
+          netbootxyz = builtins.fetchurl {
+            url = "https://boot.netboot.xyz/ipxe/netboot.xyz.efi";
+            sha256 = "06lmq4l97pxwg6pp93qmrlgi0ajhjz8xn70833m03lxih00mnxxa";
+          };
+          netbootxyzpath = stdenv.runCommand "netbootpath" { } ''
+            mkdir $out
+            ln -s ${netbootxyz} $out/netbootxyz.efi
+          '';
+        in
+        ''
           # https://hveem.no/using-dnsmasq-for-dhcpv6
 
           # don't ever listen to anything on wan and stuff
@@ -156,8 +184,8 @@ in
           dhcp-authoritative
         '';
 
-      };
-
-
     };
-  }
+
+
+  };
+}
