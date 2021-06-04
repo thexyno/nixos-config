@@ -72,7 +72,7 @@
       };
       pkgs = system: mkPkgs system nixpkgs [ self.overlay neovim-nightly-overlay.overlay ];
       pkgs' = system: mkPkgs system nixpkgs-master [ ];
-      pkgsBySystem = lib.genAttrs systems pkgs;
+      pkgsBySystem = forAllSystems pkgs;
 
       lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
         (self: super: { my = import ./lib { inherit pkgsBySystem inputs; lib = self; }; });
@@ -84,7 +84,7 @@
 
       overlay =
         final: prev: {
-          unstable = pkgs';
+          unstable = pkgs' prev.system;
           pubkeys = import ./data/pubkeys.nix;
           my = self.packages."${prev.system}";
         };
@@ -95,17 +95,13 @@
         let
           mkPackages = system: mapModules ./packages (p: pkgsBySystem.${system}.callPackage p { }); # load my own packages (pandocode)
         in
-        lib.genAttrs systems mkPackages;
+        forAllSystems mkPackages;
 
       nixosModules =
         { conf = import ./.; } // mapModulesRec ./modules import; # load all the juicy modules
 
       nixosConfigurations =
         mapHosts ./hosts { };
-
-      devShell =
-        forAllSystems
-        import ./shell.nix { inherit pkgs; };
 
       templates = {
         full = {
