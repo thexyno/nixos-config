@@ -58,18 +58,24 @@
   outputs = inputs @ { self, nixpkgs, nixpkgs-master, neovim-nightly-overlay, ... }:
     let
       inherit (lib.my) mapModules mapModulesRec mapHosts;
-      system = "x86_64-linux"; # when rpis get into play, that needs changes
-      mkPkgs = pkgs: extraOverlays: import pkgs {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+
+      forAllSystems = f: lib.genAttrs systems (system: f system);
+      mkPkgs = system: pkgs: extraOverlays: import pkgs {
         # apply config and overlays to following pkgs
         inherit system;
         config.allowUnfree = true; # fuck rms and his cult
-        overlays = extraOverlays ++ (lib.attrValues self.overlays);
+        overlays = extraOverlays;
       };
-      pkgs = mkPkgs nixpkgs [ self.overlay neovim-nightly-overlay.overlay ];
-      pkgs' = mkPkgs nixpkgs-master [ ];
+      pkgs = system: mkPkgs system nixpkgs [ self.overlay neovim-nightly-overlay.overlay ];
+      pkgs' = system: mkPkgs system nixpkgs-master [ ];
+      pkgsBySystem = lib.genAttrs systems pkgs;
 
       lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
-        (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
+        (self: super: { my = import ./lib { inherit pkgsBySystem inputs; lib = self; }; });
 
     in
     {
@@ -80,13 +86,16 @@
         final: prev: {
           unstable = pkgs';
           pubkeys = import ./data/pubkeys.nix;
-          my = self.packages."${system}";
+          my = self.packages."${prev.system}";
         };
-      overlays =
-        mapModules ./overlays import; # placeholder for when I add my own overlays
+      #overlays =
+      #  mapModules ./overlays import; # placeholder for when I add my own overlays
 
-      packages."${system}" =
-        mapModules ./packages (p: pkgs.callPackage p { }); # load my own packages (pandocode)
+      packages =
+        let
+          mkPackages = system: mapModules ./packages (p: pkgsBySystem.${system}.callPackage p { }); # load my own packages (pandocode)
+        in
+        lib.genAttrs systems mkPackages;
 
       nixosModules =
         { conf = import ./.; } // mapModulesRec ./modules import; # load all the juicy modules
@@ -94,7 +103,8 @@
       nixosConfigurations =
         mapHosts ./hosts { };
 
-      devShell."${system}" =
+      devShell =
+        forAllSystems
         import ./shell.nix { inherit pkgs; };
 
       templates = {

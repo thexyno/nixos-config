@@ -1,17 +1,19 @@
-{ inputs, lib, pkgs, ... }:
+{ inputs, lib, pkgsBySystem, ... }:
 
 with lib;
 with lib.my;
-let sys = "x86_64-linux";
-in
 {
-  mkHost = path: attrs @ { system ? sys, ... }:
+  mkHost = path: attrs @ { ... }:
+  let 
+    system = builtins.readFile "${path}/system";
+    realpkgs = pkgsBySystem.${system};
+  in
     nixosSystem {
       inherit system;
       specialArgs = { inherit lib inputs system; };
       modules = [
         {
-          nixpkgs.pkgs = pkgs;
+          nixpkgs.pkgs = realpkgs;
           networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
         }
         (filterAttrs (n: v: !elem n [ "system" ]) attrs)
@@ -20,7 +22,7 @@ in
       ];
     };
 
-  mapHosts = dir: attrs @ { system ? system, ... }:
+  mapHosts = dir: attrs @ { ... }:
     mapModules dir
       (hostPath: mkHost hostPath attrs);
 }
