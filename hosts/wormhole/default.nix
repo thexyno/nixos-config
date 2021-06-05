@@ -10,6 +10,8 @@
     enable = true;
     version = 4;
   };
+  networking.hostId = "eec43f51";
+  networking.usePredictableInterfaceNames = false;
 
   nix = {
     autoOptimiseStore = true;
