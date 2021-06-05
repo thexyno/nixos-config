@@ -3,6 +3,7 @@ let
   cfg = config.ragon.services.ddns;
   domain = config.ragon.services.nginx.domain;
   dataDir = "/var/lib/inadyn";
+  cacheDir = "/var/cache/inadyn";
 in
 {
   options.ragon.services.ddns.enable = lib.mkEnableOption "Enables CloudFlare DDNS to the domain specified in ragon.services.nginx.domain and all subdomains";
@@ -27,14 +28,14 @@ in
             proxied = false
           }
           EOF
-          exec ${pkgs.inadyn}/bin/inadyn -f /run/${RuntimeDirectory}/inadyn.cfg
+          exec ${pkgs.inadyn}/bin/inadyn -n --cache-dir=${cacheDir} -f /run/${RuntimeDirectory}/inadyn.cfg
         '';
         RuntimeDirectory = StateDirectory;
         StateDirectory = builtins.baseNameOf dataDir;
       };
     };
     systemd.tmpfiles.rules = [
-      "d /var/cache/inadyn 1777 root root 10m"
+      "d ${cacheDir} 1777 root root 10m"
     ];
   };
 }
