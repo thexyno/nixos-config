@@ -14,8 +14,9 @@ in
         "*.${domain}"
       ];
       apikeyFile = "/run/secrets/cloudflareApiKey";
-      age.secrets.cloudflareApiKey.owner = "cfdyndns";
-
     };
+
+    age.secrets.cloudflareApiKey.owner = "cfdyndns";
+
   };
 }
