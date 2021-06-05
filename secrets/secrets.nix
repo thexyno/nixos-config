@@ -3,7 +3,8 @@ let
 in
 {
   "smb.age".publicKeys = pubkeys.ragon.computers;
-  "cloudflare.age".publicKeys = pubkeys.ragon.computers;
+  "cloudflareAcme.age".publicKeys = pubkeys.ragon.computers;
+  "cloudflareApiKey.age".publicKeys = pubkeys.ragon.computers;
   "nextshot.age".publicKeys = pubkeys.ragon.computers;
   "rootPasswd.age".publicKeys = pubkeys.ragon.computers;
   "rootRagonPasswd.age".publicKeys = pubkeys.ragon.computers;

@@ -88,6 +88,14 @@ in
         { name = "grafana.hailsatan.eu"; ip = "10.0.0.2"; }
       ];
     };
+  options.ragon.networking.router.forwardedPorts =
+    lib.mkOption {
+      type = lib.types.listOf lib.types.attrs;
+      default = [
+        { sourcePort = 80; destination = "10.0.0.2:80"; proto = "tcp";}
+        { sourcePort = 443; destination = "10.0.0.2:443"; proto = "tcp";}
+      ];
+    };
   config = lib.mkIf cfg.enable {
     # https://www.willghatch.net/blog/2020/06/22/nixos-raspberry-pi-4-google-fiber-router/
 
@@ -136,6 +144,8 @@ in
           ${allGenIntDescs}
         '';
     };
+
+    networking.firewall.enable = false;
 
     networking.nat = {
       enable = true;

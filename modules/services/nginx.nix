@@ -24,7 +24,7 @@ in
       extraDomainNames = [
         "*.${cfg.domain}"
       ];
-      credentialsFile = "/run/secrets/cloudflare";
+      credentialsFile = "/run/secrets/cloudflareAcme";
 
     };
     ragon.persist.extraDirectories = [
