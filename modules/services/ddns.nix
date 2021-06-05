@@ -7,7 +7,7 @@ in
   options.ragon.services.ddns.enable = lib.mkEnableOption "Enables CloudFlare DDNS to the domain specified in ragon.services.nginx.domain and all subdomains";
   config = lib.mkIf cfg.enable {
     services.cfdyndns = {
-      enable = true;
+      enable = false;
       email = "cloudflare@phochkamp.de";
       records = [
         "${domain}"
