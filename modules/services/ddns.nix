@@ -4,6 +4,10 @@ let
   domain = config.ragon.services.nginx.domain;
   dataDir = "/var/lib/inadyn";
   cacheDir = "/var/cache/inadyn";
+  checkipv6 = pkgs.writeScript "checkipv6.sh" ''
+    #!${pkgs.bash}/bin/bash
+    ip address show scope global | grep inet6 | awk '{print substr($$2, 1, length($$2)-3)}' | head -n 1
+  '';
 in
 {
   options.ragon.services.ddns.enable = lib.mkEnableOption "Enables CloudFlare DDNS to the domain specified in ragon.services.nginx.domain and all subdomains";
@@ -29,7 +33,7 @@ in
             username = ${domain}
             password = $CLOUDFLARE_DNS_API_TOKEN
             hostname = ${domain}
-            checkip-command = "ip address show scope global | grep inet6 | awk '{print(\$2)}' | head -n 1"
+            checkip-command = "${checkipv6}"
           }
           EOF
           exec ${pkgs.inadyn}/bin/inadyn -n --cache-dir=${cacheDir} -f /run/${RuntimeDirectory}/inadyn.cfg
