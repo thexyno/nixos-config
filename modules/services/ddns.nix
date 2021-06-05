@@ -24,7 +24,6 @@ in
             username = ${domain}
             password = $CLOUDFLARE_DNS_API_TOKEN
             hostname = ${domain}
-            ttl = 180
             proxied = false
           }
           EOF
