@@ -8,6 +8,7 @@ in
   config = lib.mkIf cfg.enable {
     services.cfdyndns = {
       enable = true;
+      email = "cloudflare@phochkamp.de";
       records = [
         "${domain}"
         "*.${domain}"
