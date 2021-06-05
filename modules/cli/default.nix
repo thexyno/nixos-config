@@ -1,4 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
+with lib;
+with lib.my;
 let
   cfg = config.ragon.cli;
   ragon = config.ragon;
@@ -7,13 +9,13 @@ in
   options.ragon.cli.enable = lib.mkEnableOption "Enables ragons CLI stuff";
   config = lib.mkIf cfg.enable {
     programs.gnupg.agent = {
-      enable = true;
+      enable = mkDefault true;
       enableSSHSupport = true;
     };
-    ragon.nvim.enable = true;
+    ragon.nvim.enable = mkDefault true;
 
 
-    services.lorri.enable = true;
+    services.lorri.enable = mkDefault true;
     ragon.user.persistent.extraDirectories = [
       ".local/share/direnv" # lorri
     ];
