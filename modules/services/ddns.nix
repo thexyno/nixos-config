@@ -6,17 +6,32 @@ in
 {
   options.ragon.services.ddns.enable = lib.mkEnableOption "Enables CloudFlare DDNS to the domain specified in ragon.services.nginx.domain and all subdomains";
   config = lib.mkIf cfg.enable {
-    services.cfdyndns = {
-      enable = false;
-      email = "cloudflare@phochkamp.de";
-      records = [
-        "${domain}"
-        "*.${domain}"
-      ];
-      apikeyFile = "/run/secrets/cloudflareApiKey";
+    systemd.services.inadyn = {
+      description = "inadyn DDNS Client";
+      after = [ "network.target" ];
+      wantedBy = [ "default.target" ];
+      path = [ pkgs.inadyn ]
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = pkgs.writeScript "run-inadyn.sh" ''
+          #!/usr/bin/env sh
+          source /run/secrets/cloudflareAcme
+          cat > inadyn.cfg <<EOF
+          period = 180
+          user-agent = Mozilla/5.0
+          provider cloudflare.com {
+            username = ${domain}
+            password = $CLOUDFLARE_DNS_API_TOKEN
+            hostname = ${domain}
+            ttl = 180
+            proxied = false
+          }
+          EOF
+          exec inadyn -f ./inadyn.cfg
+        '';
+        WorkingDirectory = "/var/cache/inadyn";
+
+      };
+
     };
-
-    age.secrets.cloudflareApiKey.owner = "cfdyndns";
-
-  };
 }
