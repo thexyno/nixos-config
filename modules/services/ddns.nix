@@ -20,6 +20,7 @@ in
         Type = "simple";
         ExecStart = pkgs.writeScript "run-inadyn.sh" ''
           #!${pkgs.bash}/bin/bash
+          export PATH=$PATH:${pkgs.bash}/bin/bash # idk if that helps
           source /run/secrets/cloudflareAcme
           cat >/run/${RuntimeDirectory}/inadyn.cfg <<EOF
           period = 180
