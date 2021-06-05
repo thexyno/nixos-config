@@ -24,7 +24,6 @@ in
             username = ${domain}
             password = $CLOUDFLARE_DNS_API_TOKEN
             hostname = ${domain}
-            proxied = false
           }
           EOF
           exec ${pkgs.inadyn}/bin/inadyn -n --cache-dir=${cacheDir} -f /run/${RuntimeDirectory}/inadyn.cfg
