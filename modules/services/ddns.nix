@@ -10,7 +10,7 @@ in
       description = "inadyn DDNS Client";
       after = [ "network.target" ];
       wantedBy = [ "default.target" ];
-      path = [ pkgs.inadyn ]
+      path = [ pkgs.inadyn ];
       serviceConfig = {
         Type = "simple";
         ExecStart = pkgs.writeScript "run-inadyn.sh" ''
