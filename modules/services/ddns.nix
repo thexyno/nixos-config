@@ -29,7 +29,7 @@ in
             username = ${domain}
             password = $CLOUDFLARE_DNS_API_TOKEN
             hostname = ${domain}
-            checkip-command = "ip address show scope global | grep inet6 | awk '{print($2)}' | head -n 1"
+            checkip-command = "ip address show scope global | grep inet6 | awk '{print(\$2)}' | head -n 1"
           }
           EOF
           exec ${pkgs.inadyn}/bin/inadyn -n --cache-dir=${cacheDir} -f /run/${RuntimeDirectory}/inadyn.cfg
