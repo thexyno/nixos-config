@@ -29,9 +29,10 @@ in
           exec ${pkgs.inadyn}/bin/inadyn -f ./inadyn.cfg
         '';
         WorkingDirectory = "/var/cache/inadyn";
-
       };
-
     };
+    systemd.tmpfiles.rules = [
+      "d /var/cache/inadyn 1777 root root 10m"
+    ];
   };
 }
