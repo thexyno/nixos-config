@@ -10,11 +10,10 @@ in
       description = "inadyn DDNS Client";
       after = [ "network.target" ];
       wantedBy = [ "default.target" ];
-      path = [ pkgs.inadyn ];
       serviceConfig = {
         Type = "simple";
         ExecStart = pkgs.writeScript "run-inadyn.sh" ''
-          #!/usr/bin/env sh
+          #!${pkgs.bash}/bin/bash
           source /run/secrets/cloudflareAcme
           cat > inadyn.cfg <<EOF
           period = 180
@@ -27,7 +26,7 @@ in
             proxied = false
           }
           EOF
-          exec inadyn -f ./inadyn.cfg
+          exec ${pkgs.inadyn}/bin/inadyn -f ./inadyn.cfg
         '';
         WorkingDirectory = "/var/cache/inadyn";
 
