@@ -66,6 +66,7 @@ in
       pv
       killall
       pciutils
+      youtube-dl
     ];
 
   };
