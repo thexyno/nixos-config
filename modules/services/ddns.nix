@@ -2,6 +2,7 @@
 let
   cfg = config.ragon.services.ddns;
   domain = config.ragon.services.nginx.domain;
+  dataDir = "/var/lib/inadyn";
 in
 {
   options.ragon.services.ddns.enable = lib.mkEnableOption "Enables CloudFlare DDNS to the domain specified in ragon.services.nginx.domain and all subdomains";
@@ -9,13 +10,13 @@ in
     systemd.services.inadyn = {
       description = "inadyn DDNS Client";
       after = [ "network.target" ];
-      wantedBy = [ "default.target" ];
-      serviceConfig = {
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = rec {
         Type = "simple";
         ExecStart = pkgs.writeScript "run-inadyn.sh" ''
           #!${pkgs.bash}/bin/bash
           source /run/secrets/cloudflareAcme
-          cat > inadyn.cfg <<EOF
+          cat >/run/${RuntimeDirectory}/inadyn.cfg <<EOF
           period = 180
           user-agent = Mozilla/5.0
           provider cloudflare.com {
@@ -26,9 +27,10 @@ in
             proxied = false
           }
           EOF
-          exec ${pkgs.inadyn}/bin/inadyn -f ./inadyn.cfg
+          exec ${pkgs.inadyn}/bin/inadyn -f /run/${RuntimeDirectory}/inadyn.cfg
         '';
-        WorkingDirectory = "/var/cache/inadyn";
+        RuntimeDirectory = StateDirectory;
+        StateDirectory = builtins.baseNameOf dataDir;
       };
     };
     systemd.tmpfiles.rules = [
