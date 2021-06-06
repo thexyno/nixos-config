@@ -21,8 +21,8 @@ in
       };
       config = {
         recorder.db_url = "postgresql://@/hass";
+        default_config = {};
       };
-      applyDefaultConfig = true;
 
     };
 
