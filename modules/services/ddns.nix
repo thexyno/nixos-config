@@ -6,7 +6,7 @@ let
   cacheDir = "/var/cache/inadyn";
   checkipv6 = pkgs.writeScript "checkipv6.sh" ''
     #!${pkgs.bash}/bin/bash
-    ip address show scope global | grep inet6 | awk '{print substr($$2, 1, length($$2)-3)}' | head -n 1
+    ${pkgs.iproute2}/bin/ip address show scope global | grep inet6 | ${pkgs.gawk}/bin/awk '{print substr($$2, 1, length($$2)-3)}' | head -n 1
   '';
 in
 {
