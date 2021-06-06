@@ -14,13 +14,14 @@ in
     # https://github.com/Mic92/dotfiles/tree/master/nixos/eve/modules/home-assistant for orientation
     services.home-assistant = {
       enable = true;
-      package = pkgs.home-assistant.override {
-        doInstallCheck = false;
+      package = (pkgs.home-assistant.override {
         extraPackages = ps: with ps; [
           psycopg2
           colorlog
         ];
-      };
+      }).overrideAttrs (oldAttrs: {
+        doInstallCheck = false;
+      });
       config = {
         recorder.db_url = "postgresql://@/hass";
         default_config = {}; # https://www.home-assistant.io/integrations/default_config/
