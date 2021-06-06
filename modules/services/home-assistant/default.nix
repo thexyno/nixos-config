@@ -19,6 +19,7 @@ in
         extraPackages = ps: with ps; [
           psycopg2
           colorlog
+          spotipy
         ];
       }).overrideAttrs (oldAttrs: {
         doInstallCheck = false;
