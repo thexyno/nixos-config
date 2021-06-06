@@ -1,4 +1,6 @@
 { config, lib, pkgs, ... }:
+with lib;
+with lib.my;
 let
   cfg = config.ragon.services.ddns;
   domain = config.ragon.services.nginx.domain;
@@ -10,10 +12,10 @@ let
   #  '';
 in
 {
-  options.ragon.services.ddns.enable = lib.mkEnableOption "Enables CloudFlare DDNS to the domain specified in ragon.services.nginx.domain and all subdomains";
-  options.ragon.services.ddns.ipv4 = lib.mkDefault true;
-  options.ragon.services.ddns.ipv6 = lib.mkDefault true;
-  config = lib.mkIf cfg.enable {
+  options.ragon.services.ddns.enable = mkEnableOption "Enables CloudFlare DDNS to the domain specified in ragon.services.nginx.domain and all subdomains";
+  options.ragon.services.ddns.ipv4 = mkBoolOpt true;
+  options.ragon.services.ddns.ipv6 = mkBoolOpt true;
+  config = mkIf cfg.enable {
     systemd.services.inadyn = {
       description = "inadyn DDNS Client";
       after = [ "network.target" ];
@@ -22,7 +24,7 @@ in
         Type = "simple";
         ExecStart =
           let
-            ipv4str = lib.mkIf cfg.ipv4 ''
+            ipv4str = mkIf cfg.ipv4 ''
               # ipv4
               provider cloudflare.com:1 {
                 username = ${domain}
