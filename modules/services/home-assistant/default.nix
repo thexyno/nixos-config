@@ -19,6 +19,7 @@ in
         extraPackages = ps: with ps; [
           psycopg2
           colorlog
+          plexapi
           PyChromecast
           spotipy
         ];
