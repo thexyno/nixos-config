@@ -14,6 +14,7 @@ in
     # https://github.com/Mic92/dotfiles/tree/master/nixos/eve/modules/home-assistant for orientation
     services.home-assistant = {
       enable = true;
+      autoExtraComponents = true; # should be on by default but what do i know
       package = (pkgs.home-assistant.override {
         extraPackages = ps: with ps; [
           psycopg2
@@ -24,7 +25,15 @@ in
       });
       config = {
         recorder.db_url = "postgresql://@/hass";
-        default_config = {}; # https://www.home-assistant.io/integrations/default_config/
+        default_config = { };
+        homeassistant = {
+          name = "Hell";
+          latitude = "51.51494";
+          longitude = "7.466";
+          elevation = "50";
+
+        };
+        http = { };
       };
 
     };
