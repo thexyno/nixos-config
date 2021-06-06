@@ -23,25 +23,6 @@ in
       serviceConfig = rec {
         Type = "simple";
         ExecStart =
-          let
-            ipv4str = mkIf cfg.ipv4 ''
-              # ipv4
-              provider cloudflare.com:1 {
-                username = ${domain}
-                password = $CLOUDFLARE_DNS_API_TOKEN
-                hostname = ${domain}
-              }'';
-            ipv6str = ''
-              # ipv6
-              provider cloudflare.com:2 {
-                checkip-server = dns64.cloudflare-dns.com
-                checkip-path = /cdn-cgi/trace
-                username = ${domain}
-                password = $CLOUDFLARE_DNS_API_TOKEN
-                hostname = ${domain}
-              }
-            '';
-          in
           pkgs.writeScript "run-inadyn.sh" ''
             #!${pkgs.bash}/bin/bash
             export PATH=$PATH:${pkgs.bash}/bin/bash # idk if that helps
@@ -50,9 +31,24 @@ in
             period = 180
             user-agent = Mozilla/5.0
             allow-ipv6 = true
-            ${ipv4str}
-            ${ipv6str}
-
+            ${optionalString ipv4 ''
+              # ipv4
+              provider cloudflare.com:1 {
+                username = ${domain}
+                password = $CLOUDFLARE_DNS_API_TOKEN
+                hostname = ${domain}
+              }
+            ''}
+            ${optionalString ipv6 ''
+              # ipv6
+              provider cloudflare.com:2 {
+                checkip-server = dns64.cloudflare-dns.com
+                checkip-path = /cdn-cgi/trace
+                username = ${domain}
+                password = $CLOUDFLARE_DNS_API_TOKEN
+                hostname = ${domain}
+              }
+            ''}
             EOF
             exec ${pkgs.inadyn}/bin/inadyn -n --cache-dir=${cacheDir} -f /run/${RuntimeDirectory}/inadyn.cfg
           '';
