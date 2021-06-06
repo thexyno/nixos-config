@@ -28,7 +28,20 @@ in
       });
       config = {
         recorder.db_url = "postgresql://@/hass";
-        default_config = { };
+        automation = {};
+        counter = {};
+        frontend = {};
+        dhcp = {};
+        history = {};
+        image = {};
+        logbook = {};
+        media_source = {};
+        mobile_app = {};
+        my = {};
+        ssdp = {};
+        stream = {};
+        sun = {};
+        zeroconf = {};
         homeassistant = {
           name = "Hell";
           latitude = "51.51494";
