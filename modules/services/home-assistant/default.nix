@@ -19,7 +19,7 @@ in
         extraPackages = ps: with ps; [
           psycopg2
           colorlog
-          pychromecast
+          PyChromecast
           spotipy
         ];
       }).overrideAttrs (oldAttrs: {
