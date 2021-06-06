@@ -19,8 +19,10 @@ in
           ps.psycopg2
         ];
       };
-      config.recorder.db_url = "postgresql://@/hass";
-      applyDefaultConfig = false;
+      config = {
+        recorder.db_url = "postgresql://@/hass";
+      }
+      applyDefaultConfig = true;
 
     };
 
