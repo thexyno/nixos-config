@@ -1,4 +1,6 @@
 { config, lib, pkgs, ... }:
+with lib;
+with lib.my;
 let
   cfg = config.ragon.system.fs;
   arcSize = cfg.arcSize;
@@ -6,6 +8,8 @@ let
 in
 {
   options.ragon.system.fs.enable = lib.mkEnableOption "Enables ragons fs stuff, (tmpfs,zfs,backups,...)";
+  options.ragon.system.fs.mediadata = mkBoolOpt false;
+  options.ragon.system.fs.swap = mkBoolOpt true;
   options.ragon.system.fs.arcSize = lib.mkOption {
     type = lib.types.int;
     default = 2;
@@ -14,14 +18,14 @@ in
   config = lib.mkIf cfg.enable {
     services.zfs.autoScrub.enable = true;
     services.sanoid = {
-      enable = true;
+      enable = mkDefault true;
       datasets."pool/persist" = { };
     };
     services.syncoid = {
       user = "root";
       group = "root";
       sshKey = /persistent/root/.ssh/id_rsa;
-      enable = true;
+      enable = mkDefault true;
       commonArgs = [
       ];
       commands."pool/persist" = {
@@ -63,7 +67,7 @@ in
       };
     fileSystems."/media/data" =
       lib.mkIf
-        (config.ragon.hardware.laptop.enable == false)
+        (config.ragon.hardware.laptop.enable == false && cfg.mediadata)
         {
           device = "//10.0.0.2/data";
           fsType = "cifs";
@@ -76,8 +80,9 @@ in
 
         };
 
-    swapDevices =
-      [{ device = "/dev/zvol/pool/swap"; }];
+    swapDevices = mkIf cfg.swap [
+        { device = "/dev/zvol/pool/swap"; }
+      ] ;
 
   };
 }
