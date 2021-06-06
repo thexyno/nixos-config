@@ -11,8 +11,8 @@ let
 in
 {
   options.ragon.services.ddns.enable = lib.mkEnableOption "Enables CloudFlare DDNS to the domain specified in ragon.services.nginx.domain and all subdomains";
-  options.ragon.services.ddns.ipv4 = lib.mkBoolOpt true;
-  options.ragon.services.ddns.ipv6 = lib.mkBoolOpt true;
+  options.ragon.services.ddns.ipv4 = lib.mkBoolOption true;
+  options.ragon.services.ddns.ipv6 = lib.mkBoolOption true;
   config = lib.mkIf cfg.enable {
     systemd.services.inadyn = {
       description = "inadyn DDNS Client";
