@@ -31,7 +31,7 @@ in
             period = 180
             user-agent = Mozilla/5.0
             allow-ipv6 = true
-            ${optionalString ipv4 ''
+            ${optionalString cfg.ipv4 ''
               # ipv4
               provider cloudflare.com:1 {
                 username = ${domain}
@@ -39,7 +39,7 @@ in
                 hostname = ${domain}
               }
             ''}
-            ${optionalString ipv6 ''
+            ${optionalString cfg.ipv6 ''
               # ipv6
               provider cloudflare.com:2 {
                 checkip-server = dns64.cloudflare-dns.com
