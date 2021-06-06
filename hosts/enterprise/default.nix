@@ -39,6 +39,7 @@
   ragon.services.gamingvmhost.enable = true;
   ragon.services.docker.enable = true;
   ragon.services.ssh.enable = true;
-  ragon.services.ddns.enable = true;
+  ragon.services.nginx.enable = true;
+  ragon.services.homeassistant.enable = true;
 
 }

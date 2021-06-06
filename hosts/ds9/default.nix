@@ -57,6 +57,7 @@
       jellyfin.enable = true;
       signal.enable = true;
       home-assistant.enable = true;
+      ddns.enable = true;
     };
 
   };
