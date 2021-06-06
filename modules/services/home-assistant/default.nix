@@ -15,13 +15,15 @@ in
     services.home-assistant = {
       enable = true;
       package = pkgs.home-assistant.override {
-        extraPackages = ps: [
-          ps.psycopg2
+        doInstallCheck = false;
+        extraPackages = ps: with ps; [
+          psycopg2
+          colorlog
         ];
       };
       config = {
         recorder.db_url = "postgresql://@/hass";
-        default_config = {};
+        default_config = {}; # https://www.home-assistant.io/integrations/default_config/
       };
 
     };
