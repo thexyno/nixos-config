@@ -15,7 +15,7 @@ in
   options.ragon.services.ddns.enable = mkEnableOption "Enables CloudFlare DDNS to the domain specified in ragon.services.nginx.domain and all subdomains";
   options.ragon.services.ddns.ipv4 = mkBoolOpt true;
   options.ragon.services.ddns.ipv6 = mkBoolOpt true;
-  config = mkIf cfg.enable {
+  config = (mkIf cfg.enable {
     systemd.services.inadyn = {
       description = "inadyn DDNS Client";
       after = [ "network.target" ];
@@ -59,5 +59,7 @@ in
     systemd.tmpfiles.rules = [
       "d ${cacheDir} 1777 root root 10m"
     ];
+  }) // {
+    age.secrets.cloudflareAcme = if cfg.enable then { user = "root"; } else { file = null; };
   };
 }

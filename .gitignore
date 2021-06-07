@@ -3,5 +3,6 @@
 
 # Ignore build symlinks
 result*
+internal
 .tmp
 
