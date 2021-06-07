@@ -108,11 +108,12 @@ in
 
     networking.vlans =
       let
-  genVlan = obj: {
-    "${obj.name}" = {
-      id = obj.vlan;
-      interface = laninterface;
-    };
+        genVlan = obj: {
+          "${obj.name}" = {
+            id = obj.vlan;
+            interface = laninterface;
+          };
+        };
       in
       lib.foldl (a: b: a // b) {} (map genVlan nets);
 
