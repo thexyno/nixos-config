@@ -129,7 +129,7 @@ in
     networking.dhcpcd = {
       enable = true;
       allowInterfaces = [
-        "wan"
+        "${waninterface}"
       ] ++ (map (a: a.name) ipv6nets);
       extraConfig =
         let
@@ -146,7 +146,7 @@ in
           # using a prefix delegation.
           noipv6rs
 
-          interface wan
+          interface ${waninterface}
           # On the wan interface, we want to ask for a prefix delegation.
           ipv6rs
           ia_pd 2/::/${toString prefixSize} lan/0/64
