@@ -106,14 +106,25 @@ in
       "net.ipv6.conf.default.forwarding" = 1;
     };
 
-    networking.vlans = lib.foldl (a: b: a // b) { } (map interfaceGenerator nets);
+    networking.vlans =
+      let
+  genVlan = obj: {
+    "${obj.name}" = {
+      id = obj.vlan;
+      interface = laninterface;
+    };
+      in
+      lib.foldl (a: b: a // b) {} (map genVlan nets);
 
     networking.interfaces =
+      let
+        genVlanConf = lib.foldl (a: b: a // b) { } (map interfaceGenerator nets);
+      in
       {
         "${waninterface}" = {
           useDHCP = true;
         };
-      };
+      } // genVlanConf;
     networking.dhcpcd = {
       enable = true;
       allowInterfaces = [
