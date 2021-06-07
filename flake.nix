@@ -16,8 +16,8 @@
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
 
-    #rnix-lsp.url = "github:nix-community/rnix-lsp";
-    #rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
+    rnix-lsp.url = "github:nix-community/rnix-lsp";
+    rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
 
     # other inputs
 

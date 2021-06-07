@@ -11,7 +11,9 @@
     version = 4;
   };
   networking.hostId = "eec43f51";
-  networking.usePredictableInterfaceNames = false;
+ # networking.usePredictableInterfaceNames = false;
+  documentation.enable = false;
+  documentation.nixos.enable = false;
 
   nix = {
     autoOptimiseStore = true;
