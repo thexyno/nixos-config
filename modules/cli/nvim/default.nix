@@ -14,7 +14,6 @@ in
       nnn
       ] ++ (if cfg.maximal then [ python3 # ultisnips
       nodejs
-      (import inputs.rnix-lsp).apps.rnix-lsp
     ] else []);
 
     ragon.user.persistent.extraDirectories = [
