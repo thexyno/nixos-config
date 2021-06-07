@@ -92,8 +92,8 @@ in
     lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [
-        { sourcePort = 80; destination = "10.0.0.2:80"; proto = "tcp";}
-        { sourcePort = 443; destination = "10.0.0.2:443"; proto = "tcp";}
+        { sourcePort = 80; destination = "10.0.0.2:80"; proto = "tcp"; }
+        { sourcePort = 443; destination = "10.0.0.2:443"; proto = "tcp"; }
       ];
     };
   config = lib.mkIf cfg.enable {
@@ -106,30 +106,28 @@ in
       "net.ipv6.conf.default.forwarding" = 1;
     };
 
-    networking.interfaces =
-      let
-        genAllInterfaces = lib.foldl (a: b: a // b) {} (map interfaceGenerator nets);
+    networking.vlans = lib.foldl (a: b: a // b) { } (map interfaceGenerator nets);
 
-      in
+    networking.interfaces =
       {
         "${waninterface}" = {
           useDHCP = true;
         };
-      } // genAllInterfaces;
+      };
     networking.dhcpcd = {
       enable = true;
       allowInterfaces = [
         "wan"
       ] ++ (map (a: a.name) ipv6nets);
       extraConfig =
-        let 
+        let
           genDesc = obj: ''
-          # We don’t want dhcpcd to give us an address on the ${obj.name} interface.
-          interface ${obj.name}
-          noipv4
+            # We don’t want dhcpcd to give us an address on the ${obj.name} interface.
+            interface ${obj.name}
+            noipv4
 
-        '';
-         allGenIntDescs = builtins.concatStringsSep "\n" (map genDesc ipv6nets);
+          '';
+          allGenIntDescs = builtins.concatStringsSep "\n" (map genDesc ipv6nets);
         in
         ''
           # The man page says that ipv6rs should be disabled globally when
