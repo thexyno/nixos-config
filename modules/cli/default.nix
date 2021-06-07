@@ -12,6 +12,8 @@ in
       enable = mkDefault true;
       enableSSHSupport = true;
     };
+    ragon.nvim.enable = mkDefault true;
+
 
     services.lorri.enable = mkDefault true;
     ragon.user.persistent.extraDirectories = [

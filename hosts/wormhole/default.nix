@@ -42,7 +42,8 @@
   ragon.user.enable = true;
   ragon.networking.router.enable = true;
   ragon.services.ssh.enable = true;
-  ragon.nvim.enable = false;
+  ragon.nvim.enable = true;
+  ragon.nvim.maximal = false;
   programs.gnupg.agent.enable = true;
   ragon.cli.enable = true;
   services.lorri.enable = false;
