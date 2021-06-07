@@ -189,8 +189,6 @@ in
 
           # don't ever listen to anything on wan and stuff
           except-interface=${waninterface},${laninterface}
-          server=1.1.1.1
-          server=1.0.0.1 # TODO DoH
 
           listen-address=0.0.0.0,::
 
@@ -224,6 +222,9 @@ in
 
           # set authoritative mode
           dhcp-authoritative
+
+          server=1.1.1.1
+          server=1.0.0.1 # TODO DoH
         '';
 
     };
