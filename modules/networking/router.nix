@@ -50,7 +50,7 @@ let
         prefixLength = obj.ipv4size;
       }];
       routes = [{
-        address = obj.ipv4addr;
+        address = obj.netipv4addr;
         prefixLength = obj.ipv4size;
       }];
     };
