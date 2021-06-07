@@ -166,6 +166,7 @@ in
 
     services.dnsmasq = {
       enable = true;
+      alwaysKeepRunning = true;
       extraConfig =
         let
           inherit (pkgs) runCommand;
