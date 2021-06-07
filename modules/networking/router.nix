@@ -17,7 +17,7 @@ let
     dhcpv4start = "10.0.1.1";
     dhcpv4end = "10.0.255.240";
     ipv4size = 16;
-    vlan = 3;
+    vlan = 4;
   };
   iot = {
     name = "iot";
@@ -28,18 +28,18 @@ let
     dhcpv4start = "10.1.1.1";
     dhcpv4end = "10.1.255.240";
     ipv4size = 16;
-    vlan = 1;
+    vlan = 2;
   };
   guest = {
     name = "guest";
     internet = false;
     allowipv6 = false;
-    ipv4addr = "192.168.178.1";
-    netipv4addr = "192.168.178.0";
-    dhcpv4start = "192.168.178.10";
-    dhcpv4end = "192.168.178.240";
+    ipv4addr = "192.168.2.1";
+    netipv4addr = "192.168.2.0";
+    dhcpv4start = "192.168.2.10";
+    dhcpv4end = "192.168.2.240";
     ipv4size = 24;
-    vlan = 2;
+    vlan = 3;
   };
   nets = [ lan iot guest ];
   ipv6nets = builtins.filter (a: a.allowipv6) nets;
