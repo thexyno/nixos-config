@@ -170,6 +170,7 @@ in
         let
           inherit (pkgs) runCommand;
           gen = obj: ''
+            interface=${obj.name}
             dhcp-range=${obj.name},${obj.dhcpv4start},${obj.dhcpv4end},12h
           '';
           genall = builtins.concatStringsSep "\n" (map gen nets);
@@ -188,6 +189,10 @@ in
 
           # don't ever listen to anything on wan and stuff
           except-interface=${waninterface},${laninterface}
+          server=1.1.1.1
+          server=1.0.0.1 # TODO DoH
+
+          listen-address=0.0.0.0,::
 
           # don't send bogus requests out on the internets
           bogus-priv
@@ -207,6 +212,7 @@ in
           
           # set your domain for expand-hosts
           domain=${domain}
+
 
           ${genall}
           ${genstatics}
