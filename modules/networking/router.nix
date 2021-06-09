@@ -57,7 +57,7 @@ let
   };
 in
 {
-  options.ragon.networking.router.enable = lib.mkEnableOption "Makes this host a router";
+  options.ragon.networking.router.enable = mkBoolOpt false;
   options.ragon.networking.router.waninterface =
     lib.mkOption {
       type = lib.types.str;
@@ -200,7 +200,7 @@ in
           enable-ra
           
           # Construct a valid IPv6 range from reading the address set on the interface. The :: part refers to the ifid in dhcp6c.conf. Make sure you get this right or dnsmasq will get confused.
-          dhcp-range=tag:${lan},::,constructor:${waninterface}, ra-names,slaac, 12h
+          dhcp-range=tag:lan,::,constructor:${waninterface}, ra-names,slaac, 12h
 
           # ra-names enables a mode which gives DNS names to dual-stack hosts which do SLAAC  for  IPv6.
           # Add your local-only LAN domain
@@ -217,6 +217,8 @@ in
           ${genstatics}
 
           dhcp-boot=netbootxyz.efi
+
+          addn-hosts=/run/wireguard-hosts
 
           enable-tftp
           tftp-root=${netbootxyzpath}

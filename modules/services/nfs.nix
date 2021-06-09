@@ -8,8 +8,8 @@ let
   cfgExports = cfg.exports;
 in
 {
-  options.ragon.services.cfg.enable = mkEnableOption "Enables NFS";
-  options.ragon.services.cfg.allowedIPs = mkOption {
+  options.ragon.services.nfs.enable = mkEnableOption "Enables NFS";
+  options.ragon.services.nfs.allowedIPs = mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ]; # todo filter allowedIPs list by dhcp statics
     };

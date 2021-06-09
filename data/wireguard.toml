@@ -1,0 +1,32 @@
+ula = "03:dc7f:f80b"
+
+[hosts.voyager]
+id = 10
+pubkey = "" # TODO
+
+[hosts.calypso]
+id = 11
+pubkey = "" # TODO
+
+[hosts.wormhole]
+additional_ip_ranges = [ "10.0.0.0/16" ]
+id = 1
+pubkey = "" # TODO
+listen = 51820
+domain = "hailsatan.eu"
+
+[hosts.picard]
+id = 2
+pubkey = "" # TODO
+listen = 51820
+domain = "hochkamp.eu"
+
+[nets.internal]
+id = 40
+hosts = [ "voyager", "calypso", "wormhole" ]
+domain = "vpn.hailsatan.eu" # needed for dns
+
+[nets.hochkamp]
+id = 42
+hosts = [ "voyager", "calypso", "wormhole" ]
+domain = "vpn.hochkamp.eu" # dns

@@ -1,0 +1,50 @@
+# I want to use smth not toml but json is too json and yaml isn't in nixpkgs.lib.import...
+
+# TODO use this file
+
+[common]
+ula = '0c:e4eb:4aca' # ula
+
+[networks.lan]
+domain = "hailsatan.eu"
+ipv4_net = "10.0.0.0"
+ipv4_size = 16
+dhcpv4_start = "10.0.1.1"
+dhcpv4_end = "10.0.255.240"
+vlan_id = 4
+use_ipv6gua = true
+ipv6_netid = "0001"
+
+[networks.iot]
+domain = "hailsatan.eu"
+ipv4_net = "10.1.0.0"
+ipv4_size = 16
+dhcpv4_start = "10.1.1.1"
+dhcpv4_end = "10.1.255.240"
+vlan_id = 2
+
+[networks.guest]
+domain = "hailsatan.eu"
+ipv4_net = "192.168.2.0"
+ipv4_size = 24
+dhcpv4_start = "192.168.2.10"
+dhcpv4_end = "192.168.2.250"
+guest = true
+vlan_id = 2
+
+[hosts.enterprise]
+network = "lan"
+ip_addr = "10.0.0.9"
+ssh_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvexOT9tnx2LfAE/OwfixfNc/esNAjZ+GDfLpY2iABk"
+# no wireguard because it's in lan
+
+[hosts.wormhole]
+network = "lan"
+ip_addr = "10.0.0.1"
+domain = "hailsatan.eu" # relevant if wireguard is listening
+ssh_pubkey = ""
+
+[hosts.wormhole.wireguard]
+pubkey = "" # TODO
+port = 51820
+addrs = { v4 = "10.0.0.1", v6 = "fd0c:e4eb:4aca:1::1" }
