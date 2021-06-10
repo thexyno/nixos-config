@@ -313,7 +313,7 @@ in
     services.miniupnpd = { # WHY IS SUCH SHIT EVEN NEEDED, STUN SERVERS EXIST, USE THEM *looking at you microsoft*
       enable = true;
       internalIPs = [ lan.name ]; # TODO dynamic with filtered out iot and guest
-      natpnp = true; # idk what this is
+      natpmp = true; # idk what this is
       externalInterface = waninterface;
     };
   };
