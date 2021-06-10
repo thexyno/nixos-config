@@ -32,7 +32,7 @@ let
   };
   guest = {
     name = "guest";
-    internet = false;
+    internet = true;
     allowipv6 = false;
     ipv4addr = "192.168.2.1";
     netipv4addr = "192.168.2.0";
@@ -104,6 +104,7 @@ in
       "net.ipv4.ip_forward" = 1;
       "net.ipv6.conf.all.forwarding" = 1;
       "net.ipv6.conf.default.forwarding" = 1;
+      "net.ipv6.conf.6rdtun.forwarding" = 1;
     };
 
     networking.vlans =
@@ -155,14 +156,91 @@ in
         '';
     };
 
-    networking.firewall.enable = false;
+    networking.firewall.enable = false; # disable iptables cause it's ass to set up
+    networking.nftables.enable = true;
+    networking.nftables.ruleset = let
+      unsafeInterfaces = (map (x: x.name) (filter (x: x.internet == false) nets));
+      safeInterfaces = (map (x: x.name) (filter (x: x.internet == true) nets));
+      allInternalInterfaces = (map (x: x.name) nets);
+      portForwards = concatStringsSep "\n" (map (x: "iifname ${waninterface} ${x.proto} dport ${x.sourcePort} dnat ${x.destination}") cfg.forwardedPorts);
+      in ''
+      define unsafe_interfaces = {
+            ${concatStringsSep ",\n" unsafeInterfaces}
+      }
+      define safe_interfaces = {
+            ${concatStringsSep ",\n" safeInterfaces}
+            lo
+      }
+      define all_interfaces = {
+            ${concatStringsSep ",\n" allInternalInterfaces}
+            lo
+      }
+      table inet filter {
+        chain input {
+          type filter hook input priority 0;
 
-    networking.nat = {
-      enable = true;
-      externalInterface = waninterface;
-      internalInterfaces = map (a: a.name) nets;
-      internalIPs = (map (a: "${a.netipv4addr}/${toString a.ipv4size}") nets) ++ [ "127.0.0.1/32" ];
-    };
+          # allow established/related connections
+          ct state { established, related } accept
+
+          # early drop of invalid connections
+          ct state invalid drop
+
+          # allow from loopback and internal nic
+          iifname all_interfaces accept
+
+          # allow icmp
+          ip protocol icmp accept
+          ip6 nexthdr icmpv6 accept
+
+          # open port 22, but only allow 2 new connections per minute from each ip
+          tcp dport 22 ct state new flow table ssh-ftable { ip saddr limit rate 2/minute } accept
+
+          # everything else
+          reject with icmp type port-unreachable
+        }
+        chain forward {
+          type filter hook forward priority 0;
+
+          # allow from loopback and internal nic
+          iifname safe_interfaces accept
+
+          # allow established/related connections
+          oifname safe_interfaces ct state { established, related } accept
+
+          # Drop everything else
+          drop
+        }
+        chain output {
+          type filter hook output priority 0
+          # dont allow any trafic from iot and stuff to escape to the wild
+          iifname unsafe_interfaces drop
+        }
+      }
+      table ip nat {
+        chain prerouting {
+          type nat hook prerouting priority 0
+          ${portForwards}
+        }
+      
+        chain postrouting {
+          type nat hook postrouting priority 0
+      
+          oifname ${waninterface} masquerade
+        }
+      }
+    '';
+
+
+
+    # nftables sagt nein
+    #
+    # networking.nat = {
+    #   enable = true;
+    #   externalInterface = waninterface;
+    #   internalInterfaces = map (a: a.name) nets;
+    #   internalIPs = (map (a: "${a.netipv4addr}/${toString a.ipv4size}") nets) ++ [ "127.0.0.1/32" ];
+    #   forwardPorts = cfg.forwardedPorts;
+    # };
 
     services.dnsmasq = {
       enable = true;
@@ -232,6 +310,11 @@ in
 
     };
 
-
+    services.miniupnpd = { # WHY IS SUCH SHIT EVEN NEEDED, STUN SERVERS EXIST, USE THEM *looking at you microsoft*
+      enable = true;
+      internalIPs = [ lan.name ]; # TODO dynamic with filtered out iot and guest
+      natpnp = true; # idk what this is
+      externalInterface = waninterface;
+    };
   };
 }

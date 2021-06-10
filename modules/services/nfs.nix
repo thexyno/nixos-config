@@ -11,7 +11,7 @@ in
   options.ragon.services.nfs.enable = mkEnableOption "Enables NFS";
   options.ragon.services.nfs.allowedIPs = mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ]; # todo filter allowedIPs list by dhcp statics
+      default = [ "10.0.0.9" "10.40.0.10" ]; # todo filter allowedIPs list by dhcp statics
     };
   options.ragon.services.cfg.exports = mkOption {
       type = lib.types.listOf lib.types.str;

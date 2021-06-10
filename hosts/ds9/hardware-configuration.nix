@@ -7,9 +7,48 @@
   imports = [ "${modulesPath}/installer/scan/not-detected.nix" ];
 
   boot.initrd.availableKernelModules = [ "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "nvme" "usbhid" "sd_mod" "sr_mod" ];
-  boot.initrd.luks.devices.crypt.device = "/dev/nvme0n1p1";
+  boot.initrd.luks.devices.crypt.device = "/dev/nvme0n1p1"; # TODO CHANGE ME
   boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   nix.maxJobs = lib.mkDefault 12;
   powerManagement.cpuFreqGovernor = "performance";
+
+  services.zfs.autoScrub.enable = true;
+  ragon.system.fs.enable = true;
+  ragon.system.fs.mediadata = false;
+  ragon.system.fs.swap = false;
+  services.sanoid = {
+    enable = mkDefault true;
+    datasets."pool/persist" = { };
+    datasets."data" = { }; # TODO MAYBE CHANGE ME
+  };
+
+  fileSystems."/media/data/Documents" = { # TODO set key locations for all these mounts
+    device = "data/Documents";
+    fsType = "zfs";
+  };
+
+  fileSystems."/media/data/Music" = {
+    device = "data/Music";
+    fsType = "zfs";
+  };
+
+  fileSystems."/media/data/Movies" = {
+    device = "data/Movies";
+    fsType = "zfs";
+  };
+
+  fileSystems."/media/data/Backups" = {
+    device = "data/Movies";
+    fsType = "zfs";
+  };
+
+  fileSystems."/media/data/Horde" = {
+    device = "data/Horde";
+    fsType = "zfs";
+  };
+
+
+
+
+  
 }
