@@ -1,0 +1,12 @@
+pre-push:
+  commands:
+    check:
+      tags: test
+      run: nix flake check
+
+pre-commit:
+  parallel: false
+  commands:
+    01_nixfmt:
+      glob: "*.nix"
+      run: nixpkgs-fmt {staged_files} && git add {staged_files}

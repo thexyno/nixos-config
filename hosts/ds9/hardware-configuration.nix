@@ -16,13 +16,11 @@
   ragon.system.fs.enable = true;
   ragon.system.fs.mediadata = false;
   ragon.system.fs.swap = false;
-  services.sanoid = {
-    enable = mkDefault true;
-    datasets."pool/persist" = { };
-    datasets."data" = { }; # TODO MAYBE CHANGE ME
-  };
 
-  fileSystems."/media/data/Documents" = { # TODO set key locations for all these mounts
+  services.sanoid.datasets."data" = { }; # TODO MAYBE CHANGE ME
+
+  fileSystems."/media/data/Documents" = {
+    # TODO set key locations for all these mounts
     device = "data/Documents";
     fsType = "zfs";
   };
@@ -50,5 +48,5 @@
 
 
 
-  
+
 }
