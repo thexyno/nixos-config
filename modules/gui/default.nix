@@ -59,7 +59,7 @@ in
     documentation.info.enable = false; # https://github.com/NixOS/nixpkgs/issues/124215#issuecomment-846762260
     environment.systemPackages =
       with pkgs; [
-        libreoffice-fresh
+#        libreoffice-fresh TODO reenable
         cinnamon.nemo
         arc-icon-theme
         feh
