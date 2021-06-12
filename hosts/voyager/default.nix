@@ -20,12 +20,12 @@
 
 
   ragon.cli.enable = true;
-  #ragon.cli.pandoc.enable = true;
+  ragon.cli.pandoc.enable = true;
   ragon.user.enable = true;
   ragon.home-manager.enable = true;
   ragon.gui.enable = true;
   ragon.gui.gaming.enable = true;
-  #ragon.develop.enable = true;
+  ragon.develop.enable = true;
   ragon.persist.enable = true;
   ragon.services.docker.enable = true;
   ragon.services.ssh.enable = true;
