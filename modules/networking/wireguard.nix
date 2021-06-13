@@ -13,7 +13,7 @@ let
   genIpv6 = id: subnet: "fd${wgConfig.ula}:${toLowerHex subnet}::${toLowerHex id}";
   hostname = config.networking.hostName;
 
-  enableWireguard = hasAttrByPath [ "hosts" hostname ] wgConfig;
+  enableWireguard = (hasAttrByPath [ "hosts" hostname ] wgConfig && wgConfig.hosts.${hostname}.pubkey != "a");
   genIsServer = hn: (hasAttrByPath [ "hosts" hn "listen" ] wgConfig) && (hasAttrByPath [ "hosts" hn "domain" ] wgConfig);
   isServer = genIsServer hostname;
   netsThisHostIsIn = filter (x: elem hostname x.hosts) (attrValues wgConfig.nets);
