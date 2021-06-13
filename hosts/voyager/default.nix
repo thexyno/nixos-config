@@ -32,7 +32,7 @@
 
   ragon.user.persistent.extraDirectories = [
     ".cache" # hopefully helps with ram
-  ]
+  ];
 
 
 }
