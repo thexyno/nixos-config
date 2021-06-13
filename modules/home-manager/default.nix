@@ -174,9 +174,9 @@ in
             highlightBaseName = true;
             shadowOtherUsers = true;
             showProgramPath = false;
-            treeView = true;
+            treeView = false;
             meters = {
-              left = [ "LeftCPUs" "Memory" "Swap" "ZFSARC" "ZFSCARC" ];
+              left = [ "LeftCPUs" "Memory" "Swap" "ZFSARC"];
               right = [ "RightCPUs" "Tasks" "LoadAverage" "Uptime" "Battery" ];
             };
           };
