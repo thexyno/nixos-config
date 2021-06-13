@@ -31,7 +31,7 @@
   ragon.services.ssh.enable = true;
 
   ragon.user.persistent.extraDirectories = [
-    ".cache", # hopefully helps with ram
+    ".cache" # hopefully helps with ram
   ]
 
 
