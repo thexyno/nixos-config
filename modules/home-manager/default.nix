@@ -92,21 +92,21 @@ in
                 DP-2-1.enable = false;
                 DP-2-3 = {
                   enable = true;
-                  crtc = "2";
+                  crtc = 2;
                   mode = "1920x1080";
                   position  = "0x0";
                   rate = "60.00";
                 };
                 DP-2-2 = {
                   enable = true;
-                  crtc = "1";
+                  crtc = 1;
                   mode = "1920x1080";
                   position  = "1920x0";
                   rate = "60.00";
                 };
                 eDP-1 = {
                   enable = true;
-                  crtc = "0";
+                  crtc = 0;
                   mode = "1920x1080";
                   position  = "3840x0";
                   rate = "60.01";
