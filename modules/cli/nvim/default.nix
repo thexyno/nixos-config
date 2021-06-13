@@ -21,6 +21,7 @@ in
 
     ] ++ (if cfg.maximal then [
       ".config/TabNine"
+      ".local/share/TabNine"
       ".config/coc"
     ] else []);
 

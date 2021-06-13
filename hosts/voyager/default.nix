@@ -30,4 +30,9 @@
   ragon.services.docker.enable = true;
   ragon.services.ssh.enable = true;
 
+  ragon.user.persistent.extraDirectories = [
+    ".cache", # hopefully helps with ram
+  ]
+
+
 }
