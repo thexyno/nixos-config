@@ -59,7 +59,7 @@ with lib.my;
 
   # Use a stable kernel as zfs is broken on latest
   boot = {
-    kernelPackages = mkDefault pkgs.linux;
+    #    kernelPackages = mkDefault pkgs.linux;
     loader = {
       efi.canTouchEfiVariables = mkDefault true;
       systemd-boot.configurationLimit = 10;

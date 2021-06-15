@@ -3,9 +3,6 @@
   imports = [
     "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
   ];
-  boot = {
-    kernelPackages = pkgs.linux;
-  };
   boot.loader.raspberryPi = {
     enable = true;
     version = 4;
