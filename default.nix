@@ -57,9 +57,9 @@ with lib.my;
   # hardware-configuration.nix or fileSystem config.
   fileSystems."/".device = mkDefault "/dev/disk/by-label/nixos";
 
-  # Use the latest kernel
+  # Use a stable kernel as zfs is broken on latest
   boot = {
-    kernelPackages = mkDefault pkgs.linuxPackages_5_12;
+    kernelPackages = mkDefault pkgs.linux;
     loader = {
       efi.canTouchEfiVariables = mkDefault true;
       systemd-boot.configurationLimit = 10;

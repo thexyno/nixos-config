@@ -4,7 +4,7 @@
     "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
   ];
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_12;
+    kernelPackages = pkgs.linux;
   };
   boot.loader.raspberryPi = {
     enable = true;
