@@ -116,7 +116,7 @@ in
           };
         };
       in
-      lib.foldl (a: b: a // b) {} (map genVlan nets);
+      lib.foldl (a: b: a // b) { } (map genVlan nets);
 
     networking.interfaces =
       let
@@ -158,77 +158,79 @@ in
 
     networking.firewall.enable = false; # disable iptables cause it's ass to set up
     networking.nftables.enable = true;
-    networking.nftables.ruleset = let
-      unsafeInterfaces = (map (x: x.name) (filter (x: x.internet == false) nets));
-      safeInterfaces = (map (x: x.name) (filter (x: x.internet == true) nets));
-      allInternalInterfaces = (map (x: x.name) nets);
-      portForwards = concatStringsSep "\n" (map (x: "iifname ${waninterface} ${x.proto} dport ${x.sourcePort} dnat ${x.destination}") cfg.forwardedPorts);
-      in ''
-      define unsafe_interfaces = {
-            ${concatStringsSep ",\n" unsafeInterfaces}
-      }
-      define safe_interfaces = {
-            ${concatStringsSep ",\n" safeInterfaces}
-            lo
-      }
-      define all_interfaces = {
-            ${concatStringsSep ",\n" allInternalInterfaces}
-            lo
-      }
-      table inet filter {
-        chain input {
-          type filter hook input priority 0;
-
-          # allow established/related connections
-          ct state { established, related } accept
-
-          # early drop of invalid connections
-          ct state invalid drop
-
-          # allow from loopback and internal nic
-          iifname all_interfaces accept
-
-          # allow icmp
-          ip protocol icmp accept
-          ip6 nexthdr icmpv6 accept
-
-          # open port 22, but only allow 2 new connections per minute from each ip
-          tcp dport 22 ct state new flow table ssh-ftable { ip saddr limit rate 2/minute } accept
-
-          # everything else
-          reject with icmp type port-unreachable
+    networking.nftables.ruleset =
+      let
+        unsafeInterfaces = (map (x: x.name) (filter (x: x.internet == false) nets));
+        safeInterfaces = (map (x: x.name) (filter (x: x.internet == true) nets));
+        allInternalInterfaces = (map (x: x.name) nets);
+        portForwards = concatStringsSep "\n" (map (x: "iifname ${waninterface} ${x.proto} dport ${x.sourcePort} dnat ${x.destination}") cfg.forwardedPorts);
+      in
+      ''
+        define unsafe_interfaces = {
+              ${concatStringsSep ",\n" unsafeInterfaces}
         }
-        chain forward {
-          type filter hook forward priority 0;
-
-          # allow from loopback and internal nic
-          iifname safe_interfaces accept
-
-          # allow established/related connections
-          oifname safe_interfaces ct state { established, related } accept
-
-          # Drop everything else
-          drop
+        define safe_interfaces = {
+              ${concatStringsSep ",\n" safeInterfaces}
+              lo
         }
-        chain output {
-          type filter hook output priority 0
-          # dont allow any trafic from iot and stuff to escape to the wild
-          iifname unsafe_interfaces drop
+        define all_interfaces = {
+              ${concatStringsSep ",\n" allInternalInterfaces}
+              lo
         }
-      }
-      table ip nat {
-        chain prerouting {
-          type nat hook prerouting priority 0
-          ${portForwards}
+        table inet filter {
+          chain input {
+            type filter hook input priority 0;
+
+            # allow established/related connections
+            ct state { established, related } accept
+
+            # early drop of invalid connections
+            ct state invalid drop
+
+            # allow from loopback and internal nic
+            iifname all_interfaces accept
+
+            # allow icmp
+            ip protocol icmp accept
+            ip6 nexthdr icmpv6 accept
+
+            # open port 22, but only allow 2 new connections per minute from each ip
+            tcp dport 22 ct state new flow table ssh-ftable { ip saddr limit rate 2/minute } accept
+
+            # everything else
+            reject with icmp type port-unreachable
+          }
+          chain forward {
+            type filter hook forward priority 0;
+
+            # allow from loopback and internal nic
+            iifname safe_interfaces accept
+
+            # allow established/related connections
+            oifname safe_interfaces ct state { established, related } accept
+
+            # Drop everything else
+            drop
+          }
+          chain output {
+            type filter hook output priority 0
+            # dont allow any trafic from iot and stuff to escape to the wild
+            iifname unsafe_interfaces drop
+          }
         }
+        table ip nat {
+          chain prerouting {
+            type nat hook prerouting priority 0
+            ${portForwards}
+          }
       
-        chain postrouting {
-          type nat hook postrouting priority 0
+          chain postrouting {
+            type nat hook postrouting priority 0
       
-          oifname ${waninterface} masquerade
+            oifname ${waninterface} masquerade
+          }
         }
-      }
-    '';
+      '';
 
 
 
@@ -256,7 +258,7 @@ in
           genstatics = builtins.concatStringsSep "\n" (map (a: "address=/${a.name}/${a.ip}") statics);
           netbootxyz = builtins.fetchurl {
             url = "https://boot.netboot.xyz/ipxe/netboot.xyz.efi";
-            sha256 = "06lmq4l97pxwg6pp93qmrlgi0ajhjz8xn70833m03lxih00mnxxa";
+            sha256 = "0k99kg5yiw715xmfd01adlf3klvxzw03giw8dbjvadckgy7qnxhk";
           };
           netbootxyzpath = runCommand "netbootpath" { } ''
             mkdir $out
@@ -310,7 +312,8 @@ in
 
     };
 
-    services.miniupnpd = { # WHY IS SUCH SHIT EVEN NEEDED, STUN SERVERS EXIST, USE THEM *looking at you microsoft*
+    services.miniupnpd = {
+      # WHY IS SUCH SHIT EVEN NEEDED, STUN SERVERS EXIST, USE THEM *looking at you microsoft*
       enable = true;
       internalIPs = [ lan.name ]; # TODO dynamic with filtered out iot and guest
       natpmp = true; # idk what this is
