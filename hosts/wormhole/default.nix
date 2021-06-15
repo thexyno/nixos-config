@@ -4,14 +4,14 @@
     "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
   ];
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_11;
+    kernelPackages = pkgs.linuxPackages_5_12;
   };
   boot.loader.raspberryPi = {
     enable = true;
     version = 4;
   };
   networking.hostId = "eec43f51";
- # networking.usePredictableInterfaceNames = false;
+  # networking.usePredictableInterfaceNames = false;
   documentation.enable = false;
   documentation.nixos.enable = false;
 
