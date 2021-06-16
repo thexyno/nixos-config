@@ -163,7 +163,7 @@ in
         unsafeInterfaces = (map (x: x.name) (filter (x: x.internet == false) nets));
         safeInterfaces = (map (x: x.name) (filter (x: x.internet == true) nets));
         allInternalInterfaces = (map (x: x.name) nets);
-        portForwards = concatStringsSep "\n" (map (x: "iifname ${waninterface} ${x.proto} dport ${x.sourcePort} dnat ${x.destination}") cfg.forwardedPorts);
+        portForwards = concatStringsSep "\n" (map (x: "iifname ${waninterface} ${x.proto} dport ${toString x.sourcePort} dnat ${x.destination}") cfg.forwardedPorts);
       in
       ''
         define unsafe_interfaces = {
