@@ -36,7 +36,7 @@ in
       options kvm report_ignored_msrs=0
       options vfio-pci ids=${builtins.concatStringsSep "," pciIds}
     '';
-    ragon.user.extraGroups = [ "kvm" "libvirt" ];
+    ragon.user.extraGroups = [ "kvm" "libvirtd" ];
 
 
 
