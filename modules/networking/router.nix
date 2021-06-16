@@ -149,8 +149,9 @@ in
 
           interface ${waninterface}
           # On the wan interface, we want to ask for a prefix delegation.
+          iaid 0
           ipv6rs
-          ia_pd 2/::/${toString prefixSize} lan/0/64
+          ia_pd 0/::/${toString prefixSize} lan/0/${toString prefixSize}
 
           ${allGenIntDescs}
         '';
@@ -288,7 +289,7 @@ in
           enable-ra
           
           # Construct a valid IPv6 range from reading the address set on the interface. The :: part refers to the ifid in dhcp6c.conf. Make sure you get this right or dnsmasq will get confused.
-          dhcp-range=tag:lan,::,constructor:${waninterface}, ra-names,slaac, 12h
+          dhcp-range=lan,::,constructor:lan, ra-names,slaac, 12h
 
           # ra-names enables a mode which gives DNS names to dual-stack hosts which do SLAAC  for  IPv6.
           # Add your local-only LAN domain
