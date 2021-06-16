@@ -1,0 +1,3 @@
+{
+  hostname = "hochkamp.eu";
+}
