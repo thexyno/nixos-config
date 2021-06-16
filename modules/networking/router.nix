@@ -170,12 +170,12 @@ in
               ${concatStringsSep ",\n" unsafeInterfaces}
         }
         define safe_interfaces = {
+              lo,
               ${concatStringsSep ",\n" safeInterfaces}
-              lo
         }
         define all_interfaces = {
+              lo,
               ${concatStringsSep ",\n" allInternalInterfaces}
-              lo
         }
         table inet filter {
           chain input {
