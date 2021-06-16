@@ -2,7 +2,7 @@ pre-push:
   commands:
     check:
       tags: test
-      run: nix flake check
+      run: nix flake check --no-build
 
 pre-commit:
   parallel: false

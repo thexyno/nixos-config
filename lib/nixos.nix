@@ -30,18 +30,18 @@ with lib.my;
     let
       bnpath = baseNameOf path;
     in
-    (if traceVal (builtins.pathExists (traceVal "${path}/deployment.nix")) then {
+    (if (builtins.pathExists "${path}/deployment.nix") then {
       ${bnpath} = {
         hostname = mkDefault "${bnpath}.hailsatan.eu";
         profiles.system = {
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${baseNameOf path};
+          path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos attrs.out.${baseNameOf path};
         };
       } // (import "${path}/deployment.nix");
     } else { });
 
   mapNodes = dir: attrs @ { ... }:
-    mapModules dir
-      (hostPath: mkNode hostPath attrs);
+    foldl (a: b: a // b) { } (mapModules' dir
+      (hostPath: mkNode hostPath attrs));
 
 
 

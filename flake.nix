@@ -107,7 +107,7 @@
         mapHosts ./hosts { };
 
       deploy = {
-        nodes = mapNodes ./hosts { };
+        nodes = mapNodes ./hosts { out = self.nixosConfigurations; };
         user = "root";
         sshUser = "ragon";
       };
