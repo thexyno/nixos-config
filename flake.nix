@@ -24,6 +24,12 @@
 
     # other inputs
 
+    ## needed for shell.nix
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
+
     ## applications
     dwm.url = "git+ssh://git@gitlab.hochkamp.eu/ragon/dwm";
     dwm.flake = false;
@@ -116,6 +122,17 @@
       #   This is highly advised, and will prevent many possible mistakes
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
+      devShell =
+        let
+          mkS = system:
+            let
+              p = pkgs system;
+            in
+            p.mkShell {
+              buildInputs = [ p.lefthook deploy-rs.defaultPackage.${system} p.nixpkgs-fmt ];
+            };
+        in
+        forAllSystems mkS;
       templates = {
         full = {
           path = ./.;
