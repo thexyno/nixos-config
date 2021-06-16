@@ -36,7 +36,7 @@ let
           hHasAdditional = (hasAttrByPath [ "additional_ip_ranges" ] h);
           additionalOfAllThisNet = flatten (map (x: if (hasAttrByPath [ "additional_ip_ranges" ] x) then x.additional_ip_ranges else [ ]) filteredHosts);
         in
-        {
+        (if h.pubkey != "a" then {
           publicKey = h.pubkey;
           persistentKeepalive = if hServer then 25 else null;
           endpoint = if hServer then "${h.domain}:${toString h.listen}" else null;
@@ -46,7 +46,7 @@ let
           ] ++ (if hHasAdditional then h.additional_ip_ranges else [ ]) else [
             "10.${toString net.id}.0.0/16"
           ] ++ additionalOfAllThisNet);
-        }
+        } else { })
       )
       toUse;
   genPeers = flatten (map genPeersForNet netsThisHostIsIn);
