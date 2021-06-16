@@ -165,9 +165,9 @@ in
         allInternalInterfaces = (map (x: x.name) nets);
         portForwards = concatStringsSep "\n" (map (x: "iifname ${waninterface} ${x.proto} dport ${toString x.sourcePort} dnat ${x.destination}") cfg.forwardedPorts);
         dropUnsafe = concatStringsSep "\n" (map (x: "iifname ${x} drop") unsafeInterfaces);
-        allowSafe =  concatStringsSep "\n" (map (x: "iifname ${x} accept") safeInterfaces);
-        allowSafeOif =  concatStringsSep "\n" (map (x: "oifname ${x} ct state { established, related } accept") safeInterfaces);
-        allowAll =   concatStringsSep "\n" (map (x: "iifname ${x} accept") allInternalInterfaces);
+        allowSafe = concatStringsSep "\n" (map (x: "iifname ${x} accept") safeInterfaces);
+        allowSafeOif = concatStringsSep "\n" (map (x: "oifname ${x} ct state { established, related } accept") safeInterfaces);
+        allowAll = concatStringsSep "\n" (map (x: "iifname ${x} accept") allInternalInterfaces);
       in
       ''
         define unsafe_interfaces = {
@@ -270,6 +270,10 @@ in
           '';
         in
         ''
+          no-resolv
+          server=1.1.1.1
+          server=1.0.0.1 # TODO DoH
+
           # https://hveem.no/using-dnsmasq-for-dhcpv6
 
           # don't ever listen to anything on wan and stuff
@@ -310,8 +314,6 @@ in
           # set authoritative mode
           dhcp-authoritative
 
-          server=1.1.1.1
-          server=1.0.0.1 # TODO DoH
         '';
 
     };
