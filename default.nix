@@ -33,6 +33,7 @@ with lib.my;
     {
       package = pkgs.unstable.nixFlakes;
       extraOptions = "experimental-features = nix-command flakes";
+      trustedUsers = [ "root" "@wheel" ];
       nixPath = nixPathInputs ++ [
         "nixpkgs-overlays=${config.conf.dir}/overlays"
         "conf=${config.conf.dir}"

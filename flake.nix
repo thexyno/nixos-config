@@ -15,6 +15,9 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
+    # Used for Deployment to servers
+    deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
 
     rnix-lsp.url = "github:nix-community/rnix-lsp";
     rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
@@ -55,9 +58,9 @@
   };
 
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-master, neovim-nightly-overlay, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-master, neovim-nightly-overlay, deploy-rs, ... }:
     let
-      inherit (lib.my) mapModules mapModulesRec mapHosts;
+      inherit (lib.my) mapModules mapModulesRec mapHosts mapNodes;
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -102,6 +105,16 @@
 
       nixosConfigurations =
         mapHosts ./hosts { };
+
+      deploy = {
+        nodes = mapNodes ./hosts { };
+        user = "root";
+        sshUser = "ragon";
+      };
+
+      # \deploy-rs
+      #   This is highly advised, and will prevent many possible mistakes
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
       templates = {
         full = {
