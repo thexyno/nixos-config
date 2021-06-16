@@ -258,7 +258,7 @@ in
           genstatics = builtins.concatStringsSep "\n" (map (a: "address=/${a.name}/${a.ip}") statics);
           netbootxyz = builtins.fetchurl {
             url = "https://boot.netboot.xyz/ipxe/netboot.xyz.efi";
-            sha256 = "0k99kg5yiw715xmfd01adlf3klvxzw03giw8dbjvadckgy7qnxhk";
+            sha256 = "06lmq4l97pxwg6pp93qmrlgi0ajhjz8xn70833m03lxih00mnxxa";
           };
           netbootxyzpath = runCommand "netbootpath" { } ''
             mkdir $out
