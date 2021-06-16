@@ -13,4 +13,5 @@ in
   "gitlabOTPFile.age".publicKeys = pubkeys.ragon.computers;
   "gitlabJWSFile.age".publicKeys = pubkeys.ragon.computers;
   "nextcloudAdminPass.age".publicKeys = pubkeys.ragon.computers;
+  "rootWireguardwormhole.age".publicKeys = pubkeys.ragon.hosts.wormhole;
 }
