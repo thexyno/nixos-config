@@ -165,8 +165,8 @@ in
         allInternalInterfaces = (map (x: x.name) nets);
         portForwards = concatStringsSep "\n" (map (x: "iifname ${waninterface} ${x.proto} dport ${toString x.sourcePort} dnat ${x.destination}") cfg.forwardedPorts);
         dropUnsafe = concatStringsSep "\n" (map (x: "iifname ${x} drop") unsafeInterfaces);
-        allowSave =  concatStringsSep "\n" (map (x: "iifname ${x} accept") safeInterfaces);
-        allowSaveOif =  concatStringsSep "\n" (map (x: "oifname ${x} ct state { established, related } accept") safeInterfaces);
+        allowSafe =  concatStringsSep "\n" (map (x: "iifname ${x} accept") safeInterfaces);
+        allowSafeOif =  concatStringsSep "\n" (map (x: "oifname ${x} ct state { established, related } accept") safeInterfaces);
         allowAll =   concatStringsSep "\n" (map (x: "iifname ${x} accept") allInternalInterfaces);
       in
       ''
