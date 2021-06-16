@@ -164,6 +164,10 @@ in
         safeInterfaces = (map (x: x.name) (filter (x: x.internet == true) nets));
         allInternalInterfaces = (map (x: x.name) nets);
         portForwards = concatStringsSep "\n" (map (x: "iifname ${waninterface} ${x.proto} dport ${toString x.sourcePort} dnat ${x.destination}") cfg.forwardedPorts);
+        dropUnsafe = concatStringsSep "\n" (map (x: "iifname ${x} drop") unsafeInterfaces);
+        allowSave =  concatStringsSep "\n" (map (x: "iifname ${x} accept") safeInterfaces);
+        allowSaveOif =  concatStringsSep "\n" (map (x: "oifname ${x} ct state { established, related } accept") safeInterfaces);
+        allowAll =   concatStringsSep "\n" (map (x: "iifname ${x} accept") allInternalInterfaces);
       in
       ''
         define unsafe_interfaces = {
@@ -188,7 +192,7 @@ in
             ct state invalid drop
 
             # allow from loopback and internal nic
-            iifname all_interfaces accept
+            ${allowAll}
 
             # allow icmp
             ip protocol icmp accept
@@ -204,10 +208,10 @@ in
             type filter hook forward priority 0;
 
             # allow from loopback and internal nic
-            iifname safe_interfaces accept
+            ${allowSafe}
 
             # allow established/related connections
-            oifname safe_interfaces ct state { established, related } accept
+            ${allowSafeOif}
 
             # Drop everything else
             drop
@@ -215,7 +219,7 @@ in
           chain output {
             type filter hook output priority 0
             # dont allow any trafic from iot and stuff to escape to the wild
-            iifname unsafe_interfaces drop
+            ${dropUnsafe}
           }
         }
         table ip nat {
