@@ -23,7 +23,12 @@ domain = "hochkamp.eu"
 
 [nets.internal]
 id = 40
-hosts = [ "voyager", "calypso", "wormhole" ]
+hosts = [
+# disabled until setup
+#  "voyager",
+#  "calypso",
+  "wormhole"
+  ]
 domain = "vpn.hailsatan.eu" # needed for dns
 
 [nets.hochkamp]
