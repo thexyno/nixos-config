@@ -45,4 +45,5 @@
   ragon.cli.enable = true;
   services.lorri.enable = false;
 
+  security.sudo.wheelNeedsPassword = false;
 }
