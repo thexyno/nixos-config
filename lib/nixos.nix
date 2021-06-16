@@ -29,12 +29,13 @@ with lib.my;
   mkNode = path: attrs @ { ... }:
     let
       bnpath = baseNameOf path;
+      system = builtins.elemAt (builtins.split "\n" (builtins.readFile "${path}/system")) 0; # i didnt find a remove whitespace function
     in
     (if (builtins.pathExists "${path}/deployment.nix") then {
       ${bnpath} = {
         hostname = mkDefault "${bnpath}.hailsatan.eu";
         profiles.system = {
-          path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos attrs.out.${baseNameOf path};
+          path = inputs.deploy-rs.lib.${system}.activate.nixos attrs.out.${baseNameOf path};
         };
       } // (import "${path}/deployment.nix");
     } else { });
