@@ -88,6 +88,13 @@ in
         { name = "grafana.hailsatan.eu"; ip = "10.0.0.2"; }
       ];
     };
+  options.ragon.networking.router.staticDHCPs =
+    lib.mkOption {
+      type = lib.types.listOf lib.types.attrs;
+      default = [
+        { name = "enterprise"; ip = "10.0.0.9"; mac = "d8:cb:8a:76:09:0a"; }
+      ];
+    };
   options.ragon.networking.router.forwardedPorts =
     lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
@@ -259,7 +266,12 @@ in
             interface=${obj.name}
             dhcp-range=${obj.name},${obj.dhcpv4start},${obj.dhcpv4end},12h
           '';
+
+          genHosts = obj: ''
+            dhcp-host=${obj.mac},${obj.ip},${obj.name}
+          '';
           genall = builtins.concatStringsSep "\n" (map gen nets);
+          genallHosts = builtins.concatStringsSep "\n" (map gen cfg.staticDHCPs);
           genstatics = builtins.concatStringsSep "\n" (map (a: "address=/${a.name}/${a.ip}") statics);
           netbootxyz = builtins.fetchurl {
             url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.40/netboot.xyz.efi";
@@ -304,6 +316,7 @@ in
 
           ${genall}
           ${genstatics}
+          ${genallHosts}
 
           dhcp-boot=netbootxyz.efi
 
