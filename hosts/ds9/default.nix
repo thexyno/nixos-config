@@ -41,25 +41,25 @@
       nameservers = [ "10.0.0.1" "1.1.1.1" ];
     };
 
-    boot.initrd.network = {
+  boot.initrd.network = {
+    enable = true;
+    postCommands = ''
+      zpool import pool
+      echo "zfs load-key -a; killall zfs" >> /root/.profile
+    '';
+    ssh = {
       enable = true;
-      postCommands = ''
-       zpool import pool
-       echo "zfs load-key -a; killall zfs" >> /root/.profile
-      '';
-      ssh = {
-        enable = true;
-        port = 2222;
-        hostKeys = [
-          "/etc/nixos/secrets/initrd/ssh_host_rsa_key"
-          "/etc/nixos/secrets/initrd/ssh_host_ed25519_key"
-        ];
-        authorizedKeys = pkgs.pubkeys.ragon.computers;
-
-      };
+      port = 2222;
+      hostKeys = [
+        "/etc/nixos/secrets/initrd/ssh_host_rsa_key"
+        "/etc/nixos/secrets/initrd/ssh_host_ed25519_key"
+      ];
+      authorizedKeys = pkgs.pubkeys.ragon.computers;
 
     };
-  
+
+  };
+
 
   # Immutable users due to tmpfs
   users.mutableUsers = false;
@@ -77,7 +77,8 @@
       nginx.enable = true;
       jellyfin.enable = true;
       signal.enable = true;
-      home-assistant.enable = true;
+      libvirt.enable = true;
+      #  home-assistant.enable = true;
       ddns.enable = true;
     };
 
