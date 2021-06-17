@@ -271,7 +271,7 @@ in
             dhcp-host=${obj.mac},${obj.ip},${obj.name}
           '';
           genall = builtins.concatStringsSep "\n" (map gen nets);
-          genallHosts = builtins.concatStringsSep "\n" (map gen cfg.staticDHCPs);
+          genallHosts = builtins.concatStringsSep "\n" (map genHosts cfg.staticDHCPs);
           genstatics = builtins.concatStringsSep "\n" (map (a: "address=/${a.name}/${a.ip}") statics);
           netbootxyz = builtins.fetchurl {
             url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.40/netboot.xyz.efi";
