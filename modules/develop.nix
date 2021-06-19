@@ -28,6 +28,9 @@ in
       ".cache/flutter" # so that flutter get all does not need to ALWAYS be run
       ".pub-cache" # so that flutter get all does not need to ALWAYS be run
       ".npm"
+      ".cache/JetBrains"
+      ".config/JetBrains"
+      ".jdks"
     ];
   };
 }
