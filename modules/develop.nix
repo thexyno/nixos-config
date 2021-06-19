@@ -20,6 +20,7 @@ in
       arduino-cli
       esptool
       platformio
+      jetbrains.idea-community
     ];
     ragon.user.persistent.extraDirectories = [
       ".android"
