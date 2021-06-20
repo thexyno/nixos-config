@@ -12,9 +12,15 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       nnn
-      ] ++ (if cfg.maximal then [ python3 # ultisnips
+    ] ++ (if cfg.maximal then [
+      python3 # ultisnips
       nodejs
-    ] else []);
+      # coc-diagnostic
+      shfmt
+      shellcheck
+      vim-vint
+      nodePackages.write-good
+    ] else [ ]);
 
     ragon.user.persistent.extraDirectories = [
       ".local/share/nvim"
@@ -23,7 +29,7 @@ in
       ".config/TabNine"
       ".local/share/TabNine"
       ".config/coc"
-    ] else []);
+    ] else [ ]);
 
     programs.neovim = {
       package = pkgs.neovim-nightly;
@@ -68,7 +74,7 @@ in
             fzf-vim
             fzfWrapper
             vim-devicons
-            ] ++ (if cfg.maximal then [
+          ] ++ (if cfg.maximal then [
             undotree
             vim-pandoc
             vim-pandoc-live-preview
@@ -76,7 +82,7 @@ in
             ultisnips
             coc-nvim
             dart-vim
-          ] else []);
+          ] else [ ]);
 
           customRC = builtins.readFile ./init.vim;
         };
