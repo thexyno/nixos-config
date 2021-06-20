@@ -14,7 +14,7 @@ in
     environment.systemPackages = with pkgs; [
       unixtools.xxd
       nixos-generators
-      nixos-prefetch-scripts
+      nix-prefetch-scripts
       android-studio
       android-udev-rules
       scrcpy
