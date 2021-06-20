@@ -80,6 +80,13 @@ in
         unstable.timeular
       ];
 
+    security.wrappers.cnping = {
+      source = "${pkgs.my.cnping}/bin/cnping";
+      owner = "nobody";
+      group = "nogroup";
+      capabilities = "cap_net_raw+ep";
+    };
+
     ragon.user.persistent.extraFiles = [
       ".cache/rofi3.druncache" # rofi cache so the search priorities are not garbage
     ];

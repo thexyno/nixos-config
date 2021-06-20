@@ -12,7 +12,6 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ libX11 libGL ];
 
   installPhase = ''
-    setcap cap_net_raw+ep ${pname}
     install -D -m 755 ${pname} $out/bin/${pname}
   '';
 
