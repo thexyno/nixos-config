@@ -14,7 +14,7 @@ in
     ragon.gui.autostart = [
       ["${pkgs.blueberry}/bin/blueberry-tray"]
     ];
-
+    environment.systemPackages = (if config.ragon.gui.enable then [ pkgs.blueberry ] else []);
       
   };
 }
