@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
     owner = "cnlohr";
     repo = "cnping";
     rev = "6b89363e6b79ecbf612306d42a8ef94a5a2f756a";
-    sha256 = "169ydxxlgr5403yiiik2kgwxpg6dx12mmsf8w62k8dvgfyk6myv7";
-    fetchSubmodules = false;
+    sha256 = "101gcswscaz46478ama3xdvk4g5l3fhwja5nmg3qc2zsibkacx8k";
+    fetchSubmodules = true;
   };
   nativeBuildInputs = [ libX11 libGL ];
 
