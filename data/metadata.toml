@@ -1,0 +1,11 @@
+[prometheus]
+enabled = true
+hostname = "ds9"
+[prometheus.scrape.router]
+enabled = true
+target = "10.0.0.1:9001"
+[prometheus.scrape.snmp]
+enabled = true
+configuration = """
+
+"""

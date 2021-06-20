@@ -1,24 +1,12 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.prometheus;
-  mode = cfg.mode;
-  isMaster = builtins.elem "master" mode;
-  isNode = builtins.elem "node" mode;
-  domain = cfg.domain;
+  node = cfg.node;
   hostName = config.networking.hostName;
 in
 {
   options.ragon.prometheus = {
-    enable = lib.mkEnableOption "Enable prometheus monitoring";
-    mode = lib.mkOption {
-      type = lib.types.listOf (lib.types.enum [ "master" "node" ]);
-      default = [ "node" ];
-    };
-    domain = lib.mkOption {
-      type = lib.types.str;
-      default = "enterprise.hailsatan.eu";
-      description = "Domain of the grafana (duh)";
-    };
+    node = lib.mkEnableOption "Enable prometheus node";
   };
 
   config = lib.mkIf cfg.enable {
