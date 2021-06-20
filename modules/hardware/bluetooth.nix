@@ -18,7 +18,7 @@ in
       package = pkgs.pulseaudioFull;
     };
     ragon.gui.autostart = [
-      "${pkgs.blueberry}/bin/blueberry-tray"
+      ["${pkgs.blueberry}/bin/blueberry-tray"]
     ];
 
       
