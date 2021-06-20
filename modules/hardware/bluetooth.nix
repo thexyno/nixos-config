@@ -10,7 +10,7 @@ in
     systemd.user.services.mpris-proxy = {
       description = "Mpris proxy";
       after = [ "network.target" "sound.target" ];
-      execStart = "${pkgs.bluez}/bin/mpris-proxy";
+      script = "${pkgs.bluez}/bin/mpris-proxy";
       wantedBy = [ "default.target" ];
     };
     hardware.pulseaudio = {
