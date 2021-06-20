@@ -9,6 +9,7 @@
   "html.suggest.ionic": true,
   "html.validate.html": true,
   "html.validate.styles": true,
+  "diagnostic-languageserver.mergeConfig": true,
   "tabnine.disable_filetypes": ["pandoc"],
   "flutter.provider.hot-reload": true,
   "flutter.provider.enableSnippet": true,
