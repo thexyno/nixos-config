@@ -69,7 +69,6 @@ in
         thunderbird
         mpv
         kitty
-        my.cnping
         sxiv
         signal-desktop
         wireguard
