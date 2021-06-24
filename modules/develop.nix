@@ -31,7 +31,10 @@ in
       ".npm"
       ".cache/JetBrains"
       ".config/JetBrains"
+      ".local/share/JetBrains"
       ".jdks"
+      ".java"
+      ".m2"
     ];
   };
 }
