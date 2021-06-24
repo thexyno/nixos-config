@@ -105,8 +105,6 @@ in
               };
 
 
-              };
-
             };
             "work" = {
               fingerprint = {
