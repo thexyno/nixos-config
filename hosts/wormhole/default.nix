@@ -44,6 +44,7 @@
   programs.gnupg.agent.enable = true;
   ragon.cli.enable = true;
   services.lorri.enable = false;
+  ragon.services.ddns.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
 }
