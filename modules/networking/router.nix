@@ -169,8 +169,8 @@ in
     networking.nftables.ruleset =
       let
         unsafeInterfaces = (map (x: x.name) (filter (x: x.internet == false) nets));
-        safeInterfaces = (map (x: x.name) (filter (x: x.internet == true) nets));
-        allInternalInterfaces = (map (x: x.name) nets);
+        safeInterfaces = (map (x: x.name) (filter (x: x.internet == true) nets)) ++ ["lo"];
+        allInternalInterfaces = (map (x: x.name) nets) ++ ["lo"];
         portForwards = concatStringsSep "\n" (map (x: "iifname ${waninterface} ${x.proto} dport ${toString x.sourcePort} dnat ${x.destination}") cfg.forwardedPorts);
         dropUnsafe = concatStringsSep "\n" (map (x: "iifname ${x} drop") unsafeInterfaces);
         allowSafe = concatStringsSep "\n" (map (x: "iifname ${x} accept") safeInterfaces);
@@ -315,6 +315,7 @@ in
 
 
           ${genall}
+          interface=lo # otherwise localhost dns does not work
           ${genstatics}
           ${genallHosts}
 
