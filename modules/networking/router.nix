@@ -14,7 +14,7 @@ let
     allowipv6 = true;
     ipv4addr = "10.0.0.1";
     netipv4addr = "10.0.0.0";
-    dhcpv4start = "10.0.1.1";
+    dhcpv4start = "10.0.10.1";
     dhcpv4end = "10.0.255.240";
     ipv4size = 16;
     vlan = 4;
@@ -93,6 +93,15 @@ in
       type = lib.types.listOf lib.types.attrs;
       default = [
         { name = "enterprise"; ip = "10.0.0.9"; mac = "d8:cb:8a:76:09:0a"; }
+
+        { name = "earthquake"; ip = "10.0.1.2"; mac = "78:24:af:bc:0c:07"; }
+        { name = "comet"; ip = "10.0.1.4"; mac = "0c:98:38:d3:16:8f"; }
+        { name = "meteor"; ip = "10.0.1.8"; mac = "54:27:1e:5c:1f:ed"; } # Wireless
+        { name = "meteor"; ip = "10.0.1.16"; mac = "00:21:cc:5c:f5:dc"; } # Wired
+        { name = "hurricane"; ip = "10.0.1.32"; mac = "f0:2f:74:1b:af:e0"; }
+
+        { name = "xbox"; ip = "10.0.2.1"; mac = "58:82:a8:30:2d:1c"; }
+        { name = "wii"; ip = "10.0.2.2"; mac = "00:23:cc:50:78:00"; }
       ];
     };
   options.ragon.networking.router.forwardedPorts =
@@ -235,10 +244,10 @@ in
             type nat hook prerouting priority 0
             ${portForwards}
           }
-      
+
           chain postrouting {
             type nat hook postrouting priority 0
-      
+
             oifname ${waninterface} masquerade
           }
         }
@@ -296,10 +305,10 @@ in
 
           # don't send bogus requests out on the internets
           bogus-priv
-          
+
           # enable IPv6 Route Advertisements
           enable-ra
-          
+
           # Construct a valid IPv6 range from reading the address set on the interface. The :: part refers to the ifid in dhcp6c.conf. Make sure you get this right or dnsmasq will get confused.
           dhcp-range=lan,::,constructor:lan, ra-names,slaac, 12h
 
@@ -309,7 +318,7 @@ in
 
           #  have your simple hosts expanded to domain
           expand-hosts
-          
+
           # set your domain for expand-hosts
           domain=${domain}
 
