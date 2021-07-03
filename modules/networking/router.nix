@@ -102,6 +102,7 @@ in
 
         { name = "xbox"; ip = "10.0.2.1"; mac = "58:82:a8:30:2d:1c"; }
         { name = "wii"; ip = "10.0.2.2"; mac = "00:23:cc:50:78:00"; }
+        { name = "switch"; ip = "10.0.2.3"; mac = "dc:68:eb:bb:01:fc"; } # Wireless
       ];
     };
   options.ragon.networking.router.forwardedPorts =
