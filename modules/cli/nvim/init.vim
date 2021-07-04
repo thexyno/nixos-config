@@ -58,7 +58,7 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " coc Plugins
 "
 if system('id -u') > 999 " stop downloading on root
-  let g:coc_global_extensions = [ 'coc-markdownlint', 'coc-diagnostic', 'coc-angular', 'coc-css', 'coc-docker', 'coc-flutter-tools', 'coc-git', 'coc-homeassistant', 'coc-html', 'coc-json', 'coc-marketplace', 'coc-prettier', 'coc-pyright', 'coc-rls', 'coc-rust-analyzer', 'coc-scssmodules', 'coc-sh', 'coc-snippets', 'coc-stylelintplus', 'coc-swagger', 'coc-tabnine', 'coc-tslint', 'coc-tsserver', 'coc-ultisnips', 'coc-webpack', 'coc-yaml' ]
+  let g:coc_global_extensions = [ 'coc-markdownlint', 'coc-diagnostic', 'coc-angular', 'coc-css', 'coc-docker', 'coc-flutter-tools', 'coc-git', 'coc-homeassistant', 'coc-html', 'coc-json', 'coc-marketplace', 'coc-prettier', 'coc-pyright', 'coc-rls', 'coc-rust-analyzer', 'coc-scssmodules', 'coc-sh', 'coc-snippets', 'coc-stylelintplus', 'coc-swagger', 'coc-tabnine', 'coc-eslint', 'coc-tsserver', 'coc-ultisnips', 'coc-webpack', 'coc-yaml' ]
     
 endif
 
