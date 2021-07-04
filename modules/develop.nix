@@ -20,7 +20,7 @@ in
       scrcpy
       arduino-cli
       esptool
-      platformio
+      #platformio TODO Fix it
       jetbrains.idea-ultimate
     ];
     ragon.user.persistent.extraDirectories = [
