@@ -61,8 +61,8 @@ in
              };
             
              static const char *const autostart[] = {
-               "slstatus", NULL,
                ${astart}
+               "slstatus", NULL,
                NULL /* terminate */
              };
             
