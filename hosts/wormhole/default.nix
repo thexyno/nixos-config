@@ -47,6 +47,7 @@
   ragon.services.ddns.enable = true;
   ragon.services.nginx.enable = true;
   services.nginx.virtualHosts."h.hailsatan.eu" = {
+    forceSSL = true;
     useACMEHost = "hailsatan.eu";
     extraConfig = ''
       proxy_buffering off;
