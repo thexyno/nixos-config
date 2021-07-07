@@ -46,7 +46,7 @@
   services.lorri.enable = false;
   ragon.services.ddns.enable = true;
   ragon.services.nginx.enable = true;
-  services.nginx.virtualHosts."https://h.hailsatan.eu" = {
+  services.nginx.virtualHosts."h.hailsatan.eu" = {
     useACMEHost = "hailsatan.eu";
     locations."/".proxyPass = "http://homeassistant.hailsatan.eu:8123";
   };
