@@ -22,6 +22,7 @@ in
     security.acme.acceptTerms = true;
     security.acme.certs."${cfg.domain}" = {
       dnsProvider = "cloudflare";
+      dnsResolver = "1.1.1.1:53";
       extraDomainNames = [
         "*.${cfg.domain}"
       ];
