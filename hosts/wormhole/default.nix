@@ -45,6 +45,11 @@
   ragon.cli.enable = true;
   services.lorri.enable = false;
   ragon.services.ddns.enable = true;
+  ragon.services.nginx.enable = true;
+  services.nginx.virtualHosts."https://h.hailsatan.eu" = {
+    useACMEHost = "hailsatan.eu";
+    locations."/".proxyPass = "http://homeassistant.hailsatan.eu:8123";
+  };
 
   ragon.user.extraAuthorizedKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDiKJEYNUU+ZpbOyJf9k9ZZdTTL0qLiZ6fXEBVCjNfas"

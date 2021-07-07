@@ -84,7 +84,7 @@ in
       default = [
         { name = "j.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "nr.hailsatan.eu"; ip = "10.0.0.2"; }
-        { name = "h.hailsatan.eu"; ip = "10.0.0.2"; }
+        { name = "h.hailsatan.eu"; ip = "10.0.0.1"; }
         { name = "grafana.hailsatan.eu"; ip = "10.0.0.2"; }
       ];
     };
@@ -93,6 +93,10 @@ in
       type = lib.types.listOf lib.types.attrs;
       default = [
         { name = "enterprise"; ip = "10.0.0.9"; mac = "d8:cb:8a:76:09:0a"; }
+        { name = "homeassistant"; ip = "10.0.0.20"; mac = "dc:a6:32:f0:43:b8"; }
+        { name = "zbbridge"; ip = "10.1.0.5"; mac = "98:f4:ab:e2:b6:a3"; }
+        { name = "wled-Schrank-Philipp"; ip = "10.1.0.10"; mac = "2c:f4:32:20:74:60"; }
+        { name = "wled-Betthintergrund-Phi"; ip = "10.1.0.11"; mac = "2c:3a:e8:0e:ab:71"; }
 
         { name = "earthquake"; ip = "10.0.1.2"; mac = "78:24:af:bc:0c:07"; }
         { name = "comet"; ip = "10.0.1.4"; mac = "0c:98:38:d3:16:8f"; }
@@ -109,8 +113,6 @@ in
     lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [
-        { sourcePort = 80; destination = "10.0.0.2:80"; proto = "tcp"; }
-        { sourcePort = 443; destination = "10.0.0.2:443"; proto = "tcp"; }
       ];
     };
   config = lib.mkIf cfg.enable {
@@ -218,6 +220,8 @@ in
 
             # open port 22, but only allow 2 new connections per minute from each ip
             tcp dport 22 ct state new flow table ssh-ftable { ip saddr limit rate 2/minute } accept
+            tcp dport 80 accept
+            tcp dport 443 accept
 
             # everything else
             reject with icmp type port-unreachable
