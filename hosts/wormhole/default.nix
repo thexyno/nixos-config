@@ -51,7 +51,7 @@
     extraConfig = ''
       proxy_buffering off;
     '';
-    locations."/".proxyPass = "http://homeassistant.hailsatan.eu:8123";
+    locations."/".proxyPass = "http://10.0.0.20:8123";
     locations."/".proxyWebsockets = true;
   };
 
