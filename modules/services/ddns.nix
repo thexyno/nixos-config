@@ -42,8 +42,7 @@ in
             ${optionalString cfg.ipv6 ''
               # ipv6
               provider cloudflare.com:2 {
-                checkip-server = dns64.cloudflare-dns.com
-                checkip-path = /cdn-cgi/trace
+                checkip-server = api64.ipify.org
                 username = ${domain}
                 password = $CLOUDFLARE_DNS_API_TOKEN
                 hostname = ${domain}
