@@ -48,7 +48,11 @@
   ragon.services.nginx.enable = true;
   services.nginx.virtualHosts."h.hailsatan.eu" = {
     useACMEHost = "hailsatan.eu";
+    extraConfig = ''
+      proxy_buffering off;
+    '';
     locations."/".proxyPass = "http://homeassistant.hailsatan.eu:8123";
+    locations."/".proxyWebsockets = true;
   };
 
   ragon.user.extraAuthorizedKeys = [
