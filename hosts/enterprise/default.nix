@@ -45,7 +45,7 @@
     wantedBy = [ "multi-user.target" ];
     serviceConfig."EnvironmentFile" = "/run/secrets/pulseLaunch";
     script = ''
-      pulse_launch alsa_output.usb-BEHRINGER_UMC202HD_192k-00.analog-stereo $ON --other_cmd $OFF --term_cmd $OFF
+      pulse_launch alsa_output.usb-BEHRINGER_UMC202HD_192k-00.analog-stereo "$ON" --other_cmd "$OFF" --term_cmd "$OFF"
     '';
   };
 
