@@ -37,6 +37,7 @@ in
       gc = "git commit -v";
       kb = "git commit -m \"\$(curl -s http://whatthecommit.com/index.txt)\"";
       gs = "git status -v";
+      gfc = "git fetch && git checkout";
       gl = "git log --graph";
       l = "exa -la --git";
       la = "exa -la --git";
