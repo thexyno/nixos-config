@@ -32,7 +32,7 @@
       ssh.enable = true;
       nextcloud.enable = true;
       bitwarden.enable = true;
-      gitlab.enable = true; # TODO gitlab-runner
+      # gitlab.enable = true; # TODO gitlab-runner
       synapse.enable = true;
       nginx.enable = true;
       nginx.domain = "hochkamp.eu";
