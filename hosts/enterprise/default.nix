@@ -39,5 +39,14 @@
   ragon.services.gamingvmhost.enable = true;
   ragon.services.docker.enable = true;
   ragon.services.ssh.enable = true;
+  systemd.user.services."pulselaunch" = {
+    path = with pkgs; [ curl my.pulse_launch ];
+    bindsTo = [ "pulseaudio.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig."EnvironmentFile" = "/run/secrets/pulseLaunch";
+    script = ''
+      pulse_launch alsa_output.usb-BEHRINGER_UMC202HD_192k-00.analog-stereo $ON --other_cmd $OFF --term_cmd $OFF
+    '';
+  };
 
 }

@@ -1,7 +1,7 @@
 { lib, fetchFromGitHub, python3Packages }:
 python3Packages.buildPythonApplication rec {
   version = "1.0.0";
-  pname = "pulselaunch";
+  pname = "pulse_launch";
   src = fetchFromGitHub {
     owner = "ragon000";
     repo = "pulse-launch";

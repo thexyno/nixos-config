@@ -5,6 +5,7 @@ in
   "smb.age".publicKeys = pubkeys.ragon.computers;
   "cloudflareAcme.age".publicKeys = pubkeys.ragon.computers;
   "nextshot.age".publicKeys = pubkeys.ragon.computers;
+  "pulseLaunch.age".publicKeys = pubkeys.ragon.computers;
   "rootPasswd.age".publicKeys = pubkeys.ragon.computers;
   "rootRagonPasswd.age".publicKeys = pubkeys.ragon.computers;
   "gitlabInitialRootPassword.age".publicKeys = pubkeys.ragon.computers;
