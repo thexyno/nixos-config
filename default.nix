@@ -7,7 +7,6 @@ with lib.my;
 
   # Set passwords
   users.users.root. passwordFile = "${config.age.secrets.rootPasswd.path}";
-  users.users.ragon.passwordFile = "${config.age.secrets.rootRagonPasswd.path}";
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
   console.font = "Lat2-Terminus16";

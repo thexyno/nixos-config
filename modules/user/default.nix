@@ -56,6 +56,7 @@ in
       extraGroups = [ "wheel" ] ++ extraGroups;
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = pkgs.pubkeys.ragon.computers ++ extraAuthorizedKeys;
+      passwordFile = "${config.age.secrets.rootRagonPasswd.path}";
     };
 
     # List packages installed in system profile. To search by name, run:
