@@ -151,6 +151,9 @@ in
     # 8000 is for random web sharing things.
     networking.firewall.allowedTCPPorts = [ 8000 ];
 
+    # i hate myself
+    programs.teamviewer.enable = true;
+
     # Define extra groups for user.
     ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" "scanner" "lp" "video" ];
   };
