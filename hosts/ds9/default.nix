@@ -28,8 +28,8 @@
       enable = true;
       port = 2222;
       hostKeys = [
-        "/etc/nixos/secrets/initrd/ssh_host_rsa_key"
-        "/etc/nixos/secrets/initrd/ssh_host_ed25519_key"
+        "/persistent/etc/nixos/secrets/initrd/ssh_host_rsa_key"
+        "/persistent/etc/nixos/secrets/initrd/ssh_host_ed25519_key"
       ];
       authorizedKeys = pkgs.pubkeys.ragon.computers;
 
