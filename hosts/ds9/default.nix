@@ -14,37 +14,11 @@
   # Don't Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
 
-  networking =
-    let
-      primaryInterface = "enp3s0";
-    in
-    {
-      useDHCP = false;
-      domain = "hailsatan.eu";
-      vlans = {
-        lan = {
-          id = 4;
-          interface = "${primaryInterface}";
-        };
-        iot = { id = 2; interface = "${primaryInterface}"; };
-      };
-      interfaces.lan.ipv4.addresses = [{
-        address = "10.0.0.2";
-        prefixLength = 16;
-      }];
-      interfaces.iot.ipv4.addresses = [{
-        address = "10.1.0.2";
-        prefixLength = 16;
-      }];
-      hostId = "7b45236c";
-      defaultGateway = "10.0.0.1";
-      nameservers = [ "10.0.0.1" "1.1.1.1" ];
-    };
-
+  networking.useDHCP = true;
   boot.initrd.network = {
     enable = true;
     postCommands = ''
-      zpool import pool
+      zpool import rpool
       echo "zfs load-key -a; killall zfs" >> /root/.profile
     '';
     ssh = {
@@ -76,10 +50,7 @@
       nfs.enable = true;
       nginx.enable = true;
       jellyfin.enable = true;
-      signal.enable = true;
       libvirt.enable = true;
-      #  home-assistant.enable = true;
-      ddns.enable = true;
     };
 
   };

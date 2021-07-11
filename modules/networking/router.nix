@@ -83,7 +83,6 @@ in
       type = lib.types.listOf lib.types.attrs;
       default = [
         { name = "j.hailsatan.eu"; ip = "10.0.0.2"; }
-        { name = "nr.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "h.hailsatan.eu"; ip = "10.0.0.1"; }
         { name = "grafana.hailsatan.eu"; ip = "10.0.0.2"; }
       ];
@@ -93,6 +92,7 @@ in
       type = lib.types.listOf lib.types.attrs;
       default = [
         { name = "enterprise"; ip = "10.0.0.9"; mac = "d8:cb:8a:76:09:0a"; }
+        { name = "ds9"; ip = "10.0.0.2"; mac = "f4:b5:20:0e:21:d5"; }
         { name = "homeassistant"; ip = "10.0.0.20"; mac = "dc:a6:32:f0:43:b8"; }
         { name = "zbbridge"; ip = "10.1.0.5"; mac = "98:f4:ab:e2:b6:a3"; }
         { name = "wled-Schrank-Philipp"; ip = "10.1.0.10"; mac = "2c:f4:32:20:74:60"; }

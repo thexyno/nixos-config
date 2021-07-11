@@ -7,46 +7,38 @@
   imports = [ "${modulesPath}/installer/scan/not-detected.nix" ];
 
   boot.initrd.availableKernelModules = [ "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "nvme" "usbhid" "sd_mod" "sr_mod" ];
-  boot.initrd.luks.devices.crypt.device = "/dev/nvme0n1p1"; # TODO CHANGE ME
   boot.kernelModules = [ "kvm-intel" ];
   nix.maxJobs = lib.mkDefault 12;
   powerManagement.cpuFreqGovernor = "performance";
 
   services.zfs.autoScrub.enable = true;
-  ragon.system.fs.enable = true;
-  ragon.system.fs.mediadata = false;
-  ragon.system.fs.swap = false;
+  ragon.system.fs = {
+    enable = true;
+    mediadata = false;
+    swap = false;
+    persistentSnapshot = false;
+    nix = "rpool/content/local/nix";
+    varlog = "rpool/content/local/journal";
+    persistent = "rpool/content/safe/persist";
+    arcSize = 8;
+  };
+  services.syncoid.enable = false; # TODO setup offsite backups
 
-  services.sanoid.datasets."data" = { }; # TODO MAYBE CHANGE ME
+  services.sanoid.datasets."rpool/content/safe" = { };
+  services.sanoid.datasets."rpool/content/local/backups" = { };
+  services.sanoid.enable = true;
 
-  fileSystems."/media/data/Documents" = {
-    # TODO set key locations for all these mounts
-    device = "data/Documents";
+  fileSystems."/data" = {
+    device = "rpool/content/safe/data";
     fsType = "zfs";
   };
-
-  fileSystems."/media/data/Music" = {
-    device = "data/Music";
+  fileSystems."/data/media" = {
+    device = "rpool/content/safe/data/media";
     fsType = "zfs";
   };
-
-  fileSystems."/media/data/Movies" = {
-    device = "data/Movies";
+  fileSystems."/backups" = {
+    device = "rpool/content/local/backups";
     fsType = "zfs";
   };
-
-  fileSystems."/media/data/Backups" = {
-    device = "data/Movies";
-    fsType = "zfs";
-  };
-
-  fileSystems."/media/data/Horde" = {
-    device = "data/Horde";
-    fsType = "zfs";
-  };
-
-
-
-
 
 }
