@@ -44,7 +44,7 @@
   ragon = {
     cli.enable = true;
     user.enable = true;
-    home-manager.enable = true;
+    home-manager.enable = false;
     persist.enable = true;
 
     services = {
