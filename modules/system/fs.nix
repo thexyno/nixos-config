@@ -17,15 +17,15 @@ in
     swap = mkBoolOpt true;
     persistentSnapshot = mkBoolOpt true;
     nix = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       default = "pool/nix";
     };
     varlog = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       default = "pool/varlog";
     };
     persistent = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       default = "pool/persist";
     };
     arcSize = lib.mkOption {

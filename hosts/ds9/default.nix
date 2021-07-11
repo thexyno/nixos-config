@@ -15,6 +15,7 @@
   boot.loader.systemd-boot.enable = true;
 
   networking.useDHCP = true;
+  networking.hostId = "7b4c2932";
   boot.initrd.network = {
     enable = true;
     postCommands = ''
