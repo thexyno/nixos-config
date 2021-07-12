@@ -23,13 +23,10 @@ in
       enable = true;
       exports =
         let
-          genIP = ip: "${ip}(rw,fsid=0,no_subtree_check)";
+          genIP = ip: "${ip}(rw,nohide,insecure,no_subtree_check)";
           allAllowed = concatStringsSep " " (map genIP allowedIPs);
         in
         concatStringsSep "\n" (map (x: "${x} ${allAllowed}") cfgExports);
-
-
-
 
 
     };
