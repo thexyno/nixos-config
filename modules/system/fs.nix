@@ -13,7 +13,7 @@ in
 {
   options.ragon.system.fs = {
     enable = lib.mkEnableOption "Enables ragons fs stuff, (tmpfs,zfs,backups,...)";
-    mediadata = mkBoolOpt false;
+    mediadata = mkBoolOpt true;
     swap = mkBoolOpt true;
     persistentSnapshot = mkBoolOpt true;
     nix = lib.mkOption {
