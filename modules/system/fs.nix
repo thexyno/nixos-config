@@ -62,6 +62,7 @@ in
       {
         device = "${nix}";
         fsType = "zfs";
+        neededForBoot = true;
       };
 
     fileSystems."/persistent" =
