@@ -92,16 +92,6 @@ in
           fsType = "nfs";
           options = [ "x-systemd.automount" "noauto" ];
         };
-
-    fileSystems."/media/data/media" =
-      lib.mkIf
-        (config.ragon.hardware.laptop.enable == false && cfg.mediadata)
-        {
-          device = "10.0.0.2:/data/media";
-          fsType = "nfs";
-          options = [ "x-systemd.automount" "noauto" ];
-        };
-
     swapDevices = mkIf cfg.swap [
         { device = "/dev/zvol/pool/swap"; }
       ] ;
