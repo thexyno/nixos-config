@@ -23,6 +23,7 @@ in
     security.acme.certs."${cfg.domain}" = {
       dnsProvider = "cloudflare";
       dnsResolver = "1.1.1.1:53";
+      group = "nginx";
       extraDomainNames = [
         "*.${cfg.domain}"
       ];
