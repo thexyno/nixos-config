@@ -70,6 +70,8 @@ in
       killall
       pciutils
       youtube-dl
+      aria2
+      tmux
     ];
 
   };
