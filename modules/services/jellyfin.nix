@@ -32,7 +32,7 @@ in
             proxy_buffering off;
           '';
         };
-        "/web/" = {
+        "= /web/" = {
           extraConfig = ''
             proxy_pass http://127.0.0.1:8096/web/index.html;
             proxy_set_header Host $host;
