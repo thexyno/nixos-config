@@ -14,8 +14,7 @@
   # Don't Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
 
-  documentation.enable = false;
-  documentation.nixos.enable = false;
+  security.sudo.wheelNeedsPassword = false;
   networking.useDHCP = true;
   networking.hostId = "7b4c2932";
   boot.initrd.network = {
