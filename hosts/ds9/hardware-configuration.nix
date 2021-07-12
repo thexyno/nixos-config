@@ -6,8 +6,8 @@
 {
   imports = [ "${modulesPath}/installer/scan/not-detected.nix" ];
 
-  boot.initrd.availableKernelModules = [ "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "nvme" "usbhid" "sd_mod" "sr_mod" ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.initrd.availableKernelModules = [ "r8169" "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "nvme" "usbhid" "sd_mod" "sr_mod" ];
+  boot.kernelModules = [ "kvm-amd" ];
   nix.maxJobs = lib.mkDefault 12;
   powerManagement.cpuFreqGovernor = "performance";
 
