@@ -15,7 +15,7 @@ in
   };
   options.ragon.services.nfs.exports = mkOption {
     type = lib.types.listOf lib.types.str;
-    default = [ "/media/data" ];
+    default = [ "/data" ];
   };
   config = mkIf cfg.enable {
 
