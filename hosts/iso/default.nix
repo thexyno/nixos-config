@@ -9,5 +9,6 @@
   services.sshd.enable = true;
   users.users.root.openssh.authorizedKeys.keys = pkgs.pubkeys.ragon.computers;
   networking.firewall.enable = false;
+  ragon.agenix.enable = false;
 
 } 

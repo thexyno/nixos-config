@@ -7,26 +7,30 @@ let
   inherit (inputs) agenix;
   secretsDir = "${toString ../secrets}";
   secretsFile = "${secretsDir}/secrets.nix";
+  cfg = config.ragon.agenix;
 in
 {
-  imports = [ agenix.nixosModules.age ];
-  environment.systemPackages = [ agenix.defaultPackage.${pkgs.system} ];
+  options.ragon.agenix.enable = mkBoolOpt true;
+  config = mkIf cfg.enable {
+    imports = [ agenix.nixosModules.age ];
+    environment.systemPackages = [ agenix.defaultPackage.${pkgs.system} ];
 
-  age = {
-    secrets =
-      if pathExists secretsFile
-      then
-        mapAttrs'
-          (n: _: nameValuePair (removeSuffix ".age" n) {
-            file = "${secretsDir}/${n}";
-            owner = if (hasInfix "root" n) then mkDefault "root" else mkDefault config.ragon.user.username;
-          })
-          (import secretsFile)
-      else { };
-    sshKeyPaths =
-      [
-        "/persistent/etc/ssh/ssh_host_rsa_key"
-        "/persistent/etc/ssh/ssh_host_ed25519_key"
-      ];
-  };
+    age = {
+      secrets =
+        if pathExists secretsFile
+        then
+          mapAttrs'
+            (n: _: nameValuePair (removeSuffix ".age" n) {
+              file = "${secretsDir}/${n}";
+              owner = if (hasInfix "root" n) then mkDefault "root" else mkDefault config.ragon.user.username;
+            })
+            (import secretsFile)
+        else { };
+      sshKeyPaths =
+        [
+          "/persistent/etc/ssh/ssh_host_rsa_key"
+          "/persistent/etc/ssh/ssh_host_ed25519_key"
+        ];
+    };
+  }
 }
