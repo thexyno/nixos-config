@@ -16,7 +16,7 @@
 
   security.sudo.wheelNeedsPassword = false;
   networking.useDHCP = true;
-  networking.bridges."br0" = {};
+  networking.bridges."br0".interfaces = [];
   networking.hostId = "7b4c2932";
   boot.initrd.network = {
     enable = true;
