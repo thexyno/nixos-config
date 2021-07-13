@@ -17,6 +17,11 @@ in
 {
   options.ragon.router = {
     enable = lib.mkEnableOption "Enables makes this a router";
+    gatewayIP = lib.mkOption {
+      type = lib.types.str;
+      default = "192.168.2.1";
+      description = "the gateway ip";
+    };
     externalInterface = lib.mkOption {
       type = lib.types.str;
       default = "wg0";
