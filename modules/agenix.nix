@@ -10,7 +10,6 @@ let
   cfg = config.ragon.agenix;
 in
 {
-  options.ragon.agenix.enable = mkBoolOpt true;
   imports = [ agenix.nixosModules.age ];
   environment.systemPackages = [ agenix.defaultPackage.${pkgs.system} ];
   # Set passwords
