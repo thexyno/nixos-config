@@ -15,6 +15,10 @@ in
       ["${pkgs.blueberry}/bin/blueberry-tray"]
     ];
     environment.systemPackages = (if config.ragon.gui.enable then [ pkgs.blueberry ] else []);
+    
+    ragon.persist.extraDirectories = [
+      "/var/lib/bluetooth"
+    ];
       
   };
 }
