@@ -237,7 +237,7 @@ noremap <C-l> <C-w>l
 " C-R to list registers
 noremap <C-p> :registers<CR>
 
-# make terminal usable(TM)
+" make terminal usable(TM)
 augroup neovim_terminal
     autocmd!
     " Enter Terminal-mode (insert) automatically
