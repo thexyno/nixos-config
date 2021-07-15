@@ -247,6 +247,7 @@ augroup neovim_terminal
     " allows you to use Ctrl-c on terminal window
     autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
 augroup END
+tnoremap <C-b> <C-\><C-n>
 
 " Making Space usable outside of guides (lagreducing) (thanks
 " https://www.reddit.com/r/vim/comments/97s3dd/insert_mode_space_is_slow/e4asdjy)
