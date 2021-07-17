@@ -309,12 +309,12 @@ in
             import json
             import sys
             import subprocess
-            if sys.argv[1] is "add":
+            if sys.argv[1] is not "del":
               with open("${disableFirewallForJson}","r") as f:
                 data = json.load(f)
                 if sys.argv[4] in data:
                   subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", sys.argv[3], "accept" ])                  
-          ''
+          '';
         in
         ''
           no-resolv
