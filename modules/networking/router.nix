@@ -305,7 +305,7 @@ in
             ln -s ${netbootxyz} $out/netbootxyz.efi
           '';
           disableFirewallForJson = builtins.writeFile (builtins.toJSON disableFirewallFor);
-          dispatcher = lib.writeScript "dnsmasq-dispatcher.py" {} ''
+          dispatcher = writeTextFile "dnsmasq-dispatcher.py" { executable = true; } ''
             #!${pkgs.python3}/bin/python3
             import json
             import sys
