@@ -8,6 +8,7 @@ let
   prefixSize = cfg.prefixSize;
   statics = cfg.statics;
   domain = cfg.domain;
+  disableFirewallFor = cfg.disableFirewallFor;
   lan = {
     name = "lan";
     internet = true;
@@ -85,6 +86,12 @@ in
         { name = "j.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "h.hailsatan.eu"; ip = "10.0.0.1"; }
         { name = "grafana.hailsatan.eu"; ip = "10.0.0.2"; }
+      ];
+    };
+  options.ragon.networking.router.disableFirewallFor =
+    lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ # hostnames
       ];
     };
   options.ragon.networking.router.staticDHCPs =
@@ -222,6 +229,7 @@ in
             tcp dport 22 ct state new flow table ssh-ftable { ip saddr limit rate 2/minute } accept
             tcp dport 80 accept
             tcp dport 443 accept
+            udp dport 51820 accept
 
             # everything else
             reject with icmp type port-unreachable
@@ -295,6 +303,18 @@ in
             mkdir $out
             ln -s ${netbootxyz} $out/netbootxyz.efi
           '';
+          disableFirewallForJson = builtins.writeFile (builtins.toJSON disableFirewallFor);
+          dispatcher = writeScript "dnsmasq-dispatcher.py" {} ''
+            #!${pkgs.python3}/bin/python3
+            import json
+            import sys
+            import subprocess
+            if sys.argv[1] is "add":
+              with open("${disableFirewallForJson}","r") as f:
+                data = json.load(f)
+                if sys.argv[4] in data:
+                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", sys.argv[3], "accept" ])                  
+          ''
         in
         ''
           no-resolv
@@ -339,6 +359,8 @@ in
 
           enable-tftp
           tftp-root=${netbootxyzpath}
+
+          dhcp-script=${dispatcher}
 
           # set authoritative mode
           dhcp-authoritative
