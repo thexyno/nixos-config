@@ -92,6 +92,7 @@ in
     lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ # hostnames
+        "enterprise"
       ];
     };
   options.ragon.networking.router.staticDHCPs =
