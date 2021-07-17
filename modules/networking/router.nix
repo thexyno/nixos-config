@@ -1,4 +1,4 @@
-{ config, lib, pkgs, stdenv, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 with lib.my;
 let
@@ -305,7 +305,7 @@ in
             ln -s ${netbootxyz} $out/netbootxyz.efi
           '';
           disableFirewallForJson = builtins.writeFile (builtins.toJSON disableFirewallFor);
-          dispatcher = stdenv.writeScript "dnsmasq-dispatcher.py" {} ''
+          dispatcher = pkgs.writeScript "dnsmasq-dispatcher.py" {} ''
             #!${pkgs.python3}/bin/python3
             import json
             import sys
