@@ -315,7 +315,9 @@ in
             ACTION = sys.argv[1]
             MAC = sys.argv[2]
             IP = sys.argv[3]
-            HOSTNAME = sys.argv[4]
+            HOSTNAME = ""
+            if len(sys.argv) > 3: 
+              HOSTNAME = sys.argv[4]
 
             print(sys.argv)
             print(os.environ)
