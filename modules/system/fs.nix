@@ -47,7 +47,7 @@ in
       commonArgs = [
       ];
       commands."${persistent}" = {
-        target = "root@ds9:rpool/content/local/backups/${hostName}";
+        target = "ragon@ds9:rpool/content/local/backups/${hostName}"; # FIXME extra user
         recvOptions = "x encryption";
       };
     };
