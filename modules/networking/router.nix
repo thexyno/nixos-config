@@ -312,15 +312,16 @@ in
             import subprocess
             import os
 
+            print(sys.argv)
+            print(os.environ)
+
             ACTION = sys.argv[1]
             MAC = sys.argv[2]
             IP = sys.argv[3]
             HOSTNAME = ""
-            if len(sys.argv) > 3: 
+            if len(sys.argv) > 4: 
               HOSTNAME = sys.argv[4]
 
-            print(sys.argv)
-            print(os.environ)
 
             if ACTION != "del" and "DNSMASQ_IAID" in os.environ: # action not del and ipv6
               data = json.loads("""${disableFirewallForJson}""")
