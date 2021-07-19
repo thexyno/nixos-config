@@ -92,7 +92,7 @@ in
     lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [
-        { hostname = "enterprise"; mac = ""; ports = [ 22 ] }
+        { hostname = "enterprise"; mac = ""; ports = [ 22 ]; }
       ];
     };
   options.ragon.networking.router.staticDHCPs =
