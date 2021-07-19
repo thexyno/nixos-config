@@ -318,7 +318,7 @@ in
               data = json.loads("""${disableFirewallForJson}""")
               for host in data:
                 if HOSTNAME is host["hostname"] or MAC is host["mac"]:
-                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "dport", f'\{ {", ".join(map(str, host["ports"]))} \}', "accept" ])
+                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "dport", f'{{ {", ".join(map(str, host["ports"]))} }}', "accept" ])
           '';
         in
         ''
