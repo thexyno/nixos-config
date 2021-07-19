@@ -24,7 +24,7 @@
   };
   services.syncoid.enable = false; # TODO setup offsite backups
 
-  services.sanoid.datasets."rpool/content/safe" = { };
+  services.sanoid.datasets."rpool/content/safe".recursive = true;
   services.sanoid.datasets."rpool/content/local/backups" = { };
   services.sanoid.enable = true;
 
