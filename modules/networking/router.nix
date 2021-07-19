@@ -317,12 +317,22 @@ in
             IP = sys.argv[3]
             HOSTNAME = sys.argv[4]
 
-            if ACTION != "del" and os.environ["DNSMASQ_IAID"]: # action not del and ipv6
+            print(sys.argv)
+            print(os.environ)
+
+            if ACTION != "del" and "DNSMASQ_IAID" in os.environ: # action not del and ipv6
               data = json.loads("""${disableFirewallForJson}""")
               for host in data:
                 if HOSTNAME is host["hostname"] or MAC is host["mac"]:
+                  print("setting firewall rules")
                   subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "tcp", "dport", f'{{ {", ".join(map(str, host["tcpports"]))} }}', "accept" ])
                   subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "udp", "dport", f'{{ {", ".join(map(str, host["udpports"]))} }}', "accept" ])
+                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "input", "ip6", "daddr", IP, "tcp", "dport", f'{{ {", ".join(map(str, host["tcpports"]))} }}', "accept" ])
+                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "input", "ip6", "daddr", IP, "udp", "dport", f'{{ {", ".join(map(str, host["udpports"]))} }}', "accept" ])
+                else:
+                  print("no firewall rules found")
+            else:
+              print("ipv4 or deletion, abort")
           '';
         in
         ''
