@@ -92,7 +92,7 @@ in
     lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [
-        { hostname = "enterprise"; mac = ""; ports = [ 22 ]; }
+        { hostname = "enterprise"; mac = ""; tcpports = [ 22 ]; udpports = []; }
       ];
     };
   options.ragon.networking.router.staticDHCPs =
@@ -309,16 +309,20 @@ in
             #!${pkgs.python3}/bin/python3
             import json
             import sys
+            import subprocess
+            import os
+
             ACTION = sys.argv[1]
             MAC = sys.argv[2]
             IP = sys.argv[3]
             HOSTNAME = sys.argv[4]
-            import subprocess
-            if ACTION is not "del":
+
+            if ACTION != "del" and os.environ["DNSMASQ_IAID"]: # action not del and ipv6
               data = json.loads("""${disableFirewallForJson}""")
               for host in data:
                 if HOSTNAME is host["hostname"] or MAC is host["mac"]:
-                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "dport", f'{{ {", ".join(map(str, host["ports"]))} }}', "accept" ])
+                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "tcp", "dport", f'{{ {", ".join(map(str, host["tcpports"]))} }}', "accept" ])
+                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "udp", "dport", f'{{ {", ".join(map(str, host["udpports"]))} }}', "accept" ])
           '';
         in
         ''
