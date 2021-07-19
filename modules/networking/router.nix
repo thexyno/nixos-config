@@ -90,9 +90,9 @@ in
     };
   options.ragon.networking.router.disableFirewallFor =
     lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ # hostnames
-        "enterprise"
+      type = lib.types.listOf lib.types.attrs;
+      default = [
+        { hostname = "enterprise"; mac = ""; ports = [ 22 ] }
       ];
     };
   options.ragon.networking.router.staticDHCPs =
@@ -304,17 +304,21 @@ in
             mkdir $out
             ln -s ${netbootxyz} $out/netbootxyz.efi
           '';
-          disableFirewallForJson = builtins.toFile "disableFirewallFor.json" (builtins.toJSON disableFirewallFor);
+          disableFirewallForJson = builtins.toJSON disableFirewallFor;
           dispatcher = pkgs.writeScript "dnsmasq-dispatcher.py" ''
             #!${pkgs.python3}/bin/python3
             import json
             import sys
+            ACTION = sys.argv[1]
+            MAC = sys.argv[2]
+            IP = sys.argv[3]
+            HOSTNAME = sys.argv[4]
             import subprocess
-            if sys.argv[1] is not "del":
-              with open("${disableFirewallForJson}","r") as f:
-                data = json.load(f)
-                if sys.argv[4] in data:
-                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", sys.argv[3], "accept" ])                  
+            if ACTION is not "del":
+              data = json.loads("""${disableFirewallForJson}""")
+              for host in data:
+                if HOSTNAME is host["hostname"] or MAC is host["mac"]:
+                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "dport", f'\{ ", {".join(map(str, host["ports"]))} \}', "accept" ])
           '';
         in
         ''
