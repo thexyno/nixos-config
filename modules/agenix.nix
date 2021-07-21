@@ -13,7 +13,7 @@ in
   imports = [ agenix.nixosModules.age ];
   environment.systemPackages = [ agenix.defaultPackage.${pkgs.system} ];
   # Set passwords
-  users.users.root.passwordFile = "${config.age.secrets.rootPasswd.path}";
+  users.users.root.passwordFile = if (hasAttrByPath ["age" "secrets" "rootPasswd"] config) then config.age.secrets.rootPasswd.path else null;
 
   age = {
     secrets =
