@@ -68,6 +68,7 @@ in
           (map (x: [ "${genIpv6 wgConfig.hosts.${hostname}.id x.id}/64" "10.${toString x.id}.${toIpv4 wgConfig.hosts.${hostname}.id}/16" ]) netsThisHostIsIn);
         dns = if isServer then [ ] else genDNS;
       };
+    ragon.agenix.secrets."wireguard${hostname}" = {};
 
     systemd.tmpfiles.rules =
       let

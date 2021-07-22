@@ -25,12 +25,13 @@ in
       };
     };
 
-    age.secrets = {
-      gitlabDBFile.owner = "gitlab";
-      gitlabInitialRootPassword.owner = "gitlab";
-      gitlabJWSFile.owner = "gitlab";
-      gitlabOTPFile.owner = "gitlab";
-      gitlabSecretFile.owner = "gitlab";
+    ragon.agenix.secrets = foldl (a: b: a // b) {} (map (a: { ${a} = { owner = "gitlab"; } }) [
+      "gitlabDBFile"
+      "gitlabInitialRootPassword"
+      "gitlabJWSFile"
+      "gitlabOTPFile"
+      "gitlabSecretFile"
+      ]);
     };
 
 

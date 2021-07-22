@@ -30,6 +30,7 @@ in
       credentialsFile = "/run/secrets/cloudflareAcme";
 
     };
+    ragon.agenix.secrets.cloudflareAcme = { group = "nginx"; mode = "0440"; };
     ragon.persist.extraDirectories = [
       "/var/lib/acme"
     ];

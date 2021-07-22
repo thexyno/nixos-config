@@ -27,9 +27,7 @@ in
       autoUpdateApps.enable = true;
 
     };
-    age.secrets = {
-      nextcloudAdminPass.owner = "nextcloud";
-    };
+    config.agenix.secrets.nextcloudAdminPass.owner = "nextcloud";
     services.postgresql = {
       enable = true;
 

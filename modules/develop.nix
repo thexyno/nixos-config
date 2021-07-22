@@ -4,7 +4,6 @@ let
 in
 {
   options.ragon.develop.enable = lib.mkEnableOption "Enables ragons development stuff";
-  options.ragon.agenix.enable = lib.my.mkBoolOpt true;
   config = lib.mkIf cfg.enable {
     boot.binfmt.emulatedSystems = [ "aarch64-linux" ]; # cross compiling nixos for arm
     programs.adb.enable = true;

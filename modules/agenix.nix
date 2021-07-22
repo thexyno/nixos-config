@@ -16,7 +16,8 @@ in
     secrets = mkOption {
       type = types.attrs;
       default = {
-        # "<name of secret file>" = "<owner of secret file>";
+        rootPasswd = {};
+        ragonPasswd = {};
       };
     };
 
@@ -24,13 +25,13 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ agenix.defaultPackage.${pkgs.system} ];
     # Set passwords
-    users.users.root.passwordFile = if (hasAttrByPath ["age" "secrets" "rootPasswd"] config) then config.age.secrets.rootPasswd.path else null;
+    users.users.root.passwordFile = config.age.secrets.rootPasswd.path;
     age.sshKeyPaths =
       [
         "/persistent/etc/ssh/ssh_host_rsa_key"
         "/persistent/etc/ssh/ssh_host_ed25519_key"
       ];
-    age.secrets = mapAttrs (name: owner: { file = "${secretsDir}/${name}"; owner = owner;})
+    age.secrets = traceVal (mapAttrs (name: obj: ({ file = "${secretsDir}/${name}.age"; } // obj)));
     assert assertMsg (pathExists secretsFile) "${secretsFile} does not exist";
   };
 }
