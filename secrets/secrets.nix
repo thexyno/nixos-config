@@ -2,17 +2,16 @@ let
   pubkeys = import ../data/pubkeys.nix;
 in
 {
-  "smb.age".publicKeys = pubkeys.ragon.computers;
-  "cloudflareAcme.age".publicKeys = pubkeys.ragon.computers;
-  "nextshot.age".publicKeys = pubkeys.ragon.computers;
-  "pulseLaunch.age".publicKeys = pubkeys.ragon.computers;
+  "cloudflareAcme.age".publicKeys = pubkeys.ragon.server;
+  "nextshot.age".publicKeys = pubkeys.ragon.client;
+  "pulseLaunch.age".publicKeys = pubkeys.ragon.client;
   "rootPasswd.age".publicKeys = pubkeys.ragon.computers;
   "ragonPasswd.age".publicKeys = pubkeys.ragon.computers;
-  "gitlabInitialRootPassword.age".publicKeys = pubkeys.ragon.computers;
-  "gitlabSecretFile.age".publicKeys = pubkeys.ragon.computers;
-  "gitlabDBFile.age".publicKeys = pubkeys.ragon.computers;
-  "gitlabOTPFile.age".publicKeys = pubkeys.ragon.computers;
-  "gitlabJWSFile.age".publicKeys = pubkeys.ragon.computers;
-  "nextcloudAdminPass.age".publicKeys = pubkeys.ragon.computers;
-  "wireguardwormhole.age".publicKeys = pubkeys.ragon.hosts.wormhole;
+  "gitlabInitialRootPassword.age".publicKeys = pubkeys.ragon.host "picard";
+  "gitlabSecretFile.age".publicKeys = pubkeys.ragon.host "picard";
+  "gitlabDBFile.age".publicKeys = pubkeys.ragon.host "picard";
+  "gitlabOTPFile.age".publicKeys = pubkeys.ragon.host "picard";
+  "gitlabJWSFile.age".publicKeys = pubkeys.ragon.host "picard";
+  "nextcloudAdminPass.age".publicKeys = pubkeys.ragon.host "picard";
+  "wireguardwormhole.age".publicKeys = pubkeys.ragon.host "wormhole";
 }
