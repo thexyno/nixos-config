@@ -9,6 +9,10 @@
   };
   documentation.enable = false;
   boot.kernelPackages = pkgs.linux_rpi3;
+  boot.extraModprobeConfig = ''
+    options cfg80211 ieee80211_regdom="DE"
+  '';
+  hardware.firmware = [ pkgs.wireless-regdb ];
   documentation.nixos.enable = false;
   networking.interfaces.wlan0.useDHCP = true;
   networking.interfaces.eth0.useDHCP = true;
