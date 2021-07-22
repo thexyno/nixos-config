@@ -31,6 +31,8 @@ in
         "/persistent/etc/ssh/ssh_host_ed25519_key"
       ];
     age.secrets = traceVal (mapAttrs (name: obj: ({ file = "${secretsDir}/${name}.age"; } // obj)));
-    assert assertMsg (pathExists secretsFile) "${secretsFile} does not exist";
+    assertions = [
+      { assertion =  (pathExists secretsFile); message = "${secretsFile} does not exist"; }
+    ];
   };
 }
