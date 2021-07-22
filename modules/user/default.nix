@@ -56,8 +56,9 @@ in
       extraGroups = [ "wheel" ] ++ extraGroups;
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = pkgs.pubkeys.ragon.computers ++ extraAuthorizedKeys;
-      passwordFile = if (lib.hasAttrByPath ["age" "secrets" "rootRagonPasswd"] config) then config.age.secrets.rootPasswd.path else null;
+      passwordFile = "/run/secrets/ragonPasswd";
     };
+    ragon.agenix.secrets.ragonPasswd = {};
 
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
