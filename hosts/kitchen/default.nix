@@ -8,7 +8,6 @@
     version = 3;
   };
   documentation.enable = false;
-  boot.kernelPackages = pkgs.linux_rpi3;
   boot.extraModprobeConfig = ''
     options cfg80211 ieee80211_regdom="DE"
   '';
