@@ -9,6 +9,8 @@
   };
   documentation.enable = false;
   documentation.nixos.enable = false;
+  networking.interfaces.wlan0.useDHCP = true;
+  networking.interfaces.eth0.useDHCP = true;
 
   nix = {
     autoOptimiseStore = true;
@@ -60,4 +62,5 @@
   '';
   ragon.agenix.enable = false;
   networking.wireless.enable = true;
+  networking.wireless.interfaces = [ "wlan0" ];
 }
