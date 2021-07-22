@@ -37,7 +37,7 @@
     };
   };
 
-  hardware.deviceTree.overlays.dac = {
+  hardware.deviceTree.overlays = [{
     name = "hifiberry-dac";
     dtsText = ''
       // Definitions for HiFiBerry DAC
@@ -76,7 +76,7 @@
       };
     '';
 
-  };
+  }];
   #hardware.pulseaudio.extraConfig = ''
   #  unload-module module-native-protocol-unix
   #  load-module module-native-protocol-unix auth-anonymous=1
