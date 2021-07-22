@@ -66,6 +66,7 @@
   '';
   ragon.agenix.enable = false;
   networking.wireless.enable = true;
+  networking.firewall.enable = false; # danger zone
   hardware.enableRedistributableFirmware = true;
   networking.wireless.interfaces = [ "wlan0" ];
 
