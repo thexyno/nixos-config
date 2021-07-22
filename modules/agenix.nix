@@ -11,25 +11,26 @@ let
 in
 {
   imports = [ agenix.nixosModules.age ];
-  environment.systemPackages = [ agenix.defaultPackage.${pkgs.system} ];
-  # Set passwords
-  users.users.root.passwordFile = if (hasAttrByPath ["age" "secrets" "rootPasswd"] config) then config.age.secrets.rootPasswd.path else null;
+  options.ragon.agenix = {
+    enable = mkBoolOpt true;
+    secrets = mkOption {
+      type = types.attrs;
+      default = {
+        # "<name of secret file>" = "<owner of secret file>";
+      };
+    };
 
-  age = {
-    secrets =
-      if (pathExists secretsFile && cfg.enable)
-      then
-        mapAttrs'
-          (n: _: nameValuePair (removeSuffix ".age" n) {
-            file = "${secretsDir}/${n}";
-            owner = if (hasInfix "root" n) then mkDefault "root" else mkDefault config.ragon.user.username;
-          })
-          (import secretsFile)
-      else { };
-    sshKeyPaths =
+  }
+  config = mkIf cfg.enable {
+    environment.systemPackages = [ agenix.defaultPackage.${pkgs.system} ];
+    # Set passwords
+    users.users.root.passwordFile = if (hasAttrByPath ["age" "secrets" "rootPasswd"] config) then config.age.secrets.rootPasswd.path else null;
+    age.sshKeyPaths =
       [
         "/persistent/etc/ssh/ssh_host_rsa_key"
         "/persistent/etc/ssh/ssh_host_ed25519_key"
       ];
+    age.secrets = mapAttrs (name: owner: { file = "${secretsDir}/${name}"; owner = owner;})
+    assert assertMsg (pathExists secretsFile) "${secretsFile} does not exist";
   };
 }
