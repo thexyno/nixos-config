@@ -44,7 +44,7 @@
   };
 
   boot.loader.raspberryPi.firmwareConfig = ''
-    dtoverlay=hifiberry-dac
+    dtoverlay=hifiberry-amp
   '';
   hardware.pulseaudio.extraConfig = ''
     unload-module module-native-protocol-unix
