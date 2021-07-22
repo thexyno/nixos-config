@@ -20,8 +20,7 @@ in
         ragonPasswd = {};
       };
     };
-
-  }
+  };
   config = mkIf cfg.enable {
     environment.systemPackages = [ agenix.defaultPackage.${pkgs.system} ];
     # Set passwords
