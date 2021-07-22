@@ -8,6 +8,7 @@
     version = 3;
   };
   documentation.enable = false;
+  boot.kernelPackages = pkgs.linux_rpi3;
   documentation.nixos.enable = false;
   networking.interfaces.wlan0.useDHCP = true;
   networking.interfaces.eth0.useDHCP = true;
