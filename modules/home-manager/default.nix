@@ -21,12 +21,13 @@ in
     ];
     programs.fuse.userAllowOther = true; # for persistence user dirs to work
 
+    ragon.agenix.secrets.nextshot = {
+      owner = "${config.ragon.user.username}";
+      path = "/home/${config.ragon.user.username}/.config/nextshot/nextshot.conf";
+    };
+
     home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
       {
-        ragon.agenix.secrets.nextshot = {
-          owner = "${config.ragon.user.username}";
-          path = "/home/${config.ragon.user.username}/.config/nextshot/nextshot.conf"
-        };
         # Import a persistance module for home-manager.
         ## TODO this can be done less ugly
         imports = [ "${inputs.impermanence}/home-manager.nix" ];

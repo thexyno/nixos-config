@@ -25,23 +25,19 @@ in
       };
     };
 
-    ragon.agenix.secrets = foldl (a: b: a // b) {} (map (a: { ${a} = { owner = "gitlab"; } }) [
+    ragon.agenix.secrets = foldl (a: b: a // b) {} (map (a: { ${a} = { owner = "gitlab"; }; }) [
       "gitlabDBFile"
       "gitlabInitialRootPassword"
       "gitlabJWSFile"
       "gitlabOTPFile"
       "gitlabSecretFile"
-      ]);
-    };
-
-
-
+    ]);
 
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
-    useACMEHost = "${domain}";
-    forceSSL = true;
-    locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
-  };
+      useACMEHost = "${domain}";
+      forceSSL = true;
+      locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+    };
     ragon.persist.extraDirectories = [
       "${config.services.postgresql.dataDir}"
       "${config.services.gitlab.statePath}"

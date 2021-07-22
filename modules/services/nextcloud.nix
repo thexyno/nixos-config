@@ -27,7 +27,7 @@ in
       autoUpdateApps.enable = true;
 
     };
-    config.agenix.secrets.nextcloudAdminPass.owner = "nextcloud";
+    ragon.agenix.secrets.nextcloudAdminPass.owner = "nextcloud";
     services.postgresql = {
       enable = true;
 
