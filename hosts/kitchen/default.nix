@@ -59,4 +59,5 @@
     device_name = "Küche"
   '';
   ragon.agenix.enable = false;
+  networking.wireless.enable = true;
 }
