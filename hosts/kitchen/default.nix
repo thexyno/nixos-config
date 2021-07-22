@@ -77,9 +77,6 @@
     '';
 
   };
-  boot.loader.raspberryPi.firmwareConfig = ''
-    dtoverlay=hifiberry-dac
-  '';
   #hardware.pulseaudio.extraConfig = ''
   #  unload-module module-native-protocol-unix
   #  load-module module-native-protocol-unix auth-anonymous=1
