@@ -1,19 +1,11 @@
 { config, inputs, pkgs, lib, ... }:
 {
-  imports = [
-    "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-  ];
+  #imports = [
+  #  "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+  #];
+  ragon.hardware.rpi3.enable = true;
   sound.enable = true;
-  boot.loader.raspberryPi = {
-    enable = true;
-    version = 3;
-  };
   documentation.enable = false;
-  #boot.kernelPackages = pkgs.linux_rpi3;
-  boot.extraModprobeConfig = ''
-    options cfg80211 ieee80211_regdom="DE"
-  '';
-  hardware.firmware = [ pkgs.wireless-regdb ];
   documentation.nixos.enable = false;
   networking.interfaces.wlan0.useDHCP = true;
   networking.interfaces.eth0.useDHCP = true;
@@ -45,6 +37,46 @@
     };
   };
 
+  hardware.deviceTree.overlays.dac = {
+    name = "hifiberry-dac";
+    dtsText = ''
+      // Definitions for HiFiBerry DAC
+      /dts-v1/;
+      /plugin/;
+      
+      / {
+      	compatible = "brcm,bcm2835";
+      
+      	fragment@0 {
+      		target = <&i2s>;
+      		__overlay__ {
+      			status = "okay";
+      		};
+      	};
+      
+      	fragment@1 {
+      		target-path = "/";
+      		__overlay__ {
+      			pcm5102a-codec {
+      				#sound-dai-cells = <0>;
+      				compatible = "ti,pcm5102a";
+      				status = "okay";
+      			};
+      		};
+      	};
+      
+      	fragment@2 {
+      		target = <&sound>;
+      		__overlay__ {
+      			compatible = "hifiberry,hifiberry-dac";
+      			i2s-controller = <&i2s>;
+      			status = "okay";
+      		};
+      	};
+      };
+    '';
+
+  };
   boot.loader.raspberryPi.firmwareConfig = ''
     dtoverlay=hifiberry-dac
   '';
@@ -71,24 +103,5 @@
     device_name = "Küche"
   '';
   ragon.agenix.enable = false;
-  networking.wireless.enable = true;
   networking.firewall.enable = false; # danger zone
-  hardware.enableRedistributableFirmware = true;
-  networking.wireless.interfaces = [ "wlan0" ];
-
-  nixpkgs.overlays = [
-    (self: super: {
-      firmwareLinuxNonfree = super.firmwareLinuxNonfree.overrideAttrs (old: {
-        version = "2020-12-18";
-        src = pkgs.fetchgit {
-          url =
-            "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
-          rev = "b79d2396bc630bfd9b4058459d3e82d7c3428599";
-          sha256 = "1rb5b3fzxk5bi6kfqp76q1qszivi0v1kdz1cwj2llp5sd9ns03b5";
-        };
-        outputHash = "1p7vn2hfwca6w69jhw5zq70w44ji8mdnibm1z959aalax6ndy146";
-      });
-    })
-  ];
-
 }
