@@ -62,5 +62,6 @@
   '';
   ragon.agenix.enable = false;
   networking.wireless.enable = true;
+  hardware.enableRedistributableFirmware = true;
   networking.wireless.interfaces = [ "wlan0" ];
 }
