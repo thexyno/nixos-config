@@ -491,11 +491,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1627245542,
-        "narHash": "sha256-jKrHp53/pxXM4+HUJcIFRQVeR3drdERq4ObCOcEubmQ=",
+        "lastModified": 1627245857,
+        "narHash": "sha256-mFh4BC8wXPkEh6efQGAQVFXNPNrXKVRL1NrMLM34eNY=",
         "owner": "ragon000",
         "repo": "st",
-        "rev": "2085cba4cffce58cf04bea3d1f1ac8594b803c2d",
+        "rev": "436712eb7a2d961fbca7b530e8a302f3acbc05e2",
         "type": "github"
       },
       "original": {
