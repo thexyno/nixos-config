@@ -22,6 +22,9 @@
     rnix-lsp.url = "github:nix-community/rnix-lsp";
     rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
 
+    st.url = "github:ragon000/st/ragon";
+    st.inputs.nixpkgs.follows = "nixpkgs";
+
     # other inputs
 
     ## needed for shell.nix
@@ -64,7 +67,7 @@
   };
 
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-master, neovim-nightly-overlay, deploy-rs, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-master, neovim-nightly-overlay, st, deploy-rs, ... }:
     let
       inherit (lib.my) mapModules mapModulesRec mapHosts mapNodes;
       systems = [
@@ -94,6 +97,7 @@
       overlay =
         final: prev: {
           unstable = pkgs' prev.system;
+          st-ragon = st.packages."${prev.system}";
           pubkeys = import ./data/pubkeys.nix;
           my = self.packages."${prev.system}";
         };

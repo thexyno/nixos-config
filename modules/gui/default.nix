@@ -67,6 +67,7 @@ in
         thunderbird
         mpv
         kitty
+        st-ragon
         sxiv
         signal-desktop
         wireguard
