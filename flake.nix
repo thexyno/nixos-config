@@ -97,7 +97,7 @@
       overlay =
         final: prev: {
           unstable = pkgs' prev.system;
-          st-ragon = st.packages."${prev.system}";
+          st-ragon = st.packages."${prev.system}".st;
           pubkeys = import ./data/pubkeys.nix;
           my = self.packages."${prev.system}";
         };
