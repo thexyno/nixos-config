@@ -107,10 +107,10 @@ in
              /* commands */
              static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
              static const char *dmenucmd[] =       { "rofi", "-show", "combi", NULL };
-             static const char *termcmd[]  =       { "kitty", "-1", NULL };
-             static const char *termfloatcmd[]  =  { "kitty", "-1", "--class=floating", NULL };
-             static const char *pulsemixercmd[]  = { "kitty", "-1", "--class=floating", "pulsemixer", NULL };
-             static const char *nnncmd[]  =        { "kitty", "-1", "--class=floating", "zsh", "-ic", "n;exec zsh", NULL };
+             static const char *termcmd[]  =       { "st", NULL };
+             static const char *termfloatcmd[]  =  { "st", "-c", "floating", NULL };
+             static const char *pulsemixercmd[]  = { "st", "-c", "floating", "pulsemixer", NULL };
+             static const char *nnncmd[]  =        { "st", "-c", "floating", "zsh", "-ic", "n;exec zsh", NULL };
              static const char *scrotcmd[]  =      { "sh", "-c", "scrot -s  '%Y-%m-%d_\\$wx\\$h_scrot.png' -e 'mv \\$f ~/Screenshots/; xclip -t image/png -selection clipboard ~/Screenshots/\\$f'", NULL };
              static const char *volupcmd[]  =      { "changeVolume", "+5", NULL };
              static const char *voldowncmd[]  =    { "changeVolume", "-5", NULL };

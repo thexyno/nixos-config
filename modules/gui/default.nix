@@ -66,7 +66,7 @@ in
         firefox
         thunderbird
         mpv
-        kitty
+        # kitty # we live in a suckless household
         st-ragon
         sxiv
         signal-desktop

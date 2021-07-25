@@ -149,27 +149,29 @@ in
               "--inline-info"
             ];
           };
-          kitty = {
-            enable = isGui;
-            font = {
-              package = pkgs.jetbrains-mono;
-              name = "JetBrains Mono Medium";
-            };
-            settings = {
-              "enable_audio_bell" = "false";
-              "allow_remote_control" = "yes";
-              "sync_to_monitor" = "yes";
-              "background" = "#282828";
-              "foreground" = "#ebdbb2";
-              "background_opacity" = "1.0";
-              "font_size" = "12";
-            };
-            keybindings = {
-              "ctrl+minus" = "change_font_size all -2.0";
-              "ctrl+plus" = "change_font_size all +2.0";
-            };
+          # \ragon
+          # we live in a suckless household
+          #kitty = {
+          #  enable = isGui;
+          #  font = {
+          #    package = pkgs.jetbrains-mono;
+          #    name = "JetBrains Mono Medium";
+          #  };
+          #  settings = {
+          #    "enable_audio_bell" = "false";
+          #    "allow_remote_control" = "yes";
+          #    "sync_to_monitor" = "yes";
+          #    "background" = "#282828";
+          #    "foreground" = "#ebdbb2";
+          #    "background_opacity" = "1.0";
+          #    "font_size" = "12";
+          #  };
+          #  keybindings = {
+          #    "ctrl+minus" = "change_font_size all -2.0";
+          #    "ctrl+plus" = "change_font_size all +2.0";
+          #  };
 
-          };
+          #};
           git = {
             enable = true;
             lfs.enable = true;
