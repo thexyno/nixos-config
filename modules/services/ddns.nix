@@ -34,6 +34,7 @@ in
             ${optionalString cfg.ipv4 ''
               # ipv4
               provider cloudflare.com:1 {
+                checkip-server = api.ipify.org
                 username = ${domain}
                 password = $CLOUDFLARE_DNS_API_TOKEN
                 hostname = ${domain}
