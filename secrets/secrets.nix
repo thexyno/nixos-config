@@ -7,6 +7,8 @@ in
   "pulseLaunch.age".publicKeys = pubkeys.ragon.client;
   "rootPasswd.age".publicKeys = pubkeys.ragon.computers;
   "ragonPasswd.age".publicKeys = pubkeys.ragon.computers;
+  "ds9rcloneConfig.age".publicKeys = pubkeys.ragon.host "ds9";
+  "ds9resticPassword.age".publicKeys = pubkeys.ragon.host "ds9";
   "gitlabInitialRootPassword.age".publicKeys = pubkeys.ragon.host "picard";
   "gitlabSecretFile.age".publicKeys = pubkeys.ragon.host "picard";
   "gitlabDBFile.age".publicKeys = pubkeys.ragon.host "picard";

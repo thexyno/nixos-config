@@ -37,6 +37,27 @@
 
   };
 
+  services.restic.backups."ds9" = {
+    rcloneConfigFile = "/run/secrets/ds9rcloneConfig";
+    passwordFile = "/run/secrets/ds9resticPassword";
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 5"
+      "--keep-monthly 12"
+      "--keep-yearly 75"
+    ];
+    initialize = true;
+    repository = "rclone:ds9:/ds9";
+    paths = [
+      "/data"
+      "/persistent/var/lib"
+    ];
+
+  };
+
+  ragon.agenix.secrets."ds9rcloneConfig" = {};
+  ragon.agenix.secrets."ds9resticPassword" = {};
+
 
   # Immutable users due to tmpfs
   users.mutableUsers = false;
