@@ -55,6 +55,25 @@
     locations."/".proxyPass = "http://10.0.0.20:8123";
     locations."/".proxyWebsockets = true;
   };
+  services.nginx.virtualHosts."hailsatan.eu" = {
+    forceSSL = true;
+    useACMEHost = "hailsatan.eu";
+    root = pkgs.runCommand "homepage" {} ''
+      mkdir -p $out
+      echo "Hail Satan" > $out/index.html
+      echo "User-agent: *" > $out/robots.txt
+      echo "Disallow: /" > $out/robots.txt
+    '';
+  };
+  services.nginx.virtualHosts."j.hailsatan.eu" = {
+    forceSSL = true;
+    useACMEHost = "hailsatan.eu";
+    extraConfig = ''
+      proxy_buffering off;
+    '';
+    locations."/".proxyPass = "https://j.hailsatan.eu";
+    locations."/".proxyWebsockets = true;
+  };
 
   ragon.user.extraAuthorizedKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDiKJEYNUU+ZpbOyJf9k9ZZdTTL0qLiZ6fXEBVCjNfas"
