@@ -106,12 +106,18 @@ in
         { name = "wled-Schrank-Philipp"; ip = "10.1.0.10"; mac = "2c:f4:32:20:74:60"; }
         { name = "wled-Betthintergrund-Phi"; ip = "10.1.0.11"; mac = "2c:3a:e8:0e:ab:71"; }
 
+        # nzbr - machines
         { name = "earthquake"; ip = "10.0.1.2"; mac = "78:24:af:bc:0c:07"; }
         { name = "comet"; ip = "10.0.1.4"; mac = "0c:98:38:d3:16:8f"; }
         { name = "meteor"; ip = "10.0.1.8"; mac = "54:27:1e:5c:1f:ed"; } # Wireless
         { name = "meteor"; ip = "10.0.1.16"; mac = "00:21:cc:5c:f5:dc"; } # Wired
         { name = "hurricane"; ip = "10.0.1.32"; mac = "f0:2f:74:1b:af:e0"; }
 
+        # nzbr - vms
+        { name = "earthquake-macos"; ip = "10.0.1.201"; mac = "52:54:00:8e:e2:66"; }
+        { name = "earthquake-win"; ip = "10.0.1.202"; mac = "52:54:00:97:37:69"; }
+
+        # nzbr - consoles
         { name = "xbox"; ip = "10.0.2.1"; mac = "58:82:a8:30:2d:1c"; }
         { name = "wii"; ip = "10.0.2.2"; mac = "00:23:cc:50:78:00"; }
         { name = "switch"; ip = "10.0.2.3"; mac = "dc:68:eb:bb:01:fc"; } # Wireless
@@ -319,7 +325,7 @@ in
             MAC = sys.argv[2]
             IP = sys.argv[3]
             HOSTNAME = ""
-            if len(sys.argv) > 4: 
+            if len(sys.argv) > 4:
               HOSTNAME = sys.argv[4]
 
 
