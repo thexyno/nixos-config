@@ -92,7 +92,8 @@ in
     lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [
-        { hostname = "enterprise"; mac = ""; tcpports = [ 22 ]; udpports = []; }
+        { hostname = "enterprise"; mac = "d8:cb:8a:76:09:0a"; tcpports = [ 22 ]; udpports = []; }
+        { hostname = "earthquake"; mac = "78:24:af:bc:0c:07"; tcpports = [ 22 22000 ]; udpports = [ 22000 51820 ]; }
       ];
     };
   options.ragon.networking.router.staticDHCPs =
@@ -188,6 +189,45 @@ in
 
           ${allGenIntDescs}
         '';
+      runHook = ''
+        if [[ "$reason" == "BOUND6" ]] || [[ "$reason" == "REBIND6" ]]; then
+          ${pkgs.python3}/bin/python3 ${pkgs.writeScript "dhcpcd-runHook.py" ''
+            import json
+            import sys
+            import subprocess
+            import os
+
+            prefix = os.environ.get("new_dhcp6_ia_pd1_prefix1")[:-1]
+
+            # https://stackoverflow.com/a/37316533/12852285
+            def mac2ipv6(mac):
+                # only accept MACs separated by a colon
+                parts = mac.split(":")
+
+                # modify parts to match IPv6 value
+                parts.insert(3, "ff")
+                parts.insert(4, "fe")
+                parts[0] = "%x" % (int(parts[0], 16) ^ 2)
+
+                # format output
+                ipv6Parts = []
+                for i in range(0, len(parts), 2):
+                    ipv6Parts.append("".join(parts[i:i+2]))
+                ipv6 = "%s%s" % (prefix, ":".join(ipv6Parts))
+                return ipv6
+
+            data = json.loads("""${builtins.toJSON disableFirewallFor}""")
+            for host in data:
+              print('setting firewall rules for ' + host["hostname"])
+              IP = mac2ipv6(host["mac"])
+              if len(host["tcpports"]) > 0:
+                subprocess.run(["${pkgs.nftables}/bin/nft", "insert", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "tcp", "dport", f'{{ {", ".join(map(str, host["tcpports"]))} }}', "accept" ])
+              if len(host["udpports"]) > 0:
+                subprocess.run(["${pkgs.nftables}/bin/nft", "insert", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "udp", "dport", f'{{ {", ".join(map(str, host["udpports"]))} }}', "accept" ])
+              subprocess.run(["${pkgs.nftables}/bin/nft", "insert", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "icmpv6", "type", "{ destination-unreachable, packet-too-big, time-exceeded, parameter-problem, echo-request, echo-reply, nd-router-advert, nd-neighbor-solicit, nd-neighbor-advert }", "accept"])
+          ''}
+        fi
+      '';
     };
 
     networking.firewall.enable = false; # disable iptables cause it's ass to set up
@@ -229,8 +269,10 @@ in
             ${allowAll}
 
             # allow icmp
-            ip protocol icmp accept
-            ip6 nexthdr icmpv6 accept
+            ip protocol icmp icmp type echo-request limit rate over 1/second burst 5 packets drop
+            ip6 nexthdr icmpv6 icmpv6 type echo-request limit rate over 1/second burst 5 packets drop
+            ip protocol icmp icmp type { destination-unreachable, echo-reply, echo-request, source-quench, time-exceeded } accept
+            ip6 nexthdr icmpv6 icmpv6 type { destination-unreachable, echo-reply, echo-request, nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert, packet-too-big, parameter-problem, time-exceeded } accept
 
             # open port 22, but only allow 2 new connections per minute from each ip
             tcp dport 22 ct state new flow table ssh-ftable { ip saddr limit rate 2/minute } accept
