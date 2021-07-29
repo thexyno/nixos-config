@@ -27,5 +27,6 @@ in
           "bin/changeBacklight".source = ../bins/changeBacklight;
           "bin/nextshot".source = "${inputs.nextshot}/nextshot.sh";
         };
-    }
-  }
+    };
+  };
+}

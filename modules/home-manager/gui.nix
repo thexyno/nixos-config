@@ -121,5 +121,6 @@ in
         services.picom.vSync = true;
         services.mpris-proxy.enable = true;
 
-    }
-  }
+    };
+  };
+}
