@@ -10,6 +10,7 @@ in
     hardware.opengl.driSupport = true;
     hardware.opengl.enable = true;
     programs.steam.enable = true;
+    hardware.steam-hardware.enable = true;
     environment.systemPackages = with pkgs; [
       lutris
       vulkan-tools
@@ -20,6 +21,7 @@ in
     ];
     ragon.user.persistent.extraDirectories = [
       "games"
+      ".local/share/Steam"
     ];
 
   };
