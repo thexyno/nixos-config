@@ -12,6 +12,9 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   nix.maxJobs = lib.mkDefault 12;
   powerManagement.cpuFreqGovernor = "performance";
-  ragon.hardware.nvidia.enable = true;
   ragon.system.fs.enable = true;
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.driSupport = true;
 }
