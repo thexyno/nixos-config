@@ -18,7 +18,7 @@ in
     };
     pciIds = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "10de:1b80" "10de:10f0" "1912:0015" ];
+      default = [ "10de:1b80" "10de:10f0" ];
     };
   };
   config = lib.mkIf cfg.enable {
@@ -41,7 +41,7 @@ in
 
 
     systemd.tmpfiles.rules = [
-      "f /dev/shm/scream-ivshmem 0660 alex qemu-libvirtd -"
+      "f /dev/shm/scream-ivshmem 0660 ${config.ragon.user.username} qemu-libvirtd -"
     ];
 
     systemd.user.services.scream-ivshmem = {
@@ -249,12 +249,6 @@ in
                         <address domain='0x0000' bus='0x06' slot='0x00' function='0x1'/>
                       </source>
                       <address type='pci' domain='0x0000' bus='0x05' slot='0x00' function='0x0'/>
-                    </hostdev>
-                    <hostdev mode="subsystem" type="pci" managed="yes">
-                      <source>
-                        <address domain="0x0000" bus="0x0b" slot="0x00" function="0x0"/>
-                      </source>
-                      <address type="pci" domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
                     </hostdev>
                     <redirdev bus='usb' type='spicevmc'>
                       <address type='usb' bus='0' port='1'/>
