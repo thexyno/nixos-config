@@ -434,6 +434,22 @@
         "type": "github"
       }
     },
+    "paperless": {
+      "locked": {
+        "lastModified": 1627328170,
+        "narHash": "sha256-S1F5VNaUwZyYDj/ZuqGUkapnT7oNL102liOr/irWi1Q=",
+        "owner": "Flakebi",
+        "repo": "nixpkgs",
+        "rev": "32095dd69ca8af3fd55e2224b60e21a0ae074a8a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Flakebi",
+        "ref": "paperless",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "rnix-lsp": {
       "inputs": {
         "naersk": "naersk_2",
@@ -475,6 +491,7 @@
         "nnn-vim": "nnn-vim",
         "pandoc-latex-template": "pandoc-latex-template",
         "pandocode": "pandocode",
+        "paperless": "paperless",
         "rnix-lsp": "rnix-lsp",
         "st": "st",
         "vim-pandoc-live-preview": "vim-pandoc-live-preview",
