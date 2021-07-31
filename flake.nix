@@ -99,7 +99,7 @@
         final: prev: {
           unstable = pkgs' prev.system;
           st-ragon = st.packages."${prev.system}".st;
-          paperless-ng = paperless.packages."${prev.system}".paperless-ng;
+          paperless-ng = paperless.legacyPackages."${prev.system}".paperless-ng;
           pubkeys = import ./data/pubkeys.nix;
           my = self.packages."${prev.system}";
         };
