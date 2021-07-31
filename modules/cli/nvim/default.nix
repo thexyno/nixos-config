@@ -11,7 +11,7 @@ in
   };
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      nnn
+      my.nnn
     ] ++ (if cfg.maximal then [
       python3 # ultisnips
       nodejs
