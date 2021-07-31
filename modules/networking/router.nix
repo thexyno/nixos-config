@@ -84,6 +84,7 @@ in
       type = lib.types.listOf lib.types.attrs;
       default = [
         { name = "j.hailsatan.eu"; ip = "10.0.0.2"; }
+        { name = "paperless.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "h.hailsatan.eu"; ip = "10.0.0.1"; }
         { name = "grafana.hailsatan.eu"; ip = "10.0.0.2"; }
       ];

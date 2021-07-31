@@ -75,6 +75,7 @@
       nginx.enable = true;
       jellyfin.enable = true;
       libvirt.enable = true;
+      paperless.enable = true;
     };
 
   };
