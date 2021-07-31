@@ -22,7 +22,7 @@ in
       passwordFile = "/run/secrets/paperlessAdminPW";
       extraConfig = {
           PAPERLESS_OCR_LANGUAGE = "deu+eng";
-      } 
+      };
     };
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       useACMEHost = "${domain}";
