@@ -24,7 +24,7 @@ in
           PAPERLESS_OCR_LANGUAGE = "deu+eng";
       };
     };
-    ragon.agenix.secrets.paperlessAdminPW = { user = "${config.services.paperless-ng.user}"; mode = "0440"; };
+    ragon.agenix.secrets.paperlessAdminPW = { group = "${config.services.paperless-ng.user}"; mode = "0440"; };
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       useACMEHost = "${domain}";
       addSSL = true;
