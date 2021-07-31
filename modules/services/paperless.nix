@@ -27,7 +27,7 @@ in
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       useACMEHost = "${domain}";
       addSSL = true;
-      locations."/".proxyPass = "http://${config.services.paperless-ng.address}:${config.services.paperless-ng.port}";
+      locations."/".proxyPass = "http://${config.services.paperless-ng.address}:${toString config.services.paperless-ng.port}";
       locations."/".proxyWebsockets = true;
   };
   ragon.persist.extraDirectories = [
