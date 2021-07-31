@@ -25,6 +25,7 @@ in
       };
     };
     ragon.agenix.secrets.paperlessAdminPW = { group = "${config.services.paperless-ng.user}"; mode = "0440"; };
+    services.nginx.clientMaxBodySize = "100m";
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       useACMEHost = "${domain}";
       addSSL = true;
