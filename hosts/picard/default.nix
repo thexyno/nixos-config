@@ -16,9 +16,28 @@
   boot.loader.grub.device = "/dev/sda";
 
 
-  networking.useDHCP = true; # needed for initramfs
+  networking.interfaces."ens3" = {
+    ipv4 = {
+      addresses = [
+        {
+          address = "202.61.248.252";
+          prefixLength = 22;
+        }
+      ];
+    };
+    ipv6 = {
+      addresses = [
+        {
+          address = "2a03:4000:54:a98::1";
+          prefixLength = 64;
+        }
+      ];
+    };
+
+
+  };
   # networking.interfaces.eno1.useDHCP = true;
-  networking.hostId = "7c25236a";
+  networking.hostId = "7c21236a";
 
   # Immutable users due to tmpfs
   users.mutableUsers = false;
@@ -30,12 +49,11 @@
 
     services = {
       ssh.enable = true;
-      nextcloud.enable = true;
       bitwarden.enable = true;
       # gitlab.enable = true; # TODO gitlab-runner
       synapse.enable = true;
       nginx.enable = true;
-      nginx.domain = "hochkamp.eu";
+      nginx.domain = "ragon.xyz";
     };
 
   };

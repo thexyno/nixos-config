@@ -5,42 +5,44 @@ let
   domain = config.ragon.services.nginx.domain;
 in
 {
-  options.ragon.services.bitwarden.enable = lib.mkEnableOption "Enables the bitwarden_rs BitWarden Server";
+  options.ragon.services.bitwarden.enable = lib.mkEnableOption "Enables the vaultwarden BitWarden Server";
   options.ragon.services.bitwarden.domainPrefix =
     lib.mkOption {
       type = lib.types.str;
       default = "bw";
     };
   config = lib.mkIf cfg.enable {
-    services.bitwarden_rs = {
+    services.vaultwarden = {
       enable = true;
+      backupDir = "/backups/vaultwarden";
       config = {
         domain = "https://${cfg.domainPrefix}.${domain}";
         signupsAllowed = false;
         rocketPort = 8222;
-        databaseUrl = "postgresql://%2Frun%2Fpostgresql/bitwarden_rs";
+        databaseUrl = "postgresql://%2Frun%2Fpostgresql/vaultwarden";
       };
       dbBackend = "postgresql";
 
     };
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       useACMEHost = "${domain}";
-      locations."/".proxyPass = "http://localhost:${toString config.services.bitwarden_rs.config.rocketPort}";
+      locations."/".proxyPass = "http://localhost:${toString config.services.vaultwarden.config.rocketPort}";
     };
     services.postgresql = {
       enable = true;
 
       # Ensure the database, user, and permissions always exist
-      ensureDatabases = [ "bitwarden_rs" ];
+      ensureDatabases = [ "vaultwarden" ];
       ensureUsers = [
         {
-          name = "bitwarden_rs";
-          ensurePermissions."DATABASE bitwarden_rs" = "ALL PRIVILEGES";
+          name = "vaultwarden";
+          ensurePermissions."DATABASE vaultwarden" = "ALL PRIVILEGES";
         }
       ];
     };
     ragon.persist.extraDirectories = [
-      "/var/lib/bitwarden_rs"
+      "/var/lib/vaultwarden"
+      "/backups/vaultwarden"
     ];
   };
 }
