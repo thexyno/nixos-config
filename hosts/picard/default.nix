@@ -16,7 +16,7 @@
   boot.loader.grub.device = "/dev/sda";
 
 
-  networking.interfaces."ens3" = {
+  networking.interfaces."enp0s3" = {
     ipv4 = {
       addresses = [
         {
@@ -34,8 +34,8 @@
       ];
     };
   };
-  networking.defaultGateway = { address = "202.61.248.1"; interface = "ens3"; };
-  networking.defaultGateway6 = { address = "fe80::1"; interface = "ens3"; };
+  networking.defaultGateway = { address = "202.61.248.1"; interface = "enp0s3"; };
+  networking.defaultGateway6 = { address = "fe80::1"; interface = "enp0s3"; };
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
   networking.useDHCP = false;
   # networking.interfaces.eno1.useDHCP = true;

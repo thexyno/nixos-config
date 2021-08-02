@@ -4,7 +4,7 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ "${modulesPath}/installer/scan/not-detected.nix" ];
+  imports = [ "${modulesPath}/profiles/qemu-guest.nix" ];
   boot.zfs.requestEncryptionCredentials = true;
   ragon.system.fs.enable = true;
   ragon.system.fs.nix = "rpool/nix";
@@ -17,17 +17,6 @@
   ];
   services.syncoid.enable = false; # disable failing zfs syncing
   boot.initrd = {
-availableKernelModules = [
-        "ata_piix"
-        "uhci_hcd"
-        "virtio_pci"
-        "virtio_scsi"
-        "sd_mod"
-        "sr_mod"
-
-        "virtio_net" # Early boot network
-      ];
-
     network = {
       enable = true;
       postCommands = ''
