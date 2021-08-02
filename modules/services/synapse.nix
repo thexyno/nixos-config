@@ -54,6 +54,7 @@ in
     services.nginx.virtualHosts = {
       "${cfg.serverName}" = {
         forceSSL = true;
+        useACMEHost = "${domain}";
         locations."= /.well-known/matrix/server".extraConfig =
           let
             # use 443 instead of the default 8448 port to unite
@@ -81,6 +82,7 @@ in
       # Reverse proxy for Matrix client-server and server-server communication
       "${fqdn}" = {
         forceSSL = true;
+        useACMEHost = "${domain}";
 
         # Or do a redirect instead of the 404, or whatever is appropriate for you.
         # But do not put a Matrix Web client here! See the Element web section below.
