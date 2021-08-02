@@ -5,8 +5,6 @@
 
 {
   imports = [ "${modulesPath}/installer/scan/not-detected.nix" ];
-
-  boot.kernelModules = [ "kvm-intel" ];
   boot.zfs.requestEncryptionCredentials = true;
   ragon.system.fs.enable = true;
   ragon.system.fs.nix = "rpool/nix";
@@ -19,7 +17,17 @@
   ];
   services.syncoid.enable = false; # disable failing zfs syncing
   boot.initrd = {
-    availableKernelModules = [ "ahci" "xhci_pci" "ehci_pci" "usbhid" "sd_mod" "sr_mod" ];
+availableKernelModules = [
+        "ata_piix"
+        "uhci_hcd"
+        "virtio_pci"
+        "virtio_scsi"
+        "sd_mod"
+        "sr_mod"
+
+        "virtio_net" # Early boot network
+      ];
+
     network = {
       enable = true;
       postCommands = ''
