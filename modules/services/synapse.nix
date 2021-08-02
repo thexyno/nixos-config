@@ -54,7 +54,6 @@ in
     services.nginx.virtualHosts = {
       "${cfg.serverName}" = {
         forceSSL = true;
-        enableACME = true;
         locations."= /.well-known/matrix/server".extraConfig =
           let
             # use 443 instead of the default 8448 port to unite
@@ -81,7 +80,6 @@ in
       };
       # Reverse proxy for Matrix client-server and server-server communication
       "${fqdn}" = {
-        enableACME = true;
         forceSSL = true;
 
         # Or do a redirect instead of the 404, or whatever is appropriate for you.

@@ -14,7 +14,7 @@ in
   config = lib.mkIf cfg.enable {
     services.vaultwarden = {
       enable = true;
-      backupDir = "/backups/vaultwarden";
+#      backupDir = "/backups/vaultwarden";
       config = {
         domain = "https://${cfg.domainPrefix}.${domain}";
         signupsAllowed = false;
