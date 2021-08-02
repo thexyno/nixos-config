@@ -23,7 +23,6 @@ in
     services.matrix-synapse = {
       enable = true;
       server_name = serverName;
-      enable_registration = true;
       listeners = [
         {
           port = 8008;
