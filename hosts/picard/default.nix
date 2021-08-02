@@ -33,9 +33,10 @@
         }
       ];
     };
-
-
+    defaultGateway = "202.61.248.1";
+    nameservers = [ "1.1.1.1" "8.8.8.8" ];
   };
+  networking.useDHCP = false;
   # networking.interfaces.eno1.useDHCP = true;
   networking.hostId = "7c21236a";
 
