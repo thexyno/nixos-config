@@ -17,14 +17,7 @@
 
 
   networking.interfaces."enp0s3" = {
-    ipv4 = {
-      addresses = [
-        {
-          address = "202.61.248.252";
-          prefixLength = 22;
-        }
-      ];
-    };
+    useDHCP = true;
     ipv6 = {
       addresses = [
         {
@@ -34,7 +27,6 @@
       ];
     };
   };
-  networking.defaultGateway = { address = "202.61.248.1"; interface = "enp0s3"; };
   networking.defaultGateway6 = { address = "fe80::1"; interface = "enp0s3"; };
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
   networking.useDHCP = false;
