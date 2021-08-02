@@ -17,7 +17,6 @@
 
 
   networking.interfaces."enp0s3" = {
-    useDHCP = true;
     ipv6 = {
       addresses = [
         {
@@ -29,7 +28,6 @@
   };
   networking.defaultGateway6 = { address = "fe80::1"; interface = "enp0s3"; };
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
-  networking.useDHCP = false;
   # networking.interfaces.eno1.useDHCP = true;
   networking.hostId = "7c21236a";
 
