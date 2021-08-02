@@ -16,7 +16,7 @@
   boot.loader.grub.device = "/dev/sda";
 
 
-  networking.interfaces."enp0s3" = {
+  networking.interfaces."ens3" = {
     ipv6 = {
       addresses = [
         {
