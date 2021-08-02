@@ -20,6 +20,7 @@ in
         signupsAllowed = false;
         rocketPort = 8222;
         databaseUrl = "postgresql://%2Frun%2Fpostgresql/vaultwarden";
+        webVaultEnabled = true;
       };
       dbBackend = "postgresql";
 
@@ -42,7 +43,6 @@ in
     };
     ragon.persist.extraDirectories = [
       "/var/lib/vaultwarden"
-      "/backups/vaultwarden"
     ];
   };
 }
