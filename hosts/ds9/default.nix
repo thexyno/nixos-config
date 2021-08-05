@@ -65,7 +65,7 @@
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
   # Webhook service to trigger scanning the ADF from HomeAssistant
-  users.users."scanhook".extraGroups = [ "scanner" "lp" ];
+  users.users."scanhook".extraGroups = [ "scanner" "lp" "avahi" ];
   users.users."scanhook".isSystemUser = true;
   systemd.services.scanhook = {
     description = "webhook go server to trigger scanning";
@@ -79,7 +79,7 @@
         let
           scanScript = pkgs.writeScript "plscan.sh" ''
             #!/usr/bin/env bash
-            export PATH=${lib.makeBinPath [ pkgs.imagemagick ]}:/run/current-system/sw/bin # hacky path, but it works out
+            export PATH=${lib.makeBinPath [ pkgs.gnugrep pkgs.coreutils pkgs.sane-backends pkgs.sane-airscan pkgs.imagemagick ]}
             set -x
             date="''$(date --iso-8601=seconds)"
             filename="Scan ''$date.pdf"
