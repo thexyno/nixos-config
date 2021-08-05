@@ -88,18 +88,12 @@
       NoNewPrivileges = true;
       PrivateDevices = true;
       PrivateMounts = true;
-      # Needs to connect to redis
-      # PrivateNetwork = true;
       PrivateTmp = true;
       PrivateUsers = true;
       ProcSubset = "pid";
       ProtectClock = true;
-      # Breaks if the home dir of the user is in /home
-      # Also does not add much value in combination with the TemporaryFileSystem.
-      # ProtectHome = true;
+      ProtectHome = true;
       ProtectHostname = true;
-      # Would re-mount paths ignored by temporary root
-      #ProtectSystem = "strict";
       ProtectControlGroups = true;
       ProtectKernelLogs = true;
       ProtectKernelModules = true;
