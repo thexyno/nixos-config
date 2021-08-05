@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, pkgs, lib, ... }:
+{ config, inputs, pkgs, lib, ... }:
 
 {
   imports =
@@ -81,7 +81,7 @@
           scanScript = pkgs.writeScript "plscan.sh" ''
             #!/usr/bin/env bash
             export PATH=${lib.makeBinPath [ pkgs.strace pkgs.gnugrep pkgs.coreutils pkgs.sane-backends pkgs.sane-airscan pkgs.imagemagick ]}
-            export ${environment.sessionVariables}
+            export ${config.environment.sessionVariables}
             set -x
             id
             date="''$(date --iso-8601=seconds)"
