@@ -65,15 +65,14 @@
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
   # Webhook service to trigger scanning the ADF from HomeAssistant
-  users.users."scanhook".extraGroups = [ "scanner" "lp" "avahi" ];
-  users.users."scanhook".isSystemUser = true;
   systemd.services.scanhook = {
     description = "webhook go server to trigger scanning";
     documentation = [ "https://github.com/adnanh/webhook" ];
     wantedBy = [ "multi-user.target" ];
     path = with pkgs; [ bash ];
     serviceConfig = {
-      User = "scanhook";
+      DynamicUser = true;
+      SupplementaryGroups = [ "scanner" "lp" "avahi" ];
       PrivateTmp = true;
       ExecStart =
         let
