@@ -59,6 +59,48 @@
   ragon.agenix.secrets."ds9resticPassword" = { };
 
 
+  # Enable Scanning
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.sane-airscan ];
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+  # Webhook service to trigger scanning the ADF from HomeAssistant
+  systemd.services.scanhook = {
+    description = "webhook go server to trigger scanning";
+    documentation = "https://github.com/adnanh/webhook";
+    wantedBy = [ "ulti-user.target" ];
+    path = with pkgs; [ ];
+    serviceConfig = {
+      DynamicUser = true;
+      PrivateTmp = true;
+      ExecStart =
+        let
+          scanScript = pkgs.writeScript "plscan.sh" ''
+            #!/usr/bin/env bash
+            export PATH=${lib.makeBinPath [ pkgs.coreutils pkgs.sane-backends pkgs.imagemagick ]}
+            set -x
+            date="''$(date --iso-8601=seconds)"
+            filename="Scan ''$date.pdf"
+            tmpdir="''$(mktemp -d)"
+            pushd "''$tmpdir"
+            scanimage --batch=out%d.jpg --format=jpeg --mode Gray -d "airscan:e0:Canon MB5100 series" --source "ADF Duplex" --resolution 300
+            convert out*.jpg /data/applications/paperless-consumption/"$filename"
+            popd
+            rm -r "''$tmpdir"
+          '';
+          hooksFile = builtins.toFile "webhook.json" (builtins.toJson [
+            {
+              id = "scan-webhook";
+              execute-command = "${scanScript}";
+
+            }
+          ]);
+        in
+        "${pkgs.webhook}/bin/webhook -hooks ${hooksFile}";
+    };
+  };
+
+
   # Immutable users due to tmpfs
   users.mutableUsers = false;
 
