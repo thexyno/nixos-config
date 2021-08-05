@@ -88,9 +88,7 @@
       PrivateTmp = true;
       PrivateUsers = true;
       ProcSubset = "pid";
-      ProtectClock = true;
       ProtectHome = true;
-      ProtectHostname = true;
       ProtectControlGroups = true;
       ProtectKernelLogs = true;
       ProtectKernelModules = true;
@@ -99,8 +97,6 @@
       RestrictNamespaces = true;
       RestrictRealtime = true;
       RestrictSUIDSGID = true;
-      SystemCallArchitectures = "native";
-      SystemCallFilter = [ "@system-service" "~@privileged @resources @setuid @keyring" ];
       DynamicUser = true;
       ExecStart =
         let
