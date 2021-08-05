@@ -67,8 +67,8 @@
   # Webhook service to trigger scanning the ADF from HomeAssistant
   systemd.services.scanhook = {
     description = "webhook go server to trigger scanning";
-    documentation = "https://github.com/adnanh/webhook";
-    wantedBy = [ "ulti-user.target" ];
+    documentation = [ "https://github.com/adnanh/webhook" ];
+    wantedBy = [ "multi-user.target" ];
     path = with pkgs; [ ];
     serviceConfig = {
       DynamicUser = true;
