@@ -81,7 +81,7 @@
           scanScript = pkgs.writeScript "plscan.sh" ''
             #!/usr/bin/env bash
             export PATH=${lib.makeBinPath [ pkgs.strace pkgs.gnugrep pkgs.coreutils pkgs.sane-backends pkgs.sane-airscan pkgs.imagemagick ]}
-            export ${config.environment.sessionVariables}
+            export LD_LIBRARY_PATH=${lib.concatStringsSep ":" config.environment.sessionVariables.LD_LIBRARY_PATH}
             set -x
             id
             date="''$(date --iso-8601=seconds)"
