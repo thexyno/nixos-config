@@ -58,7 +58,7 @@
   services.nginx.virtualHosts."hailsatan.eu" = {
     forceSSL = true;
     useACMEHost = "hailsatan.eu";
-    root = pkgs.runCommand "homepage" {} ''
+    root = pkgs.runCommand "homepage" { } ''
       mkdir -p $out
       echo "Hail Satan" > $out/index.html
       echo "User-agent: *" > $out/robots.txt

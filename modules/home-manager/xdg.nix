@@ -6,7 +6,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
-    {
+      {
         xdg.dataFile = {
           "applications/Firefox (Work).desktop".text = ''
             [Desktop Entry]
@@ -38,6 +38,6 @@ in
           };
         };
 
-    };
+      };
   };
 }

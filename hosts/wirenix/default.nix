@@ -18,8 +18,8 @@
   };
 
   environment.etc."wireguard_key" = {
-      text = builtins.readFile ./wgKey;
-      mode = "0400";
+    text = builtins.readFile ./wgKey;
+    mode = "0400";
   };
 
   networking.wg-quick.interfaces.wg0 = {

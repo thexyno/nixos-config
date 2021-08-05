@@ -11,15 +11,13 @@ in
       default = "grafana";
     };
   config = lib.mkIf cfg.enable {
-    services.grafana = {
-
-    };
+    services.grafana = { };
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       useACMEHost = "${domain}";
       addSSL = true;
       locations = {
         "/".proxyPass = "http://127.0.0.1:${config.services.grafana.port}";
-        };
+      };
     };
 
     ragon.persist.extraDirectories = [

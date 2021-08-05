@@ -38,7 +38,7 @@ in
     services.zfs.autoScrub.enable = true;
     services.sanoid = {
       enable = mkDefault persistentSnapshot;
-    } // (if persistentSnapshot then { datasets."${persistent}" = { }; } else {});
+    } // (if persistentSnapshot then { datasets."${persistent}" = { }; } else { });
     services.syncoid = {
       user = "root";
       group = "root";
@@ -93,8 +93,8 @@ in
           options = [ "x-systemd.automount" "noauto" ];
         };
     swapDevices = mkIf cfg.swap [
-        { device = "/dev/zvol/pool/swap"; }
-      ] ;
+      { device = "/dev/zvol/pool/swap"; }
+    ];
 
   };
 }

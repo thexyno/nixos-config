@@ -21,7 +21,7 @@ in
       consumptionDirIsPublic = true;
       passwordFile = "/run/secrets/paperlessAdminPW";
       extraConfig = {
-          PAPERLESS_OCR_LANGUAGE = "deu+eng";
+        PAPERLESS_OCR_LANGUAGE = "deu+eng";
       };
     };
     ragon.agenix.secrets.paperlessAdminPW = { group = "${config.services.paperless-ng.user}"; mode = "0440"; };
@@ -31,9 +31,9 @@ in
       addSSL = true;
       locations."/".proxyPass = "http://${config.services.paperless-ng.address}:${toString config.services.paperless-ng.port}";
       locations."/".proxyWebsockets = true;
+    };
+    ragon.persist.extraDirectories = [
+      "${config.services.paperless-ng.dataDir}"
+    ];
   };
-  ragon.persist.extraDirectories = [
-    "${config.services.paperless-ng.dataDir}"
-  ];
-};
 }

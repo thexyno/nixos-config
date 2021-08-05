@@ -16,7 +16,7 @@
 
   security.sudo.wheelNeedsPassword = false;
   networking.useDHCP = true;
-  networking.bridges."br0".interfaces = [];
+  networking.bridges."br0".interfaces = [ ];
   networking.hostId = "7b4c2932";
   boot.initrd.network = {
     enable = true;
@@ -55,8 +55,8 @@
 
   };
 
-  ragon.agenix.secrets."ds9rcloneConfig" = {};
-  ragon.agenix.secrets."ds9resticPassword" = {};
+  ragon.agenix.secrets."ds9rcloneConfig" = { };
+  ragon.agenix.secrets."ds9resticPassword" = { };
 
 
   # Immutable users due to tmpfs

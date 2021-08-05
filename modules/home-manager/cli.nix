@@ -6,8 +6,8 @@ in
 {
   config = lib.mkIf cfg.enable {
     home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
-    {
-      programs = {
+      {
+        programs = {
           bat = {
             enable = true;
             config.theme = "gruvbox-dark";
@@ -63,9 +63,9 @@ in
               theme = "gruvbox-dark-soft";
               combi-modi = "drun,run,ssh";
             };
+          };
+        };
       };
-    };
   };
-};
 }
 

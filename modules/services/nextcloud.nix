@@ -41,8 +41,8 @@ in
       ];
     };
     systemd.services."nextcloud-setup" = {
-      requires = ["postgresql.service"];
-      after = ["postgresql.service"];
+      requires = [ "postgresql.service" ];
+      after = [ "postgresql.service" ];
     };
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       forceSSL = true;

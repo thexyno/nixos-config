@@ -13,12 +13,14 @@ let
     GUNICORN_CMD_ARGS = "--bind=${cfg.address}:${toString cfg.port}";
   } // lib.mapAttrs (_: toString) cfg.extraConfig;
 
-  manage = let
-    setupEnv = lib.concatStringsSep "\n" (mapAttrsToList (name: val: "export ${name}=\"${val}\"") env);
-  in pkgs.writeShellScript "manage" ''
-    ${setupEnv}
-    exec ${cfg.package}/bin/paperless-ng "$@"
-  '';
+  manage =
+    let
+      setupEnv = lib.concatStringsSep "\n" (mapAttrsToList (name: val: "export ${name}=\"${val}\"") env);
+    in
+    pkgs.writeShellScript "manage" ''
+      ${setupEnv}
+      exec ${cfg.package}/bin/paperless-ng "$@"
+    '';
 
   # Secure the services
   defaultServiceConfig = {
@@ -151,7 +153,7 @@ in
 
     extraConfig = mkOption {
       type = types.attrs;
-      default = {};
+      default = { };
       description = ''
         Extra paperless-ng config options.
 

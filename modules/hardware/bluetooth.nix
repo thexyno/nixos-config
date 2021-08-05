@@ -12,13 +12,13 @@ in
       package = pkgs.pulseaudioFull;
     };
     ragon.gui.autostart = [
-      ["${pkgs.blueberry}/bin/blueberry-tray"]
+      [ "${pkgs.blueberry}/bin/blueberry-tray" ]
     ];
-    environment.systemPackages = (if config.ragon.gui.enable then [ pkgs.blueberry ] else []);
-    
+    environment.systemPackages = (if config.ragon.gui.enable then [ pkgs.blueberry ] else [ ]);
+
     ragon.persist.extraDirectories = [
       "/var/lib/bluetooth"
     ];
-      
+
   };
 }

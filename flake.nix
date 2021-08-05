@@ -135,7 +135,7 @@
               p = pkgs system;
             in
             p.mkShell {
-              buildInputs = [ p.lefthook deploy-rs.defaultPackage.${system} p.nixpkgs-fmt ];
+              buildInputs = [ p.lefthook p.nixpkgs-fmt ];
             };
         in
         forAllSystems mkS;

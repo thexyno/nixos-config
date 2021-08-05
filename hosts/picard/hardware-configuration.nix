@@ -20,8 +20,8 @@
     network = {
       enable = true;
       postCommands = ''
-       zpool import rpool
-       echo "zfs load-key -a; killall zfs" >> /root/.profile
+        zpool import rpool
+        echo "zfs load-key -a; killall zfs" >> /root/.profile
       '';
       ssh = {
         enable = true;

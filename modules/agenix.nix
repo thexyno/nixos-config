@@ -15,8 +15,7 @@ in
     enable = mkBoolOpt true;
     secrets = mkOption {
       type = types.attrs;
-      default = {
-      };
+      default = { };
     };
   };
   config = mkIf cfg.enable {
@@ -28,15 +27,15 @@ in
         "/persistent/etc/ssh/ssh_host_rsa_key"
         "/persistent/etc/ssh/ssh_host_ed25519_key"
       ];
-    age.secrets = mapAttrs (name: obj: ({ file = "${secretsDir}/${name}.age"; } // obj ))
-      ( cfg.secrets //
+    age.secrets = mapAttrs (name: obj: ({ file = "${secretsDir}/${name}.age"; } // obj))
+      (cfg.secrets //
         {
-          rootPasswd = {};
-          ragonPasswd = {};
+          rootPasswd = { };
+          ragonPasswd = { };
         }
-    );
+      );
     assertions = [
-      { assertion =  (pathExists secretsFile); message = "${secretsFile} does not exist"; }
+      { assertion = (pathExists secretsFile); message = "${secretsFile} does not exist"; }
     ];
   };
 }

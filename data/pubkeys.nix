@@ -8,16 +8,16 @@ let
       server = user ++ hosts.ds9 ++ hosts.wormhole ++ hosts.picard;
       client = user ++ hosts.enterprise ++ hosts.voyager;
       hosts = {
-        wormhole = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO7Ab/50Bg9EncYbobC6kzdDzCDgvM1Tlf/9d+SDkO15"];
-        enterprise = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKXtH/ZY7u7ejf+EyzWleWRVUP8aNU5Gna5lpfVPRcuj"];
-        voyager = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKejPH5g1z8Syx5YhypidjMZ6itJTgDBBpfAVUIb4+a5"];
-        ds9 = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ+BBXufXAJhyUHVfhqlk8Y4zEKJbKXgJQvsdE482lpV"];
-        picard = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAm3UXZaN95WBUaS9SiHLNEuI1tP1x1w07qnYxPe+vdr"];
+        wormhole = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO7Ab/50Bg9EncYbobC6kzdDzCDgvM1Tlf/9d+SDkO15" ];
+        enterprise = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKXtH/ZY7u7ejf+EyzWleWRVUP8aNU5Gna5lpfVPRcuj" ];
+        voyager = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKejPH5g1z8Syx5YhypidjMZ6itJTgDBBpfAVUIb4+a5" ];
+        ds9 = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ+BBXufXAJhyUHVfhqlk8Y4zEKJbKXgJQvsdE482lpV" ];
+        picard = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAm3UXZaN95WBUaS9SiHLNEuI1tP1x1w07qnYxPe+vdr" ];
       };
     in
     {
       inherit user server client hosts;
-      computers = user ++ (builtins.foldl' (a: b: a ++ b) [] (builtins.attrValues hosts)); # everything
+      computers = user ++ (builtins.foldl' (a: b: a ++ b) [ ] (builtins.attrValues hosts)); # everything
       host = hn: (hosts.${hn} ++ user);
     };
 in

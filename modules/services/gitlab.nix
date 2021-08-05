@@ -25,7 +25,7 @@ in
       };
     };
 
-    ragon.agenix.secrets = foldl (a: b: a // b) {} (map (a: { ${a} = { owner = "gitlab"; }; }) [
+    ragon.agenix.secrets = foldl (a: b: a // b) { } (map (a: { ${a} = { owner = "gitlab"; }; }) [
       "gitlabDBFile"
       "gitlabInitialRootPassword"
       "gitlabJWSFile"

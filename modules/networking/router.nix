@@ -93,7 +93,7 @@ in
     lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [
-        { hostname = "enterprise"; mac = "d8:cb:8a:76:09:0a"; tcpports = [ 22 ]; udpports = []; }
+        { hostname = "enterprise"; mac = "d8:cb:8a:76:09:0a"; tcpports = [ 22 ]; udpports = [ ]; }
         { hostname = "earthquake"; mac = "78:24:af:bc:0c:07"; tcpports = [ 22 22000 ]; udpports = [ 22000 51820 ]; }
       ];
     };
@@ -236,8 +236,8 @@ in
     networking.nftables.ruleset =
       let
         unsafeInterfaces = (map (x: x.name) (filter (x: x.internet == false) nets));
-        safeInterfaces = (map (x: x.name) (filter (x: x.internet == true) nets)) ++ ["lo"];
-        allInternalInterfaces = (map (x: x.name) nets) ++ ["lo"];
+        safeInterfaces = (map (x: x.name) (filter (x: x.internet == true) nets)) ++ [ "lo" ];
+        allInternalInterfaces = (map (x: x.name) nets) ++ [ "lo" ];
         portForwards = concatStringsSep "\n" (map (x: "iifname ${waninterface} ${x.proto} dport ${toString x.sourcePort} dnat ${x.destination}") cfg.forwardedPorts);
         dropUnsafe = concatStringsSep "\n" (map (x: "iifname ${x} drop") unsafeInterfaces);
         allowSafe = concatStringsSep "\n" (map (x: "iifname ${x} accept") safeInterfaces);

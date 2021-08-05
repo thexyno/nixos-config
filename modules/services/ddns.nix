@@ -59,6 +59,6 @@ in
     systemd.tmpfiles.rules = [
       "d ${cacheDir} 1777 root root 10m"
     ];
-    ragon.agenix.secrets.cloudflareAcme = {};
+    ragon.agenix.secrets.cloudflareAcme = { };
   };
 }

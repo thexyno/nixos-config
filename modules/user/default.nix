@@ -58,7 +58,7 @@ in
       openssh.authorizedKeys.keys = pkgs.pubkeys.ragon.computers ++ extraAuthorizedKeys;
       passwordFile = "/run/secrets/ragonPasswd";
     };
-    ragon.agenix.secrets.ragonPasswd = {};
+    ragon.agenix.secrets.ragonPasswd = { };
 
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
