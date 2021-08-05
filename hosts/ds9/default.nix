@@ -71,8 +71,9 @@
     wantedBy = [ "multi-user.target" ];
     path = with pkgs; [ bash ];
     serviceConfig = {
-      DynamicUser = true;
-      SupplementaryGroups = [ "scanner" "lp" "avahi" ];
+      User = "scanner";
+      Group = "scanner";
+      SupplementaryGroups = [ "lp" "avahi" ];
       PrivateTmp = true;
       ExecStart =
         let
@@ -80,6 +81,7 @@
             #!/usr/bin/env bash
             export PATH=${lib.makeBinPath [ pkgs.gnugrep pkgs.coreutils pkgs.sane-backends pkgs.sane-airscan pkgs.imagemagick ]}
             set -x
+            id
             date="''$(date --iso-8601=seconds)"
             filename="Scan ''$date.pdf"
             tmpdir="''$(mktemp -d)"
