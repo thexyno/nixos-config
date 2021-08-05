@@ -75,18 +75,19 @@
       Group = "scanner";
       SupplementaryGroups = [ "lp" "avahi" ];
       PrivateTmp = true;
+      ProtectHome = true;
       ExecStart =
         let
           scanScript = pkgs.writeScript "plscan.sh" ''
             #!/usr/bin/env bash
-            export PATH=${lib.makeBinPath [ pkgs.gnugrep pkgs.coreutils pkgs.sane-backends pkgs.sane-airscan pkgs.imagemagick ]}
+            export PATH=${lib.makeBinPath [ pkgs.strace pkgs.gnugrep pkgs.coreutils pkgs.sane-backends pkgs.sane-airscan pkgs.imagemagick ]}
             set -x
             id
             date="''$(date --iso-8601=seconds)"
             filename="Scan ''$date.pdf"
             tmpdir="''$(mktemp -d)"
             pushd "''$tmpdir"
-            scanimage --batch=out%d.jpg --format=jpeg --mode Gray -d "airscan:e0:Canon MB5100 series" --source "ADF Duplex" --resolution 300
+            strace scanimage --batch=out%d.jpg --format=jpeg --mode Gray -d "airscan:e0:Canon MB5100 series" --source "ADF Duplex" --resolution 300
             for i in $(echo out*.jpg | grep 'out.*[24680]\.jpg'); do convert $i -rotate 180 $i; done # rotate even stuff
             convert out*.jpg /data/applications/paperless-consumption/"''$filename"
             chmod 666 /data/applications/paperless-consumption/"''$filename"
