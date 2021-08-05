@@ -71,7 +71,7 @@
     wantedBy = [ "multi-user.target" ];
     path = with pkgs; [ bash ];
     serviceConfig = {
-      User = "scanner";
+      DynamicUser = true;
       Group = "scanner";
       SupplementaryGroups = [ "lp" "avahi" ];
       PrivateTmp = true;
