@@ -96,7 +96,7 @@
             }
           ]);
         in
-        "${pkgs.webhook}/bin/webhook -hooks ${hooksFile}";
+        "${pkgs.webhook}/bin/webhook -hooks ${hooksFile} -verbose";
     };
   };
   networking.firewall.allowedTCPPorts = [ 9000 ];
