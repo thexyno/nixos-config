@@ -82,11 +82,8 @@
       BindPaths = [
         "/data/applications/paperless-consumption"
       ];
-      DeviceAllow = "";
       LockPersonality = true;
-      MemoryDenyWriteExecute = true;
       NoNewPrivileges = true;
-      PrivateDevices = true;
       PrivateMounts = true;
       PrivateTmp = true;
       PrivateUsers = true;
@@ -99,7 +96,6 @@
       ProtectKernelModules = true;
       ProtectKernelTunables = true;
       ProtectProc = "invisible";
-      RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
       RestrictNamespaces = true;
       RestrictRealtime = true;
       RestrictSUIDSGID = true;
