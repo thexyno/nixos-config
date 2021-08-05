@@ -99,6 +99,7 @@
         "${pkgs.webhook}/bin/webhook -hooks ${hooksFile}";
     };
   };
+  networking.firewall.allowedTCPPorts = [ 9000 ];
 
 
   # Immutable users due to tmpfs
