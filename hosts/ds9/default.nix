@@ -69,7 +69,7 @@
     description = "webhook go server to trigger scanning";
     documentation = [ "https://github.com/adnanh/webhook" ];
     wantedBy = [ "multi-user.target" ];
-    path = with pkgs; [ ];
+    path = with pkgs; [ bash ];
     serviceConfig = {
       DynamicUser = true;
       PrivateTmp = true;
