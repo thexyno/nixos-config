@@ -15,7 +15,7 @@ in
     ] ++ (if cfg.maximal then [
       python3 # ultisnips
       nodejs
-      # coc-diagnostic
+      inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
       shfmt
       shellcheck
       vim-vint
