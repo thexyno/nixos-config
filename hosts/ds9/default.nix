@@ -87,7 +87,8 @@
             pushd "''$tmpdir"
             scanimage --batch=out%d.jpg --format=jpeg --mode Gray -d "airscan:e0:Canon MB5100 series" --source "ADF Duplex" --resolution 300
             for i in $(echo out*.jpg | grep 'out.*[24680]\.jpg'); do convert $i -rotate 180 $i; done # rotate even stuff
-            convert out*.jpg /data/applications/paperless-consumption/"$filename"
+            convert out*.jpg /data/applications/paperless-consumption/"''$filename"
+            chmod 666 /data/applications/paperless-consumption/"''$filename"
             popd
             rm -r "''$tmpdir"
           '';
