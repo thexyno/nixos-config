@@ -71,11 +71,47 @@
     wantedBy = [ "multi-user.target" ];
     path = with pkgs; [ bash ];
     serviceConfig = {
-      DynamicUser = true;
-      Group = "scanner";
-      SupplementaryGroups = [ "lp" "avahi" ];
+      TemporaryFileSystem = "/:ro";
+      BindReadOnlyPaths = [
+        "/nix/store"
+        "-/etc/resolv.conf"
+        "-/etc/nsswitch.conf"
+        "-/etc/hosts"
+        "-/etc/localtime"
+      ];
+      BindPaths = [
+        "/data/applications/paperless-consumption"
+      ];
+      DeviceAllow = "";
+      LockPersonality = true;
+      MemoryDenyWriteExecute = true;
+      NoNewPrivileges = true;
+      PrivateDevices = true;
+      PrivateMounts = true;
+      # Needs to connect to redis
+      # PrivateNetwork = true;
       PrivateTmp = true;
-      ProtectHome = true;
+      PrivateUsers = true;
+      ProcSubset = "pid";
+      ProtectClock = true;
+      # Breaks if the home dir of the user is in /home
+      # Also does not add much value in combination with the TemporaryFileSystem.
+      # ProtectHome = true;
+      ProtectHostname = true;
+      # Would re-mount paths ignored by temporary root
+      #ProtectSystem = "strict";
+      ProtectControlGroups = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectProc = "invisible";
+      RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      SystemCallArchitectures = "native";
+      SystemCallFilter = [ "@system-service" "~@privileged @resources @setuid @keyring" ];
+      DynamicUser = true;
       ExecStart =
         let
           scanScript = pkgs.writeScript "plscan.sh" ''
@@ -88,7 +124,7 @@
             tmpdir="''$(mktemp -d)"
             pushd "''$tmpdir"
             scanimage --batch=out%d.jpg --format=jpeg --mode Gray -d "airscan:e0:Canon MB5100 series" --source "ADF Duplex" --resolution 300
-            for i in $(echo out*.jpg | grep 'out.*[24680]\.jpg'); do convert $i -rotate 180 $i; done # rotate even stuff
+            for i in $(ls out*.jpg | grep 'out.*[24680]\.jpg'); do convert $i -rotate 180 $i; done # rotate even stuff
             convert out*.jpg /data/applications/paperless-consumption/"''$filename"
             chmod 666 /data/applications/paperless-consumption/"''$filename"
             popd
