@@ -79,7 +79,7 @@
         let
           scanScript = pkgs.writeScript "plscan.sh" ''
             #!/usr/bin/env bash
-            export PATH=${lib.makeBinPath [ pkgs.coreutils pkgs.sane-backends pkgs.sane-airscan pkgs.imagemagick ]}
+            export PATH=${lib.makeBinPath [ pkgs.imagemagick ]}:/run/current-system/sw/bin # hacky path, but it works out
             set -x
             date="''$(date --iso-8601=seconds)"
             filename="Scan ''$date.pdf"
