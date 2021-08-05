@@ -88,7 +88,7 @@
             popd
             rm -r "''$tmpdir"
           '';
-          hooksFile = builtins.toFile "webhook.json" (builtins.toJson [
+          hooksFile = builtins.toFile "webhook.json" (builtins.toJSON [
             {
               id = "scan-webhook";
               execute-command = "${scanScript}";
