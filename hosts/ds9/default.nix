@@ -71,13 +71,12 @@
     wantedBy = [ "multi-user.target" ];
     path = with pkgs; [ bash ];
     serviceConfig = {
-      DynamicUser = true;
       PrivateTmp = true;
       ExecStart =
         let
           scanScript = pkgs.writeScript "plscan.sh" ''
             #!/usr/bin/env bash
-            export PATH=${lib.makeBinPath [ pkgs.coreutils pkgs.sane-backends pkgs.imagemagick ]}
+            export PATH=${lib.makeBinPath [ pkgs.coreutils pkgs.sane-backends pkgs.sane-airscan pkgs.imagemagick ]}
             set -x
             date="''$(date --iso-8601=seconds)"
             filename="Scan ''$date.pdf"
