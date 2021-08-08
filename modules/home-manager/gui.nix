@@ -121,6 +121,10 @@ in
         services.picom.vSync = true;
         services.mpris-proxy.enable = true;
 
+        services.screen-locker = {
+          enable = config.ragon.laptop.enable;
+        };
+
     };
   };
 }
