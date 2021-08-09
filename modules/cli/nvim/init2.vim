@@ -32,8 +32,6 @@ cmap w!! w !sudo tee > /dev/null %
 set expandtab
 set shiftwidth=2
 set softtabstop=2
-" mapleader to ü
-let mapleader = 'ü';
 " buffers don't get unloaded when hidden
 set hidden
 " \coc Some servers have issues with backup files, see #649.
