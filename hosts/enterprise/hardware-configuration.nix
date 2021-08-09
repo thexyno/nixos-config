@@ -17,4 +17,5 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.driSupport = true;
+  hardware.opengl.enable = true;
 }
