@@ -1,39 +1,3 @@
-""" binds
-" resize binds
-" Splitting (A-HJKL to resizee)
-noremap <A-h> :vertical resize -5<CR>
-noremap <A-l> :vertical resize +5<CR>
-noremap <A-j> :resize -5<CR>
-noremap <A-k> :resize +5<CR>
-" buffer binds
-map ,q :bd<CR>
-map ,b :Buffers<CR>
-nnoremap <A-s> :vsp<CR>
-nnoremap <C-s> :split<CR>
-map <C-t> :tabnew<CR>
-" Make Copy paste with other programs work (Needs GVim installed)
-vnoremap <C-c> "+y
-map <C-b> "+P
-cmap w!! w !sudo tee > /dev/null %
-
-" Shortcutting split navigation, saving a keypress:
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-
-noremap <C-p> :registers<CR>
-" make terminal usable(TM)
-augroup neovim_terminal
-    autocmd!
-    " Enter Terminal-mode (insert) automatically
-    autocmd TermOpen * startinsert
-    " Disables number lines on terminal buffers
-    autocmd TermOpen * :set nonumber norelativenumber
-    " allows you to use Ctrl-c on terminal window
-    autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
-augroup END
-tnoremap <C-b> <C-\><C-n>
 """ set's
 
 " yaml
@@ -85,6 +49,42 @@ set shortmess+=c
 " \coc Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=number
+""" binds
+" resize binds
+" Splitting (A-HJKL to resizee)
+noremap <A-h> :vertical resize -5<CR>
+noremap <A-l> :vertical resize +5<CR>
+noremap <A-j> :resize -5<CR>
+noremap <A-k> :resize +5<CR>
+" buffer binds
+map ,q :bd<CR>
+map ,b :Buffers<CR>
+nnoremap <A-s> :vsp<CR>
+nnoremap <C-s> :split<CR>
+map <C-t> :tabnew<CR>
+" Make Copy paste with other programs work (Needs GVim installed)
+vnoremap <C-c> "+y
+map <C-b> "+P
+cmap w!! w !sudo tee > /dev/null %
+
+" Shortcutting split navigation, saving a keypress:
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+noremap <C-p> :registers<CR>
+" make terminal usable(TM)
+augroup neovim_terminal
+    autocmd!
+    " Enter Terminal-mode (insert) automatically
+    autocmd TermOpen * startinsert
+    " Disables number lines on terminal buffers
+    autocmd TermOpen * :set nonumber norelativenumber
+    " allows you to use Ctrl-c on terminal window
+    autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
+augroup END
+tnoremap <C-b> <C-\><C-n>
 
 """" plugins
 
