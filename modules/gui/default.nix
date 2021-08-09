@@ -56,8 +56,18 @@ in
       description = "EurKEY (US based layout with European letters)";
       languages = [ 
             "ger"
+            "gre"
+            "gsw"
+            "ita"
+            "lav"
+            "lit"
+            "nld"
+            "nor"
+            "por"
+            "spa"
+            "swe"
       ];
-      symbolsFile = "${inputs.eurkey-colemak}/Linux/xkb/symbols/eu";
+      symbolsFile = ./data/xkb/symbols/colemak_eurkey;
     };
 
 

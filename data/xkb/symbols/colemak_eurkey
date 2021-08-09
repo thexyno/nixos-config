@@ -1,0 +1,45 @@
+partial alphanumeric_keys modifier_keys 
+xkb_symbols "eurkey-cmk-dh-ansi"  {
+
+        include "eu(basic)"
+        name[Group1] = "EurKEY (Colemak-DH, ANSI)";
+
+        key <AD01> { [              q,                 Q,               agrave,               Agrave ] };
+        key <AD02> { [              w,                 W,               aacute,               Aacute ] };
+        key <AD03> { [              f,                 F,                U0133,                U0132 ] };
+        key <AD04> { [              p,                 P,               igrave,               Igrave ] };
+        key <AD05> { [              b,                 B,               iacute,               Iacute ] };
+        key <AD06> { [              j,                 J,               ugrave,               Ugrave ] };
+        key <AD07> { [              l,                 L,               uacute,               Uacute ] };
+        key <AD08> { [              u,                 U,           udiaeresis,           Udiaeresis ] };
+        key <AD09> { [              y,                 Y,           ydiaeresis,           Ydiaeresis ] };
+        key <AD10> { [      semicolon,             colon,               degree,       periodcentered ] };
+
+        key <AC02> { [              r,                 R,                aring,                Aring ] };
+        key <AC03> { [              s,                 S,               ssharp,                U1E9E ] };
+        key <AC04> { [              t,                 T,                thorn,                Thorn ] };
+        key <AC05> { [              g,                 G,               egrave,               Egrave ] };
+        key <AC06> { [              m,                 M,               eacute,               Eacute ] };
+        key <AC07> { [              n,                 N,               ntilde,               Ntilde ] };
+        key <AC08> { [              e,                 E,           ediaeresis,           Ediaeresis ] };
+        key <AC09> { [              i,                 I,           idiaeresis,           Idiaeresis ] };
+        key <AC10> { [              o,                 O,           odiaeresis,           Odiaeresis ] };
+
+        key <AB01> { [              x,                 X,                   ae,                   AE ] };
+        key <AB02> { [              c,                 C,             ccedilla,             Ccedilla ] };
+        key <AB03> { [              d,                 D,              dstroke,              Dstroke ] };
+        key <AB04> { [              v,                 V,                   oe,                   OE ] };
+        key <AB05> { [              z,                 Z,               yacute,               Yacute ] };
+        key <AB06> { [              k,                 K,           dead_greek,           squareroot ] };
+        key <AB07> { [              h,                 H,               oslash,               Oslash ] };
+};
+
+partial alphanumeric_keys modifier_keys 
+xkb_symbols "eurkey-cmk-dh-iso"  {
+        
+        include "eu(eurkey-cmk-dh-ansi)"
+        name[Group1] = "EurKEY (Colemak-DH, ISO)";
+
+        key <AB05> { [     numbersign,        dead_tilde,              section,                tilde ] }; //change AB05 to LSGT
+        key <LSGT> { [              z,                 Z,               yacute,               Yacute ] };
+};
