@@ -55,7 +55,7 @@ in
     services.xserver.extraLayouts.eurkeycolemak = {
       description = "Colemak Eurkey iso";
       languages = [ "eu" ];
-      symbols = "${inputs.eurkey-colemak}" /Linux/xkb/symbols/eu;
+      symbols = "${inputs.eurkey-colemak}/Linux/xkb/symbols/eu";
     };
 
 
