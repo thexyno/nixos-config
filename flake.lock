@@ -110,6 +110,22 @@
         "url": "ssh://git@gitlab.hochkamp.eu/ragon/dwm"
       }
     },
+    "eurkey-colemak": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1610815958,
+        "narHash": "sha256-Z4GfDRjJL9GuVrQBOj6tcMORzpXviS5C7Qo/dSceWDY=",
+        "owner": "jungganz",
+        "repo": "eurkey-colemak-mod-dh",
+        "rev": "6e1a60ab53bf564b348ac79d388e2b4185b7f9af",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "jungganz",
+        "repo": "eurkey-colemak-mod-dh",
+        "type": "gitlab"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -480,6 +496,7 @@
         "dart-vim": "dart-vim",
         "deploy-rs": "deploy-rs",
         "dwm": "dwm",
+        "eurkey-colemak": "eurkey-colemak",
         "flake-compat": "flake-compat_2",
         "home-manager": "home-manager",
         "impermanence": "impermanence",

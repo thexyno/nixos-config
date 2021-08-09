@@ -52,6 +52,13 @@ in
     ];
 
 
+    services.xserver.extraLayouts.eurkeycolemak = {
+      description = "Colemak Eurkey iso";
+      languages = [ "eu" ];
+      symbols = "${inputs.eurkey-colemak}" /Linux/xkb/symbols/eu;
+    };
+
+
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
     documentation.info.enable = false; # https://github.com/NixOS/nixpkgs/issues/124215#issuecomment-846762260
