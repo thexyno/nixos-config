@@ -52,23 +52,23 @@ in
     ];
 
 
-    services.xserver.extraLayouts.eu = {
-      description = "EurKEY (US based layout with European letters)";
-      languages = [ 
-            "ger"
-            "gre"
-            "gsw"
-            "ita"
-            "lav"
-            "lit"
-            "nld"
-            "nor"
-            "por"
-            "spa"
-            "swe"
-      ];
-      symbolsFile = ../../data/xkb/symbols/colemak_eurkey;
-    };
+    # services.xserver.extraLayouts.eu = {
+    #   description = "EurKEY (US based layout with European letters)";
+    #   languages = [ 
+    #         "ger"
+    #         "gre"
+    #         "gsw"
+    #         "ita"
+    #         "lav"
+    #         "lit"
+    #         "nld"
+    #         "nor"
+    #         "por"
+    #         "spa"
+    #         "swe"
+    #   ];
+    #   symbolsFile = ../../data/xkb/symbols/colemak_eurkey;
+    # };
 
 
     # List packages installed in system profile. To search by name, run:
