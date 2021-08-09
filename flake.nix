@@ -28,13 +28,6 @@
 
     # other inputs
 
-    ## colemak eurkey
-    eurkey-colemak = {
-      flake = false;
-      url = "gitlab:jungganz/eurkey-colemak-mod-dh";
-    };
-
-
     ## needed for shell.nix
     flake-compat = {
       url = "github:edolstra/flake-compat";
