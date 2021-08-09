@@ -7,5 +7,6 @@ in
   config = lib.mkIf cfg.enable {
     # \ragon a bit sparse for now
     services.mullvad-vpn.enable = true;
+    environment.systemPackages = [ pkgs.mullvad-vpn ];
   };
 }
