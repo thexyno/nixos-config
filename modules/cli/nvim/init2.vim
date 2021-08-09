@@ -99,7 +99,7 @@ let g:lightline = {
       \             [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
+      \   'gitbranch': 'FugitiveHead',
 	    \   'cocstatus': 'coc#status'
       \ },
       \ }
