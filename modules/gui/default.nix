@@ -52,26 +52,10 @@ in
     ];
 
 
-    services.xserver.extraLayouts.eurkey = {
+    services.xserver.extraLayouts.eu = {
       description = "EurKEY (US based layout with European letters)";
       languages = [ 
-            "cat"
-            "dan"
-            "eng"
-            "est"
-            "fao"
-            "fin"
             "ger"
-            "gre"
-            "gsw"
-            "ita"
-            "lav"
-            "lit"
-            "nld"
-            "nor"
-            "por"
-            "spa"
-            "swe"
       ];
       symbolsFile = "${inputs.eurkey-colemak}/Linux/xkb/symbols/eu";
     };
