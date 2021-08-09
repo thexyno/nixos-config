@@ -52,7 +52,7 @@ in
     ];
 
 
-    services.xserver.extraLayouts.eu = {
+    services.xserver.extraLayouts.eurkey = {
       description = "EurKEY (US based layout with European letters)";
       languages = [ 
             "cat"
