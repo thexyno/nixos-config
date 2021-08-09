@@ -2,6 +2,7 @@
 let
   cfg = config.ragon.nvim;
 in
+with lib;
 {
   options.ragon.nvim.enable = lib.mkEnableOption "Enables ragons nvim config";
   options.ragon.nvim.maximal = lib.mkOption {
@@ -12,7 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       my.nnn
-    ] ++ (if cfg.maximal then [
+    ] ++ optionals cfg.maximal [
       python3 # ultisnips
       nodejs
       inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
@@ -20,16 +21,17 @@ in
       shellcheck
       vim-vint
       nodePackages.write-good
-    ] else [ ]);
+      ctags
+    ];
 
     ragon.user.persistent.extraDirectories = [
       ".local/share/nvim"
 
-    ] ++ (if cfg.maximal then [
+    ] ++ optionals cfg.maximal [
       ".config/TabNine"
       ".local/share/TabNine"
       ".config/coc"
-    ] else [ ]);
+    ];
 
     programs.neovim = {
       package = pkgs.neovim-nightly;
@@ -59,9 +61,9 @@ in
         {
           packages.myVimPackage.start = with pkgs.vimPlugins; [
             nnn-vim
+            rainbow
             vista-vim
             polyglot
-            rainbow
             vim-commentary
             vim-table-mode
             vim-speeddating
@@ -74,7 +76,7 @@ in
             fzf-vim
             fzfWrapper
             vim-devicons
-          ] ++ (if cfg.maximal then [
+          ] ++ optionals cfg.maximal [
             undotree
             vim-pandoc
             vim-pandoc-live-preview
@@ -82,9 +84,9 @@ in
             ultisnips
             coc-nvim
             dart-vim
-          ] else [ ]);
+          ];
 
-          customRC = builtins.readFile ./init.vim;
+          customRC = builtins.readFile ./init2.vim;
         };
     };
 
