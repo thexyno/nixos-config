@@ -122,7 +122,7 @@ in
         services.mpris-proxy.enable = true;
 
         services.screen-locker = {
-          enable = config.ragon.laptop.enable;
+          enable = config.ragon.hardware.laptop.enable;
         };
 
     };
