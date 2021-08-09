@@ -67,7 +67,7 @@ in
             "spa"
             "swe"
       ];
-      symbolsFile = ../..//data/xkb/symbols/colemak_eurkey;
+      symbolsFile = ../../data/xkb/symbols/colemak_eurkey;
     };
 
 
