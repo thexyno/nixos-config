@@ -17,6 +17,7 @@ in
     };
     services.grocy = {
       enable = true;
+      nginx.enableSSL = false;
       hostName = "${cfg.domainPrefix}.${domain}";
       settings = {
         currency = "EUR";
