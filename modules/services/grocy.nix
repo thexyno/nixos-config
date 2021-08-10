@@ -21,7 +21,7 @@ in
       settings = {
         currency = "EUR";
         culture = "de";
-        firstDayOfWeek = 1;
+        calendar.firstDayOfWeek = 1;
       };
     };
     ragon.persist.extraDirectories = [
