@@ -6,25 +6,29 @@
 {
   imports =
     [
-      ../iso/default.nix
+    "${modulesPath}/installer/cd-dvd/iso-image.nix"
+    "${modulesPath}/profiles/headless.nix"
+    "${modulesPath}/profiles/minimal.nix"
+    "${modulesPath}/profiles/qemu-guest.nix"
     ];
-
-  networking.interfaces.ens18.useDHCP = true;
+  fileSystems."/".device = "tmpfs";
+  isoImage.isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${config.networking.hostName}.iso";
+  ragon.agenix.enable = false;
+  services.sshd.enable = true;
+  users.users.root.openssh.authorizedKeys.keys = pkgs.pubkeys.ragon.computers;
+  isoImage.makeEfiBootable = true;
+  isoImage.makeUsbBootable = true;
+  networking.interfaces.enp1s0.useDHCP = true;
 
   ragon.router = {
-    internalInterface = "ens19";
+    internalInterface = "enp2s0";
     externalInterface = "wg0";
     enable = true;
   };
 
-  environment.etc."wireguard_key" = {
-    text = builtins.readFile ./wgKey;
-    mode = "0400";
-  };
-
   networking.wg-quick.interfaces.wg0 = {
     privateKeyFile = "/etc/wireguard_key";
-    address = [ "10.65.203.192/32" "fc00:bbbb:bbbb:bb01::2:cbbf/128" ];
+    address = [ "10.64.93.110/32" "fc00:bbbb:bbbb:bb01::1:5d6d/128" ];
     dns = [ "193.138.218.74" ];
     postUp = ''
       ${pkgs.iptables}/bin/iptables -I OUTPUT -o wg0 -m mark ! --mark $(wg show wg0 fwmark) -m addrtype ! --dst-type LOCAL -j REJECT

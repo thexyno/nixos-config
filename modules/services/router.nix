@@ -32,7 +32,11 @@ in
       default = "eth0";
       description = "the internal Interface";
     };
-
+    netMask = lib.mkOption {
+      type = lib.types.str;
+      default = "255.255.255.0";
+      description = "the netmask";
+    };
     dhcpRangeFrom = lib.mkOption {
       type = lib.types.str;
       default = "192.168.2.10";
@@ -92,7 +96,7 @@ in
   config =
     lib.mkIf cfg.enable {
       networking.nat.enable = true;
-      networking.nat.internalIPs = [ "${subnet}/${prefixLength}" ];
+      networking.nat.internalIPs = [ "${subnet}/${ toString prefixLength}" ];
       networking.nat.externalInterface = externalInterface;
       networking.interfaces."${internalInterface}" = {
         ipAddress = gatewayIP;
