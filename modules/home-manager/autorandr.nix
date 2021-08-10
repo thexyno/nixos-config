@@ -100,7 +100,7 @@ in
                 enable = true;
                 crtc = 0;
                 mode = "2560x1440";
-                position = "4420x0";
+                position = "4480x0";
                 primary = true;
                 rate = "59.95";
               };
