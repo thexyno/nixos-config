@@ -142,7 +142,7 @@
     persist.enable = true;
 
     services = {
-      nix-cache.enable = true;
+      nix-serve.enable = true;
       docker.enable = true;
       ssh.enable = true;
       nfs.enable = true;
