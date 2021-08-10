@@ -123,6 +123,7 @@ in
 
         services.screen-locker = {
           enable = config.ragon.hardware.laptop.enable;
+          lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c 000000";
         };
 
     };
