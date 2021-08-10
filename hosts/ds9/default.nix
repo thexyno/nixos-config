@@ -130,16 +130,19 @@
   networking.firewall.allowedTCPPorts = [ 9000 ];
 
 
+
+
   # Immutable users due to tmpfs
   users.mutableUsers = false;
 
   ragon = {
     cli.enable = true;
     user.enable = true;
-    home-manager.enable = false;
+    home-manager.enable = true;
     persist.enable = true;
 
     services = {
+      nix-cache.enable = true;
       docker.enable = true;
       ssh.enable = true;
       nfs.enable = true;
