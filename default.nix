@@ -38,10 +38,12 @@ with lib.my;
       binaryCaches = [
         "https://nix-community.cachix.org"
         "https://arm.cachix.org"
+        "https://nix.hailsatan.eu"
       ];
       binaryCachePublicKeys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "arm.cachix.org-1:5BZ2kjoL1q6nWhlnrbAl+G7ThY7+HaBRD9PZzqZkbnM="
+        "nix.hailsatan.eu:26eHAF8OR1sLUzwQ4WPDRlXBz1hB9nGlO5qAcRrbFtQ="
       ];
       registry = registryInputs // { conf.flake = inputs.self; };
       autoOptimiseStore = true;
