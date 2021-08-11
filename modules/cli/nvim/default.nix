@@ -85,7 +85,7 @@ with lib;
             coc-nvim
             dart-vim
           ] ++ [
-            vim-colemak
+            # vim-colemak
           ];
 
           customRC = builtins.readFile ./init2.vim;
