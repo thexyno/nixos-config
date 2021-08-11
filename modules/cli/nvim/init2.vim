@@ -1,3 +1,6 @@
+""" colemak dh langmap
+set langmap=hm,HM,bt,BT,dc,ek,fe,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DC,EK,FE,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP
+
 """ set's
 
 " yaml
