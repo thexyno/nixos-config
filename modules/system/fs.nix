@@ -80,7 +80,7 @@ in
 
     fileSystems."/boot" =
       {
-        device = "/dev/disk/by-label/boot";
+        device = mkDefault "/dev/disk/by-label/boot";
         fsType = "vfat";
         options = [ "noauto" "x-systemd.automount" ];
       };

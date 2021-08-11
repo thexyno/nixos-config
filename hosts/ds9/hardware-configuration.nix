@@ -28,6 +28,9 @@
   services.sanoid.datasets."rpool/content/local/backups" = { };
   services.sanoid.enable = true;
 
+  swapDevices = { device = "/dev/disk/by-id/nvme-eui.000000000000000100a075202c247839-part1"; randomEncryption = true; };
+  fileSystems."/boot".device = "/dev/disk/by-uuid/149F-23AA";
+
   fileSystems."/data" = {
     device = "rpool/content/safe/data";
     fsType = "zfs";
