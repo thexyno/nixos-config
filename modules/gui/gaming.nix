@@ -11,7 +11,13 @@ in
     hardware.opengl.enable = true;
     programs.steam.enable = true;
     hardware.steam-hardware.enable = true;
+    nixpkgs.config.packageOverrides = pkgs: {
+      steam = pkgs.steam.override {
+        nativeOnly = true;
+      };
+    };
     environment.systemPackages = with pkgs; [
+      steam-run-native
       lutris
       vulkan-tools
       vulkan-loader
