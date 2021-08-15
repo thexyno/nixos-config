@@ -301,9 +301,9 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 """" orgmode-nvim
 require('orgmode').setup({
-  org_agenda_files = {'~/proj/org/inbox.org', '~/proj/org/gtd.org', '~/proj/org/tickler.org' },
+  org_agenda_files = {'~/proj/org/inbox.org', '~/proj/org/gtd.org', '~/proj/org/tickler.org', },
   org_default_notes_file = '~/proj/org/refile.org',
 })
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
