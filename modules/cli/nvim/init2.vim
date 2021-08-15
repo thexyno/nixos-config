@@ -311,12 +311,12 @@ require('orgmode').setup({
   org_agenda_templates = {
      t = {
         description = 'Todo [inbox]',
-        template = '* TODO %i%?',
+        template = '* TODO %a%?',
         target = '~/proj/org/gtd.org',
      },
      T = {
         description = 'Tickler',
-        template = '* %i%? \n %U',
+        template = '* %a%? \n %U',
         target = '~/proj/org/tickler.org',
      },
   },
