@@ -60,6 +60,7 @@ with lib;
           orgmode-nvim = pkgs.vimUtils.buildVimPlugin {
             name = "orgmode-nvim";
             src = inputs.orgmode-nvim;
+            buildInputs = [ pkgs.neovim ]
           };
         in
         {
