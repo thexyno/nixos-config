@@ -49,7 +49,7 @@ in
     # Install some extra fonts.
     fonts.fonts = with pkgs; [
       jetbrains-mono
-      (nerdfonts.override { fonts = [ "JetBrainsMono" "Terminus"]; )
+      (nerdfonts.override { fonts = [ "JetBrainsMono" "Terminus"]; })
     ];
 
 
