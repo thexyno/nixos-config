@@ -15,7 +15,7 @@ in
   options.ragon.gui.autostart = lib.mkOption {
     type = lib.types.listOf (lib.types.listOf lib.types.str);
     default = [
-      "autorandr -c"
+      [ "autorandr" "-c" ]
     ];
   };
   options.ragon.gui.spcmd1cmd = lib.mkOption {

@@ -57,6 +57,10 @@ with lib;
             name = "vim-pandoc-live-preview";
             src = inputs.vim-pandoc-live-preview;
           };
+          orgmode-nvim = pkgs.vimUtils.buildVimPlugin {
+            name = "orgmode-nvim";
+            src = inputs.orgmode-nvim;
+          };
         in
         {
           packages.myVimPackage.start = with pkgs.vimPlugins; [
@@ -76,6 +80,7 @@ with lib;
             fzf-vim
             fzfWrapper
             vim-devicons
+            orgmode-nvim
           ] ++ optionals cfg.maximal [
             undotree
             vim-pandoc

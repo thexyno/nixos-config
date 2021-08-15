@@ -402,6 +402,22 @@
         "type": "github"
       }
     },
+    "orgmode-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1628650464,
+        "narHash": "sha256-chAMa6PR88jM356mQAr2T6D11Utzfm60+o1AMZdgT9g=",
+        "owner": "kristijanhusak",
+        "repo": "orgmode.nvim",
+        "rev": "9b412b3a8356d15423f953f90d56c38b8917f290",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kristijanhusak",
+        "repo": "orgmode.nvim",
+        "type": "github"
+      }
+    },
     "pandoc-latex-template": {
       "flake": false,
       "locked": {
@@ -489,6 +505,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
         "nnn-vim": "nnn-vim",
+        "orgmode-nvim": "orgmode-nvim",
         "pandoc-latex-template": "pandoc-latex-template",
         "pandocode": "pandocode",
         "paperless": "paperless",
