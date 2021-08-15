@@ -26,6 +26,8 @@
     st.url = "github:ragon000/st/ragon";
     st.inputs.nixpkgs.follows = "nixpkgs";
 
+    emacs.url = "github:nix-community/emacs-overlay";
+
     # other inputs
 
     ## needed for shell.nix

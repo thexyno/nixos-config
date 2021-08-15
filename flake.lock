@@ -110,6 +110,21 @@
         "url": "ssh://git@gitlab.hochkamp.eu/ragon/dwm"
       }
     },
+    "emacs": {
+      "locked": {
+        "lastModified": 1629048554,
+        "narHash": "sha256-KDNcG5XpCrYKl+zkDKv8RBmqml8a4nzDydo4HZC8uHk=",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "d9bcb9a3429715bd6d505459fc99b1bdd8b54b95",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -496,6 +511,7 @@
         "dart-vim": "dart-vim",
         "deploy-rs": "deploy-rs",
         "dwm": "dwm",
+        "emacs": "emacs",
         "flake-compat": "flake-compat_2",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
