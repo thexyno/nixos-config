@@ -307,5 +307,18 @@ lua <<EOF
 require('orgmode').setup({
   org_agenda_files = {'~/proj/org/inbox.org', '~/proj/org/gtd.org', '~/proj/org/tickler.org', },
   org_default_notes_file = '~/proj/org/refile.org',
+  org_todo_keywords = {'TODO(t)', '|', 'DONE'},
+  org_agenda_templates = {
+     t = {
+        description = 'Todo [inbox]',
+        template = '* TODO %i%?',
+        target = '~/proj/org/gtd.org',
+     },
+     T = {
+        description = 'Tickler',
+        template = '* %i%? \n %U',
+        target = '~/proj/org/tickler.org',
+     },
+  },
 })
 EOF
