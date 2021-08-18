@@ -2,6 +2,7 @@
 with lib;
 with lib.my;
 let
+  wgEnabled = hasAttrByPath [ "hosts" config.networking.hostname ] (importTOML ../../data/wireguard.toml);
   cfg = config.ragon.networking.router;
   waninterface = cfg.waninterface;
   laninterface = cfg.laninterface;
@@ -238,7 +239,7 @@ in
     networking.nftables.ruleset =
       let
         unsafeInterfaces = (map (x: x.name) (filter (x: x.internet == false) nets));
-        safeInterfaces = (map (x: x.name) (filter (x: x.internet == true) nets)) ++ [ "lo" ];
+        safeInterfaces = (map (x: x.name) (filter (x: x.internet == true) nets)) ++ [ "lo" ] ++ (optionals (wgEnabled) [ "wg0" ]);
         allInternalInterfaces = (map (x: x.name) nets) ++ [ "lo" ];
         portForwards = concatStringsSep "\n" (map (x: "iifname ${waninterface} ${x.proto} dport ${toString x.sourcePort} dnat ${x.destination}") cfg.forwardedPorts);
         dropUnsafe = concatStringsSep "\n" (map (x: "iifname ${x} drop") unsafeInterfaces);
@@ -438,6 +439,10 @@ in
           # set authoritative mode
           dhcp-authoritative
 
+        '' +
+        optionalString wgEnabled ''
+          interface=wg0
+          no-dhcp-interface=wg0
         '';
 
     };
