@@ -5,7 +5,6 @@
     # nix inputs
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-    paperless.url = "github:Flakebi/nixpkgs/paperless";
     agenix.url = "github:ryantm/agenix/master";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -72,7 +71,7 @@
   };
 
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-master, neovim-nightly-overlay, paperless, st, deploy-rs, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-master, neovim-nightly-overlay, st, deploy-rs, ... }:
     let
       inherit (lib.my) mapModules mapModulesRec mapHosts mapNodes;
       systems = [
@@ -103,7 +102,6 @@
         final: prev: {
           unstable = pkgs' prev.system;
           st-ragon = st.packages."${prev.system}".st;
-          paperless-ng = paperless.legacyPackages."${prev.system}".paperless-ng;
           pubkeys = import ./data/pubkeys.nix;
           my = self.packages."${prev.system}";
         };
