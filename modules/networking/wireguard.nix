@@ -34,7 +34,7 @@ let
           h = wgConfig.hosts.${host};
           hServer = (hasAttrByPath [ "domain" ] h) && (hasAttrByPath [ "listen" ] h);
           hHasAdditional = (hasAttrByPath [ "additional_ip_ranges" ] h);
-          additionalOfAllThisNet = flatten (map (x: if (traceVal (hasAttrByPath [ "additional_ip_ranges" ] x)) then x.additional_ip_ranges else [ ]) toUse);
+          additionalOfAllThisNet = flatten (map (x: if (hasAttrByPath [ "additional_ip_ranges" ] wgConfig.hosts.${x}) then wgConfig.hosts.${x}.additional_ip_ranges else [ ]) filteredHosts);
         in
         {
           publicKey = h.pubkey;
@@ -45,7 +45,7 @@ let
             "${genIpv6 h.id net.id}/128"
           ] ++ (if hHasAdditional then h.additional_ip_ranges else [ ]) else [
             "10.${toString net.id}.0.0/16"
-          ] ++ (traceVal additionalOfAllThisNet));
+          ] ++ additionalOfAllThisNet);
         }
       )
       toUse;
