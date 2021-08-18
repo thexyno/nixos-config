@@ -85,7 +85,7 @@ in
         "L /run/wireguard-hosts - - - - ${hostsfile}"
       ];
 
-    networking.firewall.checkReversePath == mkForce false;
+    networking.firewall.checkReversePath = mkForce false;
     services.coredns.enable = (config.ragon.networking.router.enable == false && isServer);
     services.coredns.config = ''
       . {
