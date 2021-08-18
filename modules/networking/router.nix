@@ -245,7 +245,7 @@ in
         dropUnsafe = concatStringsSep "\n" (map (x: "iifname ${x} drop") unsafeInterfaces);
         allowSafe = concatStringsSep "\n" (map (x: "iifname ${x} accept") safeInterfaces);
         allowSafeOif = concatStringsSep "\n" (map (x: "oifname ${x} ct state { established, related } accept") safeInterfaces);
-        allowAll = concatStringsSep "\n" (map (x: "iifname ${x} accept") (allInternalInterfaces ++ (optionals (wgEnabled) [ "wg0" ]));
+        allowAll = concatStringsSep "\n" (map (x: "iifname ${x} accept") (allInternalInterfaces ++ (optionals (wgEnabled) [ "wg0" ])));
       in
       ''
         define unsafe_interfaces = {
