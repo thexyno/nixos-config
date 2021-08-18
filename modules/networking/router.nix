@@ -356,39 +356,6 @@ in
             mkdir $out
             ln -s ${netbootxyz} $out/netbootxyz.efi
           '';
-          disableFirewallForJson = builtins.toJSON disableFirewallFor;
-          dispatcher = pkgs.writeScript "dnsmasq-dispatcher.py" ''
-            #!${pkgs.python3}/bin/python3
-            import json
-            import sys
-            import subprocess
-            import os
-
-            print(sys.argv)
-            print(os.environ)
-
-            ACTION = sys.argv[1]
-            MAC = sys.argv[2]
-            IP = sys.argv[3]
-            HOSTNAME = ""
-            if len(sys.argv) > 4:
-              HOSTNAME = sys.argv[4]
-
-
-            if ACTION != "del" and "DNSMASQ_IAID" in os.environ: # action not del and ipv6
-              data = json.loads("""${disableFirewallForJson}""")
-              for host in data:
-                if HOSTNAME is host["hostname"] or MAC is host["mac"]:
-                  print("setting firewall rules")
-                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "tcp", "dport", f'{{ {", ".join(map(str, host["tcpports"]))} }}', "accept" ])
-                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "udp", "dport", f'{{ {", ".join(map(str, host["udpports"]))} }}', "accept" ])
-                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "input", "ip6", "daddr", IP, "tcp", "dport", f'{{ {", ".join(map(str, host["tcpports"]))} }}', "accept" ])
-                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "input", "ip6", "daddr", IP, "udp", "dport", f'{{ {", ".join(map(str, host["udpports"]))} }}', "accept" ])
-                else:
-                  print("no firewall rules found")
-            else:
-              print("ipv4 or deletion, abort")
-          '';
         in
         ''
           no-resolv
@@ -423,6 +390,11 @@ in
 
 
           ${genall}
+        '' +
+        optionalString wgEnabled ''
+          interface=wg0
+          no-dhcp-interface=wg0
+        '' + ''
           interface=lo # otherwise localhost dns does not work
           ${genstatics}
           ${genallHosts}
@@ -434,15 +406,9 @@ in
           enable-tftp
           tftp-root=${netbootxyzpath}
 
-          dhcp-script=${dispatcher}
-
           # set authoritative mode
           dhcp-authoritative
 
-        '' +
-        optionalString wgEnabled ''
-          interface=wg0
-          no-dhcp-interface=wg0
         '';
 
     };
