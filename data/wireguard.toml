@@ -4,9 +4,9 @@ ula = "03:dc7f:f80b"
 id = 10
 pubkey = "VqUpj36ATT6t5UDWU/3tHTuokjTEYnOlqpzWWAbmcG4="
 
-[hosts.calypso]
-id = 11
-pubkey = "a" # TODO
+#[hosts.calypso]
+#id = 11
+#pubkey = "a" # TODO
 
 [hosts.wormhole]
 additional_ip_ranges = [ "10.0.0.0/16" ]
@@ -15,11 +15,11 @@ pubkey = "HtXOv8KLcitEOPZzDZ6s3uOdACWNt+ts2v2774Kf0hg=" # TODO
 listen = 51820
 domain = "hailsatan.eu"
 
-[hosts.picard]
-id = 2
-pubkey = "a" # TODO
-listen = 51820
-domain = "hochkamp.eu"
+#[hosts.picard]
+#id = 2
+#pubkey = "a" # TODO
+#listen = 51820
+#domain = "hochkamp.eu"
 
 [nets.internal]
 id = 40
@@ -31,7 +31,7 @@ hosts = [
   ]
 domain = "vpn.hailsatan.eu" # needed for dns
 
-[nets.hochkamp]
-id = 42
-hosts = [ "voyager", "calypso", "picard" ]
-domain = "vpn.hochkamp.eu" # dns
+#[nets.hochkamp]
+#id = 42
+#hosts = [ "voyager", "calypso", "picard" ]
+#domain = "vpn.hochkamp.eu" # dns
