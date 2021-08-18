@@ -2,7 +2,7 @@
 with lib;
 with lib.my;
 let
-  wgEnabled = hasAttrByPath [ "hosts" config.networking.hostname ] (importTOML ../../data/wireguard.toml);
+  wgEnabled = hasAttrByPath [ "hosts" config.networking.hostName ] (importTOML ../../data/wireguard.toml);
   cfg = config.ragon.networking.router;
   waninterface = cfg.waninterface;
   laninterface = cfg.laninterface;
