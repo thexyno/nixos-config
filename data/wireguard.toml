@@ -2,7 +2,7 @@ ula = "03:dc7f:f80b"
 
 [hosts.voyager]
 id = 10
-pubkey = "a" # TODO
+pubkey = "VqUpj36ATT6t5UDWU/3tHTuokjTEYnOlqpzWWAbmcG4="
 
 [hosts.calypso]
 id = 11
@@ -25,7 +25,7 @@ domain = "hochkamp.eu"
 id = 40
 hosts = [
 # disabled until setup
-#  "voyager",
+  "voyager",
 #  "calypso",
   "wormhole"
   ]

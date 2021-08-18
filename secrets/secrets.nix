@@ -17,4 +17,5 @@ in
   "gitlabJWSFile.age".publicKeys = pubkeys.ragon.host "picard";
   "nextcloudAdminPass.age".publicKeys = pubkeys.ragon.host "picard";
   "wireguardwormhole.age".publicKeys = pubkeys.ragon.host "wormhole";
+  "wireguardvoyager.age".publicKeys = pubkeys.ragon.host "voyager";
 }

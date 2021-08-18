@@ -61,7 +61,7 @@ in
         port = if isServer then wgConfig.hosts.${hostname}.listen else null;
       in
       {
-        privateKeyFile = "/run/secrets/rootWireguard${hostname}";
+        privateKeyFile = "/run/secrets/wireguard${hostname}";
         listenPort = port;
         peers = genPeers;
         address = flatten
@@ -85,7 +85,8 @@ in
         "L /run/wireguard-hosts - - - - ${hostsfile}"
       ];
 
-    services.coredns.enable = (config.ragon.networking.router.enable == false);
+    networking.firewall.checkReversePath == mkForce false;
+    services.coredns.enable = (config.ragon.networking.router.enable == false && isServer);
     services.coredns.config = ''
       . {
         bind wg0
