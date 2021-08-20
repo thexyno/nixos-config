@@ -3,7 +3,8 @@ with lib;
 with lib.my;
 with builtins;
 let
-  wgConfig = genWgConf config.networking.hostName;
+  hostname = config.networking.hostName;
+  wgConfig = genWgConf hostname;
 in
 {
   config = mkIf wgConfig.enable {
