@@ -69,7 +69,7 @@ with lib;
         dns = if isServer then [ ] else genDNS;
       };
 
-        hostsFile = 
+        hosts = 
       let
         genHostsbyNameId = hn: hid: map
           (n: ''
@@ -77,8 +77,7 @@ with lib;
             ${genIpv6 hid n.id} ${hn}.${n.domain}
           '')
           (attrValues wgConfig.nets);
-        hosts = concatStringsSep "\n" (flatten (map (h: genHostsbyNameId h wgConfig.hosts.${h}.id) (attrNames wgConfig.hosts)));
       in
-        hosts = hosts;
+        concatStringsSep "\n" (flatten (map (h: genHostsbyNameId h wgConfig.hosts.${h}.id) (attrNames wgConfig.hosts)));
   };
 }
