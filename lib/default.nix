@@ -1,7 +1,7 @@
 { inputs, lib, pkgsBySystem, ... }:
 
 let
-  inherit (lib) makeExtensible attrValues foldr;
+  inherit (lib) makeExtensible attrValues foldr traceVal;
   inherit (modules) mapModules;
 
   modules = import ./modules.nix {
