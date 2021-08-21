@@ -14,7 +14,7 @@ in
     # A link is used because the file is used in router.nix
     systemd.tmpfiles.rules =
       [
-        "L /run/wireguard-hosts - - - - ${pkgs.writeText "wg-hostfile" wgConfig.hostsFile}"
+        "L /run/wireguard-hosts - - - - ${pkgs.writeText "wg-hostfile" wgConfig.hosts}"
       ];
 
     networking.firewall.checkReversePath = mkForce false; # mkForce so we still can use mullvad.nix
