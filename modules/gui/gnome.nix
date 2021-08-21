@@ -7,6 +7,7 @@ in
 {
   options.ragon.gui.gnome.enable = lib.mkEnableOption "Enables ragons Gnome stuff";
   config = lib.mkIf cfg.enable {
+    services.tlp.enable = lib.mkForce false; # gnome has it's own thing
     environment.variables = {
       _JAVA_AWT_WM_NONREPARENTING = "1";
     };
