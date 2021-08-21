@@ -35,7 +35,7 @@ in
     default = "timeular";
   };
   config = lib.mkIf cfg.enable {
-    config.ragon.gui.dwm.enable = true;
+    ragon.gui.dwm.enable = true;
     # Set up default fonts
     fonts.enableDefaultFonts = true;
     fonts.enableGhostscriptFonts = true;
