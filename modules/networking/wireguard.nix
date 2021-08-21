@@ -8,7 +8,7 @@ let
 in
 {
   config = mkIf wgConfig.enable {
-    networking.wg-quick.interfaces."wg0" = traceVal wgConfig.interfaceConfig;
+    networking.wg-quick.interfaces."wg0" = wgConfig.interfaceConfig;
     ragon.agenix.secrets."wireguard${hostname}" = { };
 
     # A link is used because the file is used in router.nix
