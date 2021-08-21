@@ -6,7 +6,8 @@ let
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
 in
 {
-  config = lib.mkIf cfg.enable {
+  options.ragon.gui.dwm.enable = lib.mkEnableOption "Enables ragons Dwm stuff";
+  config = lib.mkIf cfg.dwm.enable {
     environment.variables = {
       _JAVA_AWT_WM_NONREPARENTING = "1";
     };
