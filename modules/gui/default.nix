@@ -156,6 +156,7 @@ in
 
     # hardware.pulseaudio.enable = true;
     # # Set up Pipewire for audio
+    hardware.pulseaudio.enable = mkForce false;
     services.pipewire.enable = true;
     services.pipewire.alsa.enable = true;
     services.pipewire.pulse.enable = true;
