@@ -19,6 +19,6 @@ in
     # optional to use google/nextcloud calendar
     services.gnome3.gnome-online-accounts.enable = true;
     # optional to use google/nextcloud calendar
-    services.gnome3.gnome-keyring.enable = true
+    services.gnome3.gnome-keyring.enable = true;
   };
 }
