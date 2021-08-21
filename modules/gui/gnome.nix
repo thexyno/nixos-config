@@ -14,12 +14,12 @@ in
     
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
-    services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
+    services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
     programs.dconf.enable = true;
-    services.gnome3.evolution-data-server.enable = true;
+    services.gnome.evolution-data-server.enable = true;
     # optional to use google/nextcloud calendar
-    services.gnome3.gnome-online-accounts.enable = true;
+    services.gnome.gnome-online-accounts.enable = true;
     # optional to use google/nextcloud calendar
-    services.gnome3.gnome-keyring.enable = true;
+    services.gnome.gnome-keyring.enable = true;
   };
 }
