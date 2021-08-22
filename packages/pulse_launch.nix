@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, python3 }:
+{ lib, stdenv, fetchFromGitHub, python3Packages, python3, ... }:
 let
   py = python3.withPackages (pythonPackages: with pythonPackages; [ pulsectl ]);
 in
