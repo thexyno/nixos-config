@@ -11,7 +11,7 @@ in
   config = mkIf cfg.enable {
     services.tlp.enable = mkForce false; # gnome has it's own thing
     environment.systemPackages = with pkgs; [
-      my.pop-shell
+      gnomeExtensions.gtile
       alacritty
     ];
     environment.variables = {
@@ -23,11 +23,6 @@ in
     services.xserver.desktopManager.gnome.enable = true;
     services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
     programs.dconf.enable = true;
-    services.gnome.evolution-data-server.enable = true;
-    # optional to use google/nextcloud calendar
-    services.gnome.gnome-online-accounts.enable = true;
-    # optional to use google/nextcloud calendar
-    services.gnome.gnome-keyring.enable = true;
     services.gnome.games.enable = true;
     services.gnome.core-developer-tools.enable = true;
   };
