@@ -465,6 +465,23 @@
         "type": "github"
       }
     },
+    "pop-shell": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1628527572,
+        "narHash": "sha256-9IJA/KLTzfjjp2zgqSZ1cOIT2wHAxnVHNkAGnhFBPF8=",
+        "owner": "pop-os",
+        "repo": "shell",
+        "rev": "3eda9bb692b430995f444f2f340f06e6e66616cf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pop-os",
+        "ref": "master",
+        "repo": "shell",
+        "type": "github"
+      }
+    },
     "rnix-lsp": {
       "inputs": {
         "naersk": "naersk_2",
@@ -508,6 +525,7 @@
         "orgmode-nvim": "orgmode-nvim",
         "pandoc-latex-template": "pandoc-latex-template",
         "pandocode": "pandocode",
+        "pop-shell": "pop-shell",
         "rnix-lsp": "rnix-lsp",
         "st": "st",
         "vim-pandoc-live-preview": "vim-pandoc-live-preview",
