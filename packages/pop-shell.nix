@@ -1,4 +1,4 @@
-{ stdenv, inputs, fetchFromGitHub, nodePackages, glib ,... }:
+{ stdenv, lib, inputs, fetchFromGitHub, nodePackages, glib ,... }:
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-pop-shell";
   version = "2020-03-16";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   uuid = "pop-shell@system76.com";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "i3wm-like keyboard-driven layer for GNOME Shell";
     homepage = "https://github.com/pop-os/shell";
     license = licenses.gpl3;
