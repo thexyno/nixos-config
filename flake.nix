@@ -44,6 +44,8 @@
     pandoc-latex-template.flake = false;
     pandocode.url = "github:nzbr/pandocode";
     pandocode.flake = false;
+    pop-shell.url = "github:pop-os/shell/master";
+    pop-shell.flake = false;
 
     ## vim
     coc-nvim.url = "github:neoclide/coc.nvim/release";
@@ -110,7 +112,7 @@
 
       packages =
         let
-          mkPackages = system: mapModules ./packages (p: pkgsBySystem.${system}.callPackage p { }); # load my own packages (pandocode)
+          mkPackages = system: mapModules ./packages (p: pkgsBySystem.${system}.callPackage p { inputs = inputs; }); # load my own packages (pandocode)
         in
         forAllSystems mkPackages;
 

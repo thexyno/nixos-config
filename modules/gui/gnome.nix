@@ -8,10 +8,15 @@ in
   options.ragon.gui.gnome.enable = lib.mkEnableOption "Enables ragons Gnome stuff";
   config = lib.mkIf cfg.enable {
     services.tlp.enable = lib.mkForce false; # gnome has it's own thing
+    environment.systemPackages = with pkgs; [
+      my.gnome-shell-extension-pop-shell
+      alacritty
+    ];
     environment.variables = {
       _JAVA_AWT_WM_NONREPARENTING = "1";
     };
     
+    services.xserver.displayManager.defaultSession = mkForce "gnome";
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
     services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
@@ -21,5 +26,7 @@ in
     services.gnome.gnome-online-accounts.enable = true;
     # optional to use google/nextcloud calendar
     services.gnome.gnome-keyring.enable = true;
+    services.gnome.games.enable = true;
+    services.gnome.core-developer-tools.enable = true;
   };
 }
