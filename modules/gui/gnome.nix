@@ -1,13 +1,15 @@
 { inputs, config, lib, pkgs, ... }:
+with lib;
+with lib.my;
 let
   cfg = config.ragon.gui.gnome;
   laptop = config.ragon.hardware.laptop.enable;
   username = config.ragon.user.username;
 in
 {
-  options.ragon.gui.gnome.enable = lib.mkEnableOption "Enables ragons Gnome stuff";
-  config = lib.mkIf cfg.enable {
-    services.tlp.enable = lib.mkForce false; # gnome has it's own thing
+  options.ragon.gui.gnome.enable = mkEnableOption "Enables ragons Gnome stuff";
+  config = mkIf cfg.enable {
+    services.tlp.enable = mkForce false; # gnome has it's own thing
     environment.systemPackages = with pkgs; [
       my.gnome-shell-extension-pop-shell
       alacritty
