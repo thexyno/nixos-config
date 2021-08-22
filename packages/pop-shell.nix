@@ -5,20 +5,13 @@ stdenv.mkDerivation rec {
 
   src = inputs.pop-shell;
 
-  nativeBuildInputs = [
-    nodePackages.typescript
-    glib
-  ];
-
-  makeFlags = [ "INSTALLBASE=$(out)/share/gnome-shell/extensions" ];
+  makeFlags = [ "DESTDIR=$(out)" ];
+  buildInputs = [ glib nodePackages.typescript ];
 
   postInstall = ''
-    mkdir -p $out/share/gsettings-schemas/pop-shell-${version}/glib-2.0
-    cp -R $out/share/gnome-shell/extensions/${uuid}/schemas \
-          $out/share/gsettings-schemas/pop-shell-${version}/glib-2.0/schemas
+    mv $out/usr/* $out
+    rmdir $out/usr
   '';
-
-  uuid = "pop-shell@system76.com";
 
   meta = with lib; {
     description = "i3wm-like keyboard-driven layer for GNOME Shell";
