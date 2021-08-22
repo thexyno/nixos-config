@@ -11,7 +11,7 @@ in
   config = mkIf cfg.enable {
     services.tlp.enable = mkForce false; # gnome has it's own thing
     environment.systemPackages = with pkgs; [
-      my.gnome-shell-extension-pop-shell
+      my.pop-shell
       alacritty
     ];
     environment.variables = {
