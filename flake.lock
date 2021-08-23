@@ -465,20 +465,20 @@
         "type": "github"
       }
     },
-    "pop-shell": {
+    "paperwm": {
       "flake": false,
       "locked": {
-        "lastModified": 1628527572,
-        "narHash": "sha256-9IJA/KLTzfjjp2zgqSZ1cOIT2wHAxnVHNkAGnhFBPF8=",
-        "owner": "pop-os",
-        "repo": "shell",
-        "rev": "3eda9bb692b430995f444f2f340f06e6e66616cf",
+        "lastModified": 1617616509,
+        "narHash": "sha256-gZbS2Xy+CuQfzzZ5IwMahr3VLtyTiLxJTJVawml9sXE=",
+        "owner": "paperwm",
+        "repo": "PaperWM",
+        "rev": "e9f714846b9eac8bdd5b33c3d33f1a9d2fbdecd4",
         "type": "github"
       },
       "original": {
-        "owner": "pop-os",
-        "ref": "master",
-        "repo": "shell",
+        "owner": "paperwm",
+        "ref": "next-release",
+        "repo": "PaperWM",
         "type": "github"
       }
     },
@@ -525,7 +525,7 @@
         "orgmode-nvim": "orgmode-nvim",
         "pandoc-latex-template": "pandoc-latex-template",
         "pandocode": "pandocode",
-        "pop-shell": "pop-shell",
+        "paperwm": "paperwm",
         "rnix-lsp": "rnix-lsp",
         "st": "st",
         "vim-pandoc-live-preview": "vim-pandoc-live-preview",
