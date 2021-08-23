@@ -346,6 +346,8 @@ in
           gen = obj: ''
             interface=${obj.name}
             dhcp-range=${obj.name},${obj.dhcpv4start},${obj.dhcpv4end},12h
+            dynamic-host=${config.networking.hostName},${obj.name}
+            dynamic-host=${config.networking.hostName}.${domain},${obj.name}
           '';
 
           genHosts = obj: ''
@@ -367,7 +369,6 @@ in
           no-resolv
           server=1.1.1.1
           server=1.0.0.1 # TODO DoH
-          dynamic-host=${config.networking.hostName}
 
           # https://hveem.no/using-dnsmasq-for-dhcpv6
 
