@@ -11,7 +11,7 @@ in
     services.mullvad-vpn.enable = true;
     environment.systemPackages = [ pkgs.mullvad-vpn ];
     ragon.user.persistent.extraDirectories = [
-      ".config/Mulllvad VPN"
+      ".config/Mullvad VPN"
     ];
   };
 }
