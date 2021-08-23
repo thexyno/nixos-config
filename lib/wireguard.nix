@@ -12,6 +12,7 @@ with lib;
       in
       if id < 256 then "0.${a}" else a; # only works for ids 0-65535
     genIpv6 = id: subnet: "fd${wgConfig.ula}:${toLowerHex subnet}::${toLowerHex id}";
+    genIpv6NoId = subnet: "fd${wgConfig.ula}:${toLowerHex subnet}::";
 
     enableWireguard = (hasAttrByPath [ "hosts" hostname ] wgConfig && wgConfig.hosts.${hostname}.pubkey != "a");
     genIsServer = hn: (hasAttrByPath [ "hosts" hn "listen" ] wgConfig) && (hasAttrByPath [ "hosts" hn "domain" ] wgConfig);
@@ -45,6 +46,7 @@ with lib;
               "${genIpv6 h.id net.id}/128"
             ] ++ (if hHasAdditional then h.additional_ip_ranges else [ ]) else [
               "10.${toString net.id}.0.0/16"
+              "${genIpv6NoId net.id}/64"
             ] ++ additionalOfAllThisNet);
           }
         )
