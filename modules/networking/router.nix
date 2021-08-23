@@ -400,6 +400,7 @@ in
         optionalString wgEnabled ''
           interface=wg0
           no-dhcp-interface=wg0
+          addn-hosts=/run/wireguard-hosts
         '' + ''
           interface=lo # otherwise localhost dns does not work
           ${genstatics}
@@ -407,7 +408,7 @@ in
 
           dhcp-boot=netbootxyz.efi
 
-          addn-hosts=/run/wireguard-hosts
+          no-hosts
 
           enable-tftp
           tftp-root=${netbootxyzpath}
