@@ -11,7 +11,7 @@ in
   config = mkIf cfg.enable {
     services.tlp.enable = mkForce false; # gnome has it's own thing
     environment.systemPackages = with pkgs; [
-      gnomeExtensions.gtile
+      gnomeExtensions.paperwm
       gnome.gnome-tweaks
       alacritty
     ];
