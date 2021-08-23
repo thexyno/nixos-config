@@ -367,6 +367,7 @@ in
           no-resolv
           server=1.1.1.1
           server=1.0.0.1 # TODO DoH
+          dynamic-host=${config.networking.hostName}
 
           # https://hveem.no/using-dnsmasq-for-dhcpv6
 
