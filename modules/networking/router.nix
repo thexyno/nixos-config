@@ -18,6 +18,10 @@ let
     netipv4addr = "10.0.0.0";
     dhcpv4start = "10.0.10.1";
     dhcpv4end = "10.0.255.240";
+    routes = [
+      { address = "10.12.0.0"; prefixLength = 16; via = "10.0.1.2"; }
+      { address = "10.13.0.0"; prefixLength = 16; via = "10.0.1.2"; }
+    ];
     ipv4size = 16;
     vlan = 4;
   };
@@ -29,6 +33,7 @@ let
     netipv4addr = "10.1.0.0";
     dhcpv4start = "10.1.1.1";
     dhcpv4end = "10.1.255.240";
+    routes = [];
     ipv4size = 16;
     vlan = 2;
   };
@@ -40,6 +45,7 @@ let
     netipv4addr = "192.168.2.0";
     dhcpv4start = "192.168.2.10";
     dhcpv4end = "192.168.2.240";
+    routes = [];
     ipv4size = 24;
     vlan = 3;
   };
@@ -54,7 +60,7 @@ let
       routes = [{
         address = obj.netipv4addr;
         prefixLength = obj.ipv4size;
-      }];
+      }] ++ obj.routes;
     };
   };
 in
