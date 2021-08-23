@@ -44,8 +44,8 @@
     pandoc-latex-template.flake = false;
     pandocode.url = "github:nzbr/pandocode";
     pandocode.flake = false;
-    pop-shell.url = "github:pop-os/shell/master";
-    pop-shell.flake = false;
+    paperwm.url = "github:paperwm/PaperWM/next-release";
+    paperwm.flake = false;
 
     ## vim
     coc-nvim.url = "github:neoclide/coc.nvim/release";
