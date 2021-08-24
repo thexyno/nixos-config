@@ -7,6 +7,22 @@ in
   config = lib.mkIf (cfg.enable && config.ragon.gui.river.enable) {
     home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
     {
+      programs.waybar = {
+        enable = true;
+        settings = {
+          layer = "top";
+          position = "top";
+          height = 24;
+          modules-left = [ "river/tags" ];
+          modules-right = [ "battery" "clock" ];
+          clock = {
+            interval = 1;
+            format = "{%F %T}";
+            max-length = 25;
+          };
+
+        };
+      };
       home.file.".config/river/init" = { executable = true; text = ''
         #!/bin/sh
 
@@ -135,19 +151,19 @@ in
             riverctl map $mode None XF86Eject spawn 'eject -T'
         
             # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-            riverctl map $mode None XF86AudioRaiseVolume  spawn 'pamixer -i 5'
-            riverctl map $mode None XF86AudioLowerVolume  spawn 'pamixer -d 5'
-            riverctl map $mode None XF86AudioMute         spawn 'pamixer --toggle-mute'
+            riverctl map $mode None XF86AudioRaiseVolume  spawn '${pkgs.pulsemixer}/bin/pulsemixer +5'
+            riverctl map $mode None XF86AudioLowerVolume  spawn '${pkgs.pulsemixer}/bin/pulsemixer -5'
+            riverctl map $mode None XF86AudioMute         spawn '${pkgs.pulsemixer}/bin/pulsemixer --toggle-mute'
         
             # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
-            riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
-            riverctl map $mode None XF86AudioPlay  spawn 'playerctl play-pause'
-            riverctl map $mode None XF86AudioPrev  spawn 'playerctl previous'
-            riverctl map $mode None XF86AudioNext  spawn 'playerctl next'
+            riverctl map $mode None XF86AudioMedia spawn '${pkgs.playerctl}/bin/playerctl play-pause'
+            riverctl map $mode None XF86AudioPlay  spawn '${pkgs.playerctl}/bin/playerctl play-pause'
+            riverctl map $mode None XF86AudioPrev  spawn '${pkgs.playerctl}/bin/playerctl previous'
+            riverctl map $mode None XF86AudioNext  spawn '${pkgs.playerctl}/bin/playerctl next'
         
             # Control screen backlight brighness with light (https://github.com/haikarainen/light)
-            riverctl map $mode None XF86MonBrightnessUp   spawn 'light -A 5'
-            riverctl map $mode None XF86MonBrightnessDown spawn 'light -U 5'
+            riverctl map $mode None XF86MonBrightnessUp   spawn '${pkgs.light}/bin/light -A 5'
+            riverctl map $mode None XF86MonBrightnessDown spawn '${pkgs.light}/bin/light -U 5'
         done
         
         # Set background and border color
@@ -164,6 +180,10 @@ in
         
         # Set app-ids of views which should use client side decorations
         riverctl csd-filter-add "gedit"
+
+        for input in ${riverctl list-inputs | sed -n '/pointer/{x;p;d;}; x'}; do
+          riverctl input $input tap enabled
+        done
         
         # Set and exec into the default layout generator, rivertile.
         # River will send the process group of the init executable SIGTERM on exit.
