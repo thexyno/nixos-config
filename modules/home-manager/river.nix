@@ -7,6 +7,19 @@ in
   config = lib.mkIf (cfg.enable && config.ragon.gui.river.enable) {
     home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
     {
+      programs.alacritty = {
+        enable = true;
+        settings = {
+          font.normal.family = "JetBrainsMono Nerd Font";
+          colors.primary = {
+            background = "#282828"
+            foreground = "#1bf1c7"
+          };
+
+        };
+
+
+      };
       programs.waybar = {
         enable = true;
         settings = [ {
@@ -110,7 +123,7 @@ in
         
         # Mod+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
         riverctl map normal $mod+Shift Return spawn ${pkgs.alacritty}/bin/alacritty
-        riverctl map normal $mod P spawn ${pkgs.wofi}/bin/wofi
+        riverctl map normal $mod P spawn ${pkgs.wofi}/bin/wofi --show drun -I -m -t alacritty 
         
         # Mod+Q to close the focused view
         riverctl map normal $mod+Shift Q close

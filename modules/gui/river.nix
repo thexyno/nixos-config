@@ -9,6 +9,9 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       river
+      wofi
+      alacritty
+
     ];
     environment.variables = {
       _JAVA_AWT_WM_NONREPARENTING = "1";
