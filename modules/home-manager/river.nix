@@ -12,8 +12,8 @@ in
         settings = {
           font.normal.family = "JetBrainsMono Nerd Font";
           colors.primary = {
-            background = "#282828"
-            foreground = "#1bf1c7"
+            background = "#282828";
+            foreground = "#1bf1c7";
           };
 
         };
