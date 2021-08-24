@@ -94,7 +94,8 @@ in
         '';
       };
       home.file.".config/river/init" = { executable = true; text = ''
-        #!/bin/sh
+        #!${pkgs.bash}/bin/bash
+        set -x
 
         # This is the example configuration file for river.
         #
