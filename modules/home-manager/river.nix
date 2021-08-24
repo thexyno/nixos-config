@@ -22,10 +22,10 @@ in
         mod="Mod4"
         
         # Mod+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
-        riverctl map normal $mod+Shift Return spawn foot
+        riverctl map normal $mod+Shift Return spawn alacritty
         
         # Mod+Q to close the focused view
-        riverctl map normal $mod Q close
+        riverctl map normal $mod+Shift Q close
         
         # Mod+E to exit river
         riverctl map normal $mod+Shift E exit
