@@ -394,6 +394,9 @@ in
           # set your domain for expand-hosts
           domain=${domain}
 
+          # forward .kube domains to coredns
+          server=/kube/10.13.0.10
+
 
           ${genall}
         '' +
