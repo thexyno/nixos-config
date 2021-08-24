@@ -18,7 +18,7 @@ in
           modules = {
             "clock" = {
               interval = 1;
-              format = "{%F} {%T}";
+              format = "{:%F} {:%T}";
               max-length = 25;
             };
           };
