@@ -110,7 +110,7 @@ in
         
         # Mod+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
         riverctl map normal $mod+Shift Return spawn ${pkgs.alacritty}/bin/alacritty
-        riverctl map normal $mod P spawn ${pkgs.bemenu}/bin/bemenu
+        riverctl map normal $mod P spawn ${pkgs.wofi}/bin/wofi
         
         # Mod+Q to close the focused view
         riverctl map normal $mod+Shift Q close
