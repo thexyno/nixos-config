@@ -109,7 +109,8 @@ in
         mod="Mod4"
         
         # Mod+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
-        riverctl map normal $mod+Shift Return spawn alacritty
+        riverctl map normal $mod+Shift Return spawn ${pkgs.alacritty}/bin/alacritty
+        riverctl map normal $mod P spawn ${pkgs.bemenu}/bin/bemenu
         
         # Mod+Q to close the focused view
         riverctl map normal $mod+Shift Q close
@@ -258,6 +259,8 @@ in
         for input in ''$(riverctl list-inputs | sed -n '/pointer/{x;p;d;}; x'); do
           riverctl input $input tap enabled
         done
+
+        waybar &
 
         # Set and exec into the default layout generator, rivertile.
         # River will send the process group of the init executable SIGTERM on exit.
