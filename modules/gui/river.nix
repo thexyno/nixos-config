@@ -12,6 +12,8 @@ in
     ];
     environment.variables = {
       _JAVA_AWT_WM_NONREPARENTING = "1";
+      XKB_DEFAULT_LAYOUT = "${config.services.xserver.layout}";
+      XKB_DEFAULT_OPTIONS = "${config.services.xserver.xkbOptions}";
     };
     # Config File is importe in home-manager/river.nix
     
