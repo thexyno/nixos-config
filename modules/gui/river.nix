@@ -12,8 +12,6 @@ in
       wofi
       alacritty
     ];
-    services.xserver.displayManager.sddm.enable = true;
-    services.xserver.displayManager.sessionPackages = [ pkgs.river ];
     environment.variables = {
       _JAVA_AWT_WM_NONREPARENTING = "1";
       XKB_DEFAULT_LAYOUT = "${config.services.xserver.layout}";
