@@ -15,6 +15,5 @@ in
     };
     # Config File is importe in home-manager/river.nix
     
-    services.xserver.displayManager.defaultSession = mkForce "none+river";
   };
 }
