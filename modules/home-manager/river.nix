@@ -27,7 +27,7 @@ in
           * {
               border: none;
               border-radius: 0px;
-              font-family: "JetBrainsMono";
+              font-family: "JetBrainsMono Nerd Font";
               font-size: 12px;
               min-height: 0;
               color: #ebdbb2;

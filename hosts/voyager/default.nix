@@ -24,7 +24,6 @@
   ragon.user.enable = true;
   ragon.home-manager.enable = true;
   ragon.gui.enable = true;
-  ragon.gui.gnome.enable = true;
   ragon.gui.river.enable = true;
   #ragon.gui.gaming.enable = true;
   ragon.develop.enable = true;
