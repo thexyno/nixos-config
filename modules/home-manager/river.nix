@@ -254,7 +254,7 @@ in
         # Set app-ids of views which should use client side decorations
         riverctl csd-filter-add "gedit"
 
-        for input in $${riverctl list-inputs | sed -n '/pointer/{x;p;d;}; x'}; do
+        for input in ''${riverctl list-inputs | sed -n '/pointer/{x;p;d;}; x'}; do
           riverctl input $input tap enabled
         done
 
