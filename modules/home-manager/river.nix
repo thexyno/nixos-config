@@ -18,7 +18,7 @@ in
           modules = {
             "clock" = {
               interval = 1;
-              format = "{:%F} {:%T}";
+              format = "{:%F %T}";
               max-length = 25;
             };
           };
@@ -74,21 +74,11 @@ in
               color: #1d2021;
           }
           
-          
-          #custom-music {
-              color: #b8bb26;
-              margin: 0 15px;
-              padding: 0 20px;
-              border-bottom: 4px solid #b8bb26;
-          
-          }
-          
           #clock {
               margin: 0;
               color: #fabd2f;
               border-bottom: 4px solid #fabd2f;
           }
-          
           
           #network.disconnected {
               color: #cc241d;
