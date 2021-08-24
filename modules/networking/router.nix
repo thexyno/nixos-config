@@ -346,8 +346,6 @@ in
           gen = obj: ''
             interface=${obj.name}
             dhcp-range=${obj.name},${obj.dhcpv4start},${obj.dhcpv4end},12h
-            dynamic-host=${config.networking.hostName},0.0.0.0,::,${obj.name}
-            dynamic-host=${config.networking.hostName}.${domain},0.0.0.0,::,${obj.name}
           '';
 
           genHosts = obj: ''
@@ -409,8 +407,6 @@ in
           ${genallHosts}
 
           dhcp-boot=netbootxyz.efi
-
-          no-hosts
 
           enable-tftp
           tftp-root=${netbootxyzpath}
