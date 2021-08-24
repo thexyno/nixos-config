@@ -177,6 +177,9 @@ in
         
         # Mod + Right Mouse Button to resize views
         riverctl map-pointer normal $mod BTN_RIGHT resize-view
+
+        # Focus follows cursor
+        riverctl focus-follows-cursor normal
         
         for i in $(seq 1 9)
         do
