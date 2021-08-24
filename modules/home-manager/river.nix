@@ -9,19 +9,21 @@ in
     {
       programs.waybar = {
         enable = true;
-        settings = {
+        settings = [ {
           layer = "top";
           position = "top";
           height = 24;
           modules-left = [ "river/tags" ];
           modules-right = [ "battery" "clock" ];
-          clock = {
-            interval = 1;
-            format = "{%F %T}";
-            max-length = 25;
+          modules = {
+            "clock" = {
+              interval = 1;
+              format = "{%F %T}";
+              max-length = 25;
+            };
           };
 
-        };
+        } ];
       };
       home.file.".config/river/init" = { executable = true; text = ''
         #!/bin/sh
