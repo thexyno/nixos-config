@@ -12,18 +12,96 @@ in
         settings = [ {
           layer = "top";
           position = "top";
-          height = 24;
+          height = 27;
           modules-left = [ "river/tags" ];
           modules-right = [ "battery" "clock" ];
           modules = {
             "clock" = {
               interval = 1;
-              format = "{%F %T}";
+              format = "{%Y-%m-%d %H:%M:%S}";
               max-length = 25;
             };
           };
-
         } ];
+        style = ''
+          * {
+              border: none;
+              border-radius: 0px;
+              font-family: "JetBrainsMono";
+              font-size: 12px;
+              min-height: 0;
+              color: #ebdbb2;
+          }
+          
+          window#waybar {
+              border-bottom-style: inset;
+              border-bottom: 4px solid #689d6a;
+              background: #1d2021;
+          }
+          
+          #workspaces, #clock, #custom-music, #window { 
+              font-weight: 800;
+          }
+          
+          /* Workspace Buttons */
+          #workspaces button label{
+              color: #689d6a;
+          }
+          #workspaces button.focused label {
+              color: #1d2021;
+          }
+          #workspaces button.focused {
+              background: #689d6a; 
+          }
+          
+          #mode {
+              background-color: #cc241d;
+              color: white;
+          }
+          
+          #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode, #idle_inhibitor {
+              padding: 0 5px;
+              margin: 0 10px;
+          }
+          
+          
+          #idle_inhibitor {
+              padding: 0 10px;
+          }
+          
+          #idle_inhibitor.activated {
+              background-color: #689d6a;
+              color: #1d2021;
+          }
+          
+          
+          #custom-music {
+              color: #b8bb26;
+              margin: 0 15px;
+              padding: 0 20px;
+              border-bottom: 4px solid #b8bb26;
+          
+          }
+          
+          #clock {
+              margin: 0;
+              color: #fabd2f;
+              border-bottom: 4px solid #fabd2f;
+          }
+          
+          
+          #network.disconnected {
+              color: #cc241d;
+              border-bottom: 4px solid #cc241d;
+          }
+          
+          
+          #pulseaudio.muted {
+              padding: 0 20px;
+              color: #cc241d;
+              border-bottom: 4px solid #cc241d;
+          }
+        '';
       };
       home.file.".config/river/init" = { executable = true; text = ''
         #!/bin/sh
