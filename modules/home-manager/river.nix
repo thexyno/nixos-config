@@ -34,7 +34,7 @@ in
           position = "top";
           height = 27;
           modules-left = [ "river/tags" ];
-          modules-right = [ "pulseaudio" "network" "battery" "clock" ];
+          modules-right = [ "temperature" "pulseaudio" "network" "battery" "clock" "tray" ];
           modules = {
             "clock" = {
               interval = 1;
@@ -51,6 +51,9 @@ in
               format-wifi = "直 {essid} : {signalStrength}%";
               format-ethernet = "{ifname}";
               format-Disconnected = "Disconnected";
+            };
+            "temperature" = {
+              format = "﨎 {temperatureC}°C";
             };
             "pulseaudio" = {
               format = "{icon} {volume}%";
