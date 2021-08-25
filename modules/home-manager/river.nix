@@ -59,7 +59,7 @@ in
             };
             "pulseaudio" = {
               format = "{icon} {volume}%";
-              format-bluetooth = "{icon} {volume}%";
+              format-bluetooth = "{icon} {volume}%";
               format-muted = "ﱝ";
               format-icons = {
                 headphone = "";
@@ -84,8 +84,6 @@ in
           }
           
           window#waybar {
-              border-bottom-style: inset;
-              border-bottom: 0px solid #689d6a;
               background: #1d2021;
           }
           
@@ -120,22 +118,14 @@ in
               color: #1d2021;
           }
           
-          #clock {
-              margin: 0;
-              color: #fabd2f;
-              border-bottom: 4px solid #fabd2f;
-          }
-          
           #network.disconnected {
               color: #cc241d;
-              border-bottom: 4px solid #cc241d;
           }
           
           
           #pulseaudio.muted {
               padding: 0 20px;
               color: #cc241d;
-              border-bottom: 4px solid #cc241d;
           }
         '';
       };
