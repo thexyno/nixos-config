@@ -147,7 +147,7 @@ in
         # Mod+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
         riverctl map normal $mod+Shift Return spawn ${pkgs.alacritty}/bin/alacritty
         riverctl map normal $mod P spawn '${pkgs.fuzzel}/bin/fuzzel -f "JetBrainsMono Nerd Font" -b "1d2021ff" -T alacritty'
-        riverctl map normal $mod S spawn '${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | wl-copy '
+        riverctl map normal $mod S spawn '${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | tee $HOME/Screenshots/grim-$(date -Iseconds).png | wl-copy '
         
         # Mod+Q to close the focused view
         riverctl map normal $mod+Shift Q close
