@@ -42,9 +42,8 @@ in
               max-length = 25;
             };
             "battery" = {
-              format-discharging = "{icon} {capacity}% ({time})";
-              format-charging = " {capacity}% ({time})";
-              format-unknown = " Full";
+              format = "{icon} {capacity}% ({timeTo})";
+              format-charging = "{icon}ﮣ {capacity}% ({timeTo})";
               format-icons = ["" "" "" "" "" "" "" "" "" ""];
             };
             "network" = {
