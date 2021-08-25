@@ -20,6 +20,13 @@ in
 
 
       };
+      programs.mako = {
+        enable = true;
+        borderColor = "#689d6aFF";
+        backgroundColor = "#1d2021FF";
+        font = "JetBrainsMono Nerd Font";
+        layer = "overlay";
+      };
       programs.waybar = {
         enable = true;
         settings = [ {
@@ -48,7 +55,7 @@ in
           
           window#waybar {
               border-bottom-style: inset;
-              border-bottom: 4px solid #689d6a;
+              border-bottom: 0px solid #689d6a;
               background: #1d2021;
           }
           
@@ -274,6 +281,7 @@ in
         done
 
         waybar &
+        mako &
 
         # Set and exec into the default layout generator, rivertile.
         # River will send the process group of the init executable SIGTERM on exit.
