@@ -11,13 +11,17 @@ in
       river
       wofi
       alacritty
+      xdg-desktop-portal-wlr
+      obs-wlroots
+      swaybg
     ];
     environment.variables = {
       _JAVA_AWT_WM_NONREPARENTING = "1";
       XKB_DEFAULT_LAYOUT = "${config.services.xserver.layout}";
       XKB_DEFAULT_OPTIONS = "${config.services.xserver.xkbOptions}";
+      MOZ_ENABLE_WAYLAND = "1";
     };
-    # Config File is importe in home-manager/river.nix
+    # Config File is in home-manager/river.nix
     
   };
 }
