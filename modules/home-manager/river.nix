@@ -88,10 +88,10 @@ in
           
           /* River Buttons */
           #tags button.urgent{
-              backgound: #cc241d;
+              background: #cc241d;
           }
           #tags button.occupied{
-              backgound: #3c3836;
+              background: #3c3836;
           }
           #tags button.focused {
               color: #d79921;
@@ -149,13 +149,13 @@ in
         
         # Mod+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
         riverctl map normal $mod+Shift Return spawn ${pkgs.alacritty}/bin/alacritty
-        riverctl map normal $mod P spawn '${pkgs.wofi}/bin/wofi --show drun -I -m -t alacritty'
+        riverctl map normal $mod P spawn '${pkgs.fuzzel}/bin/fuzzel -f "JetBrainsMono Nerd Font" -b "1d2021ff" -T alacritty'
         
         # Mod+Q to close the focused view
         riverctl map normal $mod+Shift Q close
         
         # Mod+E to exit river
-        riverctl map normal $mod+Shift E exit
+        riverctl map normal $mod+Shift E spawn ${pkgs.wlogout}/bin/wlogout
         
         # Mod+J and Mod+K to focus the next/previous view in the layout stack
         riverctl map normal $mod J focus-view next
@@ -305,7 +305,7 @@ in
         # Set and exec into the default layout generator, rivertile.
         # River will send the process group of the init executable SIGTERM on exit.
         riverctl default-layout rivertile
-        exec rivertile
+        exec rivertile -view-padding 0 -outer-padding 0
       ''; };
     };
   };
