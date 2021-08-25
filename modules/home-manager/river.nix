@@ -44,7 +44,6 @@ in
             "battery" = {
               format-discharging = "{icon} {capacity}% ({time})";
               format-charging = " {capacity}% ({time})";
-              format-plugged = " Full";
               format-icons = ["" "" "" "" "" "" "" "" "" ""];
             };
             "network" = {
