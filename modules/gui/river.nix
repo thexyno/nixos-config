@@ -20,7 +20,6 @@ in
       XKB_DEFAULT_LAYOUT = "${config.services.xserver.layout}";
       XKB_DEFAULT_OPTIONS = "${config.services.xserver.xkbOptions}";
       MOZ_ENABLE_WAYLAND = "1";
-      XDG_CURRENT_DESKTOP = "unity";
     };
     # Config File is in home-manager/river.nix
     
