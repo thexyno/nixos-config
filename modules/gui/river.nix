@@ -12,6 +12,9 @@ in
       wofi
       alacritty
       swaybg
+      grim
+      slurp
+      wl-clipboard
     ];
     xdg.portal = {
       enable = true;
