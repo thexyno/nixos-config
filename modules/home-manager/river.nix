@@ -90,13 +90,13 @@ in
           
           /* River Buttons */
           #tags button.urgent {
-              background: #cc241d !important;
+              background: #cc241d;
           }
           #tags button.occupied {
               background: #3c3836;
           }
           #tags button.focused {
-              color: #d79921 !important;
+              background: #7c6f64;
           }
           
           #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode, #idle_inhibitor {
