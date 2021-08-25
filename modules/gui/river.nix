@@ -11,7 +11,6 @@ in
       river
       wofi
       alacritty
-      obs-studio-plugins.wlrobs
       swaybg
     ];
     xdg.portal = {
