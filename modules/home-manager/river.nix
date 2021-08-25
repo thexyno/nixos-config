@@ -34,12 +34,35 @@ in
           position = "top";
           height = 27;
           modules-left = [ "river/tags" ];
-          modules-right = [ "battery" "clock" ];
+          modules-right = [ "pulseaudio" "network" "battery" "clock" ];
           modules = {
             "clock" = {
               interval = 1;
               format = "{:%F %T}";
               max-length = 25;
+            };
+            "battery" = {
+              format = "{icon} {capacity}% ({time})";
+              format-icons = ["" "" "" "" "" "" "" "" "" ""];
+            };
+            "network" = {
+              format-wifi = "直 {essid} : {signalStrength}%";
+              format-ethernet = "{ifname}";
+              format-Disconnected = "Disconnected";
+            };
+            "pulseaudio" = {
+              format = "{icon} {volume}%";
+              format-bluetooth = "{icon} {volume}%";
+              format-muted = "ﱝ";
+              format-icons = {
+                headphone = "";
+                hands-free = "";
+                headset = "";
+                phone = "";
+                portable = "";
+                car = "";
+                default = ["奄" "奔" "墳"];
+              };
             };
           };
         } ];
@@ -59,30 +82,26 @@ in
               background: #1d2021;
           }
           
-          #workspaces, #clock, #custom-music, #window { 
+          #clock, #window { 
               font-weight: 800;
           }
           
-          /* Workspace Buttons */
-          #workspaces button label{
-              color: #689d6a;
+          /* River Buttons */
+          #tags button.urgent{
+              backgound: #cc241d;
           }
-          #workspaces button.focused label {
-              color: #1d2021;
+          #tags button.occupied{
+              backgound: #3c3836;
           }
-          #workspaces button.focused {
-              background: #689d6a; 
-          }
-          
-          #mode {
-              background-color: #cc241d;
-              color: white;
+          #tags button.focused {
+              color: #d79921;
           }
           
           #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode, #idle_inhibitor {
               padding: 0 5px;
               margin: 0 10px;
           }
+
           
           
           #idle_inhibitor {
