@@ -11,10 +11,13 @@ in
       river
       wofi
       alacritty
-      xdg-desktop-portal-wlr
       obs-studio-plugins.wlrobs
       swaybg
     ];
+    xdg.portal = {
+      enable = true;
+      extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
+    };
     environment.variables = {
       _JAVA_AWT_WM_NONREPARENTING = "1";
       XKB_DEFAULT_LAYOUT = "${config.services.xserver.layout}";
