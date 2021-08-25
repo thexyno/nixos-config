@@ -42,8 +42,9 @@ in
               max-length = 25;
             };
             "battery" = {
-              format = "{icon} {capacity}% ({timeTo})";
-              format-charging = "{icon}ﮣ {capacity}% ({timeTo})";
+              format-discharging = "{icon} {capacity}% ({time})";
+              format-charging = " {capacity}% ({time})";
+              format-plugged = " Full";
               format-icons = ["" "" "" "" "" "" "" "" "" ""];
             };
             "network" = {
