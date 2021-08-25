@@ -12,7 +12,7 @@ in
       wofi
       alacritty
       xdg-desktop-portal-wlr
-      obs-wlroots
+      obs-studio-plugins.wlrobs
       swaybg
     ];
     environment.variables = {
