@@ -32,6 +32,7 @@
   ragon.cli.pandoc.enable = true;
   ragon.cli.emacs.enable = true;
   ragon.gui.gaming.enable = true;
+  ragon.gui.river.enable = true;
   ragon.user.enable = true;
   ragon.home-manager.enable = true;
   ragon.gui.enable = true;
