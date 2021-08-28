@@ -2,6 +2,7 @@
 with lib;
 with lib.my;
 let
+  wgEnabled = hasAttrByPath [ "hosts" config.networking.hostName ] (importTOML ../../data/wireguard.toml);
   cfg = config.ragon.networking.router;
   waninterface = cfg.waninterface;
   laninterface = cfg.laninterface;
@@ -17,6 +18,10 @@ let
     netipv4addr = "10.0.0.0";
     dhcpv4start = "10.0.10.1";
     dhcpv4end = "10.0.255.240";
+    routes = [
+      { address = "10.12.0.0"; prefixLength = 16; via = "10.0.1.2"; }
+      { address = "10.13.0.0"; prefixLength = 16; via = "10.0.1.2"; }
+    ];
     ipv4size = 16;
     vlan = 4;
   };
@@ -28,6 +33,7 @@ let
     netipv4addr = "10.1.0.0";
     dhcpv4start = "10.1.1.1";
     dhcpv4end = "10.1.255.240";
+    routes = [];
     ipv4size = 16;
     vlan = 2;
   };
@@ -39,6 +45,7 @@ let
     netipv4addr = "192.168.2.0";
     dhcpv4start = "192.168.2.10";
     dhcpv4end = "192.168.2.240";
+    routes = [];
     ipv4size = 24;
     vlan = 3;
   };
@@ -53,7 +60,7 @@ let
       routes = [{
         address = obj.netipv4addr;
         prefixLength = obj.ipv4size;
-      }];
+      }] ++ obj.routes;
     };
   };
 in
@@ -238,13 +245,13 @@ in
     networking.nftables.ruleset =
       let
         unsafeInterfaces = (map (x: x.name) (filter (x: x.internet == false) nets));
-        safeInterfaces = (map (x: x.name) (filter (x: x.internet == true) nets)) ++ [ "lo" ];
+        safeInterfaces = (map (x: x.name) (filter (x: x.internet == true) nets)) ++ [ "lo" ] ++ (optionals (wgEnabled) [ "wg0" ]);
         allInternalInterfaces = (map (x: x.name) nets) ++ [ "lo" ];
         portForwards = concatStringsSep "\n" (map (x: "iifname ${waninterface} ${x.proto} dport ${toString x.sourcePort} dnat ${x.destination}") cfg.forwardedPorts);
         dropUnsafe = concatStringsSep "\n" (map (x: "iifname ${x} drop") unsafeInterfaces);
         allowSafe = concatStringsSep "\n" (map (x: "iifname ${x} accept") safeInterfaces);
         allowSafeOif = concatStringsSep "\n" (map (x: "oifname ${x} ct state { established, related } accept") safeInterfaces);
-        allowAll = concatStringsSep "\n" (map (x: "iifname ${x} accept") allInternalInterfaces);
+        allowAll = concatStringsSep "\n" (map (x: "iifname ${x} accept") (allInternalInterfaces ++ (optionals (wgEnabled) [ "wg0" ])));
       in
       ''
         define unsafe_interfaces = {
@@ -355,39 +362,6 @@ in
             mkdir $out
             ln -s ${netbootxyz} $out/netbootxyz.efi
           '';
-          disableFirewallForJson = builtins.toJSON disableFirewallFor;
-          dispatcher = pkgs.writeScript "dnsmasq-dispatcher.py" ''
-            #!${pkgs.python3}/bin/python3
-            import json
-            import sys
-            import subprocess
-            import os
-
-            print(sys.argv)
-            print(os.environ)
-
-            ACTION = sys.argv[1]
-            MAC = sys.argv[2]
-            IP = sys.argv[3]
-            HOSTNAME = ""
-            if len(sys.argv) > 4:
-              HOSTNAME = sys.argv[4]
-
-
-            if ACTION != "del" and "DNSMASQ_IAID" in os.environ: # action not del and ipv6
-              data = json.loads("""${disableFirewallForJson}""")
-              for host in data:
-                if HOSTNAME is host["hostname"] or MAC is host["mac"]:
-                  print("setting firewall rules")
-                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "tcp", "dport", f'{{ {", ".join(map(str, host["tcpports"]))} }}', "accept" ])
-                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "forward", "ip6", "daddr", IP, "udp", "dport", f'{{ {", ".join(map(str, host["udpports"]))} }}', "accept" ])
-                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "input", "ip6", "daddr", IP, "tcp", "dport", f'{{ {", ".join(map(str, host["tcpports"]))} }}', "accept" ])
-                  subprocess.run(["${pkgs.nftables}/bin/nft", "add", "rule", "inet", "filter", "input", "ip6", "daddr", IP, "udp", "dport", f'{{ {", ".join(map(str, host["udpports"]))} }}', "accept" ])
-                else:
-                  print("no firewall rules found")
-            else:
-              print("ipv4 or deletion, abort")
-          '';
         in
         ''
           no-resolv
@@ -420,20 +394,25 @@ in
           # set your domain for expand-hosts
           domain=${domain}
 
+          # forward .kube domains to coredns
+          server=/kube/10.13.0.10
+
 
           ${genall}
+        '' +
+        optionalString wgEnabled ''
+          interface=wg0
+          no-dhcp-interface=wg0
+          addn-hosts=/run/wireguard-hosts
+        '' + ''
           interface=lo # otherwise localhost dns does not work
           ${genstatics}
           ${genallHosts}
 
           dhcp-boot=netbootxyz.efi
 
-          addn-hosts=/run/wireguard-hosts
-
           enable-tftp
           tftp-root=${netbootxyzpath}
-
-          dhcp-script=${dispatcher}
 
           # set authoritative mode
           dhcp-authoritative

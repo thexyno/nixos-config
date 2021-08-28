@@ -10,5 +10,8 @@ in
     networking.wireguard.enable = true;
     services.mullvad-vpn.enable = true;
     environment.systemPackages = [ pkgs.mullvad-vpn ];
+    ragon.user.persistent.extraDirectories = [
+      ".config/Mullvad VPN"
+    ];
   };
 }

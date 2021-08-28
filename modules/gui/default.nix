@@ -35,6 +35,7 @@ in
     default = "timeular";
   };
   config = lib.mkIf cfg.enable {
+    ragon.gui.dwm.enable = true;
     # Set up default fonts
     fonts.enableDefaultFonts = true;
     fonts.enableGhostscriptFonts = true;
@@ -155,6 +156,7 @@ in
 
     # hardware.pulseaudio.enable = true;
     # # Set up Pipewire for audio
+    hardware.pulseaudio.enable = mkForce false;
     services.pipewire.enable = true;
     services.pipewire.alsa.enable = true;
     services.pipewire.pulse.enable = true;

@@ -14,7 +14,7 @@ in
             Comment=
             Exec=firefox -P Work %U
             GenericName=Web Browser (Work)
-            Icon=firefox
+            Icon=firefox-nightly
             Name=Firefox (Work)
             Terminal=false
             Type=Application

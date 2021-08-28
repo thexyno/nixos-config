@@ -6,7 +6,6 @@ let
   domain = config.ragon.services.nginx.domain;
 in
 {
-  imports = [ ../../tmp/pap.nix ];
   options.ragon.services.paperless.enable = mkEnableOption "Enables paperless ng";
   options.ragon.services.paperless.domainPrefix =
     lib.mkOption {

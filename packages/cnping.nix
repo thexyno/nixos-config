@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, stdenv, libX11, libGL }:
+{ lib, fetchFromGitHub, stdenv, libX11, libGL, ...}:
 stdenv.mkDerivation rec {
   version = "1.0.0";
   pname = "cnping";
