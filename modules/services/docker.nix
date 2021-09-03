@@ -9,6 +9,6 @@ in
     virtualisation.podman.enable = true;
     virtualisation.podman.dockerCompat = true;
     ragon.user.extraGroups = [ "docker" "podman" ];
-    ragon.user.persistent.extraDirectories = [ ".local/share/containers" ];
+    ragon.user.persistent.extraDirectories = [ ".local/share/containers" ".cache/containers" ];
   };
 }
