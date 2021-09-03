@@ -11,5 +11,6 @@ in
     ragon.user.extraGroups = [ "docker" "podman" ];
     ragon.user.persistent.extraDirectories = [ ".local/share/containers" ".cache/containers" ];
     ragon.persist.extraDirectories = [ "/var/lib/containers" ];
+    virtualisation.containers.containersConf.settings.storage.driver = "zfs";
   };
 }
