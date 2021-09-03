@@ -11,9 +11,5 @@ in
     virtualisation.podman.dockerCompat = true;
     ragon.user.extraGroups = [ "docker" "podman" ];
     ragon.user.persistent.extraDirectories = [ ".local/share/containers" ".cache/containers" ];
-    virtualisation.containers.storage.settings.storage = {
-      driver = "zfs";
-      options.zfs.fsname = "pool/containers";
-    };
   };
 }
