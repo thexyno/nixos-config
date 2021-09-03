@@ -13,5 +13,6 @@ in
     ragon.persist.extraDirectories = [ "/var/lib/containers" ];
     virtualisation.containers.storage.settings.driver = "zfs";
     virtualisation.containers.storage.settings.mount_program = "${pkgs.zfs}/bin/mount.zfs";
+    virtualisation.containers.storage.settings.fsname = "pool/containers";
   };
 }
