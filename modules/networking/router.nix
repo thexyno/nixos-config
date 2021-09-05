@@ -113,6 +113,7 @@ in
         { name = "enterprise"; ip = "10.0.0.9"; mac = "d8:cb:8a:76:09:0a"; }
         { name = "ds9"; ip = "10.0.0.2"; mac = "f4:b5:20:0e:21:d5"; }
         { name = "homeassistant"; ip = "10.0.0.20"; mac = "52:54:00:a1:04:14"; }
+        { name = "kodiche"; ip = "10.0.0.21"; mac = "01:dc:a6:32:f0:43:b9"; }
         { name = "zbbridge"; ip = "10.1.0.5"; mac = "98:f4:ab:e2:b6:a3"; }
         { name = "wled-Schrank-Philipp"; ip = "10.1.0.10"; mac = "2c:f4:32:20:74:60"; }
         { name = "wled-Betthintergrund-Phi"; ip = "10.1.0.11"; mac = "2c:3a:e8:0e:ab:71"; }
