@@ -129,7 +129,6 @@ in
                { MODKEY|ShiftMask,             XK_v,        spawn,          {.v = pulsemixercmd } },
                { MODKEY|ShiftMask,             XK_f,        spawn,          {.v = nnncmd } },
                { MODKEY|ControlMask,           XK_Return,   spawn,          {.v = termfloatcmd } },
-               { MODKEY|ShiftMask,             XK_c,        spawn,          {.v = clipmenucmd } },
                { 0,                            XK_Print,    spawn,          {.v = scrotcmd } },
                { 0,                            0x1008ff11,  spawn,          {.v = voldowncmd } },
                { 0,                            0x1008ff12,  spawn,          {.v = volmutecmd } },
