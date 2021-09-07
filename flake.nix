@@ -44,8 +44,12 @@
     pandoc-latex-template.flake = false;
     pandocode.url = "github:nzbr/pandocode";
     pandocode.flake = false;
-    paperwm.url = "github:paperwm/PaperWM/next-release";
-    paperwm.flake = false;
+    cnping.url = "github:cnlohr/cnping";
+    cnping.flake = false;
+    pridecat.url = "github:lunasorcery/pridecat";
+    pridecat.flake = false;
+    pulse-launch.url = "github:ragon000/pulse-launch";
+    pulse-launch.flake = false;
 
     ## vim
     coc-nvim.url = "github:neoclide/coc.nvim/release";

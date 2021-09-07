@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, python3, ... }:
+{ inputs, lib, stdenv, fetchFromGitHub, python3Packages, python3, ... }:
 let
   py = python3.withPackages (pythonPackages: with pythonPackages; [ pulsectl ]);
 in
@@ -7,12 +7,7 @@ stdenv.mkDerivation rec {
   pname = "pulse_launch";
   format = "other";
   doCheck = false;
-  src = fetchFromGitHub {
-    owner = "ragon000";
-    repo = "pulse-launch";
-    rev = "bc5910eb3fcfa933a5ff84472948e70a92eff7b4";
-    sha256 = "11n9mz8gs3zklm818a6g80g9panbz58q9qjh6zwmnrwvgnzf13wc";
-  };
+  src = inputs.pulse-launch;
   buildPhase = ''
     echo "#!${py}/bin/python3" | cat - ${pname}.py > ${pname}
   '';
