@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, stdenv, python3, python3Packages, zip, ... }:
+{ inputs, lib, fetchFromGitHub, stdenv, python3, python3Packages, zip, ... }:
 let
   py = python3.withPackages (pythonPackages: with pythonPackages; [ panflute ]);
 in
@@ -6,12 +6,7 @@ stdenv.mkDerivation rec {
   version = "1.0.1";
   name = "pandocode-${version}";
   nativeBuildInputs = [ zip ];
-  src = fetchFromGitHub {
-    owner = "nzbr";
-    repo = "pandocode";
-    rev = "2e19dd35e55ec50c2fc4a52a4e5041c5d93b76dc";
-    sha256 = "I25ueMVJcVbauwblw0E10EccfRLAUAB/1ashkf01ixk=";
-  };
+  src = inputs.pandocode;
   format = "other";
   doCheck = false;
   buildPhase = ''

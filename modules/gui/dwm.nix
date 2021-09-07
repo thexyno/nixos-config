@@ -112,17 +112,13 @@ in
              static const char *termfloatcmd[]  =  { "st", "-c", "floating", NULL };
              static const char *pulsemixercmd[]  = { "st", "-c", "floating", "pulsemixer", NULL };
              static const char *nnncmd[]  =        { "st", "-c", "floating", "zsh", "-ic", "n;exec zsh", NULL };
-             static const char *scrotcmd[]  =      { "sh", "-c", "scrot -s  '%Y-%m-%d_\\$wx\\$h_scrot.png' -e 'mv \\$f ~/Screenshots/; xclip -t image/png -selection clipboard ~/Screenshots/\\$f'", NULL };
+             static const char *scrotcmd[]  =      { "sh", "-c", "scrot -s  '%Y-%m-%d_''$wx''$h_scrot.png' -e 'mv ''$f ~/Screenshots/; xclip -t image/png -selection clipboard ~/Screenshots/''$f'", NULL };
              static const char *volupcmd[]  =      { "changeVolume", "+5", NULL };
              static const char *voldowncmd[]  =    { "changeVolume", "-5", NULL };
              static const char *volmutecmd[]  =    { "changeVolume", "mute", NULL };
              static const char *playpausecmd[]  =  { "playerctl", "play-pause", NULL };
              static const char *nextcmd[]  =       { "playerctl", "next", NULL };
              static const char *previouscmd[] =    { "playerctl", "previous", NULL };
-             static const char *clipmenucmd[] =    { "clipmenu", NULL };
-             static const char *sharenix2cmd[] = { "nextshot", "-a", 0 };
-             static const char *sharenix3cmd[] = { "nextshot", "-w", 0 };
-             static const char *sharenix4cmd[] = { "nextshot", "-f", 0 };
              static const char *brightnessupcmd[] =   { "xbacklight", "-inc", "5", 0 };
              static const char *brightnessdowncmd[] = { "xbacklight", "-dec", "5", 0 };
             
@@ -133,9 +129,6 @@ in
                { MODKEY|ShiftMask,             XK_v,        spawn,          {.v = pulsemixercmd } },
                { MODKEY|ShiftMask,             XK_f,        spawn,          {.v = nnncmd } },
                { MODKEY|ControlMask,           XK_Return,   spawn,          {.v = termfloatcmd } },
-               { MODKEY|Mod1Mask,                XK_2,         spawn,           {.v = sharenix2cmd } },
-               { MODKEY|Mod1Mask,                XK_3,         spawn,           {.v = sharenix3cmd } },
-               { MODKEY|Mod1Mask,               XK_4,        spawn,          {.v = sharenix4cmd } },
                { MODKEY|ShiftMask,             XK_c,        spawn,          {.v = clipmenucmd } },
                { 0,                            XK_Print,    spawn,          {.v = scrotcmd } },
                { 0,                            0x1008ff11,  spawn,          {.v = voldowncmd } },
