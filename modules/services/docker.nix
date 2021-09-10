@@ -7,8 +7,9 @@ in
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.backend = "podman";
     virtualisation.podman.enable = true;
+    virtualisation.docker.enable = true;
     virtualisation.podman.defaultNetwork.dnsname.enable = true;
-    virtualisation.podman.dockerCompat = true;
+    # virtualisation.podman.dockerCompat = true;
     ragon.user.extraGroups = [ "docker" "podman" ];
     ragon.user.persistent.extraDirectories = [ ".local/share/containers" ".cache/containers" ];
     virtualisation.containers.storage.settings.storage = {
