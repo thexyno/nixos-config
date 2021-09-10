@@ -81,6 +81,7 @@ in
       with pkgs; [
         libreoffice-fresh
         cinnamon.nemo
+        file-roller
         arc-icon-theme
         feh
         pulsemixer
