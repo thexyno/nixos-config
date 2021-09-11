@@ -12,6 +12,6 @@ in
     ];
     ragon.user.persistent.extraDirectories = [
       ".config/PrusaSlicer"
-    ]
+    ];
   };
 }
