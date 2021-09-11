@@ -41,6 +41,7 @@
   ragon.services.docker.enable = true;
   ragon.services.ssh.enable = true;
   ragon.hardware.bluetooth.enable = true;
+  ragon.programs.prusa-slicer.enable = true;
   ragon.agenix.secrets.pulseLaunch = { owner = "ragon"; };
   systemd.user.services."pulselaunch" = {
     path = with pkgs; [ curl my.pulse_launch ];

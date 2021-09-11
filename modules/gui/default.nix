@@ -53,26 +53,6 @@ in
       (nerdfonts.override { fonts = [ "JetBrainsMono" "Terminus"]; })
     ];
 
-
-    # services.xserver.extraLayouts.eu = {
-    #   description = "EurKEY (US based layout with European letters)";
-    #   languages = [ 
-    #         "ger"
-    #         "gre"
-    #         "gsw"
-    #         "ita"
-    #         "lav"
-    #         "lit"
-    #         "nld"
-    #         "nor"
-    #         "por"
-    #         "spa"
-    #         "swe"
-    #   ];
-    #   symbolsFile = ../../data/xkb/symbols/colemak_eurkey;
-    # };
-
-
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
     documentation.info.enable = false; # https://github.com/NixOS/nixpkgs/issues/124215#issuecomment-846762260
@@ -80,8 +60,9 @@ in
     environment.systemPackages =
       with pkgs; [
         libreoffice-fresh
-        cinnamon.nemo
+        gnome.nautilus
         gnome.file-roller
+        gnome.gnome-screenshot
         arc-icon-theme
         feh
         pulsemixer
@@ -93,7 +74,6 @@ in
         st-ragon
         sxiv
         signal-desktop
-        wireguard
         bitwarden
         obs-studio
         unstable.discord
@@ -126,6 +106,7 @@ in
       ".thunderbird/" # Because of cause this isn't in .mozilla
     ];
 
+    services.gnome.sushi.enable = true;
     services.gnome.glib-networking.enable = true;
     services.gnome.gnome-keyring.enable = true;
     services.gvfs.enable = true;
@@ -175,9 +156,6 @@ in
 
     # 8000 is for random web sharing things.
     networking.firewall.allowedTCPPorts = [ 8000 ];
-
-    # i hate myself
-    services.teamviewer.enable = true;
 
     # Define extra groups for user.
     ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" "scanner" "lp" "video" ];
