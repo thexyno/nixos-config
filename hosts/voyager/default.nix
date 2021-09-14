@@ -35,6 +35,9 @@
   ragon.user.persistent.extraDirectories = [
     ".cache" # hopefully helps with ram
   ];
+    environment.systemPackages = with pkgs; [
+      virt-manager
+    ];
 
 
 }
