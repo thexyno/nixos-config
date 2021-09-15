@@ -80,6 +80,11 @@ in
         unstable.discord
         spotify
         unstable.timeular
+        yubikey-agent
+        yubikey-manager
+        yubikey-manager-qt
+        yubikey-personalization
+        yubikey-personalization-gui
       ];
 
     # security.wrappers.cnping = {
