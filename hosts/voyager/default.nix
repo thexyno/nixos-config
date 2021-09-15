@@ -29,10 +29,14 @@
   ragon.develop.enable = true;
   ragon.persist.enable = true;
   ragon.services.docker.enable = true;
+  ragon.services.libvirt.enable = true;
   ragon.services.ssh.enable = true;
 
   ragon.user.persistent.extraDirectories = [
     ".cache" # hopefully helps with ram
+  ];
+  environment.systemPackages = with pkgs; [
+    virt-manager
   ];
 
 
