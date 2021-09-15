@@ -5,7 +5,7 @@ let
   cfg = config.ragon.programs.prusa-slicer;
 in
 {
-  options.ragon.gui.gnome.enable = mkEnableOption "Enables Prusa Slicer";
+  options.ragon.programs.prusa-slicer.enable = mkEnableOption "Enables Prusa Slicer";
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       prusa-slicer
