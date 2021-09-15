@@ -35,6 +35,7 @@ in
     default = "timeular";
   };
   config = lib.mkIf cfg.enable {
+    services.yubikey-agent.enable = true;
     ragon.gui.dwm.enable = true;
     # Set up default fonts
     fonts.enableDefaultFonts = true;
@@ -50,7 +51,7 @@ in
     # Install some extra fonts.
     fonts.fonts = with pkgs; [
       jetbrains-mono
-      (nerdfonts.override { fonts = [ "JetBrainsMono" "Terminus"]; })
+      (nerdfonts.override { fonts = [ "JetBrainsMono" "Terminus" ]; })
     ];
 
     # List packages installed in system profile. To search by name, run:
