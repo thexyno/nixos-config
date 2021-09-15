@@ -37,6 +37,7 @@ in
   config = lib.mkIf cfg.enable {
     services.yubikey-agent.enable = true;
     ragon.gui.dwm.enable = true;
+    services.pcscd.enable = true;
     # Set up default fonts
     fonts.enableDefaultFonts = true;
     fonts.enableGhostscriptFonts = true;
