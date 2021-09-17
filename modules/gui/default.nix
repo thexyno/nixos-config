@@ -55,13 +55,14 @@ in
       (nerdfonts.override { fonts = [ "JetBrainsMono" "Terminus" ]; })
     ];
 
+    qt5.style = "adwaita-dark";
+
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
     documentation.info.enable = false; # https://github.com/NixOS/nixpkgs/issues/124215#issuecomment-846762260
     ragon.services.mullvad.enable = true;
     environment.systemPackages =
       with pkgs; [
-        libsForQt5.breeze-qt5
         libsForQt5.breeze-icons
         libreoffice-fresh
         konsole
