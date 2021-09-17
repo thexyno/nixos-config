@@ -62,6 +62,7 @@ in
     environment.systemPackages =
       with pkgs; [
         libsForQt5.breeze-qt5
+        libsForQt5.breeze-icons
         libreoffice-fresh
         dolphin
         okular
