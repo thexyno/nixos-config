@@ -64,6 +64,7 @@ in
         libsForQt5.breeze-qt5
         libsForQt5.breeze-icons
         libreoffice-fresh
+        konsole
         dolphin
         okular
         spectacle
