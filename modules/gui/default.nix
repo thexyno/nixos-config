@@ -104,6 +104,10 @@ in
     ];
 
     ragon.user.persistent.extraDirectories = [
+      ".local/share/dolphin/view_properties/global"
+      ".config/session"
+      ".local/share/okular"
+      ".local/share/konsole"
       ".config/discord"
       ".config/Bitwarden"
       ".config/libreoffice"
