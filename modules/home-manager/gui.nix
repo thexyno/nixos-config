@@ -9,6 +9,10 @@ in
       {
         # GTK theme configs
         gtk.enable = isGui;
+        gtk.theme = {
+          package = pkgs.gnome-breeze;
+          name = "Breeze";
+        };
         gtk.gtk3.extraConfig = {
           gtk-application-prefer-dark-theme = 1;
         };
@@ -16,7 +20,10 @@ in
         # Set up qt theme as well
         qt = {
           enable = isGui;
-          platformTheme = "gtk";
+          style = {
+            package = pkgs.libsForQt5.breeze-qt5;
+            name = "breeze-dark";
+          };
         };
         services.random-background = {
           enable = isGui;

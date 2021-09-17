@@ -111,8 +111,8 @@ in
              static const char *termcmd[]  =       { "st", NULL };
              static const char *termfloatcmd[]  =  { "st", "-c", "floating", NULL };
              static const char *pulsemixercmd[]  = { "st", "-c", "floating", "pulsemixer", NULL };
-             static const char *nnncmd[]  =        { "st", "-c", "floating", "zsh", "-ic", "n;exec zsh", NULL };
-             static const char *scrotcmd[]  =      { "sh", "-c", "scrot -s  '%Y-%m-%d_''$wx''$h_scrot.png' -e 'mv ''$f ~/Screenshots/; xclip -t image/png -selection clipboard ~/Screenshots/''$f'", NULL };
+             static const char *filemanagercmd[]  =        { "${pkgs.dolphin}/bin/dolphin", NULL };
+             static const char *scrotcmd[]  =      { "sh", "-c", "${pkgs.spectacle}/bin/spectacle -r", NULL };
              static const char *volupcmd[]  =      { "changeVolume", "+5", NULL };
              static const char *voldowncmd[]  =    { "changeVolume", "-5", NULL };
              static const char *volmutecmd[]  =    { "changeVolume", "mute", NULL };
@@ -127,7 +127,7 @@ in
                { MODKEY,                       XK_p,        spawn,          {.v = dmenucmd } },
                { MODKEY|ShiftMask,             XK_Return,   spawn,          {.v = termcmd } },
                { MODKEY|ShiftMask,             XK_v,        spawn,          {.v = pulsemixercmd } },
-               { MODKEY|ShiftMask,             XK_f,        spawn,          {.v = nnncmd } },
+               { MODKEY|ShiftMask,             XK_f,        spawn,          {.v = filemanagercmd } },
                { MODKEY|ControlMask,           XK_Return,   spawn,          {.v = termfloatcmd } },
                { 0,                            XK_Print,    spawn,          {.v = scrotcmd } },
                { 0,                            0x1008ff11,  spawn,          {.v = voldowncmd } },

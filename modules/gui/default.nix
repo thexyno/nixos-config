@@ -61,10 +61,11 @@ in
     ragon.services.mullvad.enable = true;
     environment.systemPackages =
       with pkgs; [
+        libsForQt5.breeze-qt5
         libreoffice-fresh
-        gnome.nautilus
-        gnome.file-roller
-        gnome.gnome-screenshot
+        dolphin
+        okular
+        spectacle
         arc-icon-theme
         feh
         pulsemixer
