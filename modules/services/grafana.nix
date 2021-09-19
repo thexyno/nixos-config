@@ -11,7 +11,11 @@ in
       default = "grafana";
     };
   config = lib.mkIf cfg.enable {
-    services.grafana = { };
+    services.grafana = {
+      enable = true;
+      domain = "${cfg.domainPrefix}:${domain}";
+      rootUrl = "https://${cfg.domainPrefix}/";
+    };
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       useACMEHost = "${domain}";
       addSSL = true;

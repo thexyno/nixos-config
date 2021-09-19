@@ -148,6 +148,7 @@
       nfs.enable = true;
       nginx.enable = true;
       jellyfin.enable = true;
+      grafana.enable = true;
       grocy.enable = true;
       libvirt.enable = true;
       paperless.enable = true;

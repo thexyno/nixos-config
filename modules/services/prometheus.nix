@@ -37,6 +37,7 @@ in
       {
         # some global settings
         services.prometheus.exporters.node.enabledCollectors = [ "systemd" ];
+        services.nginx.statusPage = true;
       }
     ] ++
     (map (x: {
@@ -44,7 +45,7 @@ in
         enable = (builtins.elem hostName cfg.exporters.${x}.hosts);
         port = cfg.exporters.${x}.port;
         openFirewall = true;
-        firewallFilter = "-p tmp -s ${cfg.master.ip} -m tcp --dport ${toString cfg.exporters.${x}.port}";
+        firewallFilter = "-p tcp -s ${cfg.master.ip} -m tcp --dport ${toString cfg.exporters.${x}.port}";
       };
       } ) (builtins.attrNames cfg.exporters))
       );
