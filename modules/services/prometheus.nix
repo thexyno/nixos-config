@@ -10,8 +10,7 @@ in
     (mkIf (cfg.master.hostname == hostName) {
       services.prometheus = {
         enable = true;
-        port = cfg.master.port;
-        scrapeConfigs = traceValSeq (foldl (a: b: a ++ b) [] (map (x: (map (y: {
+        scrapeConfigs = foldl (a: b: a ++ b) [] (map (x: (map (y: {
           job_name = "${x}_${y}";
           static_configs = [
             {
@@ -24,11 +23,11 @@ in
                     then cfg.hostOverrides.${y}
                     else "${y}.hailsatan.eu"
                   )
-                }:${toString cfg.exporters.${x}.port}''
+                }:${toString config.services.prometheus.exporters.${x}.port}''
               ];
             }
           ];
-        }) cfg.exporters.${x}.hosts )) (builtins.attrNames cfg.exporters)));
+        }) cfg.exporters.${x}.hosts )) (builtins.attrNames cfg.exporters));
       };
       ragon.persist.extraDirectories = [
         "/usr/lib/${config.services.prometheus.stateDir}"
@@ -43,7 +42,6 @@ in
     (map (x: {
       services.prometheus.exporters.${x} = {
         enable = (builtins.elem hostName cfg.exporters.${x}.hosts);
-        port = cfg.exporters.${x}.port;
         openFirewall = true;
         firewallFilter = "-p tcp -s ${cfg.master.ip} -m tcp --dport ${toString cfg.exporters.${x}.port}";
       };

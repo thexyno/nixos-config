@@ -1,7 +1,6 @@
 [master]
 hostname = "ds9"
 ip = "10.0.0.2"
-port = 9001
 
 [hostOverrides]
 wormhole = "10.0.0.1"
@@ -12,16 +11,12 @@ hosts = [
   "ds9",
   "wormhole"
 ]
-port = 9002
 
 [exporters.node]
 hosts = [ "ds9", "wormhole" ]
-port = 9003
 
 [exporters.dnsmasq]
 hosts = [ "wormhole" ]
-port = 9004
 
 [exporters.wireguard]
 hosts = [ "wormhole"]
-port = 9005
