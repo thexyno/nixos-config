@@ -43,7 +43,7 @@ in
       services.prometheus.exporters.${x} = {
         enable = (builtins.elem hostName cfg.exporters.${x}.hosts);
         openFirewall = true;
-        firewallFilter = "-p tcp -s ${cfg.master.ip} -m tcp --dport ${toString cfg.exporters.${x}.port}";
+        firewallFilter = "-p tcp -s ${cfg.master.ip} -m tcp --dport ${toString config.services.prometheus.exporters.${x}.port}";
       };
       } ) (builtins.attrNames cfg.exporters))
       );
