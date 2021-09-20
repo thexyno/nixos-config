@@ -130,7 +130,7 @@ in
                   };
                 };
                 relabel_configs = [ {
-                  source_labels = ["__journal_systemd_unit"];
+                  source_labels = ["__journal__systemd_unit"];
                   target_label = "unit";
                 } ];
               }
