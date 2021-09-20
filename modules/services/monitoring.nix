@@ -110,6 +110,7 @@ in
         # some global settings
         services.prometheus.exporters.node.enabledCollectors = [ "systemd" ];
         services.prometheus.exporters.dnsmasq.leasesPath = "/var/lib/dnsmasq/dnsmasq.leases";
+        services.prometheus.exporters.smokeping.hosts = [ "1.1.1.1" ];
         services.nginx.statusPage = true;
       }
       (mkIf (builtins.elem hostName cfg.promtail.hosts) {
