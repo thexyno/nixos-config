@@ -30,7 +30,7 @@
 
   networking.wg-quick.interfaces.wg0 = {
     privateKeyFile = "/tmp/wireguardKey";
-    address = [ "10.64.144.1/32" "fc00:bbbb:bbbb:bb01::5:9000/128" ];
+    address = [ "10.68.144.1/32" "fc00:bbbb:bbbb:bb01::5:9000/128" ];
     dns = [ "193.138.218.74" ];
     postUp = ''
       ${pkgs.iptables}/bin/iptables -I OUTPUT -o wg0 -m mark ! --mark $(wg show wg0 fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
