@@ -19,6 +19,8 @@
   isoImage.makeEfiBootable = true;
   isoImage.makeUsbBootable = true;
   networking.interfaces.enp1s0.useDHCP = true;
+  environment.defaultPackages = lib.mkForce [];
+
 
   ragon.router = {
     internalInterface = "enp2s0";
