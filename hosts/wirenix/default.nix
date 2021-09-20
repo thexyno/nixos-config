@@ -42,7 +42,7 @@
     '';
 
     peers = [{
-      publicKey = "StMPmol1+QQQQCJyAkm7t+l/QYTKe5CzXUhw0I6VX14";
+      publicKey = "StMPmol1+QQQQCJyAkm7t+l/QYTKe5CzXUhw0I6VX14=";
       allowedIPs = [ "0.0.0.0/0" "::0/0" ];
       endpoint = "92.60.40.194:51820";
     }];
