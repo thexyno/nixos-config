@@ -27,7 +27,7 @@
   };
 
   networking.wg-quick.interfaces.wg0 = {
-    privateKey = wireguardkey;
+    privateKeyFile = "/tmp/wireguardKey";
     address = [ "10.64.144.1/32" "fc00:bbbb:bbbb:bb01::5:9000/128" ];
     dns = [ "193.138.218.74" ];
     postUp = ''
