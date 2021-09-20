@@ -68,7 +68,6 @@ in
         limits_config:
           reject_old_samples: true
           reject_old_samples_max_age: 168h
-          unordered_writes: true
         
         chunk_store_config:
           max_look_back_period: 0s
