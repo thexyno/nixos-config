@@ -13,8 +13,8 @@ in
   config = lib.mkIf cfg.enable {
     services.grafana = {
       enable = true;
-      domain = "${cfg.domainPrefix}:${domain}";
-      rootUrl = "https://${cfg.domainPrefix}/";
+      domain = "${cfg.domainPrefix}.${domain}";
+      addr = "127.0.0.1";
     };
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       useACMEHost = "${domain}";
