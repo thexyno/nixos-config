@@ -97,10 +97,10 @@ in
     lib.mkIf cfg.enable {
       networking.nat.enable = true;
       networking.nat.internalIPs = [ "${subnet}/${ toString prefixLength}" ];
+      networking.nat.internalInterfaces = [ internalInterface ];
       networking.nat.externalInterface = externalInterface;
       networking.interfaces."${internalInterface}" = {
-        ipAddress = gatewayIP;
-        prefixLength = prefixLength;
+        ipv4.addresses = [ { address = gatewayIP; prefixLength = prefixLength; } ];
       };
 
       services.dhcpd4 =
