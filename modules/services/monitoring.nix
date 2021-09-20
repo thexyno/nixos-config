@@ -143,7 +143,7 @@ in
     (map (x: {
       services.prometheus.exporters.${x} = {
         enable = (builtins.elem hostName cfg.exporters.${x}.hosts);
-        openFirewall = true;
+        openFirewall = (hostName != cfg.master.hostname);
         firewallFilter = "-p tcp -s ${cfg.master.ip} -m tcp --dport ${toString config.services.prometheus.exporters.${x}.port}";
       };
       } ) (builtins.attrNames cfg.exporters))
