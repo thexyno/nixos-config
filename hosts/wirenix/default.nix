@@ -27,8 +27,8 @@
   };
 
   networking.wg-quick.interfaces.wg0 = {
-    privateKeyFile = "/etc/wireguard_key";
-    address = [ "10.64.93.110/32" "fc00:bbbb:bbbb:bb01::1:5d6d/128" ];
+    privateKey = wireguardkey;
+    address = [ "10.64.144.1/32" "fc00:bbbb:bbbb:bb01::5:9000/128" ];
     dns = [ "193.138.218.74" ];
     postUp = ''
       ${pkgs.iptables}/bin/iptables -I OUTPUT -o wg0 -m mark ! --mark $(wg show wg0 fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
@@ -40,9 +40,9 @@
     '';
 
     peers = [{
-      publicKey = "hnRyse6QxPPcZOoSwRsHUtK1W+APWXnIoaDTmH6JsHQ=";
+      publicKey = "StMPmol1+QQQQCJyAkm7t+l/QYTKe5CzXUhw0I6VX14";
       allowedIPs = [ "0.0.0.0/0" "::0/0" ];
-      endpoint = "193.32.249.69:51820";
+      endpoint = "92.60.40.194:51820";
     }];
   };
 }
