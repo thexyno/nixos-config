@@ -19,7 +19,7 @@ in
     (mkIf (cfg.master.hostname == hostName) {
       services.loki.enable = true;
       networking.firewall.allowedTCPPorts = [ 3100 ];
-      services.loki.configFile = pkgs.writeFile "loki.yml" ''
+      services.loki.configFile = pkgs.writeText "loki.yml" ''
         auth_enabled: false
         server:
           http_listen_port: 3100
