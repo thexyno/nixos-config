@@ -144,7 +144,7 @@ in
       services.prometheus.exporters.${x} = {
         enable = (builtins.elem hostName cfg.exporters.${x}.hosts);
         openFirewall = (hostName != cfg.master.hostname);
-        firewallFilter = "-p tcp -s ${cfg.master.ip} -m tcp --dport ${toString config.services.prometheus.exporters.${x}.port}";
+        firewallFilter = if (hostName != cfg.master.hostname) then "-p tcp -s ${cfg.master.ip} -m tcp --dport ${toString config.services.prometheus.exporters.${x}.port}" else null;
       };
       } ) (builtins.attrNames cfg.exporters))
       );
