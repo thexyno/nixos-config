@@ -21,5 +21,8 @@ hosts = [ "wormhole" ]
 [exporters.wireguard]
 hosts = [ "wormhole"]
 
+[exporters.smokeping]
+hosts = [ "wormhole"]
+
 [promtail]
 hosts = [ "wormhole", "ds9" ]
