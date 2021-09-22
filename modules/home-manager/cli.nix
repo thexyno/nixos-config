@@ -78,8 +78,6 @@ in
               shadow_other_users = true;
               show_program_path = false;
               tree_view = false;
-              left_meters = [ "LeftCPUs" "Memory" "Swap" "ZFSARC" ];
-              right_meters = [ "RightCPUs" "Tasks" "LoadAverage" "Uptime" "Battery" ];
             };
           };
 
