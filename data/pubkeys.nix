@@ -14,6 +14,7 @@ let
         voyager = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKejPH5g1z8Syx5YhypidjMZ6itJTgDBBpfAVUIb4+a5" ];
         ds9 = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ+BBXufXAJhyUHVfhqlk8Y4zEKJbKXgJQvsdE482lpV" ];
         picard = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAm3UXZaN95WBUaS9SiHLNEuI1tP1x1w07qnYxPe+vdr" ];
+        odyssey = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF1oyu6jDxST9Ane3KQ8MeM23MT5lLXQQt5g9J03gHBu" ];
       };
     in
     {

@@ -25,12 +25,12 @@
       dev=/dev/$1
       parted $dev -- mklabel gpt
       parted $dev -- mkpart primary 512M -$2
-      parted $dev -- mkpart primary -$2 100%
-      parted $dev -- mkpart primary esp 1M 512M
+      parted $dev -- mkpart primary linux-swap -$2 100%
+      parted $dev -- mkpart ESP fat32 1M 512M
       mkfs.fat -F32 -n boot ''${dev}3
       mount -t tmpfs tmpfs /mnt
-      mkdir -p /mnt/{boot,nix,persist,etc/ssh,var/{lib,log}}
-      echo now create your main file system (on ''${dev}1), mount /mnt/nix and /mnt/persist and then run generateSystem2
+      mkdir -p /mnt/{boot,nix,persistent,etc/ssh,var/{lib,log}}
+      echo "now create your main file system (on ''${dev}1), mount /mnt/nix and /mnt/persistent and then run generateSystem2"
     '')
     (pkgs.writeScriptBin "generateSystem2" ''
       #!${pkgs.bash}/bin/bash
@@ -41,14 +41,14 @@
       fi
       dev=/dev/$1
       
-      mkdir -p /mnt/persist/{etc/ssh,var/{lib,log},srv}
-      mount -o bind /mnt/persist/var/log /mnt/var/log
-      ssh-keygen -t ed25519 -f /mnt/persist/etc/ssh/ssh_host_ed25519_key
-      ssh-keygen -t rsa -f /mnt/persist/etc/ssh/ssh_host_rsa_key
+      mkdir -p /mnt/persistent/{etc/ssh,var/{lib,log},srv}
+      mount -o bind /mnt/persistent/var/log /mnt/var/log
+      ssh-keygen -t ed25519 -f /mnt/persistent/etc/ssh/ssh_host_ed25519_key
+      ssh-keygen -t rsa -f /mnt/persistent/etc/ssh/ssh_host_rsa_key
       echo now add this pubkey to your agenix please
-      cat /mnt/persist/etc/ssh/ssh_host_ed25519_key.pub
+      cat /mnt/persistent/etc/ssh/ssh_host_ed25519_key.pub
 
-      echo then you can install your system with "nixos-install --root /mnt --no-root-passwd --flake github:ragon000/nixos-config#<hostname>"
+      echo "then you can install your system with 'nixos-install --root /mnt --no-root-passwd --flake github:ragon000/nixos-config#<hostname>'"
     '')
   ];
 
