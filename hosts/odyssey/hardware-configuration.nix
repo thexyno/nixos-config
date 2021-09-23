@@ -6,15 +6,14 @@
 {
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
-    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t440p
   ];
 
   boot.initrd.availableKernelModules = [ "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "usbhid" "sd_mod" "sr_mod" ];
-  boot.initrd.luks.devices.crypt.device = "/dev/sda1";
+  # boot.initrd.luks.devices.crypt.device = "/dev/sda1";
   swapDevices = [ { device = "/dev/sda2"; randomEncryption = true; } ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
-  nix.maxJobs = lib.mkDefault 8;
+  nix.maxJobs = lib.mkDefault 4;
   ragon.system.fs.enable = true;
   ragon.system.fs.swap = false;
   ragon.hardware.laptop.enable = false;
