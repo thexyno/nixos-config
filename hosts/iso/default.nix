@@ -11,7 +11,7 @@
   networking.firewall.enable = false;
   ragon.agenix.enable = false;
   environment.systemPackages = [
-    (pkgs.writeScript "generateSystem1" ''
+    (pkgs.writeScriptBin "generateSystem1" ''
       #!${pkgs.bash}/bin/bash
       set -x
       if [ -z $1 ]; then
@@ -32,7 +32,7 @@
       mkdir -p /mnt/{boot,nix,persist,etc/ssh,var/{lib,log}}
       echo now create your main file system (on ''${dev}1), mount /mnt/nix and /mnt/persist and then run generateSystem2
     '')
-    (pkgs.writeScript "generateSystem2" ''
+    (pkgs.writeScriptBin "generateSystem2" ''
       #!${pkgs.bash}/bin/bash
       set -x
       if [ -z $1 ]; then
