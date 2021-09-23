@@ -13,7 +13,7 @@
 
   networking.useDHCP = false;
   networking.networkmanager.enable = true;
-  networking.hostId = "7b4523xb";
+  networking.hostId = "7b45237b";
 
   # Immutable users due to tmpfs
   users.mutableUsers = false;
@@ -26,6 +26,7 @@
   #ragon.gui.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   ragon.gui.dwm.enable = lib.mkForce false;
+  services.xserver.enable = true;
   services.xserver.displayManager.autoLogin.user = "ragon";
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.sddm.enable = true;
