@@ -48,7 +48,7 @@
   hardware.pulseaudio.tcp.enable = true;
   hardware.pulseaudio.zeroconf.publish.enable = true;
   hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" "10.0.0.0/8" ];
- ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" "scanner" "lp" "video" ];
+  ragon.user.extraGroups = [ "audio" "networkmanager" "dialout" "audio" "input" "scanner" "lp" "video" ];
   environment.systemPackages =
     with pkgs; [
       firefox
@@ -56,6 +56,19 @@
       unstable.discord
       spotify
     ];
+
+
+  users.users.nzbr = {
+    isNormalUser = true;
+    extraGroups = [ "audio" ];
+  };
+  ragon.persist.extraDirectories = [ "/home" ];
+  hardware.pulseaudio.systemWide = true;
+  xdg.autostart.enable = true;
+
+  security.sudo.extraRules = [
+    { users = [ "ragon" ]; runAs = "nzbr"; commands = [{ command = "ALL"; options = [ "NOPASSWD" ]; }]; }
+  ];
 
 
 }
