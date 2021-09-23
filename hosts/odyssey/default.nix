@@ -46,6 +46,8 @@
   ];
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.tcp.enable = true;
+  users.users.root.passwordFile = lib.mkForce null;
+  users.users.root.password = lib.mkForce "hunter2";
   hardware.pulseaudio.zeroconf.publish.enable = true;
   hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" "10.0.0.0/8" ];
  ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" "scanner" "lp" "video" ];
