@@ -30,6 +30,9 @@
   services.xserver.displayManager.autoLogin.user = "ragon";
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.sddm.enable = true;
+  documentation.enable = false;
+  documentation.nixos.enable = false;
+  documentation.man.enable = false;
 
   #ragon.gui.river.enable = true;
   #ragon.gui.gaming.enable = true;
