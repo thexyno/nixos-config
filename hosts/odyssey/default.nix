@@ -22,7 +22,7 @@
   ragon.cli.enable = true;
   #ragon.cli.pandoc.enable = true;
   ragon.user.enable = true;
-  ragon.home-manager.enable = true;
+  #ragon.home-manager.enable = true;
   #ragon.gui.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   ragon.gui.dwm.enable = lib.mkForce false;
