@@ -27,6 +27,7 @@
       parted $dev -- mkpart primary 512M -$2
       parted $dev -- mkpart primary linux-swap -$2 100%
       parted $dev -- mkpart ESP fat32 1M 512M
+      parted $dev -- set 3 esp on
       mkfs.fat -F32 -n boot ''${dev}3
       mount -t tmpfs tmpfs /mnt
       mkdir -p /mnt/{boot,nix,persistent,etc/ssh,var/{lib,log}}
