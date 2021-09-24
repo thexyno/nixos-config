@@ -153,6 +153,7 @@
       grocy.enable = true;
       libvirt.enable = true;
       paperless.enable = true;
+      unifi.enable = true;
     };
 
   };
