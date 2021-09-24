@@ -101,6 +101,7 @@ in
 
     ragon.user.persistent.extraFiles = [
       ".cache/rofi3.druncache" # rofi cache so the search priorities are not garbage
+      ".config/dconf/user"
     ];
 
     ragon.user.persistent.extraDirectories = [
