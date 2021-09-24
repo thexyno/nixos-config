@@ -17,7 +17,7 @@ in
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       forceSSL = true;
       useACMEHost = "${domain}";
-      locations."/".proxyPass = "http://127.0.0.1:8080";
+      locations."/".proxyPass = "https://127.0.0.1:8443";
     };
     ragon.persist.extraDirectories = [
       "${config.services.unifi.dataDir}"
