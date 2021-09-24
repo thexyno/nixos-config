@@ -92,6 +92,7 @@ in
       default = [
         { name = "j.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "paperless.hailsatan.eu"; ip = "10.0.0.2"; }
+        { name = "unifi.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "grocy.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "nix.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "h.hailsatan.eu"; ip = "10.0.0.1"; }
