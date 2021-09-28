@@ -141,7 +141,10 @@ in
     lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [
-        #{ proto = "tcp"; sourcePort = "5060-5061"; destination = "10.0.0.11"; }
+        { proto = "tcp"; sourcePort = "5060-5061"; destination = "10.0.0.11"; }
+        { proto = "udp"; sourcePort = "5060-5061"; destination = "10.0.0.11"; }
+        { proto = "tcp"; sourcePort = "5060-5061"; destination = "10.0.0.11"; }
+        { proto = "udp"; sourcePort = "5060-5061"; destination = "10.0.0.11"; }
       ];
     };
   config = lib.mkIf cfg.enable {
