@@ -104,6 +104,7 @@ in
       type = lib.types.listOf lib.types.attrs;
       default = [
         { hostname = "enterprise"; mac = "d8:cb:8a:76:09:0a"; tcpports = [ 22 ]; udpports = [ ]; }
+        { hostname = "fritze"; mac = "00:04:0e:ff:ff:01"; tcpports = [ 5060 5061 ]; udpports = [ 5060 5061  ]; }
         { hostname = "earthquake"; mac = "78:24:af:bc:0c:07"; tcpports = [ 22 22000 ]; udpports = [ 22000 51820 ]; }
       ];
     };
@@ -140,6 +141,7 @@ in
     lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [
+        #{ proto = "tcp"; sourcePort = "5060-5061"; destination = "10.0.0.11"; }
       ];
     };
   config = lib.mkIf cfg.enable {
