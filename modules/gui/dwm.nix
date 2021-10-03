@@ -5,7 +5,7 @@ let
   username = config.ragon.user.username;
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
   dwmblocks = pkgs.dwmblocks.overrideAttrs (oldAttrs: rec {
-    conf = ''
+    conf = pkgs.writeText "dwmconf" ''
       static const Block blocks[] = {
       	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
         ${lib.optionalString laptop ''
@@ -88,8 +88,9 @@ in
              };
             
              static const char *const autostart[] = {
-               ${astart}
                "${pkgs.autorandr}/bin/autorandr", "-c", NULL,
+               "systemctl", "--user", "restart", "random-background.service", NULL, // i hate this
+               ${astart}
                "${dwmblocks}/bin/dwmblocks", NULL,
                NULL /* terminate */
              };
