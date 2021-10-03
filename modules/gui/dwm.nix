@@ -224,8 +224,8 @@ in
 
     services.xserver.displayManager.defaultSession = "none+dwm";
     services.xserver.windowManager.dwm.enable = true;
-    environment.systemPackages = with pkgs; [
-      playerctl
+    environment.systemPackages = [
+      pkgs.playerctl
       dwmblocks
     ];
 
