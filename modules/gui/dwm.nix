@@ -18,7 +18,7 @@ let
       	  {"NAS: ", "df --output=avail -h /media/data | awk '/G/ {print($1)}'",	30,		0},
         ''}
 
-      	{"AUDIO:", "pulsemixer --list-sinks | grep Default | sed -z 's/^.*Name: //g;s/,.*//g'; echo -n ' '; (pulsemixer --get-mute | rg 1 && echo -n 'Muted') || pulsemixer --get-volume | awk '{print($1,\"%\")}'",	15,		1},
+      	{"AUDIO: ", "pulsemixer --list-sinks | awk '/Default/ { name=$0; sub(/Sink.*Name: /, \"\", name); sub(/,.*$/, \"\", name); if( sub(\"Mute: 1\", \"\") > 0 ) print(name \" Muted\"); else { vol=$0; sub(/.*\[./, \"\", vol); sub(/%.*/, \"%\", vol); print(name \" \" vol) } }'",	15,		1},
       	{"RAM: ", "free -h | awk '/^Mem/ { print $3\"/\"$2 }' | sed s/i//g",	15,		0},
       	{"LOAD: ", "cat /proc/loadavg | awk '{print($1 \" \" $2 \" \" $3)}'",	10,		0},
 
