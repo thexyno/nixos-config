@@ -6,7 +6,7 @@ let
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
   pulseoutput = pkgs.writeScript "get_volume" ''
     #!/usr/bin/env bash
-    pulsemixer --list-sinks | awk '/Default/ { name=$0; sub(/Sink.*Name: /, "", name); sub(/,.*$/, "", name); if( sub("Mute: 1", "") > 0 ) print(name " Muted"); else { vol=$0; sub(/.*\[./, "", vol); sub(/%.*/, "%", vol); print(substr(name,1,31) " " vol) } }'
+    pulsemixer --list-sinks | awk '/Default/ { name=$0; sub(/Sink.*Name: /, "", name); sub(/,.*$/, "", name); if( sub("Mute: 1", "") > 0 ) print(substr(name,1,31) " Muted"); else { vol=$0; sub(/.*\[./, "", vol); sub(/%.*/, "%", vol); print(substr(name,1,31) " " vol) } }'
   '';
   dwmblocks = pkgs.dwmblocks.overrideAttrs (oldAttrs: rec {
     postPatch = "${oldAttrs.postPatch}\n cp ${configFile} blocks.def.h";
