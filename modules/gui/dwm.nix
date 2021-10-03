@@ -6,7 +6,7 @@ let
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
   dwmblocks = pkgs.dwmblocks.overrideAttrs (oldAttrs: rec {
     postPatch = "${oldAttrs.postPatch}\n cp ${configFile} blocks.def.h";
-    configFile = pkgs.writeFile "blocks.def.h" ''
+    configFile = pkgs.writeText "blocks.def.h" ''
       static const Block blocks[] = {
       	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
         ${lib.optionalString laptop ''
