@@ -51,7 +51,7 @@ in
         ExecStart = "${pkgs.scream}/bin/scream -m /dev/shm/scream-ivshmem-${name}";
         Restart = "always";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = [ "default.target" ];
       requires = [ "pulseaudio.service" ];
     };
 
@@ -103,8 +103,8 @@ in
                       <libosinfo:os id="http://microsoft.com/win/10"/>
                     </libosinfo:libosinfo>
                   </metadata>
-                  <memory unit='KiB'>12777216</memory>
-                  <currentMemory unit='KiB'>12777216</currentMemory>
+                  <memory unit='GiB'>16</memory>
+                  <currentMemory unit='GiB'>16</currentMemory>
                   <vcpu placement='static'>10</vcpu>
                   <cputune>
                     <vcpupin vcpu='0' cpuset='1'/>
@@ -117,6 +117,7 @@ in
                     <vcpupin vcpu='7' cpuset='9'/>
                     <vcpupin vcpu='8' cpuset='10'/>
                     <vcpupin vcpu='9' cpuset='11'/>
+                    emulatorpin cpuset='0,5'/>
                   </cputune>
                   <os>
                     <type arch='x86_64' machine='pc-q35-5.2'>hvm</type>
@@ -135,7 +136,7 @@ in
                     </kvm>
                     <vmport state='off'/>
                   </features>
-                  <cpu mode='host-passthrough' check='none' migratable='on'>
+                  <cpu mode='host-passthrough'>
                     <topology sockets='1' dies='1' cores='5' threads='2'/>
                   </cpu>
                   <clock offset='utc'>
