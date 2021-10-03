@@ -4,6 +4,10 @@ let
   laptop = config.ragon.hardware.laptop.enable;
   username = config.ragon.user.username;
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
+  pulseoutput = pkgs.writeScript "get_volume" ''
+    #!/usr/bin/env bash
+    pulsemixer --list-sinks | awk '/Default/ { name=$0; sub(/Sink.*Name: /, "", name); sub(/,.*$/, "", name); if( sub("Mute: 1", "") > 0 ) print(name " Muted"); else { vol=$0; sub(/.*\[./, "", vol); sub(/%.*/, "%", vol); print(name " " vol) } }'
+  '';
   dwmblocks = pkgs.dwmblocks.overrideAttrs (oldAttrs: rec {
     postPatch = "${oldAttrs.postPatch}\n cp ${configFile} blocks.def.h";
     configFile = pkgs.writeText "blocks.def.h" ''
@@ -18,7 +22,7 @@ let
       	  {"NAS: ", "df --output=avail -h /media/data | awk '/G/ {print($1)}'",	30,		0},
         ''}
 
-      	{"AUDIO: ", "set -x; pulsemixer --list-sinks | awk '/Default/ { name=$0; sub(/Sink.*Name: /, \"\", name); sub(/,.*$/, \"\", name); if( sub(\"Mute: 1\", \"\") > 0 ) print(name \" Muted\"); else { vol=$0; sub(/.*\\[./, \"\", vol); sub(/%.*/, \"%\", vol); print(name \" \" vol) } }'",	15,		1},
+      	{"AUDIO: ", "${pulseoutput}",	15,		1},
       	{"RAM: ", "free -h | awk '/^Mem/ { print $3\"/\"$2 }' | sed s/i//g",	15,		0},
       	{"LOAD: ", "cat /proc/loadavg | awk '{print($1 \" \" $2 \" \" $3)}'",	10,		0},
 
