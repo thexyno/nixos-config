@@ -34,7 +34,7 @@ with lib;
     ];
 
     programs.neovim = {
-      package = pkgs.neovim-nightly;
+      package = if cfg.maximal then pkgs.neovim-nightly else pkgs.neovim;
       vimAlias = true;
       viAlias = true;
       defaultEditor = true;
