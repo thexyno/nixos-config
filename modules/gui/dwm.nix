@@ -5,7 +5,8 @@ let
   username = config.ragon.user.username;
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
   dwmblocks = pkgs.dwmblocks.overrideAttrs (oldAttrs: rec {
-    conf = ''
+    postPatch = "${oldAttrs.postPatch}\n cp ${configFile} blocks.def.h";
+    configFile = ''
       static const Block blocks[] = {
       	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
         ${lib.optionalString laptop ''

@@ -8,6 +8,11 @@ in
     home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
       {
         programs.autorandr.enable = true;
+        programs.autorandr.hooks = {
+          postswitch = {
+            "change-background" = "systemctl --user restart random-background.service";
+          };
+        };
         programs.autorandr.profiles = {
           "tv" = {
             fingerprint = {
