@@ -130,8 +130,7 @@
   };
   networking.firewall.allowedTCPPorts = [ 9000 ];
 
-
-
+  services.nfs.server.exports = "/data/windowsshare 10.0.0.100(rw,nohide,no_subtree_check)";
 
   # Immutable users due to tmpfs
   users.mutableUsers = false;
