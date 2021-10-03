@@ -41,11 +41,6 @@
   ragon.services.docker.enable = true;
   ragon.services.ssh.enable = true;
   ragon.hardware.bluetooth.enable = true;
-  ragon.services.nfs = {
-    enable = true;
-    exports = [ "/media/data/windowsshare" ];
-    allowedIPs = [ "192.168.122.1/24" ]; # allow vm access
-  };
   ragon.programs.prusa-slicer.enable = true;
   ragon.agenix.secrets.pulseLaunch = { owner = "ragon"; };
   systemd.user.services."pulselaunch" = {
