@@ -5,7 +5,7 @@ let
   username = config.ragon.user.username;
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
   dwmblocks = pkgs.dwmblocks.overrideAttrs (oldAttrs: rec {
-    conf = pkgs.writeText "dwmconf" ''
+    conf = ''
       static const Block blocks[] = {
       	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
         ${lib.optionalString laptop ''
@@ -26,7 +26,6 @@ let
       };
       static char delim[] = " | ";
       static unsigned int delimLen = 5;
-
     '';
 
   });
@@ -89,9 +88,8 @@ in
             
              static const char *const autostart[] = {
                "${pkgs.autorandr}/bin/autorandr", "-c", NULL,
-               "systemctl", "--user", "restart", "random-background.service", NULL, // i hate this
                ${astart}
-               "${dwmblocks}/bin/dwmblocks", NULL,
+               "dwmblocks", NULL,
                NULL /* terminate */
              };
             
@@ -228,6 +226,7 @@ in
     services.xserver.windowManager.dwm.enable = true;
     environment.systemPackages = with pkgs; [
       playerctl
+      dwmblocks
     ];
 
   };
