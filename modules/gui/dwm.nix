@@ -227,9 +227,9 @@ in
     services.xserver.windowManager.dwm.enable = true;
     environment.systemPackages = [
       pkgs.playerctl
+      pkgs.libnotify
+      pkgs.ponymix
       dwmblocks
-      libnotify
-      ponymix
     ];
 
   };
