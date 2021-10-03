@@ -43,6 +43,7 @@
   ragon.nvim.maximal = false;
   programs.gnupg.agent.enable = false;
   ragon.cli.enable = true;
+  ragon.cli.maximal = false;
   services.lorri.enable = false;
   ragon.services.ddns.enable = true;
   ragon.services.nginx.enable = true;
