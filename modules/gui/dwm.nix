@@ -11,18 +11,18 @@ let
       	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
         ${lib.optionalString laptop ''
           {"BAT: ", "${pkgs.acpi}/bin/acpi | cut -f3-", 15, 0 },
-          {"LIGHT:", "${pkgs.acpilight}/bin/xbacklight -get", 15, 0 },
+          {"LIGHT: ", "${pkgs.acpilight}/bin/xbacklight -get", 15, 0 },
         ''}
         ${lib.optionalString (laptop == false) ''
-          {"MOUSE", "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'", 120, 0 },
-      	  {"NAS:", "df --output=avail -h /media/data | awk '/G/ {print($1)}'",	30,		0},
+          {"MOUSE: ", "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'", 120, 0 },
+      	  {"NAS: ", "df --output=avail -h /media/data | awk '/G/ {print($1)}'",	30,		0},
         ''}
 
       	{"AUDIO:", "pulsemixer --list-sinks | grep Default | sed -z 's/^.*Name: //g;s/,.*//g'; echo -n ' '; (pulsemixer --get-mute | rg 1 && echo -n 'Muted') || pulsemixer --get-volume | awk '{print($1,\"%\")}'",	15,		1},
-      	{"RAM:", "free -h | awk '/^Mem/ { print $3\"/\"$2 }' | sed s/i//g",	15,		0},
-      	{"LOAD:", "cat /proc/loadavg | awk '{print($1 " " $2 " " $3)}'",	10,		0},
+      	{"RAM: ", "free -h | awk '/^Mem/ { print $3\"/\"$2 }' | sed s/i//g",	15,		0},
+      	{"LOAD: ", "cat /proc/loadavg | awk '{print($1 \" \" $2 \" \" $3)}'",	10,		0},
 
-      	{"SSD:", "df --output=avail -h /nix | awk '/G/ {print($1)}'",	30,		0},
+      	{"SSD: ", "df --output=avail -h /nix | awk '/G/ {print($1)}'",	30,		0},
       	{"", "date '+%F %T'",					1,		0},
       };
       static char delim[] = " | ";
