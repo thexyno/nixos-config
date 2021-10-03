@@ -140,9 +140,9 @@ in
              static const char *pulsemixercmd[]  = { "st", "-c", "floating", "pulsemixer", NULL };
              static const char *filemanagercmd[]  =        { "${pkgs.dolphin}/bin/dolphin", NULL };
              static const char *scrotcmd[]  =      { "sh", "-c", "${pkgs.spectacle}/bin/spectacle -r", NULL };
-             static const char *volupcmd[]  =      { "sh", "-c" "${pkgs.ponymix}/bin/ponymix -N increase 5; pkill dwmblocks -1", NULL };
-             static const char *voldowncmd[]  =      { "sh", "-c" "${pkgs.ponymix}/bin/ponymix -N decrease 5; pkill dwmblocks -1", NULL };
-             static const char *volmutecmd[]  =      { "sh", "-c" "${pkgs.ponymix}/bin/ponymix -N toggle; pkill dwmblocks -1", NULL };
+             static const char *volupcmd[]  =      { "sh", "-c" "ponymix -N increase 5; pkill dwmblocks -SIGRTMIN+1", NULL };
+             static const char *voldowncmd[]  =      { "sh", "-c" "ponymix -N decrease 5; pkill dwmblocks -SIGRTMIN+1", NULL };
+             static const char *volmutecmd[]  =      { "sh", "-c" "ponymix -N toggle; pkill dwmblocks -SIGRTMIN+1", NULL };
              static const char *playpausecmd[]  =  { "playerctl", "play-pause", NULL };
              static const char *nextcmd[]  =       { "playerctl", "next", NULL };
              static const char *previouscmd[] =    { "playerctl", "previous", NULL };
@@ -228,6 +228,8 @@ in
     environment.systemPackages = [
       pkgs.playerctl
       dwmblocks
+      libnotify
+      ponymix
     ];
 
   };
