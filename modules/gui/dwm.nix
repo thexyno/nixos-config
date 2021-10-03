@@ -63,6 +63,7 @@ in
             
              static const char *const autostart[] = {
                ${astart}
+               "${pkgs.autorandr}/bin/autorandr", "-c", NULL,
                "slstatus", NULL,
                NULL /* terminate */
              };
