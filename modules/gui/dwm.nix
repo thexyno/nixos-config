@@ -18,7 +18,7 @@ let
       	  {"NAS: ", "df --output=avail -h /media/data | awk '/G/ {print($1)}'",	30,		0},
         ''}
 
-      	{"AUDIO: ", "pulsemixer --list-sinks | awk '/Default/ { name=$0; sub(/Sink.*Name: /, \"\", name); sub(/,.*$/, \"\", name); if( sub(\"Mute: 1\", \"\") > 0 ) print(name \" Muted\"); else { vol=$0; sub(/.*\\[./, \"\", vol); sub(/%.*/, \"%\", vol); print(name \" \" vol) } }'",	15,		1},
+      	{"AUDIO: ", "set -x; pulsemixer --list-sinks | awk '/Default/ { name=$0; sub(/Sink.*Name: /, \"\", name); sub(/,.*$/, \"\", name); if( sub(\"Mute: 1\", \"\") > 0 ) print(name \" Muted\"); else { vol=$0; sub(/.*\\[./, \"\", vol); sub(/%.*/, \"%\", vol); print(name \" \" vol) } }'",	15,		1},
       	{"RAM: ", "free -h | awk '/^Mem/ { print $3\"/\"$2 }' | sed s/i//g",	15,		0},
       	{"LOAD: ", "cat /proc/loadavg | awk '{print($1 \" \" $2 \" \" $3)}'",	10,		0},
 
@@ -140,9 +140,9 @@ in
              static const char *pulsemixercmd[]  = { "st", "-c", "floating", "pulsemixer", NULL };
              static const char *filemanagercmd[]  =        { "${pkgs.dolphin}/bin/dolphin", NULL };
              static const char *scrotcmd[]  =      { "sh", "-c", "${pkgs.spectacle}/bin/spectacle -r", NULL };
-             static const char *volupcmd[]  =      { "sh", "-c" "ponymix -N increase 5; pkill dwmblocks -SIGRTMIN+1", NULL };
-             static const char *voldowncmd[]  =      { "sh", "-c" "ponymix -N decrease 5; pkill dwmblocks -SIGRTMIN+1", NULL };
-             static const char *volmutecmd[]  =      { "sh", "-c" "ponymix -N toggle; pkill dwmblocks -SIGRTMIN+1", NULL };
+             static const char *volupcmd[]  =      { "sh", "-c",  "ponymix -N increase 5; pkill dwmblocks -SIGRTMIN+1", NULL };
+             static const char *voldowncmd[]  =      { "sh", "-c", "ponymix -N decrease 5; pkill dwmblocks -SIGRTMIN+1", NULL };
+             static const char *volmutecmd[]  =      { "sh", "-c", "ponymix -N toggle; pkill dwmblocks -SIGRTMIN+1", NULL };
              static const char *playpausecmd[]  =  { "playerctl", "play-pause", NULL };
              static const char *nextcmd[]  =       { "playerctl", "next", NULL };
              static const char *previouscmd[] =    { "playerctl", "previous", NULL };
