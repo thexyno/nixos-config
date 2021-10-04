@@ -59,6 +59,21 @@
   ragon.agenix.secrets."ds9rcloneConfig" = { };
   ragon.agenix.secrets."ds9resticPassword" = { };
 
+  # samba
+  ragon.services.samba.enable = true;
+  ragon.services.samba.shares = {
+    data = {
+      path = "/data";
+      comment = "some data for the people";
+      "write list" = "@wheel";
+    };
+    windowsshare = {
+      path = "/data/windowsshare";
+      comment = "some data for the windows";
+      "write list" = "@wheel";
+    };
+  };
+
 
   # Enable Scanning
   hardware.sane.enable = true;
