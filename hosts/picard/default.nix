@@ -44,6 +44,7 @@
       bitwarden.enable = true;
       # gitlab.enable = true; # TODO gitlab-runner
       synapse.enable = true;
+      hedgedoc.enable = true;
       nginx.enable = true;
       nginx.domain = "ragon.xyz";
     };
