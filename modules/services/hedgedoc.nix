@@ -13,17 +13,19 @@ in
   config = lib.mkIf cfg.enable {
     services.hedgedoc = {
       enable = true;
-      domain = "${cfg.domainPrefix}.${domain}":
-      dbURL = "postgresql://%2Frun%2Fpostgresql/hedgedoc";
-      allowAnonymousEdits = false;
-      allowFreeURL = true;
+      configuration = {
+        domain = "${cfg.domainPrefix}.${domain}";
+        dbURL = "postgresql://%2Frun%2Fpostgresql/hedgedoc";
+        allowAnonymousEdits = false;
+        allowFreeURL = true;
+      };
 
     };
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       forceSSL = true;
-      proxyWebsockets = true;
       useACMEHost = "${domain}";
-      locations."/".proxyPass = "http://127.0.0.1:${config.services.hedgedoc.configuration.port}";
+      locations."/".proxyWebsockets = true;
+      locations."/".proxyPass = "http://127.0.0.1:${toString config.services.hedgedoc.configuration.port}";
     };
     services.postgresql = {
       enable = true;
