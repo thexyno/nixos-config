@@ -13,14 +13,23 @@ in
   config = lib.mkIf cfg.enable {
     services.hedgedoc = {
       enable = true;
+      environmentFile = "/run/secrets/hedgedocSecret";
       configuration = {
+        protocolUseSSL = true;
+        sessionSecret = "$SESSION_SECRET";
+        allowEmailRegister = false;
         domain = "${cfg.domainPrefix}.${domain}";
-        dbURL = "postgresql://%2Frun%2Fpostgresql/hedgedoc";
+        db = {
+          dialect = "postgres";
+          host = "/run/postgresql";
+          database = "hedgedoc";
+        };
         allowAnonymousEdits = false;
         allowFreeURL = true;
       };
 
     };
+    ragon.agenix.secrets.hedgedocSecret.owner = "hedgedoc";
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       forceSSL = true;
       useACMEHost = "${domain}";
