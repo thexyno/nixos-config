@@ -60,19 +60,6 @@
   ragon.agenix.secrets."ds9resticPassword" = { };
 
   # samba
-  ragon.services.samba.enable = true;
-  ragon.services.samba.shares = {
-    data = {
-      path = "/data";
-      comment = "some data for the people";
-      "write list" = "@wheel";
-    };
-    windowsshare = {
-      path = "/data/windowsshare";
-      comment = "some data for the windows";
-      "write list" = "@wheel";
-    };
-  };
 
 
   # Enable Scanning
@@ -157,6 +144,19 @@
     persist.enable = true;
 
     services = {
+  samba.enable = true;
+  samba.shares = {
+    data = {
+      path = "/data";
+      comment = "some data for the people";
+      "write list" = "@wheel";
+    };
+    windowsshare = {
+      path = "/data/windowsshare";
+      comment = "some data for the windows";
+      "write list" = "@wheel";
+    };
+  };
       nix-serve.enable = true;
       docker.enable = true;
       ssh.enable = true;

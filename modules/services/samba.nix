@@ -18,7 +18,7 @@ in
       enable = true;
       shares = cfg.shares;
     };
-    ragon.persistent.extraDirectories = [
+    ragon.persist.extraDirectories = [
       "/var/lib/samba"
     ];
 
