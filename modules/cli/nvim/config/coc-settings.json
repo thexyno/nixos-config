@@ -20,6 +20,7 @@
   "tabnine.disable_filetypes": ["pandoc"],
   "flutter.provider.hot-reload": true,
   "flutter.provider.enableSnippet": true,
+  "snippets.ultisnips.direcories": ["snippets"],
   "rust-analyzer.procMacro.enable": true,
   "rust-analyzer.cargo.allFeatures": true,
   "rust-analyzer.inlayHints.refreshOnInsertMode": true,
