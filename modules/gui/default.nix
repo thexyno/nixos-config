@@ -101,10 +101,10 @@ in
 
     ragon.user.persistent.extraFiles = [
       ".cache/rofi3.druncache" # rofi cache so the search priorities are not garbage
-      ".config/dconf/user"
     ];
 
     ragon.user.persistent.extraDirectories = [
+      ".config/dconf"
       "Pictures"
       ".local/share/dolphin/view_properties/global"
       ".config/session"
