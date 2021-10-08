@@ -168,13 +168,13 @@ in
     services.xserver.desktopManager.xterm.enable = false;
 
     # Keyboard layout.
-    services.xserver.layout = "de";
+    services.xserver.layout = "eu";
     hardware.keyboard.zsa.enable = true;
 
     # 8000 is for random web sharing things.
     networking.firewall.allowedTCPPorts = [ 8000 ];
 
     # Define extra groups for user.
-    ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" "scanner" "lp" "video" ];
+    ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" "scanner" "lp" "video" "plugdev" ];
   };
 }
