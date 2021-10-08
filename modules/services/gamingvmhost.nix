@@ -75,7 +75,7 @@ in
         user = "+${toString config.ragon.user.uid}"
         group = "wheel"
         cgroup_device_acl = [
-            "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-mouse","/dev/input/by-id/usb-04d9_USB-HID_Keyboard-event-kbd",
+            "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-mouse","/dev/input/by-id/usb-ZSA_Moonlander_Mark_I-event-kbd",
             "/dev/null", "/dev/full", "/dev/zero",
             "/dev/random", "/dev/urandom",
             "/dev/ptmx", "/dev/kvm"
