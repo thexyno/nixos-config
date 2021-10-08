@@ -168,8 +168,8 @@ in
     services.xserver.desktopManager.xterm.enable = false;
 
     # Keyboard layout.
-    services.xserver.layout = "eu";
-    services.xserver.xkbOptions = "caps:swapescape";
+    services.xserver.layout = "de";
+    hardware.keyboard.zsa.enable = true;
 
     # 8000 is for random web sharing things.
     networking.firewall.allowedTCPPorts = [ 8000 ];
