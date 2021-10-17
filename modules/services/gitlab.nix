@@ -17,6 +17,8 @@ in
       enable = true;
       https = true;
       initialRootPasswordFile = "/run/secrets/gitlabInitialRootPassword";
+      port = 443;
+      host = "${cfg.domainPrefix}.${domain}";
       secrets = {
         dbFile = "/run/secrets/gitlabDBFile";
         jwsFile = "/run/secrets/gitlabJWSFile";
