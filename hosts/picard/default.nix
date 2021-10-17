@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   imports =
@@ -42,7 +42,7 @@
     services = {
       ssh.enable = true;
       bitwarden.enable = true;
-      # gitlab.enable = true; # TODO gitlab-runner
+      gitlab.enable = true; # TODO gitlab-runner
       synapse.enable = true;
       hedgedoc.enable = true;
       nginx.enable = true;
@@ -51,5 +51,35 @@
 
   };
 
+  containers.temp-pg.config.services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_13;
+    ## set a custom new dataDir
+    # dataDir = "/some/data/dir";
+  };
+  services.postgresql.package = pkgs.postgresql_13;
+  environment.systemPackages =
+    let newpg = config.containers.temp-pg.config.services.postgresql;
+    in
+    [
+      (pkgs.writeScriptBin "upgrade-pg-cluster" ''
+        set -x
+        export OLDDATA="${config.services.postgresql.dataDir}"
+        export NEWDATA="${newpg.dataDir}"
+        export OLDBIN="${config.services.postgresql.package}/bin"
+        export NEWBIN="${newpg.package}/bin"
+
+        install -d -m 0700 -o postgres -g postgres "$NEWDATA"
+        cd "$NEWDATA"
+        sudo -u postgres $NEWBIN/initdb -D "$NEWDATA"
+
+        systemctl stop postgresql    # old one
+
+        sudo -u postgres $NEWBIN/pg_upgrade \
+          --old-datadir "$OLDDATA" --new-datadir "$NEWDATA" \
+          --old-bindir $OLDBIN --new-bindir $NEWBIN \
+          "$@"
+      '')
+    ];
 
 }
