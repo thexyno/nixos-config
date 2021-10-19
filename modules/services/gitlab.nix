@@ -39,6 +39,7 @@ in
       useACMEHost = "${domain}";
       forceSSL = true;
       locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+      locations."/".extraConfig = "client_max_body_size 4G;";
     };
     ragon.persist.extraDirectories = [
       "${config.services.postgresql.dataDir}"
