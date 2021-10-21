@@ -347,6 +347,9 @@ in
     #   forwardPorts = cfg.forwardedPorts;
     # };
 
+    # Enable unbound as the upstream DNS server
+    ragon.services.unbound.enable = true;
+
     services.dnsmasq = {
       enable = true;
       alwaysKeepRunning = true;
@@ -375,8 +378,7 @@ in
         in
         ''
           no-resolv
-          server=1.1.1.1
-          server=1.0.0.1 # TODO DoH
+          server=127.0.0.1#5353 # unbound
 
           # https://hveem.no/using-dnsmasq-for-dhcpv6
 
