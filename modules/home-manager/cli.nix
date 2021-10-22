@@ -62,7 +62,7 @@ in
 
               user.name = "Philipp Hochkamp";
               user.email = "me@phochkamp.de";
-              user.signingKey = "26F03E1F60F5731B0CC5BDE1C4F2B751AA7341B3";
+              user.signingKey = "DA5D9235BD5BD4BD6F4C2EA868066BFF4EA525F1";
 
               # Set default "git pull" behaviour so it doesn't try to default to
               # either "git fetch; git merge" (default) or "git fetch; git rebase".

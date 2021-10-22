@@ -15,17 +15,12 @@ in
     };
     ragon.nvim.enable = mkDefault true;
 
-
-    services.lorri.enable = mkDefault true;
+    services.lorri.enable = mkDefault cfg.maximal;
     ragon.user.persistent.extraDirectories = optionals cfg.maximal [
       ".local/share/direnv" # lorri
     ];
 
     security.sudo.extraConfig = "Defaults lecture = never";
-
-    # firewall
-    # networking.firewall.enable = true;
-    # networking.firewall.allowPing = true;
 
     # root shell
     users.extraUsers.root.shell = pkgs.zsh;

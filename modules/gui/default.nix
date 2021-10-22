@@ -7,11 +7,7 @@ let
 in
 {
   options.ragon.gui.enable = lib.mkEnableOption "Enables ragons Gui stuff";
-  options.ragon.gui.laptop = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-
-  };
+  options.ragon.gui.laptop = mkBoolOpt false;
   options.ragon.gui.autostart = lib.mkOption {
     type = lib.types.listOf (lib.types.listOf lib.types.str);
     default = [
