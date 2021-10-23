@@ -20,7 +20,7 @@ in
       locations."/".proxyPass = "https://127.0.0.1:8443";
     };
     ragon.persist.extraDirectories = [
-      "${config.services.unifi.dataDir}"
+      "/var/lib/unifi"
     ];
   };
 }
