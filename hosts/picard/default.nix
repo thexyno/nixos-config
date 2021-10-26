@@ -48,6 +48,7 @@
       gitlab.enable = true; # TODO gitlab-runner
       synapse.enable = true;
       hedgedoc.enable = true;
+      ts3.enable = true;
       nginx.enable = true;
       nginx.domain = "ragon.xyz";
     };

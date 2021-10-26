@@ -15,6 +15,7 @@ in
   config = mkIf cfg.enable {
     services.paperless-ng = {
       enable = true;
+      package = pkgs.paperless-ng.overrideAttrs (oldAttrs: rec { doCheck = false; doInstallCheck = false;});
       mediaDir = mkDefault "/data/documents/paperless";
       consumptionDir = mkDefault "/data/applications/paperless-consumption";
       consumptionDirIsPublic = true;

@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-set -ae
-
-STATE_CHANGE=${1:-toggle}
-
-curl -X POST -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI4MGJiOGYwNTg5YWU0MGJmYTQyN2UxY2RjNGQ2ZTEyNCIsImlhdCI6MTU2MzQ0ODgyMywiZXhwIjoxODc4ODA4ODIzfQ.I7CPKxgfq5BvlLTESVdrGWkZrCIy31DZD_ueQUa-OEE" \
-       -H "Content-Type: application/json" \
-       -d '{"entity_id": "switch.kuechenlautsprecher"}' \
-       "https://h.ragon.xyz/api/services/switch/$STATE_CHANGE"

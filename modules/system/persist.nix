@@ -3,7 +3,7 @@ let
   cfg = config.ragon.persist;
 in
 {
-  options.ragon.persist.enable = lib.mkEnableOption "Enables persistence"; # TODO this needs to be fixed up fully
+  options.ragon.persist.enable = lib.mkEnableOption "Enables persistence";
   options.ragon.persist.extraFiles = lib.mkOption {
     type = lib.types.listOf lib.types.str;
     default = [ ];

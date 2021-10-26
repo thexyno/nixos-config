@@ -8,7 +8,7 @@ with lib.my;
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
   console.font = "Lat2-Terminus16";
-  console.keyMap = "de";
+  console.keyMap = "us";
 
   # Select internationalisation properties.
   i18n = {

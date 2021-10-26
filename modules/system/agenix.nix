@@ -5,7 +5,7 @@ with lib;
 with lib.my;
 let
   inherit (inputs) agenix;
-  secretsDir = "${toString ../secrets}";
+  secretsDir = "${toString ../../secrets}";
   secretsFile = "${secretsDir}/secrets.nix";
   cfg = config.ragon.agenix;
 in
