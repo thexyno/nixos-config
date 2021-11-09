@@ -14,6 +14,12 @@ in
       type = lib.types.str;
       default = "m.ragon.xyz";
     };
+  options.ragon.services.synapse.enableElement = mkBoolOpt true; # TODO fix
+  options.ragon.services.synapse.elementFqdn =
+    lib.mkOption {
+      type = lib.types.str;
+      default = "e.ragon.xyz";
+    };
   options.ragon.services.synapse.serverName =
     lib.mkOption {
       type = lib.types.str;
@@ -52,6 +58,22 @@ in
         LC_CTYPE = "C";
     '';
     services.nginx.virtualHosts = {
+      "${cfg.elementFqdn}" = {
+        useACMEHost = "${domain}";
+        forceSSL = true;
+
+        root = pkgs.element-web.override {
+          conf = {
+            default_server_config."m.homeserver" = {
+              "base_url" = "https://${fqdn}";
+              "server_name" = "${domain}";
+            };
+            default_theme = "dark";
+            jitsi.preferredDomain = "${config.ragon.services.jitsi.domainPrefix}.${domain}";
+          }; # TODO make this less shit
+        };
+      };
+
       "${cfg.serverName}" = {
         forceSSL = true;
         useACMEHost = "${domain}";
@@ -70,6 +92,7 @@ in
             client = {
               "m.homeserver" = { "base_url" = "https://${fqdn}"; };
               "m.identity_server" = { "base_url" = "https://vector.im"; };
+              "im.vector.riot.jitsi" = { "preferredDomain" = "jitsi.${domain}"; };
             };
             # ACAO required to allow element-web on any URL to request this json file
           in
