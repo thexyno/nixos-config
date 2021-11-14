@@ -92,6 +92,7 @@ in
       default = [
         { name = "j.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "paperless.hailsatan.eu"; ip = "10.0.0.2"; }
+        { name = "unifi.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "grocy.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "nix.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "h.hailsatan.eu"; ip = "10.0.0.1"; }
@@ -103,6 +104,7 @@ in
       type = lib.types.listOf lib.types.attrs;
       default = [
         { hostname = "enterprise"; mac = "d8:cb:8a:76:09:0a"; tcpports = [ 22 ]; udpports = [ ]; }
+        { hostname = "fritze"; mac = "00:04:0e:ff:ff:01"; tcpports = [ 5060 5061 5004 ]; udpports = [ 5060 5061 5004 ]; }
         { hostname = "earthquake"; mac = "78:24:af:bc:0c:07"; tcpports = [ 22 22000 ]; udpports = [ 22000 51820 ]; }
       ];
     };
@@ -110,10 +112,13 @@ in
     lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [
+        # ragon - machines
         { name = "enterprise"; ip = "10.0.0.9"; mac = "d8:cb:8a:76:09:0a"; }
         { name = "ds9"; ip = "10.0.0.2"; mac = "f4:b5:20:0e:21:d5"; }
+        # ragon - vms
         { name = "homeassistant"; ip = "10.0.0.20"; mac = "52:54:00:a1:04:14"; }
-        { name = "kodiche"; ip = "10.0.0.21"; mac = "01:dc:a6:32:f0:43:b9"; }
+        { name = "enterprise-win"; ip = "10.0.0.201"; mac = "52:54:00:f3:ab:dd"; }
+        # ragon - iot
         { name = "zbbridge"; ip = "10.1.0.5"; mac = "98:f4:ab:e2:b6:a3"; }
         { name = "wled-Schrank-Philipp"; ip = "10.1.0.10"; mac = "2c:f4:32:20:74:60"; }
         { name = "wled-Betthintergrund-Phi"; ip = "10.1.0.11"; mac = "2c:3a:e8:0e:ab:71"; }
@@ -139,6 +144,10 @@ in
     lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [
+        #{ proto = "tcp"; sourcePort = "5060-5061"; destination = "10.0.0.11"; }
+        #{ proto = "udp"; sourcePort = "5060-5061"; destination = "10.0.0.11"; }
+        #{ proto = "tcp"; sourcePort = "5060-5061"; destination = "10.0.0.11"; }
+        #{ proto = "udp"; sourcePort = "5060-5061"; destination = "10.0.0.11"; }
       ];
     };
   config = lib.mkIf cfg.enable {

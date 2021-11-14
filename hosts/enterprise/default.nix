@@ -30,7 +30,6 @@
 
   ragon.cli.enable = true;
   ragon.cli.pandoc.enable = true;
-  ragon.cli.emacs.enable = true;
   ragon.gui.gaming.enable = true;
   ragon.user.enable = true;
   ragon.home-manager.enable = true;
@@ -41,21 +40,7 @@
   ragon.services.docker.enable = true;
   ragon.services.ssh.enable = true;
   ragon.hardware.bluetooth.enable = true;
-  ragon.agenix.secrets.pulseLaunch = { owner = "ragon"; };
-  systemd.user.services."pulselaunch" = {
-    path = with pkgs; [ curl my.pulse_launch ];
-    enable = true;
-    wantedBy = [ "multi-user.target" ];
-    script = ''
-      source /run/secrets/pulseLaunch
-      pulse_launch alsa_output.usb-Focusrite_Scarlett_Solo_USB_Y74EVUD137B9F2-00.analog-stereo "$ON" --other_cmd "$OFF" --term_cmd "$OFF"
-    '';
-  };
-  hardware.pulseaudio.extraConfig = ''
-    load-module module-remap-source master=alsa_input.usb-Focusrite_Scarlett_Solo_USB_Y74EVUD137B9F2-00.analog-stereo source_name=Mic-Mono master_channel_map=left channel_map=mono
-    set-default-source Mic-Mono
-  '';
-
+  ragon.programs.prusa-slicer.enable = true;
 
 
 }

@@ -1,0 +1,41 @@
+{
+  "suggest.triggerCompletionWait": 50,
+  "suggest.enablePreview": true,
+  "html.enable": true,
+  "python.linting.enabled": true,
+  "html.format.enable": true,
+  "html.suggest.html5": true,
+  "html.suggest.ionic": true,
+  "html.validate.html": true,
+  "html.validate.styles": true,
+  "diagnostic-languageserver.mergeConfig": true,
+  "diagnostic-languageserver.filetypes": {
+    "vim": "vint",
+    "sh": "shellcheck",
+    "markdown":  "write-good"
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "sh": "shfmt"
+  },
+  "tabnine.disable_filetypes": ["pandoc"],
+  "flutter.provider.hot-reload": true,
+  "flutter.provider.enableSnippet": true,
+  "snippets.ultisnips.direcories": ["snippets"],
+  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.cargo.allFeatures": true,
+  "rust-analyzer.inlayHints.refreshOnInsertMode": true,
+  "rust-analyzer.updates.channel": "nightly",
+  "html.validate.scripts": true,
+  "git.gitlab.hosts": [
+    "gitlab.com"
+  ],
+  "git.addGBlameToVirtualText": true,
+  "languageserver": {
+   "nix": {
+     "command": "rnix-lsp",
+     "filetypes": [
+       "nix"
+     ]
+   }
+  }
+}

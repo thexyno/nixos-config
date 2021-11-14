@@ -17,6 +17,8 @@ in
       enable = true;
       https = true;
       initialRootPasswordFile = "/run/secrets/gitlabInitialRootPassword";
+      port = 443;
+      host = "${cfg.domainPrefix}.${domain}";
       secrets = {
         dbFile = "/run/secrets/gitlabDBFile";
         jwsFile = "/run/secrets/gitlabJWSFile";
@@ -37,6 +39,7 @@ in
       useACMEHost = "${domain}";
       forceSSL = true;
       locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+      locations."/".extraConfig = "client_max_body_size 4G;";
     };
     ragon.persist.extraDirectories = [
       "${config.services.postgresql.dataDir}"

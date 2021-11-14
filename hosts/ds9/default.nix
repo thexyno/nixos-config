@@ -18,6 +18,7 @@
   networking.useDHCP = true;
   networking.bridges."br0".interfaces = [ ];
   networking.hostId = "7b4c2932";
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.initrd.network = {
     enable = true;
     postCommands = ''
@@ -57,6 +58,8 @@
 
   ragon.agenix.secrets."ds9rcloneConfig" = { };
   ragon.agenix.secrets."ds9resticPassword" = { };
+
+  # samba
 
 
   # Enable Scanning
@@ -129,8 +132,7 @@
   };
   networking.firewall.allowedTCPPorts = [ 9000 ];
 
-
-
+  services.nfs.server.exports = "/data/windowsshare 10.0.0.100(rw,nohide,no_subtree_check)";
 
   # Immutable users due to tmpfs
   users.mutableUsers = false;
@@ -142,15 +144,30 @@
     persist.enable = true;
 
     services = {
+  samba.enable = true;
+  samba.shares = {
+    data = {
+      path = "/data";
+      comment = "some data for the people";
+      "write list" = "@wheel";
+    };
+    windowsshare = {
+      path = "/data/windowsshare";
+      comment = "some data for the windows";
+      "write list" = "@wheel";
+    };
+  };
       nix-serve.enable = true;
       docker.enable = true;
       ssh.enable = true;
       nfs.enable = true;
       nginx.enable = true;
       jellyfin.enable = true;
+      grafana.enable = true;
       grocy.enable = true;
       libvirt.enable = true;
       paperless.enable = true;
+      unifi.enable = true;
     };
 
   };

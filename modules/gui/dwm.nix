@@ -4,6 +4,36 @@ let
   laptop = config.ragon.hardware.laptop.enable;
   username = config.ragon.user.username;
   astart = builtins.concatStringsSep "\n" (map (y: (builtins.concatStringsSep ", " (map (x: "\"" + x + "\"") y)) + ", NULL,") cfg.autostart);
+  pulseoutput = pkgs.writeScript "get_volume" ''
+    #!/usr/bin/env bash
+    pulsemixer --list-sinks | awk '/Default/ { name=$0; sub(/Sink.*Name: /, "", name); sub(/,.*$/, "", name); if( sub("Mute: 1", "") > 0 ) print(substr(name,1,31) " Muted"); else { vol=$0; sub(/.*\[./, "", vol); sub(/%.*/, "%", vol); print(substr(name,1,31) " " vol) } }'
+  '';
+  dwmblocks = pkgs.dwmblocks.overrideAttrs (oldAttrs: rec {
+    postPatch = "${oldAttrs.postPatch}\n cp ${configFile} blocks.def.h";
+    configFile = pkgs.writeText "blocks.def.h" ''
+      static const Block blocks[] = {
+      	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
+        ${lib.optionalString laptop ''
+          {"BAT: ", "${pkgs.acpi}/bin/acpi | cut -f3-", 15, 0 },
+          {"LIGHT: ", "${pkgs.acpilight}/bin/xbacklight -get", 15, 0 },
+        ''}
+        ${lib.optionalString (laptop == false) ''
+          {"MOUSE: ", "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'", 120, 0 },
+      	  {"NAS: ", "df --output=avail -h /media/data | awk 'END{print($1)}'",	30,		0},
+        ''}
+
+      	{"AUDIO: ", "${pulseoutput}",	15,		1},
+      	{"RAM: ", "free -h | awk '/^Mem/ { print $3\"/\"$2 }' | sed s/i//g",	15,		0},
+      	{"LOAD: ", "cat /proc/loadavg | awk '{print($1 \" \" $2 \" \" $3)}'",	10,		0},
+
+      	  {"SSD: ", "df --output=avail -h /nix | awk 'END{print($1)}'",	30,		0},
+      	{"", "date '+%F %T'",					1,		0},
+      };
+      static char delim[] = " | ";
+      static unsigned int delimLen = 3;
+    '';
+
+  });
 in
 {
   options.ragon.gui.dwm.enable = lib.mkEnableOption "Enables ragons Dwm stuff";
@@ -62,8 +92,9 @@ in
              };
             
              static const char *const autostart[] = {
+               "${pkgs.autorandr}/bin/autorandr", "-c", NULL,
                ${astart}
-               "slstatus", NULL,
+               "dwmblocks", NULL,
                NULL /* terminate */
              };
             
@@ -111,11 +142,11 @@ in
              static const char *termcmd[]  =       { "st", NULL };
              static const char *termfloatcmd[]  =  { "st", "-c", "floating", NULL };
              static const char *pulsemixercmd[]  = { "st", "-c", "floating", "pulsemixer", NULL };
-             static const char *nnncmd[]  =        { "st", "-c", "floating", "zsh", "-ic", "n;exec zsh", NULL };
-             static const char *scrotcmd[]  =      { "sh", "-c", "scrot -s  '%Y-%m-%d_''$wx''$h_scrot.png' -e 'mv ''$f ~/Screenshots/; xclip -t image/png -selection clipboard ~/Screenshots/''$f'", NULL };
-             static const char *volupcmd[]  =      { "changeVolume", "+5", NULL };
-             static const char *voldowncmd[]  =    { "changeVolume", "-5", NULL };
-             static const char *volmutecmd[]  =    { "changeVolume", "mute", NULL };
+             static const char *filemanagercmd[]  =        { "${pkgs.dolphin}/bin/dolphin", NULL };
+             static const char *scrotcmd[]  =      { "sh", "-c", "${pkgs.spectacle}/bin/spectacle -r", NULL };
+             static const char *volupcmd[]  =      { "sh", "-c",  "ponymix -N increase 5; pkill dwmblocks -SIGRTMIN+1", NULL };
+             static const char *voldowncmd[]  =      { "sh", "-c", "ponymix -N decrease 5; pkill dwmblocks -SIGRTMIN+1", NULL };
+             static const char *volmutecmd[]  =      { "sh", "-c", "ponymix -N toggle; pkill dwmblocks -SIGRTMIN+1", NULL };
              static const char *playpausecmd[]  =  { "playerctl", "play-pause", NULL };
              static const char *nextcmd[]  =       { "playerctl", "next", NULL };
              static const char *previouscmd[] =    { "playerctl", "previous", NULL };
@@ -127,7 +158,7 @@ in
                { MODKEY,                       XK_p,        spawn,          {.v = dmenucmd } },
                { MODKEY|ShiftMask,             XK_Return,   spawn,          {.v = termcmd } },
                { MODKEY|ShiftMask,             XK_v,        spawn,          {.v = pulsemixercmd } },
-               { MODKEY|ShiftMask,             XK_f,        spawn,          {.v = nnncmd } },
+               { MODKEY|ShiftMask,             XK_f,        spawn,          {.v = filemanagercmd } },
                { MODKEY|ControlMask,           XK_Return,   spawn,          {.v = termfloatcmd } },
                { 0,                            XK_Print,    spawn,          {.v = scrotcmd } },
                { 0,                            0x1008ff11,  spawn,          {.v = voldowncmd } },
@@ -198,112 +229,11 @@ in
 
     services.xserver.displayManager.defaultSession = "none+dwm";
     services.xserver.windowManager.dwm.enable = true;
-    environment.systemPackages = with pkgs; [
-      playerctl
-      (slstatus.overrideAttrs (oldAttrs: rec {
-        conf =
-          let
-            laptopargs = lib.optionalString laptop ''
-              { battery_perc,    "BAT: %s | ",           "BAT0" },
-              { run_command,    "LIGHT: %s | ",           "cat /sys/class/backlight/intel_backlight/brightness" },
-            '';
-            nonlaptopargs = lib.optionalString (laptop == false) ''
-              { run_command,    "MOUSE: %s | ",           "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'" },
-              { disk_free,   "NAS: %s | ",           "/media/data" },
-            '';
-            templ =
-              ''
-                /* See LICENSE file for copyright and license details. */
-          
-                /* interval between updates (in ms) */
-                const unsigned int interval = 1000;
-          
-                /* text to show if no value can be retrieved */
-                static const char unknown_str[] = "n/a";
-          
-                /* maximum output string length */
-                #define MAXLEN 2048
-          
-                /*
-                 * function            description                     argument (example)
-                 *
-                 * battery_perc        battery percentage              battery name (BAT0)
-                 *                                                     NULL on OpenBSD/FreeBSD
-                 * battery_state       battery charging state          battery name (BAT0)
-                 *                                                     NULL on OpenBSD/FreeBSD
-                 * battery_remaining   battery remaining HH:MM         battery name (BAT0)
-                 *                                                     NULL on OpenBSD/FreeBSD
-                 * cpu_perc            cpu usage in percent            NULL
-                 * cpu_freq            cpu frequency in MHz            NULL
-                 * datetime            date and time                   format string (%F %T)
-                 * disk_free           free disk space in GB           mountpoint path (/)
-                 * disk_perc           disk usage in percent           mountpoint path (/)
-                 * disk_total          total disk space in GB          mountpoint path (/")
-                 * disk_used           used disk space in GB           mountpoint path (/)
-                 * entropy             available entropy               NULL
-                 * gid                 GID of current user             NULL
-                 * hostname            hostname                        NULL
-                 * ipv4                IPv4 address                    interface name (eth0)
-                 * ipv6                IPv6 address                    interface name (eth0)
-                 * kernel_release      `uname -r`                      NULL
-                 * keyboard_indicators caps/num lock indicators        format string (c?n?)
-                 *                                                     see keyboard_indicators.c
-                 * keymap              layout (variant) of current     NULL
-                 *                     keymap
-                 * load_avg            load average                    NULL
-                 * netspeed_rx         receive network speed           interface name (wlan0)
-                 * netspeed_tx         transfer network speed          interface name (wlan0)
-                 * num_files           number of files in a directory  path
-                 *                                                     (/home/foo/Inbox/cur)
-                 * ram_free            free memory in GB               NULL
-                 * ram_perc            memory usage in percent         NULL
-                 * ram_total           total memory size in GB         NULL
-                 * ram_used            used memory in GB               NULL
-                 * run_command         custom shell command            command (echo foo)
-                 * separator           string to echo                  NULL
-                 * swap_free           free swap in GB                 NULL
-                 * swap_perc           swap usage in percent           NULL
-                 * swap_total          total swap size in GB           NULL
-                 * swap_used           used swap in GB                 NULL
-                 * temp                temperature in degree celsius   sensor file
-                 *                                                     (/sys/class/thermal/...)
-                 *                                                     NULL on OpenBSD
-                 *                                                     thermal zone on FreeBSD
-                 *                                                     (tz0, tz1, etc.)
-                 * uid                 UID of current user             NULL
-                 * uptime              system uptime                   NULL
-                 * username            username of current user        NULL
-                 * vol_perc            OSS/ALSA volume in percent      mixer file (/dev/mixer)
-                 *                                                     NULL on OpenBSD
-                 * wifi_perc           WiFi signal in percent          interface name (wlan0)
-                 * wifi_essid          WiFi ESSID                      interface name (wlan0)
-                 */
-                static const struct arg args[] = {
-                  /* function format          argument */
-                  ${laptopargs}
-                  ${nonlaptopargs}
-                  { run_command, "AUDIO: %s | ",           "pulsemixer --list-sinks | rg Default | sed -z 's/^.*Name: //g;s/,.*//g'; echo -n ' '; (pulsemixer --get-mute | rg 1 && echo -n 'Muted') || pulsemixer --get-volume | awk '{print($1,\"%\")}'" },
-                  { ram_free,    "RAM: %s | ",           NULL },
-                  { load_avg,    "LOAD: %s | ",           NULL },
-                  { disk_free,   "SSD: %s | ",           "/nix" },
-                  { datetime,    "%s",           "%F %T" },
-                };
-              '';
-          in
-          templ;
-        configFile = (pkgs.writeText "config.def.h" conf);
-        preBuild = "cp ${configFile} config.def.h";
-
-      }))
-      scrot
-      # stuff needed for nextshot:
-      imagemagick
-      slop
-      bc
-      xclip
-      xdotool
-      yad
-      libnotify
+    environment.systemPackages = [
+      pkgs.playerctl
+      pkgs.libnotify
+      pkgs.ponymix
+      dwmblocks
     ];
 
   };

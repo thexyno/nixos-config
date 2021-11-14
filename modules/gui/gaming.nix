@@ -27,6 +27,7 @@ in
     ];
     ragon.user.persistent.extraDirectories = [
       "games"
+      ".steam"
       ".local/share/Steam"
     ];
 

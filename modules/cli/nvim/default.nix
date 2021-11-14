@@ -12,7 +12,6 @@ with lib;
   };
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      my.nnn
     ] ++ optionals cfg.maximal [
       python3 # ultisnips
       nodejs
@@ -34,7 +33,7 @@ with lib;
     ];
 
     programs.neovim = {
-      package = pkgs.neovim-nightly;
+      package = if cfg.maximal then pkgs.neovim-nightly else inputs.nixpkgs.legacyPackages."${pkgs.system}".neovim;
       vimAlias = true;
       viAlias = true;
       defaultEditor = true;
@@ -65,6 +64,8 @@ with lib;
         in
         {
           packages.myVimPackage.start = with pkgs.vimPlugins; [
+            galaxyline-nvim
+            nvim-web-devicons
             nnn-vim
             rainbow
             vista-vim
@@ -77,7 +78,6 @@ with lib;
             incsearch-vim
             vim-highlightedyank
             vim-fugitive
-            lightline-vim
             fzf-vim
             fzfWrapper
             vim-devicons
@@ -90,17 +90,15 @@ with lib;
             ultisnips
             coc-nvim
             dart-vim
-          ] ++ [
-            # vim-colemak
           ];
-
-          customRC = builtins.readFile ./init2.vim;
+          customRC = ''
+            set runtimepath^=/etc/nvim
+            lua dofile('/etc/nvim/init.lua')
+            '';
         };
     };
 
-    environment.etc."nvim/coc-settings.json".text = (builtins.readFile ./coc-settings.json);
-    environment.etc."nvim/coc-settings.json".enable = cfg.maximal;
-    environment.etc."nvim/completion".source = ./completion;
+    environment.etc."nvim".source = ./config;
 
 
   };

@@ -24,22 +24,23 @@
   ragon.user.enable = true;
   ragon.home-manager.enable = true;
   ragon.gui.enable = true;
-  ragon.gui.river.enable = true;
-  #ragon.gui.gaming.enable = true;
   ragon.develop.enable = true;
   ragon.persist.enable = true;
   ragon.services.docker.enable = true;
   ragon.services.libvirt.enable = true;
   ragon.services.ssh.enable = true;
-  services.kubernetes.roles = [ "master", "node" ];
-  services.kubernetes.pki.enable = true;
+
+  services.k3s.enable = true;
+
+
 
   ragon.user.persistent.extraDirectories = [
     ".cache" # hopefully helps with ram
   ];
-    environment.systemPackages = with pkgs; [
-      virt-manager
-    ];
+  environment.systemPackages = with pkgs; [
+    virt-manager
+    k3s
+  ];
 
 
 }

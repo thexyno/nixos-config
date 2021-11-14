@@ -7,11 +7,7 @@ let
 in
 {
   options.ragon.gui.enable = lib.mkEnableOption "Enables ragons Gui stuff";
-  options.ragon.gui.laptop = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-
-  };
+  options.ragon.gui.laptop = mkBoolOpt false;
   options.ragon.gui.autostart = lib.mkOption {
     type = lib.types.listOf (lib.types.listOf lib.types.str);
     default = [
@@ -35,7 +31,9 @@ in
     default = "timeular";
   };
   config = lib.mkIf cfg.enable {
+    services.yubikey-agent.enable = true;
     ragon.gui.dwm.enable = true;
+    services.pcscd.enable = true;
     # Set up default fonts
     fonts.enableDefaultFonts = true;
     fonts.enableGhostscriptFonts = true;
@@ -50,28 +48,10 @@ in
     # Install some extra fonts.
     fonts.fonts = with pkgs; [
       jetbrains-mono
-      (nerdfonts.override { fonts = [ "JetBrainsMono" "Terminus"]; })
+      (nerdfonts.override { fonts = [ "JetBrainsMono" "Terminus" ]; })
     ];
 
-
-    # services.xserver.extraLayouts.eu = {
-    #   description = "EurKEY (US based layout with European letters)";
-    #   languages = [ 
-    #         "ger"
-    #         "gre"
-    #         "gsw"
-    #         "ita"
-    #         "lav"
-    #         "lit"
-    #         "nld"
-    #         "nor"
-    #         "por"
-    #         "spa"
-    #         "swe"
-    #   ];
-    #   symbolsFile = ../../data/xkb/symbols/colemak_eurkey;
-    # };
-
+    qt5.style = "adwaita-dark";
 
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
@@ -79,9 +59,12 @@ in
     ragon.services.mullvad.enable = true;
     environment.systemPackages =
       with pkgs; [
+        libsForQt5.breeze-icons
         libreoffice-fresh
-        cinnamon.nemo
-        gnome.file-roller
+        konsole
+        dolphin
+        okular
+        spectacle
         arc-icon-theme
         feh
         pulsemixer
@@ -93,12 +76,16 @@ in
         st-ragon
         sxiv
         signal-desktop
-        wireguard
         bitwarden
         obs-studio
         unstable.discord
         spotify
         unstable.timeular
+        yubikey-agent
+        yubikey-manager
+        yubikey-manager-qt
+        yubikey-personalization
+        yubikey-personalization-gui
       ];
 
     # security.wrappers.cnping = {
@@ -113,6 +100,12 @@ in
     ];
 
     ragon.user.persistent.extraDirectories = [
+      ".config/dconf"
+      "Pictures"
+      ".local/share/dolphin/view_properties/global"
+      ".config/session"
+      ".local/share/okular"
+      ".local/share/konsole"
       ".config/discord"
       ".config/Bitwarden"
       ".config/libreoffice"
@@ -126,6 +119,7 @@ in
       ".thunderbird/" # Because of cause this isn't in .mozilla
     ];
 
+    services.gnome.sushi.enable = true;
     services.gnome.glib-networking.enable = true;
     services.gnome.gnome-keyring.enable = true;
     services.gvfs.enable = true;
@@ -171,15 +165,12 @@ in
 
     # Keyboard layout.
     services.xserver.layout = "eu";
-    services.xserver.xkbOptions = "caps:swapescape";
+    hardware.keyboard.zsa.enable = true;
 
     # 8000 is for random web sharing things.
     networking.firewall.allowedTCPPorts = [ 8000 ];
 
-    # i hate myself
-    services.teamviewer.enable = true;
-
     # Define extra groups for user.
-    ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" "scanner" "lp" "video" ];
+    ragon.user.extraGroups = [ "networkmanager" "dialout" "audio" "input" "scanner" "lp" "video" "plugdev" ];
   };
 }

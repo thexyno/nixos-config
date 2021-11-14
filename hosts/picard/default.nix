@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   imports =
@@ -34,21 +34,26 @@
   # Immutable users due to tmpfs
   users.mutableUsers = false;
 
+  services.postgresql.package = pkgs.postgresql_13;
+
   ragon = {
     cli.enable = true;
     user.enable = true;
+    home-manager.enable = true;
     persist.enable = true;
 
     services = {
       ssh.enable = true;
       bitwarden.enable = true;
-      # gitlab.enable = true; # TODO gitlab-runner
+      gitlab.enable = true; # TODO gitlab-runner
       synapse.enable = true;
+      jitsi.enable = true;
+      hedgedoc.enable = true;
+      ts3.enable = true;
       nginx.enable = true;
       nginx.domain = "ragon.xyz";
     };
 
   };
-
 
 }

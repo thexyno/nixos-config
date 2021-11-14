@@ -11,12 +11,17 @@ in
       default = "grafana";
     };
   config = lib.mkIf cfg.enable {
-    services.grafana = { };
+    services.grafana = {
+      enable = true;
+      domain = "${cfg.domainPrefix}.${domain}";
+      rootUrl = "https://${cfg.domainPrefix}.${domain}/";
+    };
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       useACMEHost = "${domain}";
       addSSL = true;
       locations = {
-        "/".proxyPass = "http://127.0.0.1:${config.services.grafana.port}";
+        "/".proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}";
+        "/".proxyWebsockets = true;
       };
     };
 

@@ -12,12 +12,6 @@ in
         gtk.gtk3.extraConfig = {
           gtk-application-prefer-dark-theme = 1;
         };
-
-        # Set up qt theme as well
-        qt = {
-          enable = isGui;
-          platformTheme = "gtk";
-        };
         services.random-background = {
           enable = isGui;
           enableXinerama = true;

@@ -7,6 +7,7 @@ let
 in
 {
   options.ragon.cli.enable = lib.mkEnableOption "Enables ragons CLI stuff";
+  options.ragon.cli.maximal = mkBoolOpt true;
   config = lib.mkIf cfg.enable {
     programs.gnupg.agent = {
       enable = mkDefault true;
@@ -14,17 +15,12 @@ in
     };
     ragon.nvim.enable = mkDefault true;
 
-
-    services.lorri.enable = mkDefault true;
-    ragon.user.persistent.extraDirectories = [
+    services.lorri.enable = mkDefault cfg.maximal;
+    ragon.user.persistent.extraDirectories = optionals cfg.maximal [
       ".local/share/direnv" # lorri
     ];
 
     security.sudo.extraConfig = "Defaults lecture = never";
-
-    # firewall
-    # networking.firewall.enable = true;
-    # networking.firewall.allowPing = true;
 
     # root shell
     users.extraUsers.root.shell = pkgs.zsh;
@@ -51,9 +47,6 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      direnv # needed for lorri
-      unzip
-      my.pridecat
       nnn
       bat
       htop
@@ -63,15 +56,20 @@ in
       file
       fzf
       git
-      libqalculate
       neofetch
       ripgrep
+    ] ++ optionals cfg.maximal [
+      direnv # needed for lorri
+      unzip
+      my.pridecat
       pv
       killall
       pciutils
       youtube-dl
       aria2
       tmux
+      libqalculate
+
     ];
 
   };

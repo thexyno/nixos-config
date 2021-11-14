@@ -25,8 +25,6 @@
     st.url = "github:ragon000/st/ragon";
     st.inputs.nixpkgs.follows = "nixpkgs";
 
-    emacs.url = "github:nix-community/emacs-overlay";
-
     # other inputs
 
     ## needed for shell.nix
@@ -36,10 +34,8 @@
     };
 
     ## applications
-    dwm.url = "git+ssh://git@gitlab.hochkamp.eu/ragon/dwm";
+    dwm.url = "github:ragon000/dwm";
     dwm.flake = false;
-    nextshot.url = "github:dshoreman/nextshot/develop";
-    nextshot.flake = false;
     pandoc-latex-template.url = "github:Wandmalfarbe/pandoc-latex-template";
     pandoc-latex-template.flake = false;
     pandocode.url = "github:nzbr/pandocode";
