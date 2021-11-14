@@ -31,6 +31,8 @@
   ragon.services.docker.enable = true;
   ragon.services.libvirt.enable = true;
   ragon.services.ssh.enable = true;
+  services.kubernetes.roles = [ "master", "node" ];
+  services.kubernetes.pki.enable = true;
 
   ragon.user.persistent.extraDirectories = [
     ".cache" # hopefully helps with ram
