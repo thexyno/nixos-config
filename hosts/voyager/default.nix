@@ -30,7 +30,6 @@
   ragon.services.libvirt.enable = true;
   ragon.services.ssh.enable = true;
 
-  services.k3s.enable = true;
 
 
 
@@ -39,7 +38,6 @@
   ];
   environment.systemPackages = with pkgs; [
     virt-manager
-    k3s
   ];
 
 
