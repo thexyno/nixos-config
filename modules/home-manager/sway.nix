@@ -18,6 +18,14 @@ in
           };
         };
 
+        programs.mako = {
+          backgroundColor = "#282828FF";
+          borderColor = "#3c3836FF";
+          textColor = "#ebdbb2FF";
+          font = "JetBrainsMono Nerd Font 10";
+          enable = true;
+        };
+
         programs.waybar = {
           enable = true;
           systemd.enable = true;
@@ -85,6 +93,7 @@ in
             @define-color temp #b8bb26;
             @define-color layout #689d6a;
             @define-color battery #fabd2f;
+            @define-color disk #fabd2f;
             @define-color date #282828;
             @define-color time #ebdbb2;
 
@@ -101,7 +110,7 @@ in
             #waybar {
               background: transparent;
               color: @light;
-              font-family: Terminus, Siji;
+              font-family: JetBrainsMono NerdFont; 
               font-size: 10pt;
               /*font-weight: bold;*/
             }
@@ -111,6 +120,7 @@ in
             #clock,
             #cpu,
             #language,
+            #disk,
             #memory,
             #mode,
             #network,
@@ -144,6 +154,7 @@ in
             /* Each critical that should blink */
             #mode,
             #memory.critical,
+            #disk.critical,
             #temperature.critical,
             #battery.critical.discharging {
               animation-name: blink-critical;
@@ -153,6 +164,7 @@ in
             /* Each warning */
             #network.disconnected,
             #memory.warning,
+            #disk.warning,
             #cpu.warning,
             #temperature.warning,
             #battery.warning {
@@ -232,6 +244,11 @@ in
               color: @dark;
             }
 
+            #disk {
+              background: @disk;
+              color: @dark;
+            }
+
             #tray {
               background: @date;
             }
@@ -256,40 +273,48 @@ in
             position = "top";
             # height = 30;
             modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
-            modules-right = [ "pulseaudio" "network" "memory" "cpu" "temperature" "battery" "tray" "clock#date" "clock#time" ];
+            modules-right = [ "pulseaudio" "network" "disk" "memory" "cpu" "temperature" "battery" "tray" "clock#date" "clock#time" ];
             modules = {
-              battery = { format = " {capacity}%"; format-discharging = "{icon} {capacity}%"; format-icons = [ "" "" "" "" "" ]; interval = 1; states = { critical = 15; warning = 30; }; tooltip = false; };
+              battery = { format = " {capacity}%"; format-discharging = "{icon} {capacity}%"; format-icons = [ "" "" "" "" "" "" "" "" "" "" "" ]; interval = 1; states = { critical = 15; warning = 30; }; tooltip = false; };
               "clock#date" = {
                 format = "{:%F}";
                 interval = 60;
                 tooltip = false;
               };
               "clock#time" = { format = "{:%H:%M:%S}"; interval = 1; tooltip = false; };
-              cpu = { format = " {usage}%"; interval = 5; states = { critical = 90; warning = 70; }; tooltip = false; };
+              cpu = { format = "﬙ {usage}%"; interval = 5; states = { critical = 90; warning = 70; }; tooltip = false; };
               memory = {
-                format = " {}%";
+                format = " {used:0.1f}G/{total:0.1f}G";
                 interval = 5;
                 states = {
                   critical = 90;
                   warning = 70;
                 };
               };
+              disk = {
+                format = " {free}";
+                interval = 30;
+                states = {
+                  critical = 90;
+                  warning = 70;
+                };
+              };
               network = {
-                format-disconnected = "";
-                format-ethernet = " {ifname}";
+                format-disconnected = "";
+                format-ethernet = " {ifname}";
                 format-wifi =
-                  " {essid} ({signalStrength}%)";
+                  "直 {essid} ({signalStrength}%)";
                 interval = 5;
                 tooltip = false;
               };
-              pulseaudio = { format = "{icon} {volume}%"; format-bluetooth = "{icon} {volume}%"; format-icons = { car = ""; default = [ "" "" ]; handsfree = ""; headphones = ""; headset = ""; phone = ""; portable = ""; }; format-muted = ""; on-click = "pavucontrol"; scroll-step = 1; };
-              "sway/mode" = { format = "<span style=\"italic\"> {}</span>"; tooltip = false; };
+              pulseaudio = { format = "{icon} {desc} {volume}%"; format-bluetooth = "{icon} {desc} {volume}%"; format-icons = { car = ""; default = [ "奄" "奔" "墳" ]; handsfree = ""; headphones = ""; headset = ""; phone = ""; portable = ""; }; format-muted = "ﱝ"; on-click = "alacritty --class Floating -e pulsemixer"; scroll-step = 1; };
+              "sway/mode" = { format = "<span style=\"italic\">{}</span>"; tooltip = false; };
               "sway/window" = { format = "{}"; max-length = 30; tooltip = false; };
               "sway/workspaces" = { all-outputs = false; disable-scroll = false; format = "{name}"; format-icons = { default = ""; focused = ""; urgent = ""; }; };
               temperature = {
                 critical-threshold = 90;
                 format = "{icon} {temperatureC}°";
-                format-icons = [ "" "" "" ];
+                format-icons = [ "﨎" ];
                 interval = 5;
                 tooltip = false;
               };
@@ -324,6 +349,8 @@ in
                         set $term ${pkgs.alacritty}/bin/alacritty
                         set $menu ${pkgs.wofi}/bin/wofi --show drun
                         exec_always ${i3dt}/bin/i3ipc-dynamic-tiling
+                        exec waybar
+                        exec mako
                         # Disable the window title bar.
                         workspace_auto_back_and_forth yes
                         show_marks yes

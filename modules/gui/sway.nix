@@ -5,6 +5,23 @@ in
 {
   options.ragon.gui.sway.enable = lib.mkEnableOption "Enables ragons sway stuff";
   config = lib.mkIf cfg.enable {
+    xdg.portal = {
+      enable = true;
+      gtkUsePortal = true;
+      wlr = {
+        enable = true;
+        settings = {
+          screencast = {
+            chooser_type = "dmenu";
+            chooser_cmd = "''${pkgs.wofi}/bin/wofi -d";
+          };
+        };
+      };
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gnome
+        pkgs.libsForQt5.xdg-desktop-portal-kde
+      ];
+    };
     programs.sway = {
       enable = true;
       wrapperFeatures = {
