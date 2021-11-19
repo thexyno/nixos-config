@@ -46,6 +46,8 @@
     pridecat.flake = false;
     pulse-launch.url = "github:ragon000/pulse-launch";
     pulse-launch.flake = false;
+    i3ipc-dynamic-tiling.url = "github:chlyz/i3ipc-dynamic-tiling";
+    i3ipc-dynamic-tiling.flake = false;
 
     ## vim
     coc-nvim.url = "github:neoclide/coc.nvim/release";
@@ -68,6 +70,9 @@
     zsh-vim-mode.flake = false;
     agkozak-zsh-prompt.url = "github:agkozak/agkozak-zsh-prompt";
     agkozak-zsh-prompt.flake = false;
+
+    # sway
+
 
 
   };

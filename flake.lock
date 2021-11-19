@@ -223,6 +223,22 @@
         "type": "github"
       }
     },
+    "i3ipc-dynamic-tiling": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1597066412,
+        "narHash": "sha256-B6dH2pA1AMi+Znssi1R+/GvMN03O9mOnNA+rqhZXnfk=",
+        "owner": "chlyz",
+        "repo": "i3ipc-dynamic-tiling",
+        "rev": "74efe484ac6e3ca017c019da322d0c521a53e56c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chlyz",
+        "repo": "i3ipc-dynamic-tiling",
+        "type": "github"
+      }
+    },
     "impermanence": {
       "locked": {
         "lastModified": 1611747548,
@@ -482,6 +498,7 @@
         "dwm": "dwm",
         "flake-compat": "flake-compat_2",
         "home-manager": "home-manager",
+        "i3ipc-dynamic-tiling": "i3ipc-dynamic-tiling",
         "impermanence": "impermanence",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixos-hardware": "nixos-hardware",

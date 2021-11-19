@@ -12,22 +12,22 @@ let
     postPatch = "${oldAttrs.postPatch}\n cp ${configFile} blocks.def.h";
     configFile = pkgs.writeText "blocks.def.h" ''
       static const Block blocks[] = {
-      	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
+        /*Icon*/  /*Command*/    /*Update Interval*/  /*Update Signal*/
         ${lib.optionalString laptop ''
           {"BAT: ", "${pkgs.acpi}/bin/acpi | cut -f3-", 15, 0 },
           {"LIGHT: ", "${pkgs.acpilight}/bin/xbacklight -get", 15, 0 },
         ''}
         ${lib.optionalString (laptop == false) ''
           {"MOUSE: ", "cat /sys/class/power_supply/hidpp_battery_*/capacity_level | sed 's/Unknown/Charging/'", 120, 0 },
-      	  {"NAS: ", "df --output=avail -h /media/data | awk 'END{print($1)}'",	30,		0},
+          {"NAS: ", "df --output=avail -h /media/data | awk 'END{print($1)}'",  30,    0},
         ''}
 
-      	{"AUDIO: ", "${pulseoutput}",	15,		1},
-      	{"RAM: ", "free -h | awk '/^Mem/ { print $3\"/\"$2 }' | sed s/i//g",	15,		0},
-      	{"LOAD: ", "cat /proc/loadavg | awk '{print($1 \" \" $2 \" \" $3)}'",	10,		0},
+        {"AUDIO: ", "${pulseoutput}",  15,    1},
+        {"RAM: ", "free -h | awk '/^Mem/ { print $3\"/\"$2 }' | sed s/i//g",  15,    0},
+        {"LOAD: ", "cat /proc/loadavg | awk '{print($1 \" \" $2 \" \" $3)}'",  10,    0},
 
-      	  {"SSD: ", "df --output=avail -h /nix | awk 'END{print($1)}'",	30,		0},
-      	{"", "date '+%F %T'",					1,		0},
+          {"SSD: ", "df --output=avail -h /nix | awk 'END{print($1)}'",  30,    0},
+        {"", "date '+%F %T'",          1,    0},
       };
       static char delim[] = " | ";
       static unsigned int delimLen = 3;
@@ -227,7 +227,7 @@ in
       )
     ];
 
-    services.xserver.displayManager.defaultSession = "none+dwm";
+    services.xserver.displayManager.defaultSession = lib.mkDefault "none+dwm";
     services.xserver.windowManager.dwm.enable = true;
     environment.systemPackages = [
       pkgs.playerctl
