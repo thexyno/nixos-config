@@ -32,11 +32,16 @@ in
   };
   config = lib.mkIf cfg.enable {
     services.yubikey-agent.enable = true;
-    ragon.gui.dwm.enable = true;
+    ragon.gui.dwm.enable = mkDefault true;
     services.pcscd.enable = true;
     # Set up default fonts
     fonts.enableDefaultFonts = true;
     fonts.enableGhostscriptFonts = true;
+    # Needed for themes and backgrounds
+    environment.pathsToLink = [
+      "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
+    ];
+
 
     # Configure fontconfig to actually use more of Noto Color Emoji in
     # alacritty.
@@ -48,6 +53,10 @@ in
     # Install some extra fonts.
     fonts.fonts = with pkgs; [
       jetbrains-mono
+      cantarell-fonts
+      dejavu_fonts
+      source-code-pro # Default monospace font in 3.32
+      source-sans-pro
       (nerdfonts.override { fonts = [ "JetBrainsMono" "Terminus" ]; })
     ];
 
@@ -55,16 +64,16 @@ in
 
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
-    documentation.info.enable = false; # https://github.com/NixOS/nixpkgs/issues/124215#issuecomment-846762260
     ragon.services.mullvad.enable = true;
     environment.systemPackages =
       with pkgs; [
-        libsForQt5.breeze-icons
+        orca
+        glib # for gsettings
+        gnome-menus
+        gtk3.out # for gtk-launch
+        hicolor-icon-theme
+        shared-mime-info # for update-mime-database
         libreoffice-fresh
-        konsole
-        dolphin
-        okular
-        spectacle
         arc-icon-theme
         feh
         pulsemixer
@@ -86,8 +95,25 @@ in
         yubikey-manager-qt
         yubikey-personalization
         yubikey-personalization-gui
+        gnome.eog
+        gnome.epiphany
+        gnome.gnome-calculator
+        gnome.gnome-calendar
+        gnome.gnome-characters
+        gnome.gnome-clocks
+        gnome.gnome-contacts
+        gnome.gnome-font-viewer
+        gnome.gnome-logs
+        gnome.nautilus
+        gnome.simple-scan
       ];
+    # Let nautilus find extensions
+    # TODO: Create nautilus-with-extensions package
+    environment.sessionVariables.NAUTILUS_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-3.0";
 
+    programs.evince.enable = true;
+    programs.file-roller.enable = true;
+    programs.gnome-disks.enable = true;
     # security.wrappers.cnping = {
     #   source = "${pkgs.my.cnping}/bin/cnping";
     #   owner = "nobody";
@@ -97,6 +123,7 @@ in
 
     ragon.user.persistent.extraFiles = [
       ".cache/rofi3.druncache" # rofi cache so the search priorities are not garbage
+      ".cache/wofi-drun" # rofi cache so the search priorities are not garbage
     ];
 
     ragon.user.persistent.extraDirectories = [
@@ -138,11 +165,11 @@ in
 
     # enable cups
     services.printing.enable = true;
-    services.printing.drivers = [ pkgs.hplip ];
+    services.system-config-printer.enable = true;
     services.avahi.enable = true;
     # scanning
     hardware.sane.enable = true;
-    hardware.sane.extraBackends = [ pkgs.hplipWithPlugin pkgs.sane-airscan ];
+    hardware.sane.extraBackends = [ pkgs.sane-airscan ];
 
     # Important to resolve .local domains of printers, otherwise you get an error
     # like  "Impossible to connect to XXX.local: Name or service not known"
@@ -157,8 +184,6 @@ in
     services.pipewire.pulse.enable = true;
     services.pipewire.jack.enable = true;
 
-    # Enable the X11 windowing system.
-    services.xserver.enable = true;
 
     # Don't have xterm as a session manager.
     services.xserver.desktopManager.xterm.enable = false;

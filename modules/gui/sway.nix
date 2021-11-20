@@ -7,7 +7,7 @@ in
   config = lib.mkIf cfg.enable {
     xdg.portal = {
       enable = true;
-      gtkUsePortal = true;
+      # gtkUsePortal = true;
       wlr = {
         enable = true;
         settings = {
@@ -18,9 +18,35 @@ in
         };
       };
       extraPortals = [
-        pkgs.xdg-desktop-portal-gnome
-        pkgs.libsForQt5.xdg-desktop-portal-kde
+        pkgs.xdg-desktop-portal-gtk
       ];
+    };
+    services.greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command =
+            let
+              gtkgreetcss = pkgs.writeText "gtkgreetcss" ''
+                window {
+                  background-image: url("file:///persistent/home/ragon/Backgrounds/asdf.jpg");
+                  background-size: cover;
+                  background-position: center;
+                  }
+              '';
+              swaycfg = pkgs.writeText "swaycfg" ''
+                exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -s ${gtkgreetcss} -c sway; swaymsg exit"
+                bindsym Mod4+shift+e exec swaynag \
+                  -t warning \
+                  -m 'What do you want to do?' \
+                  -b 'Poweroff' 'systemctl poweroff' \
+                  -b 'Reboot' 'systemctl reboot'
+                include /etc/sway/config.d/*
+              '';
+            in
+            "sh -c 'XDG_CURRENT_DESKTOP=sway sway --config ${swaycfg}'";
+        };
+      };
     };
     programs.sway = {
       enable = true;
@@ -44,6 +70,11 @@ in
       pkgs.libnotify
       pkgs.qt5.qtwayland
       pkgs.ponymix
+      pkgs.swappy
+      pkgs.grim
+      pkgs.slurp
+      pkgs.jq
+      pkgs.wl-clipboard
     ];
 
   };

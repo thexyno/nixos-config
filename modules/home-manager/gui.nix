@@ -1,6 +1,7 @@
 { inputs, config, lib, pkgs, ... }:
 let
   cfg = config.ragon.home-manager;
+  isSway = config.ragon.gui.sway.enable;
   isGui = config.ragon.gui.enable;
 in
 {
@@ -13,14 +14,14 @@ in
           gtk-application-prefer-dark-theme = 1;
         };
         services.random-background = {
-          enable = isGui;
+          enable = isGui && !isSway;
           enableXinerama = true;
           imageDirectory = "%h/Backgrounds";
           interval = "1h";
         };
 
         # Enable the dunst notification deamon
-        services.dunst.enable = isGui;
+        services.dunst.enable = isGui && !isSway;
         services.dunst.settings = {
           global = {
             font = "JetBrainsMono Nerd Font 12";
@@ -111,15 +112,15 @@ in
           };
         };
 
-        services.picom.enable = isGui;
+        services.picom.enable = isGui && !isSway;
         services.picom.vSync = true;
         services.mpris-proxy.enable = true;
 
         services.screen-locker = {
-          enable = config.ragon.hardware.laptop.enable;
+          enable = config.ragon.hardware.laptop.enable && !isSway;
           lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c 000000";
         };
 
-    };
       };
+  };
 }

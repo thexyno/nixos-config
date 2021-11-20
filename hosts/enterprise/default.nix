@@ -42,6 +42,7 @@
   ragon.hardware.bluetooth.enable = true;
   ragon.programs.prusa-slicer.enable = true;
   ragon.gui.sway.enable = true;
+  ragon.gui.dwm.enable = false;
 
 
 }

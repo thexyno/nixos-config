@@ -38,6 +38,9 @@ in
 {
   options.ragon.gui.dwm.enable = lib.mkEnableOption "Enables ragons Dwm stuff";
   config = lib.mkIf cfg.dwm.enable {
+    # Enable the X11 windowing system.
+    services.xserver.enable = true;
+
     environment.variables = {
       _JAVA_AWT_WM_NONREPARENTING = "1";
     };

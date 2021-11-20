@@ -327,147 +327,180 @@ in
           systemdIntegration = true;
           config = null;
           extraConfig = ''
-                        set $mod Mod4
-                        floating_modifier $mod
-                        default_border pixel 2
-                        default_floating_border pixel 2
-                        hide_edge_borders none
-                        focus_wrapping no
-                        focus_follows_mouse yes
-                        focus_on_window_activation smart
-                        mouse_warping output
-                        workspace_layout default
+            set $mod Mod4
+            floating_modifier $mod
+            default_border pixel 2
+            default_floating_border pixel 2
+            hide_edge_borders none
+            focus_wrapping no
+            focus_follows_mouse yes
+            focus_on_window_activation smart
+            mouse_warping output
+            workspace_layout default
             
-                        client.focused #4c7899 #285577 #ffffff #2e9ef4 #285577
-                        client.focused_inactive #333333 #5f676a #ffffff #484e50 #5f676a
-                        client.unfocused #333333 #222222 #888888 #292d2e #222222
-                        client.urgent #2f343a #900000 #ffffff #900000 #900000
-                        client.placeholder #000000 #0c0c0c #ffffff #000000 #0c0c0c
-                        client.background #ffffff
+            client.focused #4c7899 #285577 #ffffff #2e9ef4 #285577
+            client.focused_inactive #333333 #5f676a #ffffff #484e50 #5f676a
+            client.unfocused #333333 #222222 #888888 #292d2e #222222
+            client.urgent #2f343a #900000 #ffffff #900000 #900000
+            client.placeholder #000000 #0c0c0c #ffffff #000000 #0c0c0c
+            client.background #ffffff
 
-                        # Your preferred terminal emulator
-                        set $term ${pkgs.alacritty}/bin/alacritty
-                        set $menu ${pkgs.wofi}/bin/wofi --show drun
-                        exec_always ${i3dt}/bin/i3ipc-dynamic-tiling
-                        exec waybar
-                        exec mako
-                        # Disable the window title bar.
-                        workspace_auto_back_and_forth yes
-                        show_marks yes
+            # Your preferred terminal emulator
+            set $term ${pkgs.alacritty}/bin/alacritty
+            set $menu ${pkgs.wofi}/bin/wofi --show drun
+            exec_always ${i3dt}/bin/i3ipc-dynamic-tiling
+            exec mako
+            # Disable the window title bar.
+            workspace_auto_back_and_forth yes
+            show_marks yes
             
-                        # Focus next cycle.
-                        bindsym $mod+j nop i3ipc_focus next
+            # Focus next cycle.
+            bindsym $mod+j nop i3ipc_focus next
 
-                        # Move next.
-                        bindsym $mod+shift+j nop i3ipc_move next
+            # Move next.
+            bindsym $mod+shift+j nop i3ipc_move next
 
-                        # Focus previous cycle.
-                        bindsym $mod+k nop i3ipc_focus prev
+            # Focus previous cycle.
+            bindsym $mod+k nop i3ipc_focus prev
 
-                        # Move previous.
-                        bindsym $mod+shift+k nop i3ipc_move prev
+            # Move previous.
+            bindsym $mod+shift+k nop i3ipc_move prev
 
-                        # Focus previous window toggle.
-                        bindsym $mod+i nop i3ipc_focus toggle
+            # Focus previous window toggle.
+            bindsym $mod+i nop i3ipc_focus toggle
 
-                        # Focus the other container.
-                        bindsym $mod+o nop i3ipc_focus other
+            # Focus the other container.
+            bindsym $mod+o nop i3ipc_focus other
 
-                        # Move to the other container.
-                        bindsym $mod+shift+o nop i3ipc_move other
+            # Move to the other container.
+            bindsym $mod+shift+o nop i3ipc_move other
 
-                        # Swap window with the other container.
-                        bindsym $mod+Return nop i3ipc_move swap
+            # Swap window with the other container.
+            bindsym $mod+Return nop i3ipc_move swap
 
-                        # Toggle tabbed mode.
-                        bindsym $mod+space nop i3ipc_tabbed_toggle
+            # Toggle tabbed mode.
+            bindsym $mod+space nop i3ipc_tabbed_toggle
 
-                        # Toggle fullscreen mode.
-                        bindsym $mod+f fullscreen toggle
+            # Toggle fullscreen mode.
+            bindsym $mod+f fullscreen toggle
 
-                        # Toggle monocle mode.
-                        bindsym $mod+m nop i3ipc_monocle_toggle
+            # Toggle monocle mode.
+            bindsym $mod+m nop i3ipc_monocle_toggle
 
-                        # Toggle secondary to the side of or below of main.
-                        bindsym $mod+backslash nop i3ipc_reflect
+            # Toggle secondary to the side of or below of main.
+            bindsym $mod+backslash nop i3ipc_reflect
 
-                        # Toggle secondary to the right or left hand side of main.
-                        bindsym $mod+shift+backslash nop i3ipc_mirror
+            # Toggle secondary to the right or left hand side of main.
+            bindsym $mod+shift+backslash nop i3ipc_mirror
 
-                        # Toggle workspace.
-                        bindsym $mod+Tab workspace back_and_forth
+            # Toggle workspace.
+            bindsym $mod+Tab workspace back_and_forth
 
-                        # Toggle layout current container.
-                        bindsym $mod+semicolon layout toggle tabbed split
-                          ### Key bindings
-                        #
-                        # Basics:
-                        #
-                        # Start a terminal
-                        bindsym $mod+Shift+Return exec $term
+            # Toggle layout current container.
+            bindsym $mod+semicolon layout toggle tabbed split
+            ### Key bindings
+            #
+            # Basics:
+            #
+            # Start a terminal
+            bindsym $mod+Shift+Return exec $term
+            bindsym $mod+v exec $term --class Floating -e pulsemixer
+            bindsym $mod+Shift+f exec ${pkgs.gnome.nautilus}/bin/nautilus
+            for_window [app_id="Floating"] floating enable
 
-                        # Kill focused window
-                        bindsym $mod+Shift+q kill
 
-                        # Start your launcher
-                        bindsym $mod+p exec $menu
-                        #
+            # Kill focused window
+            bindsym $mod+Shift+q kill
+
+            # Start your launcher
+            bindsym $mod+p exec $menu
+            # Screenshot
+            bindsym Print exec sh -c 'grim -g "$(slurp)" - | swappy -f - -o $HOME/Pictures/Screenshot_$(date -Iseconds).png'
+            bindsym Shift+Print exec sh -c 'grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)" - | swappy -f - -o $HOME/Pictures/Screenshot_$(date -Iseconds).png'
+            #
             # Workspaces:
             #
-                # Switch to workspace
-                bindsym $mod+1 workspace number 1
-                bindsym $mod+2 workspace number 2
-                bindsym $mod+3 workspace number 3
-                bindsym $mod+4 workspace number 4
-                bindsym $mod+5 workspace number 5
-                bindsym $mod+6 workspace number 6
-                bindsym $mod+7 workspace number 7
-                bindsym $mod+8 workspace number 8
-                bindsym $mod+9 workspace number 9
-                bindsym $mod+0 workspace number 10
-                # Move focused container to workspace
-                bindsym $mod+Shift+1 move containr to workspace number 1
-                bindsym $mod+Shift+2 move container to workspace number 2
-                bindsym $mod+Shift+3 move container to workspace number 3
-                bindsym $mod+Shift+4 move container to workspace number 4
-                bindsym $mod+Shift+5 move container to workspace number 5
-                bindsym $mod+Shift+6 move container to workspace number 6
-                bindsym $mod+Shift+7 move container to workspace number 7
-                bindsym $mod+Shift+8 move container to workspace number 8
-                bindsym $mod+Shift+9 move container to workspace number 9
-                bindsym $mod+Shift+0 move container to workspace number 10
-                # Note: workspaces can have any name you want, not just numbers.
-                # We just use 1-10 as the default.
+            # Switch to workspace
+            bindsym $mod+1 workspace number 1
+            bindsym $mod+2 workspace number 2
+            bindsym $mod+3 workspace number 3
+            bindsym $mod+4 workspace number 4
+            bindsym $mod+5 workspace number 5
+            bindsym $mod+6 workspace number 6
+            bindsym $mod+7 workspace number 7
+            bindsym $mod+8 workspace number 8
+            bindsym $mod+9 workspace number 9
+            bindsym $mod+0 workspace number 10
+            # Move focused container to workspace
+            bindsym $mod+Shift+1 move containr to workspace number 1
+            bindsym $mod+Shift+2 move container to workspace number 2
+            bindsym $mod+Shift+3 move container to workspace number 3
+            bindsym $mod+Shift+4 move container to workspace number 4
+            bindsym $mod+Shift+5 move container to workspace number 5
+            bindsym $mod+Shift+6 move container to workspace number 6
+            bindsym $mod+Shift+7 move container to workspace number 7
+            bindsym $mod+Shift+8 move container to workspace number 8
+            bindsym $mod+Shift+9 move container to workspace number 9
+            bindsym $mod+Shift+0 move container to workspace number 10
+            # Note: workspaces can have any name you want, not just numbers.
+            # We just use 1-10 as the default.
 
 
             
 
 
-                        # Drag floating windows by holding down $mod and left mouse button.
-                        # Resize them with right mouse button + $mod.
-                        # Despite the name, also works for non-floating windows.
-                        # Change normal to inverse to use left mouse button for resizing and right
-                        # mouse button for dragging.
-                        floating_modifier $mod normal
+            # Drag floating windows by holding down $mod and left mouse button.
+            # Resize them with right mouse button + $mod.
+            # Despite the name, also works for non-floating windows.
+            # Change normal to inverse to use left mouse button for resizing and right
+            # mouse button for dragging.
+            floating_modifier $mod normal
+            bindsym $mod+Shift+space floating toggle
 
-                        # Reload the configuration file
-                        bindsym $mod+Shift+c reload
+            # Reload the configuration file
+            bindsym $mod+Shift+c reload
 
-                        # Exit sway (logs you out of your Wayland session)
-                        bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+            # Exit sway (logs you out of your Wayland session)
+            bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
-                        #
-                        # Scratchpad:
-                        #
-                        # Sway has a "scratchpad", which is a bag of holding for windows.
-                        # You can send windows there and get them back later.
-            
-                        # Move the currently focused window to the scratchpad
-                        bindsym $mod+Shift+minus move scratchpad
-            
-                        # Show the next scratchpad window or hide the focused scratchpad window.
-                        # If there are multiple scratchpad windows, this command cycles through them.
-                        bindsym $mod+minus scratchpad show
+            #
+            # Scratchpad:
+            #
+            bindsym $mod+Shift+minus move scratchpad
+            bindsym $mod+minus scratchpad show
+            #
+            # Media Keys:
+            #
+            bindsym --locked XF86AudioRaiseVolume exec ponymix -N increase 5
+            bindsym --locked XF86AudioLowerVolume exec ponymix -N decrease 5
+            bindsym --locked XF86AudioMute exec ponymix -N toggle
+            bindsym XF86MonBrightnessDown exec xbacklight -inc 5
+            bindsym XF86MonBrightnessUp exec   xbacklight -dec 5
+            bindsym --locked XF86AudioPlay exec playerctl play-pause
+            bindsym --locked XF86AudioNext exec playerctl next
+            bindsym --locked XF86AudioPrev exec playerctl previous
+            #
+            # Locking:
+            #
+            exec swayidle -w \
+              timeout 1800 'swaylock -c 000000' \
+              timeout 1805 'swaymsg "output * dpms off"' \
+              before-sleep 'playerctl pause' \
+              before-sleep 'swaylock' \
+              resume 'swaymsg "output * dpms on"'
+            #
+            # Input:
+            #
+            input 12951:6505:ZSA_Moonlander_Mark_I {
+              xkb_layout "eu"
+              xkb_variant ""
+              xkb_options ""
+            }
+            input type:touchpad {
+              tap enabled
+              natural_scroll enabled
+            }
+
           '';
 
 
