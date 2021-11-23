@@ -94,6 +94,7 @@ in
         { name = "paperless.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "unifi.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "grocy.hailsatan.eu"; ip = "10.0.0.2"; }
+        { name = "barcodebuddy.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "nix.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "h.hailsatan.eu"; ip = "10.0.0.1"; }
         { name = "grafana.hailsatan.eu"; ip = "10.0.0.2"; }
