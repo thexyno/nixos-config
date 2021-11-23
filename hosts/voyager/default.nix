@@ -29,6 +29,8 @@
   ragon.services.docker.enable = true;
   ragon.services.libvirt.enable = true;
   ragon.services.ssh.enable = true;
+  ragon.gui.sway.enable = true;
+  ragon.gui.dwm.enable = false;
 
 
 
