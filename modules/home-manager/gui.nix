@@ -34,7 +34,6 @@ in
         services.dunst.enable = isGui && !isSway;
         services.dunst.settings = {
           global = {
-            font = "JetBrainsMono Nerd Font 12";
 
             # Allow a small subset of html markup
             markup = "full";

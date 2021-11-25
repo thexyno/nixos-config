@@ -109,7 +109,6 @@ in
             #waybar {
               background: transparent;
               color: @light;
-              font-family: JetBrainsMono NerdFont; 
               font-size: 10pt;
               /*font-weight: bold;*/
             }
