@@ -46,8 +46,18 @@ in
     # Configure fontconfig to actually use more of Noto Color Emoji in
     # alacritty.
     fonts.fontconfig.defaultFonts.monospace = [
-      "DejaVu Sans Mono"
+      "JetBrainsMono Nerd Font"
       "Noto Color Emoji"
+    ];
+
+    fonts.fontconfig.defaultFonts.sansSerif = [
+      "Source Sans Pro"
+      "JetBrainsMono Nerd Font" # nerd font so their glyphs work
+    ];
+
+    fonts.fontconfig.defaultFonts.serif = [
+      "Source Serif Pro"
+      "JetBrainsMono Nerd Font" # nerd font so their glyphs work
     ];
 
     # Install some extra fonts.
@@ -55,9 +65,10 @@ in
       jetbrains-mono
       cantarell-fonts
       dejavu_fonts
-      source-code-pro # Default monospace font in 3.32
+      source-code-pro # Default monospace font gnome
       source-sans-pro
-      (nerdfonts.override { fonts = [ "JetBrainsMono" "Terminus" ]; })
+      source-serif-pro
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
 
     qt5.style = "adwaita-dark";

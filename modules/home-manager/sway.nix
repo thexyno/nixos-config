@@ -22,7 +22,6 @@ in
           backgroundColor = "#282828FF";
           borderColor = "#3c3836FF";
           textColor = "#ebdbb2FF";
-          font = "JetBrainsMono Nerd Font 10";
           enable = true;
         };
 

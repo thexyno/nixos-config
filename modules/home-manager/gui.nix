@@ -20,6 +20,16 @@ in
           interval = "1h";
         };
 
+        programs.rofi = {
+          enable = isGui && !isSway;
+          terminal = "${pkgs.kitty}/bin/kitty";
+          extraConfig = {
+            modi = "drun,run,ssh,combi";
+            theme = "gruvbox-dark-soft";
+            combi-modi = "drun,run,ssh";
+          };
+        };
+
         # Enable the dunst notification deamon
         services.dunst.enable = isGui && !isSway;
         services.dunst.settings = {
