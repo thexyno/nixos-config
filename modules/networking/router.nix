@@ -33,7 +33,7 @@ let
     netipv4addr = "10.1.0.0";
     dhcpv4start = "10.1.1.1";
     dhcpv4end = "10.1.255.240";
-    routes = [];
+    routes = [ ];
     ipv4size = 16;
     vlan = 2;
   };
@@ -45,7 +45,7 @@ let
     netipv4addr = "192.168.2.0";
     dhcpv4start = "192.168.2.10";
     dhcpv4end = "192.168.2.240";
-    routes = [];
+    routes = [ ];
     ipv4size = 24;
     vlan = 3;
   };
@@ -349,7 +349,7 @@ in
     # };
 
     # Enable unbound as the upstream DNS server
-    ragon.services.unbound.enable = true;
+    # ragon.services.unbound.enable = true;
 
     services.dnsmasq = {
       enable = true;
@@ -379,7 +379,10 @@ in
         in
         ''
           no-resolv
-          server=127.0.0.1#5353 # unbound
+          # unbound broke
+          # server=127.0.0.1#5353 # unbound
+          server=1.1.1.1
+          server=1.0.0.1
 
           # https://hveem.no/using-dnsmasq-for-dhcpv6
 
