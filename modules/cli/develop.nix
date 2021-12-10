@@ -15,6 +15,7 @@ in
       unixtools.xxd
       nixos-generators
       nix-prefetch-scripts
+      gtkwave
       android-studio
       android-udev-rules
       scrcpy
