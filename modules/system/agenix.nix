@@ -22,9 +22,9 @@ in
     environment.systemPackages = [ agenix.defaultPackage.${pkgs.system} ];
     # Set passwords
     users.users.root.passwordFile = "/run/secrets/rootPasswd";
-    age.sshKeyPaths =
+    age.identityPaths =
       [
-        "/persistent/etc/ssh/ssh_host_rsa_key"
+        #        "/persistent/etc/ssh/ssh_host_rsa_key"
         "/persistent/etc/ssh/ssh_host_ed25519_key"
       ];
     age.secrets = mapAttrs (name: obj: ({ file = "${secretsDir}/${name}.age"; } // obj))
