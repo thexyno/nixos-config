@@ -30,7 +30,7 @@
 
   ragon.cli.enable = true;
   ragon.cli.pandoc.enable = true;
-  ragon.gui.gaming.enable = true;
+  # ragon.gui.gaming.enable = true;
   ragon.user.enable = true;
   ragon.home-manager.enable = true;
   ragon.gui.enable = true;
