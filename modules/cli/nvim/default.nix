@@ -14,6 +14,7 @@ with lib;
     environment.systemPackages = with pkgs; [
     ] ++ optionals cfg.maximal [
       python3 # ultisnips
+      lazygit
       nodejs
       inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
       shfmt
@@ -81,7 +82,7 @@ with lib;
             fzf-vim
             fzfWrapper
             vim-devicons
-            orgmode-nvim
+            toggleterm-nvim
           ] ++ optionals cfg.maximal [
             undotree
             vim-pandoc
@@ -94,7 +95,7 @@ with lib;
           customRC = ''
             set runtimepath^=/etc/nvim
             lua dofile('/etc/nvim/init.lua')
-            '';
+          '';
         };
     };
 

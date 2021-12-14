@@ -7,6 +7,7 @@ local opt = vim.opt
 require('plugin.galaxyline')
 require('plugin.nnn')
 require('plugin.rainbow')
+require('plugin.terminal')
 
 -- plugins - coc
 vim.cmd 'source /etc/nvim/coc.vim' -- too lazy to convert all the shit to lua

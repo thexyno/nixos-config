@@ -44,3 +44,6 @@ map { 'n', '<tab>', '::NnnPicker %:p:h<CR>', noremap = true, silent = true}
 vim.cmd [[
   source /etc/nvim/coc.vim
 ]] -- too lazy to convert all the shit to lua
+
+-- plugins - terminal
+map {"n", "<leader>l", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true}}
