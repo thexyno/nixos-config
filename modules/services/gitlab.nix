@@ -16,14 +16,14 @@ in
     services.gitlab = {
       enable = true;
       https = true;
-      initialRootPasswordFile = "/run/secrets/gitlabInitialRootPassword";
+      initialRootPasswordFile = "${config.age.secrets.gitlabInitialRootPassword.path}";
       port = 443;
       host = "${cfg.domainPrefix}.${domain}";
       secrets = {
-        dbFile = "/run/secrets/gitlabDBFile";
-        jwsFile = "/run/secrets/gitlabJWSFile";
-        otpFile = "/run/secrets/gitlabOTPFile";
-        secretFile = "/run/secrets/gitlabSecretFile";
+        dbFile = "${config.age.secrets.gitlabDBFile.path}";
+        jwsFile = "${config.age.secrets.gitlabJWSFile.path}";
+        otpFile = "${config.age.secrets.gitlabOTPFile.path}";
+        secretFile = "${config.age.secrets.gitlabSecretFile.path}";
       };
     };
 

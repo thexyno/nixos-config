@@ -21,7 +21,7 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ agenix.defaultPackage.${pkgs.system} ];
     # Set passwords
-    users.users.root.passwordFile = "/run/secrets/rootPasswd";
+    users.users.root.passwordFile = config.age.secrets.rootPasswd.path;
     age.identityPaths =
       [
         #        "/persistent/etc/ssh/ssh_host_rsa_key"
@@ -31,7 +31,6 @@ in
       (cfg.secrets //
         {
           rootPasswd = { };
-          ragonPasswd = { };
         }
       );
     assertions = [

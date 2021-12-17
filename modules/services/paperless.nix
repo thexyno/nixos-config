@@ -15,11 +15,11 @@ in
   config = mkIf cfg.enable {
     services.paperless-ng = {
       enable = true;
-      package = pkgs.paperless-ng.overrideAttrs (oldAttrs: rec { doCheck = false; doInstallCheck = false;});
+      package = pkgs.paperless-ng.overrideAttrs (oldAttrs: rec { doCheck = false; doInstallCheck = false; });
       mediaDir = mkDefault "/data/documents/paperless";
       consumptionDir = mkDefault "/data/applications/paperless-consumption";
       consumptionDirIsPublic = true;
-      passwordFile = "/run/secrets/paperlessAdminPW";
+      passwordFile = "${config.age.secrets.paperlessAdminPW.path}";
       extraConfig = {
         PAPERLESS_OCR_LANGUAGE = "deu+eng";
       };

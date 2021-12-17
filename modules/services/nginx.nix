@@ -27,7 +27,7 @@ in
       extraDomainNames = [
         "*.${cfg.domain}"
       ];
-      credentialsFile = "/run/secrets/cloudflareAcme";
+      credentialsFile = "${config.age.secrets.cloudflareAcme.path}";
 
     };
     ragon.agenix.secrets.cloudflareAcme = { group = "nginx"; mode = "0440"; };

@@ -13,7 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     services.hedgedoc = {
       enable = true;
-      environmentFile = "/run/secrets/hedgedocSecret";
+      environmentFile = "${config.age.secrets.hedgedocSecret.path}";
       configuration = {
         protocolUseSSL = true;
         sessionSecret = "$SESSION_SECRET";
