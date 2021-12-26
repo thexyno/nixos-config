@@ -5,6 +5,7 @@ let
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvexOT9tnx2LfAE/OwfixfNc/esNAjZ+GDfLpY2iABk" # enterprise ragon
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEJwOH1b6xWmEr1VZh48kBIYhW11vtPFR3my8stAHlSi" # saurier
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJwdsCeQUDRkAF/9Pfs5vySEit4kd5XGCgGR+CfZStAz" # voyager
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIuwQJY0H/fdu1UmGXAut7VfcvAk2Dm78tJpkyyv2in2" # daedalus
       ];
       server = user ++ hosts.ds9 ++ hosts.wormhole ++ hosts.picard ++ hosts.octopi;
       client = user ++ hosts.enterprise ++ hosts.voyager;
