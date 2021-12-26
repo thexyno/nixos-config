@@ -67,6 +67,18 @@
   hardware.sane.extraBackends = [ pkgs.sane-airscan ];
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
+  services.avahi.extraServiceFiles.adisk = ''
+    <?xml version="1.0" standalone='no'?>
+    <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+    <service-group>
+      <name replace-wildcards="yes">%h</name>
+      <service>
+        <type>_adisk._tcp</type>
+        <txt-record>sys=waMa=0,adVF=0x100</txt-record>
+        <txt-record>dk0=adVN=TimeMachine,adVF=0x82</txt-record>
+      </service>
+    </service-group>
+  '';
   services.avahi.extraServiceFiles.smb = ''
     <?xml version="1.0" standalone='no'?>
     <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
