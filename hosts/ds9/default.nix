@@ -67,6 +67,7 @@
   hardware.sane.extraBackends = [ pkgs.sane-airscan ];
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
+  services.avahi.publish.enable = true;
   services.avahi.extraServiceFiles.adisk = ''
     <?xml version="1.0" standalone='no'?>
     <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
