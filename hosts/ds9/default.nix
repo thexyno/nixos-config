@@ -168,11 +168,10 @@
   users.mutableUsers = false;
 
   services.samba.extraConfig = ''
-    min protocol = SMB2
-    vfs objects = acl_xattr catia fruit streams_xattr
+    min protocol = SMB3
+    vfs objects = fruit streams_xattr
     fruit:nfs_aces = no
     inherit permissions = yes
-    fruit:model = MacSamba
     fruit:posix_rename = yes 
     fruit:veto_appledouble = no
     fruit:wipe_intentionally_left_blank_rfork = yes 
@@ -195,6 +194,8 @@
       "write list" = "@wheel";
       "fruit:time machine" = "yes";
       "fruit:time machine max size" = "2050G";
+      "vfs objects" = "fruit streams_xattr";
+      "inherit acls" = "yes";
     };
     data = {
       path = "/data";
