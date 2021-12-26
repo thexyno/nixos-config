@@ -24,7 +24,7 @@ in
       {
         # Import a persistance module for home-manager.
         ## TODO this can be done less ugly
-        imports = [ "${inputs.impermanence}/home-manager.nix" ] ++ (mapModulesRec ../../hm-modules (x: x));
+        imports = [ "${inputs.impermanence}/home-manager.nix" ] ++ (lib.my.mapModulesRec ../../hm-modules (x: x));
 
         programs.home-manager.enable = true;
 

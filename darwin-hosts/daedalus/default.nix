@@ -48,7 +48,7 @@ with lib.my;
     python3 # ultisnips
     lazygit
     nodejs
-    inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
+    # inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
     shfmt
     shellcheck
     vim-vint
