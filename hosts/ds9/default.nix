@@ -76,6 +76,7 @@
       <service>
         <type>_smb._tcp</type>
         <port>445</port>
+        <host-name>ds9.hailsatan.eu</host-name>
       </service>
       <service>
         <type>_device-info._tcp</type>
@@ -85,7 +86,8 @@
       <service>
         <type>_adisk._tcp</type>
         <txt-record>sys=waMa=0,adVF=0x100</txt-record>
-        <txt-record>dk0=adVN=daedalusTM,adVF=0x82</txt-record>
+        <txt-record>dk0=adVN=TimeMachine,adVF=0x82</txt-record>
+        <host-name>ds9.hailsatan.eu</host-name>
       </service>
     </service-group>
   '';
@@ -160,11 +162,12 @@
   users.mutableUsers = false;
 
   services.samba.extraConfig = ''
-    min protocol = SMB3
-    vfs objects = fruit streams_xattr
+    min protocol = SMB2
+    vfs objects = acl_xattr catia fruit streams_xattr
     fruit:nfs_aces = no
     inherit permissions = yes
     fruit:posix_rename = yes 
+    fruit:model = MacPro7,1@ECOLOR=226,226,224
     fruit:veto_appledouble = no
     fruit:wipe_intentionally_left_blank_rfork = yes 
     fruit:delete_empty_adfiles = yes 
@@ -180,7 +183,7 @@
     services = {
   samba.enable = true;
   samba.shares = {
-    daedalusTM = {
+    TimeMachine = {
       path = "/backups/DaedalusTimeMachine";
       comment = "DaedalusTimeMachine";
       "write list" = "@wheel";
