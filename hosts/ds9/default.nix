@@ -146,6 +146,27 @@
     services = {
   samba.enable = true;
   samba.shares = {
+    daedalusTM = {
+      path = "/backups/DaedalusTimeMachine";
+      comment = "DaedalusTimeMachine";
+      "browseable" = "yes";
+      "write list" = "timemachine";
+      "create mask" = "0600";
+      "directory mask" = "0700";
+      "spotlight" = "no";
+      "vfs objects" = "catia fruit streams_xattr";
+      "fruit:aapl" = "yes";
+      "fruit:time machine" = "yes";
+      "fruit:time machine max size" = "2050G";
+      "durable handles" = "yes";
+      "kernel oplocks" = "no";
+      "kernel share modes" = "no";
+      "posix locking" = "no";
+      "case sensitive" = "true";
+      "default case" = "lower";
+      "preserve case" = "no";
+      "short preserve case" = "no";
+    };
     data = {
       path = "/data";
       comment = "some data for the people";
