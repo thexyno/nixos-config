@@ -5,8 +5,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
-      {
         home.file = {
           # Home nix config.
           ".config/nixpkgs/config.nix".text = "{ allowUnfree = true; }";
@@ -20,5 +18,4 @@ in
         } // lib.optionalAttrs isGui {
         };
       };
-  };
 }

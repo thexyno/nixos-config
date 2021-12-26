@@ -5,11 +5,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    ragon.user.persistent.extraDirectories = [
-      ".gnupg"
-    ];
-    home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
-      {
         programs = {
           gpg = {
             enable = true;
@@ -83,7 +78,6 @@ in
 
 
         };
-      };
   };
 }
 

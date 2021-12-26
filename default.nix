@@ -1,7 +1,7 @@
 { inputs, config, lib, pkgs, ... }:
-
 with lib;
 with lib.my;
+
 {
   imports = [ inputs.impermanence.nixosModules.impermanence ] ++ (mapModulesRec' (toString ./modules) import); # import ./modules/*
 

@@ -4,17 +4,10 @@ let
   isGui = config.ragon.gui.enable;
 in
 {
-  options.ragon.home-manager.enable = lib.mkEnableOption "Enables my home-manager config";
 
-  # Import the home-manager module
-  imports = [ inputs.home-manager.nixosModules.home-manager ];
-
+  options.ragon.home-manager.enable = lib.my.mkBoolOpt true;
   config = lib.mkIf cfg.enable {
     # Make sure to start the home-manager activation before I log it.
-    systemd.services."home-manager-${config.ragon.user.username}" = {
-      before = [ "display-manager.service" ];
-      wantedBy = [ "multi-user.target" ];
-    };
     environment.systemPackages = with pkgs;[
       dunst # dunstify
     ];
@@ -24,7 +17,7 @@ in
       {
         # Import a persistance module for home-manager.
         ## TODO this can be done less ugly
-        imports = [ "${inputs.impermanence}/home-manager.nix" ] ++ (mapModulesRec ../../hm-modules (x: x));
+        imports = [ "${inputs.impermanence}/home-manager.nix" ];
 
         programs.home-manager.enable = true;
 

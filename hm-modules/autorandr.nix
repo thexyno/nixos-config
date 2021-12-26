@@ -5,8 +5,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
-      {
         programs.autorandr.enable = true;
         programs.autorandr.hooks = {
           postswitch = {
@@ -114,7 +112,6 @@ in
 
 
           };
-        };
       };
   };
 }

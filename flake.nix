@@ -14,6 +14,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # Used for Deployment to servers
     deploy-rs.url = "github:serokell/deploy-rs";
@@ -78,12 +80,13 @@
   };
 
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-master, neovim-nightly-overlay, st, deploy-rs, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-master, neovim-nightly-overlay, st, deploy-rs, darwin, ... }:
     let
-      inherit (lib.my) mapModules mapModulesRec mapHosts mapNodes;
+      inherit (lib.my) mapModules mapModulesRec mapHosts mapNodes mapDarwinHosts;
       systems = [
         "x86_64-linux"
         "aarch64-linux"
+        "aarch64-darwin"
       ];
 
       forAllSystems = f: lib.genAttrs systems (system: f system);
@@ -98,11 +101,11 @@
       pkgsBySystem = forAllSystems pkgs;
 
       lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
-        (self: super: { my = import ./lib { inherit pkgsBySystem inputs; lib = self; }; });
+        (self: super: { my = import ./lib { inherit pkgsBySystem inputs darwin; lib = self; }; });
 
     in
     {
-      lib = lib.my; # idk
+      lib = lib.my;
 
 
       overlay =
@@ -126,6 +129,9 @@
 
       nixosConfigurations =
         mapHosts ./hosts { };
+
+      darwinConfigurations =
+        mapDarwinHosts ./darwin-hosts { };
 
       deploy = {
         nodes = mapNodes ./hosts { out = self.nixosConfigurations; };

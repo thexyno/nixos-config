@@ -1,4 +1,4 @@
-{ inputs, lib, pkgsBySystem, ... }:
+{ inputs, lib, darwin, pkgsBySystem, ... }:
 
 with lib;
 with lib.my;
@@ -22,9 +22,30 @@ with lib.my;
       ];
     };
 
+  mkDarwinHost = path: attrs @ { ... }:
+    let
+      sys = "aarch64-darwin";
+      pkgs = pkgsBySystem."${sys}"; # when using an old mac, this needs to be changed.
+    in
+    darwin.lib.darwinSystem {
+      system = sys;
+      specialArgs = { inherit lib darwin inputs pkgs; };
+      modules = [
+        {
+          networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
+        }
+        (filterAttrs (n: v: !elem n [ "system" ]) attrs)
+        (import path)
+      ];
+    };
+
   mapHosts = dir: attrs @ { ... }:
     mapModules dir
       (hostPath: mkHost hostPath attrs);
+
+  mapDarwinHosts = dir: attrs @ { ... }:
+    mapModules dir
+      (hostPath: mkDarwinHost hostPath attrs);
 
   mkNode = path: attrs @ { ... }:
     let

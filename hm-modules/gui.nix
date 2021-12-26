@@ -6,8 +6,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
-      {
         # GTK theme configs
         gtk.enable = isGui;
         gtk.gtk3.extraConfig = {
@@ -130,6 +128,5 @@ in
           lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c 000000";
         };
 
-      };
   };
 }

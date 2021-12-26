@@ -8,8 +8,6 @@ let
 in
 {
   config = lib.mkIf (cfg.enable && isGui && isSway) {
-    home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
-      {
         programs.alacritty = {
           enable = true;
           settings.colors.primary = {
@@ -503,6 +501,5 @@ in
 
 
         };
-      };
   };
 }

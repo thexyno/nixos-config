@@ -4,9 +4,7 @@ let
   isGui = config.ragon.gui.enable;
 in
 {
-  config = lib.mkIf cfg.enable {
-    home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
-      {
+  config = lib.mkIf (cfg.enable && isGui) {
         xdg.dataFile = {
           "applications/Firefox (Work).desktop".text = ''
             [Desktop Entry]
@@ -38,6 +36,5 @@ in
           };
         };
 
-      };
   };
 }
