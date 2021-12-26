@@ -163,7 +163,7 @@
 
   services.samba.extraConfig = ''
     min protocol = SMB2
-    vfs objects = zfsacl catia fruit streams_xattr
+    vfs objects = acl_xattr catia fruit streams_xattr
     fruit:nfs_aces = no
     inherit permissions = yes
     fruit:posix_rename = yes 
@@ -189,7 +189,7 @@
       "write list" = "@wheel";
       "fruit:time machine" = "yes";
       "fruit:time machine max size" = "2050G";
-      "vfs objects" = "fruit streams_xattr";
+      "vfs objects" = "acl_xattr fruit streams_xattr";
       "inherit acls" = "yes";
     };
     data = {
