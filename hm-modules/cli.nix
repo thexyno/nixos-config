@@ -1,10 +1,6 @@
 { inputs, config, lib, pkgs, ... }:
-let
-  cfg = config.ragon.home-manager;
-  isGui = config.ragon.gui.enable;
-in
 {
-  config = lib.mkIf cfg.enable {
+  config = {
         programs = {
           gpg = {
             enable = true;

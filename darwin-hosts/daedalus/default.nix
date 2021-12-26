@@ -10,7 +10,7 @@ with lib.my;
   ];
 
   home-manager.users.ragon = {
-    imports = mapModulesRec ../../hm-modules (x: x);
+    imports = mapModulesRec' ../../hm-modules (x: x);
     programs.home-manager.enable = true;
     home.stateVersion = "21.11";
   };

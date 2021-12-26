@@ -1,6 +1,6 @@
 { inputs, config, lib, pkgs, ... }:
 let
-  cfg = config.ragon.home-manager;
+  cfg = config.ragon.gui;
   isSway = config.ragon.gui.sway.enable;
   isGui = config.ragon.gui.enable;
 in

@@ -1,10 +1,9 @@
 { inputs, config, lib, pkgs, ... }:
 let
-  cfg = config.ragon.home-manager;
   isGui = config.ragon.gui.enable;
 in
 {
-  config = lib.mkIf (cfg.enable && isGui) {
+  config = lib.mkIf (isGui) {
         xdg.dataFile = {
           "applications/Firefox (Work).desktop".text = ''
             [Desktop Entry]

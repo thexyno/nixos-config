@@ -1,11 +1,13 @@
 { inputs, config, lib, pkgs, ... }:
 let
   cfg = config.ragon.home-manager;
-  isGui = config.ragon.gui.enable;
 in
 {
 
-  options.ragon.home-manager.enable = lib.my.mkBoolOpt true;
+  options.ragon = {
+    home-manager.enable = lib.my.mkBoolOpt true;
+    gui.enable = lib.my.mkBoolOpt true; # TODO fixme
+  };
   config = lib.mkIf cfg.enable {
     # Make sure to start the home-manager activation before I log it.
     environment.systemPackages = with pkgs;[

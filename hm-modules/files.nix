@@ -1,10 +1,6 @@
 { inputs, config, lib, pkgs, ... }:
-let
-  cfg = config.ragon.home-manager;
-  isGui = config.ragon.gui.enable;
-in
 {
-  config = lib.mkIf cfg.enable {
+  config = {
         home.file = {
           # Home nix config.
           ".config/nixpkgs/config.nix".text = "{ allowUnfree = true; }";
@@ -15,7 +11,7 @@ in
           # empty zshrc to stop zsh-newuser-install from running
           ".zshrc".text = "";
 
-        } // lib.optionalAttrs isGui {
+        # } // lib.optionalAttrs isGui {
         };
       };
 }
