@@ -162,8 +162,7 @@
   users.mutableUsers = false;
 
   services.samba.extraConfig = ''
-    log level = 5
-    min protocol = SMB2
+    min protocol = SMB3
     vfs objects = acl_xattr catia fruit streams_xattr
     fruit:nfs_aces = no
     inherit permissions = yes
