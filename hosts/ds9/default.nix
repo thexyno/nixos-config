@@ -67,6 +67,27 @@
   hardware.sane.extraBackends = [ pkgs.sane-airscan ];
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
+  services.avahi.extraServiceFiles.smb = ''
+    <?xml version="1.0" standalone='no'?>
+    <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+    <service-group>
+      <name replace-wildcards="yes">%h</name>
+      <service>
+        <type>_smb._tcp</type>
+        <port>445</port>
+      </service>
+      <service>
+        <type>_device-info._tcp</type>
+        <port>0</port>
+        <txt-record>model=MacPro7,1@ECOLOR=226,226,224</txt-record>
+      </service>
+      <service>
+        <type>_adisk._tcp</type>
+        <txt-record>sys=waMa=0,adVF=0x100</txt-record>
+        <txt-record>dk0=adVN=TimeMachine,adVF=0x82</txt-record>
+      </service>
+    </service-group>
+  '';
   # Webhook service to trigger scanning the ADF from HomeAssistant
   systemd.services.scanhook = {
     description = "webhook go server to trigger scanning";
@@ -158,6 +179,13 @@
       "fruit:aapl" = "yes";
       "fruit:time machine" = "yes";
       "fruit:time machine max size" = "2050G";
+      "fruit:nfs_aces" = "no";
+      "fruit:model" = "MacSamba";
+      "fruit:posix_rename" = "yes ";
+      "fruit:veto_appledouble" = "no";
+      "fruit:wipe_intentionally_left_blank_rfork" = "yes ";
+      "fruit:delete_empty_adfiles" = "yes ";
+      "fruit:metadata" = "stream";
       "durable handles" = "yes";
       "kernel oplocks" = "no";
       "kernel share modes" = "no";
