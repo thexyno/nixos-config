@@ -163,7 +163,7 @@
 
   services.samba.extraConfig = ''
     min protocol = SMB2
-    vfs objects = acl_xattr catia fruit streams_xattr
+    vfs objects = zfsacl catia fruit streams_xattr
     fruit:nfs_aces = no
     inherit permissions = yes
     fruit:posix_rename = yes 
