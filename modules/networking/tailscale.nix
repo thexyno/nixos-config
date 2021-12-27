@@ -7,6 +7,7 @@ in
   config = lib.mkIf cfg.enable {
     # enable the tailscale service
     services.tailscale.enable = true;
+    ragon.agenix.secrets.tailscaleKey = {};
     networking.firewall = {
       # always allow traffic from your Tailscale network
       trustedInterfaces = [ "tailscale0" ];
@@ -25,7 +26,6 @@ in
       # set this service as a oneshot job
       serviceConfig.Type = "oneshot";
 
-      ragon.agenix.secrets.tailscaleKey = {};
       # have the job run this shell script
       script = with pkgs; ''
         # wait for tailscaled to settle

@@ -209,6 +209,7 @@
       nfs.enable = true;
       nginx.enable = true;
       jellyfin.enable = true;
+      tailscale.enable = true;
       grafana.enable = true;
       grocy.enable = true;
       libvirt.enable = true;
