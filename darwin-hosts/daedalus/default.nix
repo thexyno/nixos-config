@@ -18,7 +18,7 @@ with lib.my;
   home-manager.extraSpecialArgs = { inherit inputs; };
   home-manager.users.ragon = { pkgs, lib, inputs, ...}: {
     imports = mapModulesRec' ../../hm-modules (x: x);
-    
+   
     programs.home-manager.enable = true;
     home.stateVersion = "21.11";
 
@@ -88,6 +88,7 @@ with lib.my;
 
   # nvim
   environment.systemPackages = with pkgs; [
+    firefox
     nnn
     bat
     htop
