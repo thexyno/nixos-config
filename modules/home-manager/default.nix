@@ -3,6 +3,8 @@ let
   cfg = config.ragon.home-manager;
   isGui = config.ragon.gui.enable;
 in
+  with lib;
+  with lib.my;
 {
   options.ragon.home-manager.enable = lib.mkEnableOption "Enables my home-manager config";
 
@@ -24,7 +26,7 @@ in
       {
         # Import a persistance module for home-manager.
         ## TODO this can be done less ugly
-        imports = [ "${inputs.impermanence}/home-manager.nix" ] ++ (lib.my.mapModulesRec ../../hm-modules (x: x));
+        imports = [ "${inputs.impermanence}/home-manager.nix" ] ++ (mapModulesRec ../../hm-modules (x: x));
 
         programs.home-manager.enable = true;
 
