@@ -88,7 +88,6 @@ with lib.my;
 
   # nvim
   environment.systemPackages = with pkgs; [
-    firefox
     nnn
     bat
     htop
@@ -116,6 +115,7 @@ with lib.my;
     # inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
     shfmt
     shellcheck
+    jq
     vim-vint
     nodePackages.write-good
     ctags
@@ -131,15 +131,6 @@ with lib.my;
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
-
-  services.skhd = {
-    enable = true;
-    skhdConfig = ''
-      cmd + shift - return : open -na /Applications/iTerm.app
-    '';
-  };
-
-  
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
