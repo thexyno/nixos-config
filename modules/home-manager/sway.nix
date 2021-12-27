@@ -2,11 +2,14 @@
 let
   isGui = config.ragon.gui.enable;
   isSway = config.ragon.gui.sway.enable;
+  cfg = config.ragon.home-manager;
   i3dt = pkgs.my.i3ipc-dynamic-tiling;
   laptop = config.ragon.hardware.laptop.enable;
 in
 {
-  config = lib.mkIf (isGui && isSway) {
+  config = lib.mkIf (cfg.enable && isGui && isSway) {
+    home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
+      {
         programs.alacritty = {
           enable = true;
           settings.colors.primary = {
@@ -500,5 +503,6 @@ in
 
 
         };
+      };
   };
 }

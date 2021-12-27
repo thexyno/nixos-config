@@ -1,9 +1,12 @@
 { inputs, config, lib, pkgs, ... }:
 let
+  cfg = config.ragon.home-manager;
   isGui = config.ragon.gui.enable;
 in
 {
-  config = lib.mkIf (isGui) {
+  config = lib.mkIf cfg.enable {
+    home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
+      {
         xdg.dataFile = {
           "applications/Firefox (Work).desktop".text = ''
             [Desktop Entry]
@@ -35,5 +38,6 @@ in
           };
         };
 
+      };
   };
 }

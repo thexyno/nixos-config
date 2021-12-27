@@ -45,7 +45,7 @@ with lib;
             name = "nnn-vim";
             src = inputs.nnn-vim;
           };
-          coc-nvim = pkgs.vimUtils.buildVimPlugin {
+          coc--nvim = pkgs.vimUtils.buildVimPlugin {
             name = "coc-nvim";
             src = inputs.coc-nvim;
           };
@@ -89,7 +89,7 @@ with lib;
             vim-pandoc-live-preview
             vim-pandoc-syntax
             ultisnips
-            coc-nvim
+            coc--nvim
             dart-vim
           ];
           customRC = ''
