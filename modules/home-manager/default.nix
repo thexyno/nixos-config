@@ -22,6 +22,7 @@ in
     ];
     programs.fuse.userAllowOther = true; # for persistence user dirs to work
 
+    home-manager.useGlobalPkgs = true;
     home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
       {
         # Import a persistance module for home-manager.

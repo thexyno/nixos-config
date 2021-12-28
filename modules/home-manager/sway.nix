@@ -10,13 +10,13 @@ in
   config = lib.mkIf (cfg.enable && isGui && isSway) {
     home-manager.users.${config.ragon.user.username} = { pkgs, lib, ... }:
       {
-        programs.alacritty = {
-          enable = true;
-          settings.colors.primary = {
-            background = "#282828";
-            foreground = "#ebdbb2";
-          };
-        };
+        # programs.alacritty = {
+        #   enable = true;
+        #   settings.colors.primary = {
+        #     background = "#282828";
+        #     foreground = "#ebdbb2";
+        #   };
+        # };
 
         programs.mako = {
           backgroundColor = "#282828FF";
@@ -344,7 +344,7 @@ in
             client.background #ffffff
 
             # Your preferred terminal emulator
-            set $term ${pkgs.alacritty}/bin/alacritty
+            set $term ${pkgs.st-ragon}/bin/st
             set $menu ${pkgs.wofi}/bin/wofi --show drun
             exec_always ${i3dt}/bin/i3ipc-dynamic-tiling
             exec mako
