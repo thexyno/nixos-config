@@ -85,15 +85,18 @@ in
         gtk3.out # for gtk-launch
         hicolor-icon-theme
         shared-mime-info # for update-mime-database
-        libreoffice-fresh
         arc-icon-theme
         feh
         pulsemixer
         gimp
         firefox
-        thunderbird
         st-ragon
         sxiv
+        gnome.gnome-font-viewer
+        gnome.gnome-logs
+        gnome.nautilus
+        gnome.simple-scan
+      ] ++ (optionals (system == "x86_64-linux") [
         yubikey-agent
         yubikey-manager
         yubikey-manager-qt
@@ -106,11 +109,8 @@ in
         gnome.gnome-characters
         gnome.gnome-clocks
         gnome.gnome-contacts
-        gnome.gnome-font-viewer
-        gnome.gnome-logs
-        gnome.nautilus
-        gnome.simple-scan
-      ] ++ (optionals (system == "x86_64-linux") [
+        libreoffice-fresh
+        thunderbird
         signal-desktop
         bitwarden
         obs-studio
