@@ -95,6 +95,7 @@ with lib.my;
     curl
     fd
     file
+    lorri
     fzf
     git
     neofetch
@@ -102,6 +103,7 @@ with lib.my;
     direnv # needed for lorri
     unzip
     my.pridecat
+    my.scripts
     pv
     killall
     pciutils
