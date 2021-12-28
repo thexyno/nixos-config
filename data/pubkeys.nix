@@ -11,6 +11,7 @@ let
       client = user ++ hosts.enterprise ++ hosts.voyager;
       hosts = {
         wormhole = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINzR5dq/2UosH3nLrc9PvJi3rzX917K2wICeOUAiDnl6" ];
+        daedalusvm = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL9gTeFNEO+Puf8j0rxq0qyR+OgH0eSqDYBR20aACkpP" ];
         enterprise = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKXtH/ZY7u7ejf+EyzWleWRVUP8aNU5Gna5lpfVPRcuj" ];
         voyager = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKejPH5g1z8Syx5YhypidjMZ6itJTgDBBpfAVUIb4+a5" ];
         ds9 = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ+BBXufXAJhyUHVfhqlk8Y4zEKJbKXgJQvsdE482lpV" ];

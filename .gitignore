@@ -1,5 +1,6 @@
 # Ignore configurable file with secrets
 #/data/secrets.nix
+.DS_Store
 
 # Ignore build symlinks
 result*
