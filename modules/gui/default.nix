@@ -4,6 +4,7 @@ with lib.my;
 let
   cfg = config.ragon.gui;
   username = config.ragon.user.username;
+  system = pkgs.system;
 in
 {
   options.ragon.gui.enable = lib.mkEnableOption "Enables ragons Gui stuff";
@@ -91,16 +92,8 @@ in
         gimp
         firefox
         thunderbird
-        mpv
-        # kitty # we live in a suckless household
         st-ragon
         sxiv
-        signal-desktop
-        bitwarden
-        obs-studio
-        unstable.discord
-        spotify
-        unstable.timeular
         yubikey-agent
         yubikey-manager
         yubikey-manager-qt
@@ -117,7 +110,14 @@ in
         gnome.gnome-logs
         gnome.nautilus
         gnome.simple-scan
-      ];
+      ] ++ (optionals (system == "x86_64-linux") [
+        signal-desktop
+        bitwarden
+        obs-studio
+        unstable.discord
+        spotify
+        unstable.timeular
+      ]);
     # Let nautilus find extensions
     # TODO: Create nautilus-with-extensions package
     environment.sessionVariables.NAUTILUS_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-3.0";

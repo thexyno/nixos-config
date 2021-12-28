@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, pkgs, modulesPath, ... }:
+{ lib, inputs, pkgs, modulesPath, ... }:
 
 {
   imports =
@@ -23,6 +23,7 @@
   boot.loader.grub.device = "/dev/vda";
   networking.useDHCP = true; # lazy
   networking.hostId = "7b45286a";
+ragon.services.mullvad.enable = lib.mkForce false;
 
   users.mutableUsers = false;
 
