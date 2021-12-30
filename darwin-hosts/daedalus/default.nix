@@ -107,6 +107,7 @@ with lib.my;
     pv
     killall
     pciutils
+    lefthook
     youtube-dl
     aria2
     tmux
