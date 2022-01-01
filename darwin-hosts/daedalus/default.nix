@@ -16,46 +16,46 @@ with lib.my;
   programs.gnupg.agent.enable = true;
   home-manager.useGlobalPkgs = true;
   home-manager.extraSpecialArgs = { inherit inputs; };
-  home-manager.users.ragon = { pkgs, lib, inputs, ...}: {
+  home-manager.users.ragon = { pkgs, lib, inputs, ... }: {
     imports = mapModulesRec' ../../hm-modules (x: x);
     programs.home-manager.enable = true;
     home.stateVersion = "21.11";
 
     programs.neovim =
-    let 
-      conf = inputs.self.nixosConfigurations.enterprise.config.programs.neovim.configure;
-    in
-     {
-      enable = true;
-      package = pkgs.neovim-nightly;
-      vimAlias = true;
-      viAlias = true;
-      extraConfig = conf.customRC;
-      plugins = 
-        let
-          nnn-vim = pkgs.vimUtils.buildVimPlugin {
-            name = "nnn-vim";
-            src = inputs.nnn-vim;
-          };
-          coc-nvim = pkgs.vimUtils.buildVimPlugin {
-            name = "coc-nvim";
-            src = inputs.coc-nvim;
-          };
-          dart-vim = pkgs.vimUtils.buildVimPlugin {
-            name = "dart-vim";
-            src = inputs.dart-vim;
-          };
-          vim-pandoc-live-preview = pkgs.vimUtils.buildVimPlugin {
-            name = "vim-pandoc-live-preview";
-            src = inputs.vim-pandoc-live-preview;
-          };
-          orgmode-nvim = pkgs.vimUtils.buildVimPlugin {
-            name = "orgmode-nvim";
-            src = inputs.orgmode-nvim;
-            dontBuild = true;
-          };
-        in
-	map (x: {plugin = x; }) (with pkgs.vimPlugins; [
+      let
+        conf = inputs.self.nixosConfigurations.enterprise.config.programs.neovim.configure;
+      in
+      {
+        enable = true;
+        package = pkgs.neovim-nightly;
+        vimAlias = true;
+        viAlias = true;
+        extraConfig = conf.customRC;
+        plugins =
+          let
+            nnn-vim = pkgs.vimUtils.buildVimPlugin {
+              name = "nnn-vim";
+              src = inputs.nnn-vim;
+            };
+            coc-nvim = pkgs.vimUtils.buildVimPlugin {
+              name = "coc-nvim";
+              src = inputs.coc-nvim;
+            };
+            dart-vim = pkgs.vimUtils.buildVimPlugin {
+              name = "dart-vim";
+              src = inputs.dart-vim;
+            };
+            vim-pandoc-live-preview = pkgs.vimUtils.buildVimPlugin {
+              name = "vim-pandoc-live-preview";
+              src = inputs.vim-pandoc-live-preview;
+            };
+            orgmode-nvim = pkgs.vimUtils.buildVimPlugin {
+              name = "orgmode-nvim";
+              src = inputs.orgmode-nvim;
+              dontBuild = true;
+            };
+          in
+          map (x: { plugin = x; }) (with pkgs.vimPlugins; [
             galaxyline-nvim
             nvim-web-devicons
             nnn-vim
@@ -82,8 +82,8 @@ with lib.my;
             coc-nvim
             dart-vim
           ]);
-    };
-    
+      };
+
 
     home.shellAliases = inputs.self.nixosConfigurations.enterprise.config.environment.shellAliases;
     home.sessionVariables = {
@@ -95,11 +95,25 @@ with lib.my;
       enableSyntaxHighlighting = true;
       initExtra = inputs.self.nixosConfigurations.enterprise.config.programs.zsh.promptInit;
     };
-    programs.alacritty = {
+    programs.kitty = {
+
       enable = true;
-      settings.colors.primary = {
-        background = "#282828";
-        foreground = "#ebdbb2";
+      darwinLaunchOptions =
+        [
+          "--single-instance"
+        ];
+      package = pkgs.kitty.overrideAttrs (oldAttrs: rec {
+        CFLAGS = "-Wno-deprecated";
+      });
+      settings = {
+        scrollback_lines = 10000;
+        enable_audio_bell = false;
+      };
+      font = {
+        package =
+          (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; });
+        name = "JetBrainsMono Nerd Font";
+        size = 11;
       };
     };
 
