@@ -148,4 +148,6 @@ with lib.my;
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   nix.package = pkgs.nixFlakes;
+  nix.buildCores = 0; # use all cores
+  nix.maxJobs = 10; # use all cores
 }
