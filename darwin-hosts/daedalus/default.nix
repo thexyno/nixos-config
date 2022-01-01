@@ -95,29 +95,8 @@ with lib.my;
       enableSyntaxHighlighting = true;
       initExtra = inputs.self.nixosConfigurations.enterprise.config.programs.zsh.promptInit;
     };
-    programs.kitty = {
-
-      enable = true;
-      darwinLaunchOptions =
-        [
-          "--single-instance"
-        ];
-      package = pkgs.kitty.overrideAttrs (oldAttrs: rec {
-        CFLAGS = "-Wno-deprecated";
-      });
-      settings = {
-        scrollback_lines = 10000;
-        enable_audio_bell = false;
-      };
-      font = {
-        package =
-          (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; });
-        name = "JetBrainsMono Nerd Font";
-        size = 11;
-      };
-    };
-
   };
+
 
   environment.pathsToLink = [ "/share/zsh" ]; # zsh completions
   # nvim

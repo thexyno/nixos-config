@@ -101,7 +101,9 @@
       pkgsBySystem = forAllSystems pkgs;
 
       lib = nixpkgs.lib.extend # extend lib with the stuff in ./lib
-        (self: super: { my = import ./lib { inherit pkgsBySystem inputs darwin; lib = self; }; });
+        (self: super: {
+          my = import ./lib { inherit pkgsBySystem inputs darwin; lib = self; };
+        });
 
     in
     {
