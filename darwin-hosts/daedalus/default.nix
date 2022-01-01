@@ -18,7 +18,6 @@ with lib.my;
   home-manager.extraSpecialArgs = { inherit inputs; };
   home-manager.users.ragon = { pkgs, lib, inputs, ...}: {
     imports = mapModulesRec' ../../hm-modules (x: x);
-   
     programs.home-manager.enable = true;
     home.stateVersion = "21.11";
 
@@ -84,8 +83,29 @@ with lib.my;
             dart-vim
           ]);
     };
+    
+
+    home.shellAliases = inputs.self.nixosConfigurations.enterprise.config.environment.shellAliases;
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+    };
+    programs.zsh = {
+      enable = true;
+      enableSyntaxHighlighting = true;
+      initExtra = inputs.self.nixosConfigurations.enterprise.config.programs.zsh.promptInit;
+    };
+    programs.alacritty = {
+      enable = true;
+      settings.colors.primary = {
+        background = "#282828";
+        foreground = "#ebdbb2";
+      };
+    };
+
   };
 
+  environment.pathsToLink = [ "/share/zsh" ]; # zsh completions
   # nvim
   environment.systemPackages = with pkgs; [
     nnn
@@ -115,7 +135,7 @@ with lib.my;
     python3 # ultisnips
     lazygit
     nodejs
-    # inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
+    inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
     shfmt
     shellcheck
     jq
@@ -124,16 +144,6 @@ with lib.my;
     ctags
   ];
   environment.etc."nvim".source = ../../modules/cli/nvim/config;
-  # zsh
-  programs.zsh = {
-    enable = true;
-    promptInit = inputs.self.nixosConfigurations.enterprise.config.programs.zsh.promptInit;
-  };
-  environment.shellAliases = inputs.self.nixosConfigurations.enterprise.config.environment.shellAliases;
-  environment.variables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-  };
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
