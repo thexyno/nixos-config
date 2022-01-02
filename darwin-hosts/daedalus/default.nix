@@ -95,12 +95,7 @@ with lib.my;
       enableSyntaxHighlighting = true;
       initExtra = inputs.self.nixosConfigurations.enterprise.config.programs.zsh.promptInit;
     };
-  };
-
-
-  environment.pathsToLink = [ "/share/zsh" ]; # zsh completions
-  # nvim
-  environment.systemPackages = with pkgs; [
+  home.packages = with pkgs; [
     nnn
     bat
     htop
@@ -125,6 +120,8 @@ with lib.my;
     aria2
     tmux
     libqalculate
+
+
     python3 # ultisnips
     lazygit
     nodejs
@@ -136,6 +133,11 @@ with lib.my;
     nodePackages.write-good
     ctags
   ];
+  };
+
+
+  environment.pathsToLink = [ "/share/zsh" ]; # zsh completions
+  # nvim
   environment.etc."nvim".source = ../../modules/cli/nvim/config;
 
   # Auto upgrade nix package and the daemon service.
