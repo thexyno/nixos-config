@@ -89,6 +89,8 @@ with lib.my;
     home.sessionVariables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
+      PATH = "$PATH:$HOME/development/flutter/bin:/Applications/Android Studio.app/Contents/bin/:/Applications/Docker.app/Contents/Resources/bin:/Applications/Android Studio.app/Contents/jre/Contents/Home/bin";
+      JAVA_HOME = "/Applications/Android Studio.app/Contents/jre/Contents/Home/";
     };
     programs.zsh = {
       enable = true;
@@ -151,7 +153,6 @@ with lib.my;
     finder.AppleShowAllExtensions = true;
     finder.FXEnableExtensionChangeWarning = false;
     loginwindow.GuestEnabled = false;
-    keyboard.remapCapsLockToEscape = true;
   };
 
   environment.pathsToLink = [ "/share/zsh" ]; # zsh completions
