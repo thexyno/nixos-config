@@ -95,46 +95,64 @@ with lib.my;
       enableSyntaxHighlighting = true;
       initExtra = inputs.self.nixosConfigurations.enterprise.config.programs.zsh.promptInit;
     };
-  home.packages = with pkgs; [
-    nnn
-    bat
-    htop
-    exa
-    curl
-    fd
-    file
-    lorri
-    fzf
-    git
-    neofetch
-    ripgrep
-    direnv # needed for lorri
-    unzip
-    my.pridecat
-    my.scripts
-    pv
-    killall
-    pciutils
-    lefthook
-    youtube-dl
-    aria2
-    tmux
-    libqalculate
+    home.packages = with pkgs; [
+      nnn
+      bat
+      htop
+      exa
+      curl
+      fd
+      file
+      lorri
+      fzf
+      git
+      neofetch
+      ripgrep
+      direnv # needed for lorri
+      unzip
+      my.pridecat
+      my.scripts
+      pv
+      killall
+      pciutils
+      lefthook
+      youtube-dl
+      aria2
+      tmux
+      libqalculate
 
 
-    python3 # ultisnips
-    lazygit
-    nodejs
-    inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
-    shfmt
-    shellcheck
-    jq
-    vim-vint
-    nodePackages.write-good
-    ctags
-  ];
+      python3 # ultisnips
+      lazygit
+      nodejs
+      inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
+      shfmt
+      shellcheck
+      jq
+      vim-vint
+      nodePackages.write-good
+      ctags
+    ];
+
   };
 
+  system.defaults = {
+    NSGlobalDomain.AppleShowAllExtensions = true;
+    NSGlobalDomain.InitialKeyRepeat = 25;
+    NSGlobalDomain.KeyRepeat = 4;
+    NSGlobalDomain.NSNavPanelExpandedStateForSaveMode = true;
+    NSGlobalDomain.PMPrintingExpandedStateForPrint = true;
+    NSGlobalDomain."com.apple.mouse.tapBehavior" = 1;
+    NSGlobalDomain."com.apple.trackpad.trackpadCornerClickBehavior" = 1;
+    dock.autohide = true;
+    dock.mru-spaces = false;
+    dock.show-recents = false;
+    dock.static-only = true;
+    finder.AppleShowAllExtensions = true;
+    finder.FXEnableExtensionChangeWarning = false;
+    loginwindow.GuestEnabled = false;
+    keyboard.remapCapsLockToEscape = true;
+  };
 
   environment.pathsToLink = [ "/share/zsh" ]; # zsh completions
   # nvim
