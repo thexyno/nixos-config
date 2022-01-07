@@ -30,6 +30,7 @@ in
       vim = "nvim";
       gpl = "git pull";
       gp = "git push";
+      lg = "lazygit";
       gc = "git commit -v";
       kb = "git commit -m \"\$(curl -s http://whatthecommit.com/index.txt)\"";
       gs = "git status -v";
