@@ -45,8 +45,12 @@
     ".local" # to lazy to figure out where kde stores its stuff
   ];
   hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.systemWide = true;
   hardware.pulseaudio.tcp.enable = true;
   hardware.pulseaudio.zeroconf.publish.enable = true;
+  services.shairport-sync.enable = true;
+  services.shairport-sync.openFirewall = true;
+  services.shairport-sync.group = "audio";
   hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" "10.0.0.0/8" ];
   ragon.user.extraGroups = [ "audio" "networkmanager" "dialout" "audio" "input" "scanner" "lp" "video" ];
   environment.systemPackages =
@@ -63,7 +67,6 @@
     extraGroups = [ "audio" ];
   };
   ragon.persist.extraDirectories = [ "/home" ];
-  hardware.pulseaudio.systemWide = true;
   xdg.autostart.enable = true;
 
   security.sudo.extraRules = [
