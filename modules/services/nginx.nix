@@ -18,7 +18,7 @@ in
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
     };
-    security.acme.email = "nixosacme@phochkamp.de";
+    security.acme.defaults.email = "nixosacme@phochkamp.de";
     security.acme.acceptTerms = true;
     security.acme.certs."${cfg.domain}" = {
       dnsProvider = "cloudflare";

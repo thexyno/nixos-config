@@ -2,11 +2,9 @@
 {
   imports = [
     "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+    "${inputs.nixos-hardware}/raspberry-pi/4/default.nix"
   ];
-  boot.loader.raspberryPi = {
-    enable = true;
-    version = 4;
-  };
+  boot.loader.systemd-boot.enable = false;
   networking.hostId = "eec43f51";
   # networking.usePredictableInterfaceNames = false;
   documentation.enable = false;
