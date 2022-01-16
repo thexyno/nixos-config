@@ -46,6 +46,7 @@
   ragon.cli.maximal = false;
   services.lorri.enable = false;
   ragon.services.ddns.enable = true;
+  ragon.services.tailscale.enable = true;
   ragon.services.nginx.enable = true;
   services.nginx.virtualHosts."h.hailsatan.eu" = {
     forceSSL = true;
