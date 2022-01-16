@@ -47,6 +47,7 @@
       bitwarden.enable = true;
       gitlab.enable = true; # TODO gitlab-runner
       synapse.enable = true;
+      tailscale.enable = true;
       # jitsi.enable = true;
       hedgedoc.enable = true;
       ts3.enable = true;
