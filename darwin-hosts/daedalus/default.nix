@@ -135,8 +135,8 @@ with lib.my;
       nodePackages.write-good
       ctags
 
-      tectonic
       pandoc
+      texlive.combined.scheme-full
     ];
 
   };
