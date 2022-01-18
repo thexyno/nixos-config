@@ -134,6 +134,9 @@ with lib.my;
       vim-vint
       nodePackages.write-good
       ctags
+
+      tectonic
+      pandoc
     ];
 
   };
