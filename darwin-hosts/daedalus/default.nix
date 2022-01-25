@@ -124,6 +124,9 @@ with lib.my;
       libqalculate
 
 
+      terraform-ls
+      terraform
+
       python3 # ultisnips
       lazygit
       nodejs
@@ -135,8 +138,8 @@ with lib.my;
       nodePackages.write-good
       ctags
 
+      tectonic
       pandoc
-      texlive.combined.scheme-full
     ];
 
   };
