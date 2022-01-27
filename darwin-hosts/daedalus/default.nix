@@ -89,7 +89,7 @@ with lib.my;
     home.sessionVariables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
-      PATH = "$PATH:$HOME/development/flutter/bin:/Applications/Android Studio.app/Contents/bin/:/Applications/Docker.app/Contents/Resources/bin:/Applications/Android Studio.app/Contents/jre/Contents/Home/bin:$HOME/.nix-profile/bin";
+      PATH = "$PATH:$HOME/development/flutter/bin:/Applications/Android Studio.app/Contents/bin/:/Applications/Docker.app/Contents/Resources/bin:/Applications/Android Studio.app/Contents/jre/Contents/Home/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/system/sw/bin";
       JAVA_HOME = "/Applications/Android Studio.app/Contents/jre/Contents/Home/";
     };
     programs.zsh = {
@@ -130,7 +130,7 @@ with lib.my;
       python3 # ultisnips
       lazygit
       nodejs
-      inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
+      #inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
       shfmt
       shellcheck
       jq
