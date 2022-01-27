@@ -89,7 +89,7 @@ with lib.my;
     home.sessionVariables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
-      PATH = "$PATH:$HOME/development/flutter/bin:/Applications/Android Studio.app/Contents/bin/:/Applications/Docker.app/Contents/Resources/bin:/Applications/Android Studio.app/Contents/jre/Contents/Home/bin";
+      PATH = "$PATH:$HOME/development/flutter/bin:/Applications/Android Studio.app/Contents/bin/:/Applications/Docker.app/Contents/Resources/bin:/Applications/Android Studio.app/Contents/jre/Contents/Home/bin:$HOME/.nix-profile/bin";
       JAVA_HOME = "/Applications/Android Studio.app/Contents/jre/Contents/Home/";
     };
     programs.zsh = {
