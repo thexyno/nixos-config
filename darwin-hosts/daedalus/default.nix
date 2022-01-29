@@ -140,6 +140,8 @@ with lib.my;
 
       tectonic
       pandoc
+
+      google-cloud-sdk
     ];
 
   };
