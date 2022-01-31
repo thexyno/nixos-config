@@ -141,6 +141,8 @@ with lib.my;
       tectonic
       pandoc
 
+      yabai
+
       google-cloud-sdk
     ];
 
