@@ -4,7 +4,7 @@ require('filetypes')
 local opt = vim.opt
 
 -- load plugin luas (idk how to do that autmagically)
-require('plugin.galaxyline')
+--require('plugin.galaxyline')
 require('plugin.nnn')
 require('plugin.rainbow')
 require('plugin.terminal')
