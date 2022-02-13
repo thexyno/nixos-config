@@ -181,37 +181,35 @@
     persist.enable = true;
 
     services = {
-  samba.enable = true;
-  samba.shares = {
-    TimeMachine = {
-      path = "/backups/DaedalusTimeMachine";
-      comment = "DaedalusTimeMachine";
-      "write list" = "@wheel";
-      "fruit:time machine" = "yes";
-      "fruit:time machine max size" = "2050G";
-      "vfs objects" = "acl_xattr fruit streams_xattr";
-      "inherit acls" = "yes";
-    };
-    data = {
-      path = "/data";
-      comment = "some data for the people";
-      "write list" = "@wheel";
-    };
-    windowsshare = {
-      path = "/data/windowsshare";
-      comment = "some data for the windows";
-      "write list" = "@wheel";
-    };
-  };
+      samba.enable = true;
+      samba.shares = {
+        TimeMachine = {
+          path = "/backups/DaedalusTimeMachine";
+          comment = "DaedalusTimeMachine";
+          "write list" = "@wheel";
+          "fruit:time machine" = "yes";
+          "fruit:time machine max size" = "2050G";
+          "vfs objects" = "acl_xattr fruit streams_xattr";
+          "inherit acls" = "yes";
+        };
+        data = {
+          path = "/data";
+          comment = "some data for the people";
+          "write list" = "@wheel";
+        };
+        windowsshare = {
+          path = "/data/windowsshare";
+          comment = "some data for the windows";
+          "write list" = "@wheel";
+        };
+      };
       nix-serve.enable = true;
       docker.enable = true;
       ssh.enable = true;
-      nfs.enable = true;
       nginx.enable = true;
       jellyfin.enable = true;
       tailscale.enable = true;
       grafana.enable = true;
-      grocy.enable = true;
       libvirt.enable = true;
       paperless.enable = true;
       unifi.enable = true;
