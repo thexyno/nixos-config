@@ -121,6 +121,7 @@ with lib.my;
       youtube-dl
       aria2
       tmux
+      alacritty
       libqalculate
 
 
