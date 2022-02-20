@@ -49,10 +49,6 @@ with lib.my;
               name = "vim-pandoc-live-preview";
               src = inputs.vim-pandoc-live-preview;
             };
-            feline-nvim = pkgs.vimUtils.buildVimPlugin {
-              name = "feline-nvim";
-              src = inputs.feline-nvim;
-            };
             orgmode-nvim = pkgs.vimUtils.buildVimPlugin {
               name = "orgmode-nvim";
               src = inputs.orgmode-nvim;
@@ -76,7 +72,7 @@ with lib.my;
             vim-highlightedyank
             vim-fugitive
             fzf-vim
-            feline-nvim
+            lualine-nvim
             fzfWrapper
             vim-devicons
             toggleterm-nvim
