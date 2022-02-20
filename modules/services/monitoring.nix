@@ -5,14 +5,15 @@ let
   cfg = importTOML ../../data/monitoring.toml;
   hostName = config.networking.hostName;
   getHost = (y:
-                  if (y == hostName)
-                  then "127.0.0.1"
-                  else (
-                    if (builtins.elem y (builtins.attrNames cfg.hostOverrides))
-                    then cfg.hostOverrides.${y}
-                    else "${y}.hailsatan.eu"
-                  )
-                  );
+    if (y == hostName)
+    then "127.0.0.1"
+    else
+      (
+        if (builtins.elem y (builtins.attrNames cfg.hostOverrides))
+        then cfg.hostOverrides.${y}
+        else "${y}.hailsatan.eu"
+      )
+  );
 in
 {
   config = mkMerge ([
@@ -90,65 +91,72 @@ in
       '';
       services.prometheus = {
         enable = true;
-        scrapeConfigs = foldl (a: b: a ++ b) [] (map (x: (map (y: {
-          job_name = "${x}_${y}";
-          static_configs = [
-            {
-              targets = [
-                ''${getHost y}:${toString config.services.prometheus.exporters.${x}.port}''
+        scrapeConfigs = foldl (a: b: a ++ b) [ ] (map
+          (x: (map
+            (y: {
+              job_name = "${x}_${y}";
+              static_configs = [
+                {
+                  targets = [
+                    ''${getHost y}:${toString config.services.prometheus.exporters.${x}.port}''
+                  ];
+                }
               ];
-            }
-          ];
-        }) cfg.exporters.${x}.hosts )) (builtins.attrNames cfg.exporters));
+            })
+            cfg.exporters.${x}.hosts))
+          (builtins.attrNames cfg.exporters));
       };
       ragon.persist.extraDirectories = [
         "/var/lib/${config.services.prometheus.stateDir}"
         "${config.services.loki.dataDir}"
       ];
     })
-      {
-        # some global settings
-        services.prometheus.exporters.node.enabledCollectors = [ "systemd" ];
-        services.prometheus.exporters.dnsmasq.leasesPath = "/var/lib/dnsmasq/dnsmasq.leases";
-        services.prometheus.exporters.smokeping.hosts = [ "1.1.1.1" ];
-        services.nginx.statusPage = true;
-      }
-      (mkIf (builtins.elem hostName cfg.promtail.hosts) {
-        services.promtail = {
-          enable = true;
-          configuration = {
-            server.http_listen_port = 28183;
-            positions.filename = "/tmp/positions.yaml";
-            clients = [ { url = "http://${getHost cfg.master.hostname}:3100/loki/api/v1/push"; } ];
-            scrape_configs = [
-              {
-                job_name = "journal";
-                journal = {
-                  max_age = "12h";
-                  labels = {
-                    job = "systemd-journal";
-                    host = hostName;
-                  };
+    {
+      # some global settings
+      services.prometheus.exporters.node.enabledCollectors = [ "systemd" ];
+      services.prometheus.exporters.dnsmasq.leasesPath = "/var/lib/dnsmasq/dnsmasq.leases";
+      services.prometheus.exporters.smartctl.user = "root";
+      services.prometheus.exporters.smokeping.hosts = [ "1.1.1.1" ];
+      services.nginx.statusPage = true;
+    }
+    (mkIf (builtins.elem hostName cfg.promtail.hosts) {
+      services.promtail = {
+        enable = true;
+        configuration = {
+          server.http_listen_port = 28183;
+          positions.filename = "/tmp/positions.yaml";
+          clients = [{ url = "http://${getHost cfg.master.hostname}:3100/loki/api/v1/push"; }];
+          scrape_configs = [
+            {
+              job_name = "journal";
+              journal = {
+                max_age = "12h";
+                labels = {
+                  job = "systemd-journal";
+                  host = hostName;
                 };
-                relabel_configs = [ {
-                  source_labels = ["__journal__systemd_unit"];
-                  target_label = "unit";
-                } ];
-              }
-            ];
-          };
+              };
+              relabel_configs = [{
+                source_labels = [ "__journal__systemd_unit" ];
+                target_label = "unit";
+              }];
+            }
+          ];
         };
+      };
 
-      })
-    ] ++
-    (map (x: {
+    })
+  ] ++
+  (map
+    (x: {
       services.prometheus.exporters.${x} = {
         enable = (builtins.elem hostName cfg.exporters.${x}.hosts);
         openFirewall = (hostName != cfg.master.hostname);
         firewallFilter = if (hostName != cfg.master.hostname) then "-p tcp -s ${cfg.master.ip} -m tcp --dport ${toString config.services.prometheus.exporters.${x}.port}" else null;
       };
-      } ) (builtins.attrNames cfg.exporters))
-      );
+    })
+    (builtins.attrNames cfg.exporters))
+  );
 
 }
 
