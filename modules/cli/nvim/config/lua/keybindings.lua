@@ -40,10 +40,6 @@ map { 'n', '<leader>c', ':Commentary<CR>', noremap = false, silent = true}
 map { 'n', '<leader>v', ':Vista!!<CR>', noremap = false, silent = true}
 -- plugins - nnn
 map { 'n', '<tab>', '::NnnPicker %:p:h<CR>', noremap = true, silent = true}
--- plugins - coc
-vim.cmd [[
-  source /etc/nvim/coc.vim
-]] -- too lazy to convert all the shit to lua
 
 -- plugins - terminal
 map {"n", "<leader>l", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true}}
