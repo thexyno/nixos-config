@@ -15,6 +15,9 @@ hosts = [
 [exporters.node]
 hosts = [ "ds9", "wormhole" ]
 
+[exporters.smartctl]
+hosts = [ "ds9" ]
+
 [exporters.dnsmasq]
 hosts = [ "wormhole" ]
 
