@@ -4,7 +4,6 @@ require('filetypes')
 local opt = vim.opt
 
 -- load plugin luas (idk how to do that autmagically)
-require('plugin.feline')
 require('plugin.nnn')
 require('plugin.rainbow')
 require('plugin.terminal')
@@ -45,3 +44,4 @@ opt.softtabstop = 2
 opt.hidden = true
 -- low updatetime so it isnt as slow
 opt.updatetime = 200
+require('plugin.lualine')
