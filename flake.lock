@@ -146,6 +146,22 @@
         "type": "github"
       }
     },
+    "feline-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1644769306,
+        "narHash": "sha256-4MH1OCu4/DLvO83F0WpFfj4Nsptk/MilNaz0MIIi2zU=",
+        "owner": "feline-nvim",
+        "repo": "feline.nvim",
+        "rev": "7ddd3f02757b04f1035d0ae8bbe9d8461d536a2d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "feline-nvim",
+        "repo": "feline.nvim",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -519,6 +535,7 @@
         "darwin": "darwin",
         "deploy-rs": "deploy-rs",
         "dwm": "dwm",
+        "feline-nvim": "feline-nvim",
         "flake-compat": "flake-compat_2",
         "home-manager": "home-manager",
         "i3ipc-dynamic-tiling": "i3ipc-dynamic-tiling",

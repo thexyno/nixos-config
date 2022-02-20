@@ -49,6 +49,10 @@ with lib.my;
               name = "vim-pandoc-live-preview";
               src = inputs.vim-pandoc-live-preview;
             };
+            feline-nvim = pkgs.vimUtils.buildVimPlugin {
+              name = "feline-nvim";
+              src = inputs.feline-nvim;
+            };
             orgmode-nvim = pkgs.vimUtils.buildVimPlugin {
               name = "orgmode-nvim";
               src = inputs.orgmode-nvim;
@@ -72,6 +76,7 @@ with lib.my;
             vim-highlightedyank
             vim-fugitive
             fzf-vim
+            feline-nvim
             fzfWrapper
             vim-devicons
             toggleterm-nvim
@@ -149,61 +154,15 @@ with lib.my;
     programs.tmux = {
       enable = true;
       keyMode = "vi";
-      history = 10000;
-      plugins = with pkgs.tmuxPlugins [
+      clock24 = true;
+      historyLimit = 10000;
+      plugins = with pkgs.tmuxPlugins; [
         vim-tmux-navigator
+        gruvbox
         cpu
       ];
-        extraConfig = ''
-        set -g status-right '#{ram_bg_color} RAM: #{ram_icon} #{ram_percentage} #{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} | %F %H:%M:%S'
-        ## COLORSCHEME: gruvbox dark (medium)
-        set-option -g status "on"
-        
-        # default statusbar color
-        set-option -g status-style bg=colour237,fg=colour223 # bg=bg1, fg=fg1
-        
-        # default window title colors
-        set-window-option -g window-status-style bg=colour214,fg=colour237 # bg=yellow, fg=bg1
-        
-        # default window with an activity alert
-        set-window-option -g window-status-activity-style bg=colour237,fg=colour248 # bg=bg1, fg=fg3
-        
-        # active window title colors
-        set-window-option -g window-status-current-style bg=red,fg=colour237 # fg=bg1
-        
-        # pane border
-        set-option -g pane-active-border-style fg=colour250 #fg2
-        set-option -g pane-border-style fg=colour237 #bg1
-        
-        # message infos
-        set-option -g message-style bg=colour239,fg=colour223 # bg=bg2, fg=fg1
-        
-        # writing commands inactive
-        set-option -g message-command-style bg=colour239,fg=colour223 # bg=fg3, fg=bg1
-        
-        # pane number display
-        set-option -g display-panes-active-colour colour250 #fg2
-        set-option -g display-panes-colour colour237 #bg1
-        
-        # clock
-        set-window-option -g clock-mode-colour colour109 #blue
-        
-        # bell
-        set-window-option -g window-status-bell-style bg=colour167,fg=colour235 # bg=red, fg=bg
-        
-        ## Theme settings mixed with colors (unfortunately, but there is no cleaner way)
-        set-option -g status-justify "left"
-        set-option -g status-left-style none
-        set-option -g status-left-length "80"
-        set-option -g status-right-style none
-        set-option -g status-right-length "80"
-        set-window-option -g window-status-separator ""
-        
-        set-option -g status-left "#[bg=colour241,fg=colour248] #S #[bg=colour237,fg=colour241,nobold,noitalics,nounderscore]"
-        set-option -g status-right "#[bg=colour237,fg=colour239 nobold, nounderscore, noitalics]#[bg=colour239,fg=colour246] %Y-%m-%d  %H:%M #[bg=colour239,fg=colour248,nobold,noitalics,nounderscore]#[bg=colour248,fg=colour237] #h "
-        
-        set-window-option -g window-status-current-format "#[bg=colour214,fg=colour237,nobold,noitalics,nounderscore]#[bg=colour214,fg=colour239] #I #[bg=colour214,fg=colour239,bold] #W#{?window_zoomed_flag,*Z,} #[bg=colour237,fg=colour214,nobold,noitalics,nounderscore]"
-        set-window-option -g window-status-format "#[bg=colour239,fg=colour237,noitalics]#[bg=colour239,fg=colour223] #I #[bg=colour239,fg=colour223] #W #[bg=colour237,fg=colour239,noitalics]"
+      extraConfig = ''
+        new-session -s main
       '';
     };
 
@@ -236,7 +195,7 @@ with lib.my;
 
           # .app dirs need to be actual directories for Finder to detect them as Apps.
           # The files inside them can be symlinks though.
-          $DRY_RUN_CMD cp --recursive --symbolic-link --no-preserve=mode -H ${apps}/Applications/* "$HM_APPS"
+          $DRY_RUN_CMD cp --recursive --symbolic-link --no-preserve=mode -H ${apps}/Applications/* "$HM_APPS" || true # can fail if no apps exist
           # Modes need to be stripped because otherwise the dirs wouldn't have +w,
           # preventing us from deleting them again
           # In the env of Apps we build, the .apps are symlinks. We pass all of them as

@@ -67,6 +67,8 @@
     vim-pandoc-live-preview.flake = false;
     orgmode-nvim.url = "github:kristijanhusak/orgmode.nvim";
     orgmode-nvim.flake = false;
+    feline-nvim.url = "github:feline-nvim/feline.nvim";
+    feline-nvim.flake = false;
 
     ## zsh
     zsh-completions.url = "github:zsh-users/zsh-completions";
