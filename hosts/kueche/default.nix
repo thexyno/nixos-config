@@ -5,7 +5,6 @@
   ];
 
   boot.supportedFilesystems = lib.mkForce [ "reiserfs" "vfat" ]; # we dont need zfs here
-  boot.zfs.enabled = false;
   networking.hostId = "eec43f55";
   # networking.usePredictableInterfaceNames = false;
   documentation.enable = false;
