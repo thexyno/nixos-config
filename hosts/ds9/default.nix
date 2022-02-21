@@ -18,7 +18,7 @@
   networking.useDHCP = true;
   networking.bridges."br0".interfaces = [ ];
   networking.hostId = "7b4c2932";
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
   boot.initrd.network = {
     enable = true;
     postCommands = ''
