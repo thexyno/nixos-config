@@ -35,7 +35,6 @@
   };
 
   ragon.user.enable = true;
-  ragon.services.tailscale.enable = true;
   ragon.networking.router.enable = true;
   ragon.services.ssh.enable = true;
   ragon.nvim.enable = false;
