@@ -216,11 +216,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1645244400,
-        "narHash": "sha256-o7KCd6ySFZ9/LbS62aTeuFmBWtP7Tt3Q3RcNjYgTgZU=",
+        "lastModified": 1645557328,
+        "narHash": "sha256-7PCAESO8HxuSk1hH1J2ld+kK6fugFqNd+vqIXSGz1ag=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0232fe1b75e6d7864fd82b5c72f6646f87838fc3",
+        "rev": "838d40d61a91e3807836545c4b420572ab2d62eb",
         "type": "github"
       },
       "original": {
@@ -290,11 +290,11 @@
       },
       "locked": {
         "dir": "contrib",
-        "lastModified": 1645311555,
-        "narHash": "sha256-Va2UQFMSBYDuUbYOVKEPQj1PV1RxBHbhv0WTJTHqDvE=",
+        "lastModified": 1645561161,
+        "narHash": "sha256-agOYvqdbc4oH5oAvv2Wh/48zIxpCX52s3uShX4g3aQk=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "8b3799e2c33282bf417ddee15ae71b5aba613c16",
+        "rev": "11f7aeed7aa83d342d19897d9a69ba9f32ece7f7",
         "type": "github"
       },
       "original": {
@@ -315,11 +315,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1645258396,
-        "narHash": "sha256-2avNcS2USBhH97we0SGgxljipD5hW+zrIt0OvH8PBYE=",
+        "lastModified": 1645517666,
+        "narHash": "sha256-DeQmb7GXKScYKPVXASBlgaARdXO4B9u6um32UPnFIZo=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "61479c974a76d8f8ea0e9d45dca70aa42a48176e",
+        "rev": "f6ce5a9aec32a336cf7045b380a50a42583acd3a",
         "type": "github"
       },
       "original": {
@@ -330,11 +330,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1644870092,
-        "narHash": "sha256-RLPD92lqXW98LDIbbwYqwAbt3R4iD1V1PiylfgBq5cU=",
+        "lastModified": 1645346782,
+        "narHash": "sha256-3qd0cu+2kapIP7cdHW9n8zh1wCvRGg83K7/cCj5Xv+A=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "10eab1c4cd8e715c0b41d32c28af2b89fc67bed0",
+        "rev": "1ccfe243aa6e94bf80f2a66f6be41d086d37fc87",
         "type": "github"
       },
       "original": {
@@ -346,11 +346,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1645072054,
-        "narHash": "sha256-I+HkWU1IpRb93VzjayAybj3L2CcJxNlZDhSeSpL3eSw=",
+        "lastModified": 1645503040,
+        "narHash": "sha256-XE4o3NrqBKLs4RlzjHgGy15KC3AY8AsUeVPdB7nmXiE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "97777606991c3a78040c883fa97791ae77073022",
+        "rev": "93883402a445ad467320925a0a5dbe43a949f25b",
         "type": "github"
       },
       "original": {
@@ -362,11 +362,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1645318740,
-        "narHash": "sha256-ld8NHN9r+fCjl61U1ny+SOC0sxETMMdYew2dNFcOCog=",
+        "lastModified": 1645562533,
+        "narHash": "sha256-L/SLLHguYVXzLJaOBX69QYqe0ms1NAGhQWEHMMFFgUo=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c8d8a96fb5de34ed94d4a5f9230929887519a8d4",
+        "rev": "848b91f94693e9d743f682a167eb56b8e0b3703b",
         "type": "github"
       },
       "original": {
@@ -395,11 +395,11 @@
     "orgmode-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1645288026,
-        "narHash": "sha256-43YaJLO636EiDARaukq802X32D73QkFNWg/2ZbEqBUw=",
+        "lastModified": 1645455501,
+        "narHash": "sha256-LWyZ4FACQFU1TGeIMioM8rLuT2yj/rKC/cc7s400kmg=",
         "owner": "kristijanhusak",
         "repo": "orgmode.nvim",
-        "rev": "14df43912fdac976efb6334382fdf633feec8a59",
+        "rev": "6c8ec4e95755c0375c912c1f9cd1171e5fe23dec",
         "type": "github"
       },
       "original": {
@@ -592,11 +592,11 @@
     "zsh-syntax-highlighting": {
       "flake": false,
       "locked": {
-        "lastModified": 1644787985,
-        "narHash": "sha256-0yat4P9aompb82M4dCUoX5Y/gUJF3cRMLxUUvl8G9vY=",
+        "lastModified": 1645526551,
+        "narHash": "sha256-1fD9HDIjlscFHekrlejtSM506Czzm4hfr4GrJOOkdJk=",
         "owner": "zsh-users",
         "repo": "zsh-syntax-highlighting",
-        "rev": "56b44334617aa719e8e01bb5e00d3e176114a036",
+        "rev": "2cd73fcbde1b47f0952027c0674c32b9f1756a59",
         "type": "github"
       },
       "original": {
