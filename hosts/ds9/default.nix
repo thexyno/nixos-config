@@ -14,6 +14,9 @@
   # Don't Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
 
+  services.syncthing.enable = true;
+  services.syncthing.user = "ragon";
+
   security.sudo.wheelNeedsPassword = false;
   networking.useDHCP = true;
   networking.bridges."br0".interfaces = [ ];
@@ -179,6 +182,7 @@
     user.enable = true;
     home-manager.enable = true;
     persist.enable = true;
+    persist.extraDirectories = [ "/var/lib/syncthing" ];
 
     services = {
       samba.enable = true;

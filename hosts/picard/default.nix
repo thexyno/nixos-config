@@ -16,6 +16,8 @@
   boot.loader.grub.device = "/dev/sda";
   boot.loader.systemd-boot.enable = false;
 
+  services.syncthing.enable = true;
+
 
   networking.interfaces."ens3" = {
     ipv6 = {
@@ -42,6 +44,7 @@
     user.enable = true;
     home-manager.enable = true;
     persist.enable = true;
+    persist.extraDirectories = [ "/var/lib/syncthing" ];
 
     services = {
       ssh.enable = true;
