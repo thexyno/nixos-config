@@ -19,7 +19,7 @@ in
         "/etc/nixos"
         "/etc/NetworkManager/system-connections"
         "/root/.ssh"
-      ] ++ cfg.extraDirectories;
+      ] ++ (lib.unique cfg.extraDirectories);
       files = [
         "/etc/machine-id"
         "/etc/ssh/ssh_host_rsa_key"
