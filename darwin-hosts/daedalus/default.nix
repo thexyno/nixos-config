@@ -159,6 +159,7 @@ with lib.my;
       ];
       extraConfig = ''
         new-session -s main
+        bind-key -n C-a send-prefix
       '';
     };
 
