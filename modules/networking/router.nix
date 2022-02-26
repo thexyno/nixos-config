@@ -413,6 +413,9 @@ in
           # forward .kube domains to coredns
           server=/kube/10.13.0.10
 
+          address=/nzbr.de/10.0.1.2
+          address=/storm.nzbr.de/45.9.63.165
+          address=/avalanche.nzbr.de/202.61.247.0
 
           ${genall}
         '' +
