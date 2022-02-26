@@ -4,7 +4,15 @@
     "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
     "${inputs.nixos-hardware}/raspberry-pi/4/default.nix"
   ];
+  nixpkgs.overlays = [
+    (final: super: {
+      makeModulesClosure = x:
+        super.makeModulesClosure (x // { allowMissing = true; });
+    })
+  ];
   boot.loader.systemd-boot.enable = false;
+  boot.kernelPackages = pkgs.linuxPackages_rpi4;
+  boot.supportedFilesystems = lib.mkForce [ "reiserfs" "vfat" "zfs" "ext4" ]; # we dont need zfs here
   networking.hostId = "eec43f51";
   # networking.usePredictableInterfaceNames = false;
   documentation.enable = false;

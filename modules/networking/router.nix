@@ -93,11 +93,12 @@ in
         { name = "j.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "paperless.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "unifi.hailsatan.eu"; ip = "10.0.0.2"; }
-        { name = "grocy.hailsatan.eu"; ip = "10.0.0.2"; }
-        { name = "barcodebuddy.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "nix.hailsatan.eu"; ip = "10.0.0.2"; }
         { name = "h.hailsatan.eu"; ip = "10.0.0.1"; }
         { name = "grafana.hailsatan.eu"; ip = "10.0.0.2"; }
+        { name = "nzbr.de"; ip = "10.0.1.2"; }
+        { name = "storm.nzbr.de"; ip = "45.9.63.165"; }
+        { name = "avalanche.nzbr.de"; ip = "202.61.247.0"; }
       ];
     };
   options.ragon.networking.router.disableFirewallFor =
@@ -367,7 +368,7 @@ in
           '';
           genall = builtins.concatStringsSep "\n" (map gen nets);
           genallHosts = builtins.concatStringsSep "\n" (map genHosts cfg.staticDHCPs);
-          genstatics = builtins.concatStringsSep "\n" (map (a: "address=/${a.name}/${a.ip}\naddress=/*.${a.name}/${a.ip}") statics);
+          genstatics = builtins.concatStringsSep "\n" (map (a: "address=/${a.name}/${a.ip}") statics);
           netbootxyz = builtins.fetchurl {
             url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.40/netboot.xyz.efi";
             sha256 = "1gvgvlaxhjkr9i0b2bjq85h12ni9h5fn6r8nphsag3il9kificcc";
@@ -413,9 +414,6 @@ in
           # forward .kube domains to coredns
           server=/kube/10.13.0.10
 
-          address=/nzbr.de/10.0.1.2
-          address=/storm.nzbr.de/45.9.63.165
-          address=/avalanche.nzbr.de/202.61.247.0
 
           ${genall}
         '' +
