@@ -1,0 +1,12 @@
+# Ignore configurable file with secrets
+#/data/secrets.nix
+.DS_Store
+
+# Ignore build symlinks
+result*
+internal
+.tmp
+
+# Ignore vscode stuff
+/.vscode/
+

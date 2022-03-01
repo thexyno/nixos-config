@@ -12,6 +12,7 @@
       ctags
     ];
     home.file.".config/nvim".source = ./config;
+    home.file.".config/nvim".recursive = true;
     programs.neovim =
       let
         conf = inputs.self.nixosConfigurations.enterprise.config.programs.neovim.configure;
