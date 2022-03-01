@@ -1,0 +1,31 @@
+[master]
+hostname = "ds9"
+ip = "10.0.0.2"
+
+[hostOverrides]
+wormhole = "10.0.0.1"
+picard = "ragon.xyz"
+
+[exporters.nginx]
+hosts = [
+  "ds9",
+  "wormhole"
+]
+
+[exporters.node]
+hosts = [ "ds9", "wormhole" ]
+
+[exporters.smartctl]
+hosts = [ "ds9" ]
+
+[exporters.dnsmasq]
+hosts = [ "wormhole" ]
+
+[exporters.wireguard]
+hosts = [ "wormhole"]
+
+[exporters.smokeping]
+hosts = [ "wormhole"]
+
+[promtail]
+hosts = [ "wormhole", "ds9" ]

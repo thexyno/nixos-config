@@ -1,0 +1,62 @@
+{ pkgs, inputs, lib, ... }:
+with lib;
+with lib.my;
+{
+
+  users.users.ragon = {
+    name = "ragon";
+    home = "/Users/ragon";
+  };
+  programs.gnupg.agent.enable = true;
+  home-manager.users.ragon = { pkgs, lib, inputs, config, ... }: {
+    programs.home-manager.enable = true;
+    home.stateVersion = "21.11";
+
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+      PATH = "$PATH:$HOME/development/flutter/bin:/Applications/Android Studio.app/Contents/bin/:/Applications/Docker.app/Contents/Resources/bin:/Applications/Android Studio.app/Contents/jre/Contents/Home/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/system/sw/bin";
+      JAVA_HOME = "/Applications/Android Studio.app/Contents/jre/Contents/Home/";
+    };
+    home.packages = with pkgs; [
+      terraform-ls
+      terraform
+
+      #tectonic
+      pandoc
+
+      yabai
+
+      google-cloud-sdk
+    ];
+
+    home.activation = {
+      aliasApplications =
+        let
+          apps = pkgs.buildEnv {
+            name = "home-manager-applications";
+            paths = config.home.packages;
+            pathsToLink = "/Applications";
+          };
+        in
+        lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          # Install MacOS applications to the user environment.
+          HM_APPS="$HOME/Applications/Home Manager Apps"
+
+          # Reset current state
+          [ -e "$HM_APPS" ] && $DRY_RUN_CMD rm -r "$HM_APPS"
+          $DRY_RUN_CMD mkdir -p "$HM_APPS"
+
+          # .app dirs need to be actual directories for Finder to detect them as Apps.
+          # The files inside them can be symlinks though.
+          $DRY_RUN_CMD cp --recursive --symbolic-link --no-preserve=mode -H ${apps}/Applications/* "$HM_APPS" || true # can fail if no apps exist
+          # Modes need to be stripped because otherwise the dirs wouldn't have +w,
+          # preventing us from deleting them again
+          # In the env of Apps we build, the .apps are symlinks. We pass all of them as
+          # arguments to cp and make it dereference those using -H
+        '';
+    };
+
+  };
+
+}
