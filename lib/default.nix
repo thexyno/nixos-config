@@ -1,4 +1,4 @@
-{ darwin, inputs, lib, pkgsBySystem, ... }:
+{ inputs, lib, ... }:
 
 let
   inherit (lib) makeExtensible attrValues foldr;

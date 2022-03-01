@@ -1,8 +1,6 @@
-{pkgs, config, inputs, lib, ...}:
-with lib;
-with lib.my;
+{pkgs, config, inputs, ...}:
 {
-    home.packages = [
+    home.packages = with pkgs;[
       python3 # ultisnips
       lazygit
       nodejs
@@ -41,15 +39,6 @@ with lib.my;
               name = "dart-vim";
               src = inputs.dart-vim;
             };
-            vim-pandoc-live-preview = pkgs.vimUtils.buildVimPlugin {
-              name = "vim-pandoc-live-preview";
-              src = inputs.vim-pandoc-live-preview;
-            };
-            orgmode-nvim = pkgs.vimUtils.buildVimPlugin {
-              name = "orgmode-nvim";
-              src = inputs.orgmode-nvim;
-              dontBuild = true;
-            };
           in
           map (x: { plugin = x; }) (with pkgs.vimPlugins; [
             vim-tmux-navigator
@@ -74,7 +63,6 @@ with lib.my;
             toggleterm-nvim
             undotree
             vim-pandoc
-            vim-pandoc-live-preview
             vim-pandoc-syntax
             ultisnips
             coc-nvim

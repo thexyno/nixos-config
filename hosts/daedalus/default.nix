@@ -2,13 +2,33 @@
 with lib;
 with lib.my;
 {
+  networking.hostName = "daedalus";
 
   users.users.ragon = {
     name = "ragon";
     home = "/Users/ragon";
   };
+
+  homebrew = {
+    enable = true;
+    autoUpdate = true;
+    casks = [ "hammerspoon" "amethyst" "android-platform-tools" "alfred" "ukelele" "homebrew/cask-drivers/zsa-wally" ];
+    masApps = { # Install Mac App Store apps (install them manually and then do `mas list` to get the id)
+      "AdGuard for Safari" =  1440147259;
+      "Xcode" =  497799835;
+      "Home Assistant" =  1099568401;
+      "WireGuard" =  1451685025;
+      "UTM" =  1538878817;
+      "Bitwarden" =  1352778147;
+      "Shareful" =  1522267256;
+      "Tailscale" =  1475387142;
+    };
+  };
+
   programs.gnupg.agent.enable = true;
   home-manager.users.ragon = { pkgs, lib, inputs, config, ... }: {
+    home.file.".hammerspoon/init.lua".source = ./hammerspoon.lua;
+
     programs.home-manager.enable = true;
     home.stateVersion = "21.11";
 

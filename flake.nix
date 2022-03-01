@@ -24,6 +24,8 @@
     dart-vim.flake = false;
     rnix-lsp.url = "github:nix-community/rnix-lsp";
     rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
+    pandoc-latex-template.url = "github:Wandmalfarbe/pandoc-latex-template";
+    pandoc-latex-template.flake = false;
     ## zsh
     zsh-completions.url = "github:zsh-users/zsh-completions";
     zsh-completions.flake = false;
@@ -55,6 +57,8 @@
       imports = lib.my.mapModulesRec' ./hm-imports (x: x);
     };
 
+    rev = if (lib.hasAttrByPath [ "rev" ] self.sourceInfo) then self.sourceInfo.rev else "Dirty Build";
+
     nixosSystem = system: extraModules: let
       pkgs = genPkgs system;
     in  nixpkgs.lib.nixosSystem 
@@ -66,12 +70,12 @@
         impermanence.nixosModules.impermanence
         home-manager.nixosModules.home-manager
         ({ config, ...}: lib.mkMerge [{
-          	  system.configurationRevision = self.sourceInfo.rev;
+          	  system.configurationRevision = rev;
               services.getty.greetingLine =
-                "<<< Welcome to NixOS ${config.system.nixos.label} @ ${self.sourceInfo.rev} - \\l >>>";
+                "<<< Welcome to ${config.system.nixos.label} @ ${rev} - Please leave\\l >>>";
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = { inherit inputs lib; };
             }
 
             (lib.mkIf (config.users.extraUsers.ragon != null) { # import hm stuff if enabled
@@ -90,16 +94,14 @@
       specialArgs = { inherit darwin lib pkgs inputs self; };
       modules = [
         home-manager.darwinModules.home-manager
-        ({ config, inputs, self, ...}: lib.mkMerge [{
-          	  system.configurationRevision = (lib.traceVal (self.sourceInfo)).rev;
+        ({ config, inputs, self, ...}: { config = {
+              #system.darwinLabel = "${config.system.darwinLabel}@${rev}";
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
-            }
-            (lib.mkIf (config.users.extraUsers.ragon != null) { # import hm stuff if enabled
               home-manager.users.ragon = hmConfig;
-            })
-          ])
+            };
+          })
         ./darwin-common.nix
       ] ++ extraModules;
     };

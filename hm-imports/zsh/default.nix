@@ -5,7 +5,6 @@ in
 {
     programs.zsh = {
       enable = true;
-      histSize = 10000;
       enableCompletion = true;
       initExtra =
         let

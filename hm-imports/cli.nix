@@ -22,7 +22,7 @@
       yt-dlp
       aria2
       libqalculate
-  ]
+  ];
     home.shellAliases = {
       v = "nvim";
       vim = "nvim";
