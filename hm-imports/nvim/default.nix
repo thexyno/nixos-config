@@ -20,12 +20,12 @@
       {
         enable = true;
         package = pkgs.neovim-nightly;
+	extraConfig = ''
+            set runtimepath^=~/.config/nvim
+            lua dofile('~/.config/nvim/nvim.lua')
+        '';
         vimAlias = true;
         viAlias = true;
-        extraConfig = ''
-            set runtimepath^=~/.config/nvim
-            lua dofile('~/.config/nvim/init.lua')
-        '';
         plugins =
           let
             nnn-vim = pkgs.vimUtils.buildVimPlugin {

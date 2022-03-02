@@ -17,8 +17,6 @@ bindkey -M viins '^[[A' history-beginning-search-backward-end \
 hash go   2>/dev/null && export PATH=$PATH:$(go env GOPATH)/bin
 hash yarn 2>/dev/null && export PATH=$PATH:$HOME/.yarn/bin
 hash direnv 2>/dev/null && eval "$(direnv hook zsh)" # needed for lorri
-export PATH=$PATH:$HOME/scripts
-export PATH=$PATH:$HOME/.config/rofi/bins
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/flutter/flutter/bin
 hash kitty 2>/dev/null && alias ssh="kitty kitten ssh"
