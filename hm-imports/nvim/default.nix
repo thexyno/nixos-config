@@ -22,7 +22,7 @@
         package = pkgs.neovim-nightly;
 	extraConfig = ''
             set runtimepath^=~/.config/nvim
-            lua dofile('~/.config/nvim/nvim.lua')
+            lua dofile('${./config/nvim.lua}')
         '';
         vimAlias = true;
         viAlias = true;

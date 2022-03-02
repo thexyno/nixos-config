@@ -9,9 +9,9 @@ require('plugin.rainbow')
 require('plugin.terminal')
 
 -- plugins - coc
-vim.cmd 'source /etc/nvim/coc.vim' -- too lazy to convert all the shit to lua
+vim.cmd 'source ~/.config/nvim/coc.vim' -- too lazy to convert all the shit to lua
 -- terminal
-vim.cmd 'source /etc/nvim/terminal.vim' -- too lazy to convert all the shit to lua
+vim.cmd 'source ~/.config/nvim/terminal.vim' -- too lazy to convert all the shit to lua
 
 -- color stuff
 vim.g.gruvbox_italic = 1
