@@ -12,7 +12,7 @@ with lib.my;
   homebrew = {
     enable = true;
     autoUpdate = true;
-    casks = [ "hammerspoon" "amethyst" "android-platform-tools" "alfred" "ukelele" "homebrew/cask-drivers/zsa-wally" "lens" ];
+    casks = [ "hammerspoon" "amethyst" "android-platform-tools" "alfred" "ukelele" "homebrew/cask-drivers/zsa-wally" "lens" "logseq" ];
     masApps = { # Install Mac App Store apps (install them manually and then do `mas list` to get the id)
       "AdGuard for Safari" =  1440147259;
       "Xcode" =  497799835;
