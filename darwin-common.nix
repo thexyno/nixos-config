@@ -4,6 +4,13 @@
   nix.package = pkgs.nixFlakes;
   nix.buildCores = 0; # use all cores
   nix.maxJobs = 10; # use all cores
+  nix.distributedBuilds = true;
+  nix.buildMachines = [ {
+    systems = ["x86_64-linux"];
+    sshUser = "ragon";
+    hostName = "ds9";
+
+  }];
 
   system.defaults = {
     NSGlobalDomain.AppleShowAllExtensions = true;

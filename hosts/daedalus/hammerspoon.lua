@@ -56,21 +56,22 @@ end):start()
 ----------------------------------------------------------------------------------------------------
 -- mount ds9 via tailscale
 ----------------------------------------------------------------------------------------------------
-function mountDS9()
-  local ssid = hs.wifi.currentNetwork()
-  if ssid ~= nil and ssid ~= 'vim' then -- not at home
-    if os.execute("mount | grep //ragon@ds9._smb._tcp.local/data") == nil then -- check if mounted via mdns
-      os.execute("diskutil umount /Volumes/data") -- umount share if it exists
-      hs.osascript.applescript('mount volume "smb://ragon@ds9.ragon000.github.beta.tailscale.net/data"') -- mount share via tailscale
-    end
-  end
-end
-
-mountDS9()
-
-hs.wifi.watcher.new(function(watcher, message, interface)
-  mountDS9()
-end):start()
+-- kaputti
+--function mountDS9()
+--  local ssid = hs.wifi.currentNetwork()
+--  if ssid ~= nil and ssid ~= 'vim' then -- not at home
+--    if os.execute("mount | grep //ragon@ds9._smb._tcp.local/data") == nil then -- check if mounted via mdns
+--      os.execute("diskutil umount /Volumes/data") -- umount share if it exists
+--      hs.osascript.applescript('mount volume "smb://ragon@ds9.ragon000.github.beta.tailscale.net/data"') -- mount share via tailscale
+--    end
+--  end
+--end
+--
+--mountDS9()
+--
+--hs.wifi.watcher.new(function(watcher, message, interface)
+--  mountDS9()
+--end):start()
 
 ----------------------------------------------------------------------------------------------------
 -- Scratchpad
