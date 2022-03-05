@@ -9,7 +9,6 @@
     systems = ["x86_64-linux"];
     sshUser = "ragon";
     hostName = "ds9";
-
   }];
 
   system.defaults = {

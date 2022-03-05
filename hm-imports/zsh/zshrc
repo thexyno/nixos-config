@@ -24,17 +24,6 @@ hash helm 2>/dev/null && . <(helm completion zsh)
 hash kubectl 2>/dev/null && . <(kubectl completion zsh)
 export NNN_ARCHIVE="\\.(7z|a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|rar|rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip)$"
 
-ssh() {
-    if [ -v TMUX ]; then
-        tmux set-option allow-rename off 1>/dev/null
-        tmux rename-window "ssh/$*"
-        command ssh "$@"
-        tmux set-option allow-rename on 1>/dev/null
-    else
-        command ssh "$@"
-    fi
-}
-
 n ()
 {
     # Block nesting of nnn in subshells
