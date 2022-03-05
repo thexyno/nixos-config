@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 REV=$(curl https://api.github.com/repos/ragon000/nixos-config/branches/main | jq -r .commit.sha)
+
 if [[ $(uname) == "Linux" ]]; then
   sudo nixos-rebuild switch --flake "github:ragon000/nixos-config?rev=$REV"
 else # Darwin

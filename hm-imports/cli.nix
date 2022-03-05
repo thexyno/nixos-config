@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
 
       my.scripts
+      jq
       nnn
       bat
       htop
