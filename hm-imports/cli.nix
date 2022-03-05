@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
 
+      my.scripts
       nnn
       bat
       htop

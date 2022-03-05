@@ -50,6 +50,9 @@
       overlays = [
         self.overlay
         neovim-nightly-overlay.overlay
+        (final: prev: {
+          my = self.packages.${prev.system};
+        })
       ];
     };
 
@@ -130,5 +133,10 @@
       daedalus = darwinSystem "aarch64-darwin" [ ./hosts/daedalus/default.nix ]; # TODO 
     };
 
-  };
+  } // utils.lib.eachDefaultSystem (system: let pkgs = nixpkgs.legacyPackages.${system}; in {
+    devShell = pkgs.mkShell {
+      buildInputs = with pkgs; [lefthook nixpkgs-fmt];
+    };
+    packages = lib.my.mapModules ./packages (p: pkgs.callPackage p { inputs = inputs;});
+  });
 }
