@@ -10,6 +10,9 @@
     sshUser = "ragon";
     hostName = "ds9";
   }];
+  nix.extraOptions = ''
+    builders-use-substitutes = true
+  '';
 
   system.defaults = {
     NSGlobalDomain.AppleShowAllExtensions = true;
