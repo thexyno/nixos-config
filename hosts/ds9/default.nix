@@ -22,6 +22,14 @@
   networking.bridges."br0".interfaces = [ ];
   networking.hostId = "7b4c2932";
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
+  services.nginx.virtualHosts."h.hailsatan.eu" = {
+    useACMEHost = "hailsatan.eu";
+    addSSL = true;
+    locations = {
+      "/".proxyPass = "http://192.168.122.76:8123";
+      "/".proxyWebsockets = true;
+    };
+  };
   boot.initrd.network = {
     enable = true;
     postCommands = ''
