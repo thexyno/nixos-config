@@ -9,6 +9,8 @@
     systems = ["x86_64-linux"];
     sshUser = "ragon";
     hostName = "ds9";
+    sshKey = "/Users/ragon/.ssh/id_ed25519";
+    publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUorQkJYdWZYQUpoeVVIVmZocWxrOFk0ekVLSmJLWGdKUXZzZEU0ODJscFYgcm9vdEBpc28K";
   }];
   nix.extraOptions = ''
     builders-use-substitutes = true
