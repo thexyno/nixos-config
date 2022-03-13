@@ -13,6 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     services.unifi = {
       enable = true;
+      openFirewall = true;
     };
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       forceSSL = true;
