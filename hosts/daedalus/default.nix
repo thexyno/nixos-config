@@ -23,6 +23,7 @@ with lib.my;
       "logseq"
       "discord"
       "vlc"
+      "parsec"
     ];
     masApps = {
       # Install Mac App Store apps (install them manually and then do `mas list` to get the id)
