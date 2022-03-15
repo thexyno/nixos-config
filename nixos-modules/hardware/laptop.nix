@@ -17,7 +17,6 @@ in
     };
     hardware.acpilight.enable = true;
     services.thermald.enable = true;
-    ragon.gui.laptop = true;
     ragon.hardware.bluetooth.enable = true; # laptops normally have BT
   };
 }
