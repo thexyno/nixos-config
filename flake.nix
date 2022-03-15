@@ -87,7 +87,7 @@
             })
           ])
           ./nixos-common.nix
-      ] ++ [self.nixosModules] ++ extraModules;
+      ] ++ (lib.my.mapModulesRec' (toString ./nixos-modules) import)  ++ extraModules;
     };
     darwinSystem = system: extraModules: hostName:
     let
@@ -108,7 +108,7 @@
             };
           })
         ./darwin-common.nix
-      ] ++ extraModules;
+      ] ++ (lib.my.mapModulesRec' (toString ./darwin-modules) import)  ++ extraModules;
     };
 
     processConfigurations = lib.mapAttrs (n: v: v n);
