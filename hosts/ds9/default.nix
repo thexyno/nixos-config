@@ -176,7 +176,6 @@
   ragon = {
     cli.enable = true;
     user.enable = true;
-    home-manager.enable = true;
     persist.enable = true;
     persist.extraDirectories = [ "/var/lib/syncthing" ];
 
