@@ -129,8 +129,8 @@
     darwinModules = [];
     #darwinModules = lib.my.mapModulesRec ./darwin-modules import;
     nixosConfigurations = processConfigurations {
-      picard = nixosSystem "x86-64-linux" [ ./hosts/picard/default.nix ]; # TODO
-      ds9 = nixosSystem "x86-64-linux" [ ./hosts/ds9/default.nix ]; # TODO
+      picard = nixosSystem "x86_64-linux" [ ./hosts/picard/default.nix ]; # TODO
+      ds9 = nixosSystem "x86_64-linux" [ ./hosts/ds9/default.nix ]; # TODO
     };
     darwinConfigurations = processConfigurations {
       daedalus = darwinSystem "aarch64-darwin" [ ./hosts/daedalus/default.nix ]; # TODO 
