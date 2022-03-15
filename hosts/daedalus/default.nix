@@ -2,7 +2,6 @@
 with lib;
 with lib.my;
 {
-  networking.hostName = "daedalus";
 
   users.users.ragon = {
     name = "ragon";

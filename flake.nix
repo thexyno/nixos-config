@@ -62,7 +62,7 @@
 
     rev = if (lib.hasAttrByPath [ "rev" ] self.sourceInfo) then self.sourceInfo.rev else "Dirty Build";
 
-    nixosSystem = system: extraModules: let
+    nixosSystem = system: extraModules: hostName: let
       pkgs = genPkgs system;
     in  nixpkgs.lib.nixosSystem 
     rec {
@@ -73,6 +73,7 @@
         impermanence.nixosModules.impermanence
         home-manager.nixosModules.home-manager
         ({ config, ...}: lib.mkMerge [{
+              networking.hostName = hostName;
           	  system.configurationRevision = rev;
               services.getty.greetingLine =
                 "<<< Welcome to ${config.system.nixos.label} @ ${rev} - Please leave\\l >>>";
@@ -88,7 +89,7 @@
           ./nixos-common.nix
       ] ++ self.nixosModules ++ extraModules;
     };
-    darwinSystem = system: extraModules:
+    darwinSystem = system: extraModules: hostName:
     let
       pkgs = genPkgs system;
     in  darwin.lib.darwinSystem
@@ -99,6 +100,7 @@
         home-manager.darwinModules.home-manager
         ({ config, inputs, self, ...}: { config = {
               #system.darwinLabel = "${config.system.darwinLabel}@${rev}";
+              networking.hostName = hostName;
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
@@ -108,6 +110,8 @@
         ./darwin-common.nix
       ] ++ extraModules;
     };
+
+    processConfigurations = lib.mapAttrs (n: v: v n);
 
 
   in
@@ -124,12 +128,12 @@
     nixosModules = lib.my.mapModulesRec ./nixos-modules import;
     darwinModules = [];
     #darwinModules = lib.my.mapModulesRec ./darwin-modules import;
-    nixosConfigurations = {
+    nixosConfigurations = processConfigurations {
       picard = nixosSystem "x86-64-linux" [ ./hosts/picard/default.nix ]; # TODO
       wormhole = nixosSystem "aarch64-linux" [ ./hosts/wormhole/default.nix ]; # TODO
       ds9 = nixosSystem "x86-64-linux" [ ./hosts/ds9/default.nix ]; # TODO
     };
-    darwinConfigurations = {
+    darwinConfigurations = processConfigurations {
       daedalus = darwinSystem "aarch64-darwin" [ ./hosts/daedalus/default.nix ]; # TODO 
     };
 
