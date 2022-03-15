@@ -4,13 +4,11 @@ with builtins;
 with lib;
 with lib.my;
 let
-  inherit (inputs) agenix;
   secretsDir = "${toString ../../secrets}";
   secretsFile = "${secretsDir}/secrets.nix";
   cfg = config.ragon.agenix;
 in
 {
-  imports = [ agenix.nixosModules.age ];
   options.ragon.agenix = {
     enable = mkBoolOpt true;
     secrets = mkOption {
