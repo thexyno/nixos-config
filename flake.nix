@@ -130,7 +130,6 @@
     #darwinModules = lib.my.mapModulesRec ./darwin-modules import;
     nixosConfigurations = processConfigurations {
       picard = nixosSystem "x86-64-linux" [ ./hosts/picard/default.nix ]; # TODO
-      wormhole = nixosSystem "aarch64-linux" [ ./hosts/wormhole/default.nix ]; # TODO
       ds9 = nixosSystem "x86-64-linux" [ ./hosts/ds9/default.nix ]; # TODO
     };
     darwinConfigurations = processConfigurations {
