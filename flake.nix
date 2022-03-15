@@ -87,7 +87,7 @@
             })
           ])
           ./nixos-common.nix
-      ] ++ self.nixosModules ++ extraModules;
+      ] ++ [self.nixosModules] ++ extraModules;
     };
     darwinSystem = system: extraModules: hostName:
     let
