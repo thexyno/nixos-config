@@ -20,6 +20,7 @@ with lib.my;
       "homebrew/cask-drivers/zsa-wally"
       "lens"
       "logseq"
+      "docker"
       "discord"
       "vlc"
       "parsec"
