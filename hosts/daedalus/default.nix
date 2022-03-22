@@ -11,6 +11,9 @@ with lib.my;
   homebrew = {
     enable = true;
     autoUpdate = true;
+    brews = [
+      "pam-reattach"
+    ];
     casks = [
       "hammerspoon"
       "amethyst"
