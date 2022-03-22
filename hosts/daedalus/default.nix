@@ -24,6 +24,7 @@ with lib.my;
       "discord"
       "vlc"
       "parsec"
+      "element"
     ];
     masApps = {
       # Install Mac App Store apps (install them manually and then do `mas list` to get the id)
@@ -36,6 +37,7 @@ with lib.my;
       "Shareful" = 1522267256;
       "app.seashore" = 1448648921;
       "Tailscale" = 1475387142;
+      "Otter RSS" = 1529696614;
     };
   };
 
