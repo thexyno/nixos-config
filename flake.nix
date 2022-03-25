@@ -131,6 +131,8 @@
     nixosConfigurations = processConfigurations {
       picard = nixosSystem "x86_64-linux" [ ./hosts/picard/default.nix ]; # TODO
       ds9 = nixosSystem "x86_64-linux" [ ./hosts/ds9/default.nix ]; # TODO
+      wohnzimmerpi = nixosSystem "aarch64-linux" [ ./hosts/musicpi/default.nix ]; # Livingroom pi
+      kuechenpi = nixosSystem "aarch64-linux" [ ./hosts/musicpi/default.nix ]; # Kitchen pi
     };
     darwinConfigurations = processConfigurations {
       daedalus = darwinSystem "aarch64-darwin" [ ./hosts/daedalus/default.nix ]; # TODO 
