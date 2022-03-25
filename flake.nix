@@ -56,8 +56,8 @@
       ];
     };
 
-    hmConfig = { pkgs, inputs, config, ...}: { 
-      imports = lib.my.mapModulesRec' ./hm-imports (x: x);
+    hmConfig = { hm, pkgs, inputs, config, ...}: { 
+      imports = (lib.my.mapModulesRec' ./hm-imports (x: x)) ++ ["${impermanence}/home-manager.nix"];
     };
 
     rev = if (lib.hasAttrByPath [ "rev" ] self.sourceInfo) then self.sourceInfo.rev else "Dirty Build";
@@ -79,10 +79,10 @@
                 "<<< Welcome to ${config.system.nixos.label} @ ${rev} - Please leave\\l >>>";
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs lib; };
+              home-manager.extraSpecialArgs = { inherit inputs ;  };
             }
 
-            (lib.mkIf (config.users.extraUsers.ragon != null) { # import hm stuff if enabled
+            (lib.mkIf config.ragon.user.enable { # import hm stuff if enabled
             home-manager.users.ragon = hmConfig;
             })
           ])

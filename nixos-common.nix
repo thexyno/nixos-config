@@ -2,7 +2,7 @@
 with lib;
 with lib.my;
 let
-  pubkeys = import ./data/pubkeys.nix {};
+  pubkeys = import ./data/pubkeys.nix;
 in
 {
   # Set your time zone.
@@ -41,8 +41,6 @@ in
       };
       extraOptions = "experimental-features = nix-command flakes";
       nixPath = nixPathInputs ++ [
-        "nixpkgs-overlays=${config.conf.dir}/overlays"
-        "conf=${config.conf.dir}"
       ];
       registry = registryInputs // { conf.flake = inputs.self; };
     };

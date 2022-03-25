@@ -3,7 +3,9 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, inputs, pkgs, lib, ... }:
-
+let 
+  pubkeys = import ../../data/pubkeys.nix;
+in
 {
   imports =
     [
@@ -35,7 +37,7 @@
         "/persistent/etc/nixos/secrets/initrd/ssh_host_rsa_key"
         "/persistent/etc/nixos/secrets/initrd/ssh_host_ed25519_key"
       ];
-      authorizedKeys = pkgs.pubkeys.ragon.computers;
+      authorizedKeys = pubkeys.ragon.computers;
 
     };
 

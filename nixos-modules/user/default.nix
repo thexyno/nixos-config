@@ -5,7 +5,7 @@ let
   username = cfg.username;
   extraGroups = cfg.extraGroups;
   extraAuthorizedKeys = cfg.extraAuthorizedKeys;
-  pubkeys = import ../../data/pubkeys.nix {};
+  pubkeys = import ../../data/pubkeys.nix;
 
 in
 {

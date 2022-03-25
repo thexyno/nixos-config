@@ -8,7 +8,7 @@
 
   boot.initrd.availableKernelModules = [ "r8169" "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "nvme" "usbhid" "sd_mod" "sr_mod" ];
   boot.kernelModules = [ "kvm-amd" ];
-  nix.maxJobs = lib.mkDefault 12;
+  nix.settings.max-jobs = lib.mkDefault 12;
   powerManagement.cpuFreqGovernor = "performance";
 
   services.zfs.autoScrub.enable = true;

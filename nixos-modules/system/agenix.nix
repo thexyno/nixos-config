@@ -17,7 +17,7 @@ in
     };
   };
   config = mkIf cfg.enable {
-    environment.systemPackages = [ agenix.defaultPackage.${pkgs.system} ];
+    environment.systemPackages = [ inputs.agenix.defaultPackage.${pkgs.system} ];
     # Set passwords
     users.users.root.passwordFile = config.age.secrets.rootPasswd.path;
     age.identityPaths =
