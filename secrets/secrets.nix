@@ -6,6 +6,7 @@ in
   "nextshot.age".publicKeys = pubkeys.ragon.client;
   "pulseLaunch.age".publicKeys = pubkeys.ragon.client;
   "rootPasswd.age".publicKeys = pubkeys.ragon.computers;
+  "wpa_supplicant.age".publicKeys = pubkeys.ragon.computers;
   "ragonPasswd.age".publicKeys = pubkeys.ragon.computers;
   "tailscaleKey.age".publicKeys = pubkeys.ragon.computers;
   "paperlessAdminPW.age".publicKeys = pubkeys.ragon.host "ds9";
@@ -18,6 +19,4 @@ in
   "gitlabOTPFile.age".publicKeys = pubkeys.ragon.host "picard";
   "gitlabJWSFile.age".publicKeys = pubkeys.ragon.host "picard";
   "nextcloudAdminPass.age".publicKeys = pubkeys.ragon.host "picard";
-  "wireguardwormhole.age".publicKeys = pubkeys.ragon.host "wormhole";
-  "wireguardvoyager.age".publicKeys = pubkeys.ragon.host "voyager";
 }

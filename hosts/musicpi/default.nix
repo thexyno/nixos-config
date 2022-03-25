@@ -4,6 +4,13 @@
     "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
     #    "${inputs.nixos-hardware}/raspberry-pi/4/default.nix"
   ];
+  # fix: https://github.com/NixOS/nixpkgs/issues/126755#issuecomment-869149243
+  nixpkgs.overlays = [
+  (final: super: {
+    makeModulesClosure = x:
+      super.makeModulesClosure (x // { allowMissing = true; });
+  })
+];
   boot.supportedFilesystems = lib.mkForce [ "reiserfs" "vfat" "ext4" ]; # we dont need zfs here
   documentation.enable = false;
   documentation.nixos.enable = false;
@@ -46,8 +53,10 @@
   };
 
   ragon.services.ssh.enable = true;
-  ragon.services.agenix.enable = true;
+  ragon.agenix.enable = true;
   ragon.hardware.hifiberry-dac.enable = true;
+  networking.wireless.enable = true;
+  ragon.agenix.secrets.wpa_supplicant = { path = "/etc/wpa_supplicant/wpa_supplicant.conf"; };
   services.shairport-sync = {
     enable = true;
     arguments = "-o alsa";
