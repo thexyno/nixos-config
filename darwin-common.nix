@@ -6,7 +6,7 @@
   nix.maxJobs = 10; # use all cores
   nix.distributedBuilds = true;
   nix.buildMachines = [ {
-    systems = ["x86_64-linux"];
+    systems = ["x86_64-linux" "aarch64-linux"];
     sshUser = "ragon";
     hostName = "ds9";
     sshKey = "/Users/ragon/.ssh/id_ed25519";
