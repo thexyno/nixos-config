@@ -14,7 +14,7 @@
   ];
   boot.supportedFilesystems = lib.mkForce [ "reiserfs" "vfat" "ext4" ]; # we dont need zfs here
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_rpi4;
+#    kernelPackages = lib.mkDefault pkgs.linuxPackages_rpi4;
     initrd.availableKernelModules = lib.mkForce [
       "ahci"
 
@@ -53,8 +53,6 @@
       generic-extlinux-compatible.enable = lib.mkDefault true;
     };
   };
-
-  hardware.deviceTree.filter = "bcm2711-rpi-*.dtb";
 
   # Required for the Wireless firmware
   hardware.enableRedistributableFirmware = true;
