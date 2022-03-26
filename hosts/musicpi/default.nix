@@ -2,21 +2,51 @@
 {
   imports = [
     "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+    "${inputs.nixpkgs}/nixos/modules/profiles/minimal.nix"
     #    "${inputs.nixos-hardware}/raspberry-pi/4/default.nix"
   ];
   # fix: https://github.com/NixOS/nixpkgs/issues/126755#issuecomment-869149243
   nixpkgs.overlays = [
-  (final: super: {
-    makeModulesClosure = x:
-      super.makeModulesClosure (x // { allowMissing = true; });
-  })
-];
+    (final: super: {
+      makeModulesClosure = x:
+        super.makeModulesClosure (x // { allowMissing = true; });
+    })
+  ];
   boot.supportedFilesystems = lib.mkForce [ "reiserfs" "vfat" "ext4" ]; # we dont need zfs here
-  documentation.enable = false;
-  documentation.nixos.enable = false;
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_rpi4;
-    initrd.availableKernelModules = [ "usbhid" "usb_storage" "vc4" ];
+    initrd.availableKernelModules = lib.mkForce [
+      "ahci"
+
+      "ata_piix"
+
+      "sata_inic162x"
+      "sata_nv"
+      "sata_promise"
+      "sata_qstor"
+      "sata_sil"
+      "sata_sil24"
+      "sata_sis"
+      "sata_svw"
+      "sata_sx4"
+      "sata_uli"
+      "sata_via"
+      "sata_vsc"
+
+      # USB support, especially for booting from USB CD-ROM
+      # drives.
+      "uas"
+
+      # SD cards.
+      "sdhci_pci"
+
+      "vc4"
+      "pcie-brcmstb"
+      "simplefb"
+      "usbhid"
+      "usb_storage"
+      "vc4"
+    ];
 
     loader = {
       grub.enable = lib.mkDefault false;
