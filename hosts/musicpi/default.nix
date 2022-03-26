@@ -1,7 +1,6 @@
 { config, inputs, pkgs, lib, ... }:
 {
   imports = [
-    "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
     "${inputs.nixpkgs}/nixos/modules/profiles/minimal.nix"
     #    "${inputs.nixos-hardware}/raspberry-pi/4/default.nix"
   ];
@@ -11,59 +10,20 @@
       makeModulesClosure = x:
         super.makeModulesClosure (x // { allowMissing = true; });
     })
-    (self: super: {
-      firmwareLinuxNonfree = super.firmwareLinuxNonfree.overrideAttrs (old: {
-        version = "2020-12-18";
-        src = pkgs.fetchgit {
-          url =
-            "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
-          rev = "b79d2396bc630bfd9b4058459d3e82d7c3428599";
-          sha256 = "1rb5b3fzxk5bi6kfqp76q1qszivi0v1kdz1cwj2llp5sd9ns03b5";
-        };
-        outputHash = "1p7vn2hfwca6w69jhw5zq70w44ji8mdnibm1z959aalax6ndy146";
-      });
-    })
   ];
   sound.enable = true;
   boot = {
-    supportedFilesystems = lib.mkForce [ "reiserfs" "vfat" "ext4" ]; # we dont need zfs here
-    #    kernelPackages = lib.mkDefault pkgs.linuxPackages_rpi4;
-    initrd.availableKernelModules = lib.mkForce [
-      "ahci"
-
-      "ata_piix"
-
-      "sata_inic162x"
-      "sata_nv"
-      "sata_promise"
-      "sata_qstor"
-      "sata_sil"
-      "sata_sil24"
-      "sata_sis"
-      "sata_svw"
-      "sata_sx4"
-      "sata_uli"
-      "sata_via"
-      "sata_vsc"
-
-      # USB support, especially for booting from USB CD-ROM
-      # drives.
-      "uas"
-
-      # SD cards.
-      "sdhci_pci"
-
-      "vc4"
-      "pcie-brcmstb"
-      "simplefb"
-      "usbhid"
-      "usb_storage"
-      "vc4"
-    ];
-
+    extraModprobeConfig = ''
+      options cfg80211 ieee80211_regdom="DE"
+    '';
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_rpi3;
+    initrd.availableKernelModules = lib.mkForce [ "md_mod" "ext2" "ext4" "sd_mod" "sr_mod" "mmc_block" "ehci_hcd" "ohci_hcd" "xhci_hcd" "usbhid" "hid_generic" ]; 
     loader = {
       grub.enable = lib.mkDefault false;
-      generic-extlinux-compatible.enable = lib.mkDefault true;
+      generic-extlinux-compatible.enable = lib.mkForce false;
+      raspberryPi.enable = true;
+      raspberryPi.version = 3;
+      raspberryPi.uboot.enable = false;
       raspberryPi.firmwareConfig = ''
         dtparam=hifiberry-dac
       '';
@@ -71,10 +31,13 @@
   };
 
   # Required for the Wireless firmware
-  hardware.enableRedistributableFirmware = true;
+  hardware = {
+    firmware = [ pkgs.wireless-regdb pkgs.raspberrypiWirelessFirmware ];
+    enableRedistributableFirmware = lib.mkForce false;
+  };
 
   nix = {
-    autoOptimiseStore = true;
+    settings.auto-optimise-store = true;
     gc = {
       automatic = true;
       dates = "weekly";
@@ -96,13 +59,14 @@
     };
   };
 
+  environment.systemPackages = [ pkgs.alsa-utils ];
   ragon.services.ssh.enable = true;
   ragon.agenix.enable = true;
-  ragon.hardware.hifiberry-dac.enable = true;
   networking.wireless.enable = true;
   ragon.agenix.secrets.wpa_supplicant = { path = "/etc/wpa_supplicant.conf"; };
   services.shairport-sync = {
     enable = true;
-    arguments = "-o alsa";
+    arguments = "-o alsa -v";
+    openFirewall = true;
   };
 }
