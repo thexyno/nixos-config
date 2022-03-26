@@ -11,13 +11,6 @@
       makeModulesClosure = x:
         super.makeModulesClosure (x // { allowMissing = true; });
     })
-  ];
-  boot.supportedFilesystems = lib.mkForce [ "reiserfs" "vfat" "ext4" ]; # we dont need zfs here
-  sound.enable = true;
-  boot.loader.raspberryPi.firmwareConfig = ''
-    dtparam=hifiberry-dac
-  '';
-  nixpkgs.overlays = [
     (self: super: {
       firmwareLinuxNonfree = super.firmwareLinuxNonfree.overrideAttrs (old: {
         version = "2020-12-18";
@@ -31,8 +24,10 @@
       });
     })
   ];
+  sound.enable = true;
   boot = {
-#    kernelPackages = lib.mkDefault pkgs.linuxPackages_rpi4;
+    supportedFilesystems = lib.mkForce [ "reiserfs" "vfat" "ext4" ]; # we dont need zfs here
+    #    kernelPackages = lib.mkDefault pkgs.linuxPackages_rpi4;
     initrd.availableKernelModules = lib.mkForce [
       "ahci"
 
@@ -69,6 +64,9 @@
     loader = {
       grub.enable = lib.mkDefault false;
       generic-extlinux-compatible.enable = lib.mkDefault true;
+      raspberryPi.firmwareConfig = ''
+        dtparam=hifiberry-dac
+      '';
     };
   };
 
@@ -102,7 +100,7 @@
   ragon.agenix.enable = true;
   ragon.hardware.hifiberry-dac.enable = true;
   networking.wireless.enable = true;
-  ragon.agenix.secrets.wpa_supplicant = { path = "/etc/wpa_supplicant/wpa_supplicant.conf"; };
+  ragon.agenix.secrets.wpa_supplicant = { path = "/etc/wpa_supplicant.conf"; };
   services.shairport-sync = {
     enable = true;
     arguments = "-o alsa";
