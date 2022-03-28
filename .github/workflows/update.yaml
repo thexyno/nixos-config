@@ -21,7 +21,7 @@ jobs:
 
       - uses: cachix/install-nix-action@v16
         with:
-          install_url: https://releases.nixos.org/nix/nix-2.4/install
+          install_url: https://releases.nixos.org/nix/nix-2.6.1/install
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
@@ -32,21 +32,22 @@ jobs:
           git config user.email 'noreply@github.com'
 
       - name: Update lock file
-        run: nix flake update --no-registries --commit-lock-file
+        run: nix flake update --no-use-registries --commit-lock-file
 
       - name: Get commit message
         id: commit
         run: |
-          message="$(git log -1 --pretty=%B | tail +3 | awk -f ./misc/flake-to-markdown.awk)"
+          message="$(git log -1 --pretty=%B | tail +3 | awk -f ./.github/flake-to-md.awk)"
           message="${message//'%'/'%25'}"
           message="${message//$'\n'/'%0A'}"
           message="${message//$'\r'/'%0D'}"
           echo "::set-output name=message::$message"
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3.14.0
+        uses: peter-evans/create-pull-request@v4
         with:
           token: "${{ steps.generate-token.outputs.token }}"
           title: "Automated Flake update"
           body: "${{ steps.commit.outputs.message }}"
-          delete-branch: truec
+          delete-branch: true
+          assignees: thexyno
