@@ -2,7 +2,9 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
-
+let
+  pubkeys = import ../../data/pubkeys.nix;
+in
 {
   imports = [ "${modulesPath}/profiles/qemu-guest.nix" ];
   boot.zfs.requestEncryptionCredentials = true;
@@ -30,7 +32,7 @@
           "/persistent/etc/nixos/secrets/initrd/ssh_host_rsa_key"
           "/persistent/etc/nixos/secrets/initrd/ssh_host_ed25519_key"
         ];
-        authorizedKeys = pkgs.pubkeys.ragon.user;
+        authorizedKeys = pubkeys.ragon.user;
 
       };
 
