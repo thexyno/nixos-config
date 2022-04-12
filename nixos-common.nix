@@ -12,6 +12,10 @@ in
 
   users.users.root.openssh.authorizedKeys.keys = pubkeys.ragon.user;
 
+  services.journald.extraConfig = ''
+    SystemMaxUse=512M
+  '';
+
   # Select internationalisation properties.
   i18n = {
     defaultLocale = "en_DK.UTF-8";
@@ -31,11 +35,11 @@ in
         trusted-users = mkDefault [ "root" "@wheel" ];
         allowed-users = mkDefault [ "root" "@wheel" ];
         substituters = [
-           "https://nix-community.cachix.org"
-      ];
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
+          "https://nix-community.cachix.org"
+        ];
+        trusted-public-keys = [
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        ];
         auto-optimise-store = true;
 
       };
