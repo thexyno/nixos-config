@@ -11,6 +11,9 @@
       ./hardware-configuration.nix
     ];
 
+  documentation.enable = false;
+  documentation.nixos.enable = false;
+  documentation.man.enable = false;
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda";

@@ -28,11 +28,11 @@ in
   config = lib.mkIf cfg.enable {
     services.matrix-synapse = {
       enable = true;
-      server_name = serverName;
-      listeners = [
+      settings.server_name = serverName;
+      settings.listeners = [
         {
           port = 8008;
-          bind_address = "::1";
+          bind_addresses = [ "::1" ];
           type = "http";
           tls = false;
           x_forwarded = true;
@@ -69,7 +69,6 @@ in
               "server_name" = "${domain}";
             };
             default_theme = "dark";
-            jitsi.preferredDomain = "${config.ragon.services.jitsi.domainPrefix}.${domain}";
           }; # TODO make this less shit
         };
       };
