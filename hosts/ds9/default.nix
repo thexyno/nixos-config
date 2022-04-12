@@ -3,7 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, inputs, pkgs, lib, ... }:
-let 
+let
   pubkeys = import ../../data/pubkeys.nix;
 in
 {
@@ -24,6 +24,14 @@ in
   networking.bridges."br0".interfaces = [ ];
   networking.hostId = "7b4c2932";
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
+  services.nginx.virtualHosts."h.hailsatan.eu" = {
+    useACMEHost = "hailsatan.eu";
+    addSSL = true;
+    locations = {
+      "/".proxyPass = "http://192.168.122.76:8123";
+      "/".proxyWebsockets = true;
+    };
+  };
   boot.initrd.network = {
     enable = true;
     postCommands = ''

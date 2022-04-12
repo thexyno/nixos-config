@@ -13,7 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     services.vaultwarden = {
       enable = true;
-      #      backupDir = "/backups/vaultwarden";
+      #backupDir = "/persistent/backups/vaultwarden";
       config = {
         domain = "https://${cfg.domainPrefix}.${domain}";
         signupsAllowed = false;
@@ -43,7 +43,7 @@ in
       ];
     };
     ragon.persist.extraDirectories = [
-      "/var/lib/vaultwarden"
+      "/var/lib/bitwarden_rs"
     ];
   };
 }
