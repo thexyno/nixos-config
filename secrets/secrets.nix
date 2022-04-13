@@ -10,8 +10,6 @@ in
   "ragonPasswd.age".publicKeys = pubkeys.ragon.computers;
   "tailscaleKey.age".publicKeys = pubkeys.ragon.computers;
   "paperlessAdminPW.age".publicKeys = pubkeys.ragon.host "ds9";
-  "ds9rcloneConfig.age".publicKeys = pubkeys.ragon.host "ds9";
-  "ds9resticPassword.age".publicKeys = pubkeys.ragon.host "ds9";
   "hedgedocSecret.age".publicKeys = pubkeys.ragon.host "picard";
   "gitlabInitialRootPassword.age".publicKeys = pubkeys.ragon.host "picard";
   "gitlabSecretFile.age".publicKeys = pubkeys.ragon.host "picard";
@@ -19,4 +17,6 @@ in
   "gitlabOTPFile.age".publicKeys = pubkeys.ragon.host "picard";
   "gitlabJWSFile.age".publicKeys = pubkeys.ragon.host "picard";
   "nextcloudAdminPass.age".publicKeys = pubkeys.ragon.host "picard";
+  "picardResticSSHKey.age".publicKeys = pubkeys.ragon.host "picard";
+  "picardResticPassword.age".publicKeys = pubkeys.ragon.host "picard";
 }

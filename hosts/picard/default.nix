@@ -41,6 +41,27 @@
   users.mutableUsers = false;
 
   services.postgresql.package = pkgs.postgresql_13;
+  ragon.agenix.secrets."picardResticPassword" = { };
+  ragon.agenix.secrets."picardResticSSHKey" = { };
+
+  services.restic.backups."picard" = {
+    passwordFile = config.age.secrets.picardResticPassword.path;
+    extraOptions = [
+      "sftp.command='ssh picardbackup@ds9 -i ${config.age.secrets.picardResticSSHKey.path} -s sftp'"
+    ];
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 5"
+      "--keep-monthly 12"
+      "--keep-yearly 75"
+    ];
+    initialize = true;
+    repository = "sftp:ds9:/backups/picard/restic";
+    paths = [
+      "/persistent"
+    ];
+
+  };
 
   ragon = {
     cli.enable = true;

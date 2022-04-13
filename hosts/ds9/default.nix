@@ -51,27 +51,16 @@ in
 
   };
 
-  # services.restic.backups."ds9" = {
-  #   rcloneConfigFile = "/run/secrets/ds9rcloneConfig";
-  #   passwordFile = "/run/secrets/ds9resticPassword";
-  #   pruneOpts = [
-  #     "--keep-daily 7"
-  #     "--keep-weekly 5"
-  #     "--keep-monthly 12"
-  #     "--keep-yearly 75"
-  #   ];
-  #   initialize = true;
-  #   repository = "rclone:ds9:/ds9";
-  #   paths = [
-  #     "/data"
-  #     "/persistent/var/lib"
-  #   ];
-
-  # };
-
-  ragon.agenix.secrets."ds9rcloneConfig" = { };
-  ragon.agenix.secrets."ds9resticPassword" = { };
-
+  # Backup Target
+  users.users.picardbackup = {
+    createHome = true;
+    group = "users";
+    home = "/backups/picard";
+    isSystemUser = true;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHvCF8KGgpF9O8Q7k+JXqZ5eMeEeTaMhCIk/2ZFOzXL0"
+    ];
+  };
 
   # Enable Scanning
   hardware.sane.enable = true;
