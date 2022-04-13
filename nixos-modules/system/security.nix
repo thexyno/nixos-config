@@ -12,7 +12,7 @@ in
     security.sudo.execWheelOnly = true;
     services.openssh = {
       passwordAuthentication = false;
-      allowSFTP = false; # just use rsync, lol
+      allowSFTP = true; # just use rsync, lol
       kbdInteractiveAuthentication = false;
       extraConfig = ''
         AllowTcpForwarding yes

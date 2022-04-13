@@ -56,7 +56,7 @@
       "--keep-yearly 75"
     ];
     initialize = true;
-    repository = "sftp:ds9:/backups/picard/restic";
+    repository = "sftp:picardbackup@ds9:/restic";
     paths = [
       "/persistent"
     ];

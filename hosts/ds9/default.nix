@@ -51,11 +51,19 @@ in
 
   };
 
+  services.openssh.sftpServerExecutable = "internal-sftp";
+  services.openssh.extraConfig = ''
+    Match User picardbackup
+      ChrootDirectory ${config.users.users.picardbackup.home}
+      ForceCommand internal-sftp
+      AllowTcpForwarding no
+  '';
+
   # Backup Target
   users.users.picardbackup = {
     createHome = true;
     group = "users";
-    home = "/backups/picard";
+    home = "/backups/restic/picard";
     isSystemUser = true;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHvCF8KGgpF9O8Q7k+JXqZ5eMeEeTaMhCIk/2ZFOzXL0"
