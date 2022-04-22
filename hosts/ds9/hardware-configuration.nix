@@ -22,7 +22,6 @@
     persistent = "rpool/content/safe/persist";
     arcSize = 8;
   };
-  services.syncoid.enable = false; # TODO setup offsite backups
 
   services.sanoid.datasets."rpool/content/safe".recursive = true;
   services.sanoid.datasets."rpool/content/local/backups" = { };

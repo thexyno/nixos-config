@@ -19,7 +19,10 @@ in
   services.syncthing.enable = true;
   services.syncthing.user = "ragon";
 
-  services.syncoid.command =
+  ragon.agenix.secrets."ds9OffsiteBackupSSH" = { owner = config.services.syncoid.user; };
+  services.syncoid.enable = true;
+  services.syncoid.sshKey = lib.mkForce "${config.age.secrets.ds9OffsiteBackupSSH.path}";
+  services.syncoid.commands =
     let
       datasets = {
         backups = "rpool/content/local/backups";
@@ -28,7 +31,7 @@ in
         hassosvm = "rpool/content/safe/vms/hassos";
       };
     in
-    builtins.mapAttrs (n: v: { target = "backup/${n}"; source = v; sendOptions = [ "w" ]; }) datasets;
+    builtins.mapAttrs (n: v: { target = "backup/${n}"; source = v; sendOptions = "w"; }) datasets;
 
   security.sudo.wheelNeedsPassword = false;
   networking.useDHCP = true;

@@ -13,27 +13,26 @@ in
       default = "paperless";
     };
   config = mkIf cfg.enable {
-    services.paperless-ng = {
+    services.paperless = {
       enable = true;
-      package = pkgs.paperless-ng.overrideAttrs (oldAttrs: rec { doCheck = false; doInstallCheck = false; });
       mediaDir = mkDefault "/data/documents/paperless";
-      consumptionDir = mkDefault "/data/applications/paperless-consumption";
+      consumptionDir = "/data/applications/paperless-consumption";
       consumptionDirIsPublic = true;
       passwordFile = "${config.age.secrets.paperlessAdminPW.path}";
       extraConfig = {
         PAPERLESS_OCR_LANGUAGE = "deu+eng";
       };
     };
-    ragon.agenix.secrets.paperlessAdminPW = { group = "${config.services.paperless-ng.user}"; mode = "0440"; };
+    ragon.agenix.secrets.paperlessAdminPW = { group = "${config.services.paperless.user}"; mode = "0440"; };
     services.nginx.clientMaxBodySize = "100m";
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       useACMEHost = "${domain}";
       addSSL = true;
-      locations."/".proxyPass = "http://${config.services.paperless-ng.address}:${toString config.services.paperless-ng.port}";
+      locations."/".proxyPass = "http://${config.services.paperless.address}:${toString config.services.paperless.port}";
       locations."/".proxyWebsockets = true;
     };
     ragon.persist.extraDirectories = [
-      "${config.services.paperless-ng.dataDir}"
+      "${config.services.paperless.dataDir}"
     ];
   };
 }

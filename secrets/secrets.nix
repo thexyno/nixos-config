@@ -10,6 +10,7 @@ in
   "ragonPasswd.age".publicKeys = pubkeys.ragon.computers;
   "tailscaleKey.age".publicKeys = pubkeys.ragon.computers;
   "paperlessAdminPW.age".publicKeys = pubkeys.ragon.host "ds9";
+  "ds9OffsiteBackupSSH.age".publicKeys = pubkeys.ragon.host "ds9";
   "hedgedocSecret.age".publicKeys = pubkeys.ragon.host "picard";
   "gitlabInitialRootPassword.age".publicKeys = pubkeys.ragon.host "picard";
   "gitlabSecretFile.age".publicKeys = pubkeys.ragon.host "picard";
