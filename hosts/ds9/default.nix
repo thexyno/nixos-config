@@ -19,6 +19,17 @@ in
   services.syncthing.enable = true;
   services.syncthing.user = "ragon";
 
+  services.syncoid.command =
+    let
+      datasets = {
+        backups = "rpool/content/local/backups";
+        data = "rpool/content/safe/data";
+        ds9persist = "rpool/content/safe/persist";
+        hassosvm = "rpool/content/safe/vms/hassos";
+      };
+    in
+    builtins.mapAttrs (n: v: { target = "backup/${n}"; source = v; sendOptions = [ "w" ]; }) datasets;
+
   security.sudo.wheelNeedsPassword = false;
   networking.useDHCP = true;
   networking.bridges."br0".interfaces = [ ];
