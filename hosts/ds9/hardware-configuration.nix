@@ -23,11 +23,10 @@
     arcSize = 8;
   };
 
-  services.sanoid.datasets."rpool/content/safe".recursive = true;
-  services.sanoid.datasets."rpool/content/local/backups" = { };
+  services.sanoid.datasets."rpool/content/safe/data/media" = { };
   services.sanoid.enable = true;
 
-  swapDevices = [ { device = "/dev/disk/by-id/nvme-eui.000000000000000100a075202c247839-part1"; randomEncryption = true; } ];
+  swapDevices = [{ device = "/dev/disk/by-id/nvme-eui.000000000000000100a075202c247839-part1"; randomEncryption = true; }];
   fileSystems."/boot".device = "/dev/disk/by-uuid/149F-23AA";
 
   fileSystems."/data" = {
