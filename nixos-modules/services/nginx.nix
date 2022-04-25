@@ -31,6 +31,8 @@ in
 
     };
     services.nginx.virtualHosts."_" = {
+      useACMEHost = "${cfg.domain}";
+      addSSL = true;
       locations = {
         "/" = {
           extraConfig = ''
