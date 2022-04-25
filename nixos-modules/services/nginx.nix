@@ -30,6 +30,16 @@ in
       credentialsFile = "${config.age.secrets.cloudflareAcme.path}";
 
     };
+    services.nginx.virtualHosts."_" = {
+      locations = {
+        "/" = {
+          extraConfig = ''
+            return 404;
+          '';
+        };
+      };
+    };
+
     ragon.agenix.secrets.cloudflareAcme = { group = "nginx"; mode = "0440"; };
     ragon.persist.extraDirectories = [
       "/var/lib/acme"
