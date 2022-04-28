@@ -44,6 +44,12 @@
   ragon.agenix.secrets."picardResticPassword" = { };
   ragon.agenix.secrets."picardResticSSHKey" = { };
 
+  services.nginx.virtualHosts."xyno.space" = {
+    enableACME = true;
+    forceSSL = true;
+    root = ./xynospace;
+  };
+
   services.restic.backups."picard" = {
     passwordFile = config.age.secrets.picardResticPassword.path;
     extraOptions = [
