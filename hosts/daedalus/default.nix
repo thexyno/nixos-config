@@ -39,7 +39,6 @@ with lib.my;
       "Shareful" = 1522267256;
       "app.seashore" = 1448648921;
       "Tailscale" = 1475387142;
-      "Otter RSS" = 1529696614;
     };
   };
 
@@ -60,8 +59,8 @@ with lib.my;
       terraform-ls
       terraform
 
-      #tectonic
       pandoc
+      texlive.combined.scheme-full
 
       yabai
 
