@@ -76,7 +76,7 @@ in
 
   # Backup Target
   users.users.picardbackup = {
-    createHome = true;
+    createHome = false;
     group = "users";
     home = "/backups/restic/picard";
     isSystemUser = true;
