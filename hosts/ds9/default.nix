@@ -64,6 +64,7 @@ in
     };
 
   };
+  boot.kernel.sysctl."fs.inotify.max_user_instances" = 512;
 
   services.openssh.sftpServerExecutable = "internal-sftp";
   services.openssh.extraConfig = ''
