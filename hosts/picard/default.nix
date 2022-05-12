@@ -43,6 +43,7 @@
   services.postgresql.package = pkgs.postgresql_13;
   ragon.agenix.secrets."picardResticPassword" = { };
   ragon.agenix.secrets."picardResticSSHKey" = { };
+  ragon.agenix.secrets."picardResticHealthCheckUrl" = { };
 
   services.nginx.virtualHosts."xyno.space" = {
     enableACME = true;
@@ -69,6 +70,19 @@
 
   };
 
+
+  systemd.services.restic-backups-picard = {
+    # ExecStartPost commands are only run if the ExecStart command succeeded
+    serviceConfig.ExecStartPost = pkgs.writeShellScript "backupSuccessful" ''
+      ${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.picardResticHealthCheckUrl.path})
+    '';
+    unitConfig.OnFailure = "backupFailure.service";
+  };
+
+  systemd.services.backupFailure = {
+    enable = true;
+    script = "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.picardResticHealthCheckUrl.path})/fail";
+  };
   ragon = {
     cli.enable = true;
     user.enable = true;

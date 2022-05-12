@@ -20,4 +20,5 @@ in
   "nextcloudAdminPass.age".publicKeys = pubkeys.ragon.host "picard";
   "picardResticSSHKey.age".publicKeys = pubkeys.ragon.host "picard";
   "picardResticPassword.age".publicKeys = pubkeys.ragon.host "picard";
+  "picardResticHealthCheckUrl.age".publicKeys = pubkeys.ragon.host "picard";
 }
