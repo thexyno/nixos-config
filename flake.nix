@@ -13,6 +13,9 @@
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     utils.url = "github:numtide/flake-utils";
+    ## emacs
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+
     ## vim
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
@@ -37,7 +40,7 @@
     agkozak-zsh-prompt.flake = false;
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-master, agenix, home-manager, impermanence, darwin, utils, neovim-nightly-overlay, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-master, agenix, home-manager, impermanence, darwin, utils, emacs-overlay, neovim-nightly-overlay, ... }:
     let
       extraSystems = [ ];
       lib = nixpkgs.lib.extend (self: super: {
@@ -50,6 +53,7 @@
         overlays = [
           self.overlay
           neovim-nightly-overlay.overlay
+          emacs-overlay.overlay
           (final: prev: {
             my = self.packages.${prev.system};
           })

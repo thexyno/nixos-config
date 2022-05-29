@@ -59,6 +59,8 @@ with lib.my;
       terraform-ls
       terraform
 
+      emacsNativeComp
+
       pandoc
       texlive.combined.scheme-full
 
