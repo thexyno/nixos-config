@@ -7,15 +7,15 @@
   imports = [ "${modulesPath}/profiles/qemu-guest.nix" ];
   boot.initrd.availableKernelModules = [ "xhci_pci" "virtio_pci" "usbhid" "usb_storage" "sr_mod" ];
 
-  networking.interfaces.enp0s6.useDHCP = true;
-  swapDevices = [{ device = "/dev/disk/by-id/NIXOS_SWAP"; }];
+  networking.interfaces.enp0s5.useDHCP = true;
+  swapDevices = [{ device = "/dev/disk/by-label/NIXOS_SWAP"; }];
   fileSystems."/boot" = {
-    device = "/dev/disk/by-id/NIXOS_BOOT";
-    fstype = "vfat";
+    device = "/dev/disk/by-label/NIXOS_BOOT";
+    fsType = "vfat";
   };
 
   fileSystems."/" = {
-    device = "/dev/disk/by-id/NIXOS_ROOT";
+    device = "/dev/disk/by-label/NIXOS_ROOT";
     fsType = "ext4";
   };
 }

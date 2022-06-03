@@ -18,10 +18,12 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   # Immutable users due to tmpfs
   users.mutableUsers = false;
+  services.openssh.forwardX11 = true;
 
   ragon = {
     cli.enable = true;
     user.enable = true;
+    system.security.enable = false;
 
     services = {
       docker.enable = true;
