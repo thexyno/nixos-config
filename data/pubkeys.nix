@@ -10,7 +10,7 @@ let
       hosts = {
         ds9 = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ+BBXufXAJhyUHVfhqlk8Y4zEKJbKXgJQvsdE482lpV" ];
         picard = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAm3UXZaN95WBUaS9SiHLNEuI1tP1x1w07qnYxPe+vdr" ];
-        musicpi = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPhyp46xPOgZFgGsbSUdBtHWJeqFASu+LFjwUK8b+gSt" ];
+        daedalusvm = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLjCl98zeOF9lk2eELpyvUMfivjhvYU8uvc9j6zWwZy" ];
       };
     in
     {
