@@ -4,6 +4,7 @@ let
       user = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEJwOH1b6xWmEr1VZh48kBIYhW11vtPFR3my8stAHlSi" # saurier
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIuwQJY0H/fdu1UmGXAut7VfcvAk2Dm78tJpkyyv2in2" # daedalus
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBWd5d20Q3bmme9eVHbCphIJ7TvP/llTxXvRT1xYl6xm" # daedalusvm
       ];
       server = user ++ hosts.ds9 ++ hosts.picard;
       client = user;
