@@ -393,6 +393,7 @@
         "pandoc-latex-template": "pandoc-latex-template",
         "rnix-lsp": "rnix-lsp",
         "utils": "utils_2",
+        "xynoblog": "xynoblog",
         "zsh-completions": "zsh-completions",
         "zsh-syntax-highlighting": "zsh-syntax-highlighting",
         "zsh-vim-mode": "zsh-vim-mode"
@@ -425,6 +426,26 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "xynoblog": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1655313369,
+        "narHash": "sha256-F6E1aNHw0m2PwlCg3ATWJS+c/ovxpQ8HT8xWArzG/rA=",
+        "owner": "thexyno",
+        "repo": "blog",
+        "rev": "1e256bcd102937cdcd164e754a729e247b14447f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thexyno",
+        "repo": "blog",
         "type": "github"
       }
     },

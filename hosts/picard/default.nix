@@ -9,6 +9,7 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.xynoblog.nixosModule
     ];
 
   documentation.enable = false;
@@ -48,7 +49,7 @@
   services.nginx.virtualHosts."xyno.space" = {
     enableACME = true;
     forceSSL = true;
-    root = ./xynospace;
+    locations."/".proxyPass = "http://[::1]${config.services.xynoblog.listen}";
   };
 
   services.restic.backups."picard" = {
@@ -83,16 +84,17 @@
     enable = true;
     script = "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.picardResticHealthCheckUrl.path})/fail";
   };
+  services.xynoblog.enable = true;
   ragon = {
     cli.enable = true;
     user.enable = true;
     persist.enable = true;
-    persist.extraDirectories = [ "/var/lib/syncthing" ];
+    persist.extraDirectories = [ "/var/lib/syncthing" "/var/lib/${config.services.xynoblog.stateDirectory}" ];
 
     services = {
       ssh.enable = true;
       bitwarden.enable = true;
-      gitlab.enable = true; # TODO gitlab-runner
+      gitlab.enable = false; # TODO gitlab-runner
       synapse.enable = true;
       tailscale.enable = true;
       hedgedoc.enable = true;
