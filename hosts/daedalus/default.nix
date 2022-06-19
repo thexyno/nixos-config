@@ -60,6 +60,7 @@ with lib.my;
       terraform
 
       emacsNativeComp
+      cmake
 
       pandoc
       texlive.combined.scheme-full
