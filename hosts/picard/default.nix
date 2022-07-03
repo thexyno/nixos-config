@@ -52,6 +52,31 @@
     locations."/".proxyPass = "http://[::1]${config.services.xynoblog.listen}";
   };
 
+  services.nginx.appendHttpConfig = ''
+    map $remote_addr $ip_anonym1 {
+     default 0.0.0;
+     "~(?P<ip>(\d+)\.(\d+)\.(\d+))\.\d+" $ip;
+     "~(?P<ip>[^:]+:[^:]+):" $ip;
+    }
+
+    map $remote_addr $ip_anonym2 {
+     default .0;
+     "~(?P<ip>(\d+)\.(\d+)\.(\d+))\.\d+" .0;
+     "~(?P<ip>[^:]+:[^:]+):" ::;
+    }
+
+    map $ip_anonym1$ip_anonym2 $ip_anonymized {
+     default 0.0.0.0;
+     "~(?P<ip>.*)" $ip;
+    }
+
+    log_format anonymized '$ip_anonymized - $remote_user [$time_local] '
+       '"$request" $status $body_bytes_sent '
+       '"$http_referer" "$http_user_agent"';
+
+    access_log /var/log/nginx/access.log anonymized;
+  '';
+
   services.restic.backups."picard" = {
     passwordFile = config.age.secrets.picardResticPassword.path;
     extraOptions = [
@@ -97,7 +122,7 @@
       gitlab.enable = false; # TODO gitlab-runner
       synapse.enable = true;
       tailscale.enable = true;
-      hedgedoc.enable = true;
+      hedgedoc.enable = false;
       ts3.enable = true;
       nginx.enable = true;
       nginx.domain = "ragon.xyz";
