@@ -6,8 +6,11 @@ in
   options.ragon.services.tailscale.enable = lib.mkEnableOption "Enables tailscale";
   config = lib.mkIf cfg.enable {
     # enable the tailscale service
+    ragon.persist.extraDirectories = [
+      "/var/lib/tailscale"
+    ];
     services.tailscale.enable = true;
-    ragon.agenix.secrets.tailscaleKey = {};
+    ragon.agenix.secrets.tailscaleKey = { };
     networking.firewall = {
       # always allow traffic from your Tailscale network
       trustedInterfaces = [ "tailscale0" ];
