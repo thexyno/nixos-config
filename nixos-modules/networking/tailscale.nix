@@ -4,6 +4,8 @@ let
 in
 {
   options.ragon.services.tailscale.enable = lib.mkEnableOption "Enables tailscale";
+  options.ragon.services.tailscale.exitNode = lib.mkEnableOption "Exit Node";
+  options.ragon.services.tailscale.extraUpCommands = lib.my.mkOpt lib.types.str "";
   config = lib.mkIf cfg.enable {
     # enable the tailscale service
     ragon.persist.extraDirectories = [
@@ -11,10 +13,16 @@ in
     ];
     services.tailscale.enable = true;
     ragon.agenix.secrets.tailscaleKey = { };
+    boot.kernel.sysctl = lib.mkIf cfg.exitNode {
+      "net.ipv4.ip_forward" = 1;
+      "net.ipv6.conf.all.forwarding" = 1;
+    };
     networking.firewall = {
       # always allow traffic from your Tailscale network
       trustedInterfaces = [ "tailscale0" ];
 
+
+      checkReversePath = lib.mkDefault "loose";
       # allow the Tailscale UDP port through the firewall
       allowedUDPPorts = [ config.services.tailscale.port ];
     };
@@ -41,7 +49,7 @@ in
         fi
         key=$(<${config.age.secrets.tailscaleKey.path})
         # otherwise authenticate with tailscale
-        ${tailscale}/bin/tailscale up -authkey $key
+        ${tailscale}/bin/tailscale up -authkey $key ${lib.optionalString cfg.exitNode "--advertise-exit-node"} ${cfg.extraUpCommands}
       '';
     };
   };
