@@ -1,17 +1,28 @@
-{config, pkgs, ...}: {
+{ config, pkgs, ... }: {
   programs.gnupg.agent.enable = true;
   services.nix-daemon.enable = true;
   nix.package = pkgs.nixFlakes;
   nix.buildCores = 0; # use all cores
   nix.maxJobs = 10; # use all cores
   nix.distributedBuilds = true;
-  nix.buildMachines = [ {
-    systems = ["x86_64-linux" "aarch64-linux"];
+  nix.buildMachines = [{
+    systems = [ "x86_64-linux" ];
+      supportedFeatures = [ "kvm" "big-parallel" ];
     sshUser = "ragon";
+    maxJobs = 12;
     hostName = "ds9";
     sshKey = "/Users/ragon/.ssh/id_ed25519";
     publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUorQkJYdWZYQUpoeVVIVmZocWxrOFk0ekVLSmJLWGdKUXZzZEU0ODJscFYgcm9vdEBpc28K";
-  }];
+  }
+    {
+      systems = [ "aarch64-linux" ];
+      supportedFeatures = [ "kvm" "big-parallel" ];
+      sshUser = "ragon";
+      maxJobs = 8;
+      hostName = "192.168.64.5";
+      sshKey = "/Users/ragon/.ssh/id_ed25519";
+      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUJMMm94ZEtha01Ka05iTExZK2xnNFkzd25jWnJwVE1sVHRBUWdsazVkVVEgcm9vdEBkYWVkYWx1c3ZtCg==";
+    }];
   nix.extraOptions = ''
     builders-use-substitutes = true
   '';
