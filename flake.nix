@@ -19,8 +19,8 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     ## vim
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    #neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    #neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
     coc-nvim.url = "github:neoclide/coc.nvim/release";
     coc-nvim.flake = false;
     nnn-vim.url = "github:mcchrish/nnn.vim";
@@ -42,7 +42,19 @@
     agkozak-zsh-prompt.flake = false;
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-master, agenix, home-manager, impermanence, darwin, utils, emacs-overlay, neovim-nightly-overlay, ... }:
+  outputs =
+    inputs @ { self
+    , nixpkgs
+    , nixpkgs-master
+    , agenix
+    , home-manager
+    , impermanence
+    , darwin
+    , utils
+    , emacs-overlay
+    , #  neovim-nightly-overlay,
+      ...
+    }:
     let
       extraSystems = [ ];
       lib = nixpkgs.lib.extend (self: super: {
@@ -54,11 +66,8 @@
         config.allowUnfree = true;
         overlays = [
           self.overlay
-          neovim-nightly-overlay.overlay
+          #        neovim-nightly-overlay.overlay
           emacs-overlay.overlay
-          (final: prev: {
-            my = self.packages.${prev.system};
-          })
         ];
       };
 
@@ -84,7 +93,7 @@
                 networking.hostName = hostName;
                 system.configurationRevision = rev;
                 services.getty.greetingLine =
-                  "<<< Welcome to ${config.system.nixos.label} @ ${rev} - Please leave\\l >>>";
+                  "<<< Welcome to ${config.system.nixos.label} @ ${rev} - Please leave \\l >>>";
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.extraSpecialArgs = { inherit inputs; };
@@ -147,11 +156,11 @@
       };
 
     } // utils.lib.eachDefaultSystem (system:
-      let pkgs = nixpkgs.legacyPackages.${system}; in
-      {
-        devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [ lefthook nixpkgs-fmt ];
-        };
-        packages = lib.my.mapModules ./packages (p: pkgs.callPackage p { inputs = inputs; });
-      });
+    let pkgs = nixpkgs.legacyPackages.${system}; in
+    {
+      devShell = pkgs.mkShell {
+        buildInputs = with pkgs; [ lefthook nixpkgs-fmt ];
+      };
+      packages = lib.my.mapModules ./packages (p: pkgs.callPackage p { inputs = inputs; });
+    });
 }
