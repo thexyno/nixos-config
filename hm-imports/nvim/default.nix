@@ -2,14 +2,14 @@
 {
   home.packages = with pkgs;[
     python3 # ultisnips
-    lazygit
-    nodejs
-    inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
-    shfmt
-    shellcheck
-    vim-vint
-    nodePackages.write-good
-    ctags
+    #lazygit
+    #nodejs
+    #inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
+    #shfmt
+    #shellcheck
+    #vim-vint
+    #nodePackages.write-good
+    #ctags
   ];
   home.file.".config/nvim".source = ./config;
   home.file.".config/nvim".recursive = true;
@@ -32,10 +32,10 @@
             name = "nnn-vim";
             src = inputs.nnn-vim;
           };
-          coc-nvim = pkgs.vimUtils.buildVimPlugin {
-            name = "coc-nvim";
-            src = inputs.coc-nvim;
-          };
+          # coc-nvim = pkgs.vimUtils.buildVimPlugin {
+          #   name = "coc-nvim";
+          #   src = inputs.coc-nvim;
+          # };
           dart-vim = pkgs.vimUtils.buildVimPlugin {
             name = "dart-vim";
             src = inputs.dart-vim;
@@ -62,11 +62,11 @@
           fzfWrapper
           vim-devicons
           toggleterm-nvim
-          undotree
-          vim-pandoc
-          vim-pandoc-syntax
-          ultisnips
-          coc-nvim
+          # undotree
+          # vim-pandoc
+          # vim-pandoc-syntax
+          #  ultisnips
+          # coc-nvim
           dart-vim
         ]);
     };

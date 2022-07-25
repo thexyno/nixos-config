@@ -223,6 +223,7 @@ in
       ssh.enable = true;
       nginx.enable = true;
       jellyfin.enable = true;
+      photoprism.enable = true;
       tailscale.enable = true;
       tailscale.exitNode = true;
       tailscale.extraUpCommands = "--advertise-routes=10.0.0.0/16";

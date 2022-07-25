@@ -115,9 +115,19 @@ in
       # some global settings
       services.prometheus.exporters.node.enabledCollectors = [ "systemd" ];
       services.prometheus.exporters.dnsmasq.leasesPath = "/var/lib/dnsmasq/dnsmasq.leases";
+      systemd.services."prometheus-smartctl-exporter".serviceConfig.DeviceAllow = [ "* r" ];
       services.prometheus.exporters.smartctl.user = "root";
+      services.prometheus.exporters.smartctl.group = "root";
       services.prometheus.exporters.smokeping.hosts = [ "1.1.1.1" ];
-      services.nginx.statusPage = true;
+      services.prometheus.exporters.nginxlog.user = "nginx";
+      services.prometheus.exporters.nginxlog.group = "nginx";
+      services.prometheus.exporters.nginxlog.settings = {
+        namespaces = [ {
+          name = "nginx";
+          format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" \"$http_x_forwarded_for\"";
+          source.files = [ "/var/log/nginx/access.log" ];
+        }];
+      };
     }
     (mkIf (builtins.elem hostName cfg.promtail.hosts) {
       services.promtail = {

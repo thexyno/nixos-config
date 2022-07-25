@@ -1,31 +1,34 @@
 [master]
 hostname = "ds9"
-ip = "10.0.0.2"
+ip = "100.83.96.25" # tailscale
 
 [hostOverrides]
 wormhole = "10.0.0.1"
 picard = "ragon.xyz"
 
-[exporters.nginx]
-hosts = [
-  "ds9",
-  "wormhole"
-]
+#[exporters.nginx]
+#hosts = [
+#  "ds9",
+#  "wormhole"
+#]
 
 [exporters.node]
-hosts = [ "ds9", "wormhole" ]
+hosts = [ "ds9", "picard" ]
 
 [exporters.smartctl]
 hosts = [ "ds9" ]
 
-[exporters.dnsmasq]
-hosts = [ "wormhole" ]
+# [exporters.dnsmasq]
+# hosts = [ "wormhole" ]
+# 
+# [exporters.wireguard]
+# hosts = [ "wormhole"]
+# 
+# [exporters.smokeping]
+# hosts = [ "wormhole"]
 
-[exporters.wireguard]
-hosts = [ "wormhole"]
-
-[exporters.smokeping]
-hosts = [ "wormhole"]
+[exporters.nginxlog]
+hosts = [ "picard", "ds9" ]
 
 [promtail]
-hosts = [ "wormhole", "ds9" ]
+hosts = [ "picard", "ds9" ]
