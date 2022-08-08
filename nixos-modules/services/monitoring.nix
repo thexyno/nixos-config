@@ -122,7 +122,7 @@ in
       services.prometheus.exporters.nginxlog.user = "nginx";
       services.prometheus.exporters.nginxlog.group = "nginx";
       services.prometheus.exporters.nginxlog.settings = {
-        namespaces = [ {
+        namespaces = [{
           name = "nginx";
           format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" \"$http_x_forwarded_for\"";
           source.files = [ "/var/log/nginx/access.log" ];
@@ -161,8 +161,8 @@ in
     (x: {
       services.prometheus.exporters.${x} = {
         enable = (builtins.elem hostName cfg.exporters.${x}.hosts);
-        openFirewall = (hostName != cfg.master.hostname);
-        firewallFilter = if (hostName != cfg.master.hostname) then "-p tcp -s ${cfg.master.ip} -m tcp --dport ${toString config.services.prometheus.exporters.${x}.port}" else null;
+        #openFirewall = (hostName != cfg.master.hostname);
+        #firewallFilter = if (hostName != cfg.master.hostname) then "-p tcp -s ${cfg.master.ip} -m tcp --dport ${toString config.services.prometheus.exporters.${x}.port}" else null;
       };
     })
     (builtins.attrNames cfg.exporters))
