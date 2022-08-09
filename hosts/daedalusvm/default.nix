@@ -19,6 +19,9 @@ in
   # Immutable users due to tmpfs
   users.mutableUsers = false;
   services.openssh.forwardX11 = true;
+  services.rpcbind.enable = true;
+  boot.supportedFilesystems = [ "nfs" "nfs4" ];
+  environment.systemPackages = [ pkgs.nfs-utils ];
 
   ragon = {
     cli.enable = true;

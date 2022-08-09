@@ -124,8 +124,8 @@ in
       services.prometheus.exporters.nginxlog.group = "nginx";
       services.prometheus.exporters.nginxlog.settings = {
         namespaces = [{
-          name = "nginx";
-          format = "$remote_addr - - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" \"$http_x_forwarded_for\"";
+          name = "nginxlog";
+          format = "$remote_addr - - [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
           source.files = [ "/var/log/nginx/access.log" ];
         }];
       };
