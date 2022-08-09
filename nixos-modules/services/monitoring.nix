@@ -119,6 +119,7 @@ in
       services.prometheus.exporters.smartctl.user = "root";
       services.prometheus.exporters.smartctl.group = "root";
       services.prometheus.exporters.smokeping.hosts = [ "1.1.1.1" ];
+      services.nginx.statusPage = mkDefault config.prometheus.exporters.nginx.enable;
       services.prometheus.exporters.nginxlog.user = "nginx";
       services.prometheus.exporters.nginxlog.group = "nginx";
       services.prometheus.exporters.nginxlog.settings = {
