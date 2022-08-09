@@ -70,7 +70,7 @@
      "~(?P<ip>.*)" $ip;
     }
 
-    log_format anonymized '$ip_anonymized - - $remote_user [$time_local] '
+    log_format anonymized '$ip_anonymized - $remote_user [$time_local] '
        '"$request" $status $body_bytes_sent '
        '"$http_referer" "$http_user_agent"';
 
