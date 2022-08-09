@@ -11,7 +11,7 @@ let
       (
         if (builtins.elem y (builtins.attrNames cfg.hostOverrides))
         then cfg.hostOverrides.${y}
-        else "${y}.hailsatan.eu"
+        else y
       )
   );
 in
@@ -124,7 +124,7 @@ in
       services.prometheus.exporters.nginxlog.settings = {
         namespaces = [{
           name = "nginx";
-          format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" \"$http_x_forwarded_for\"";
+          format = "$remote_addr - - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" \"$http_x_forwarded_for\"";
           source.files = [ "/var/log/nginx/access.log" ];
         }];
       };
@@ -135,7 +135,7 @@ in
         configuration = {
           server.http_listen_port = 28183;
           positions.filename = "/tmp/positions.yaml";
-          clients = [{ url = "http://${getHost cfg.master.hostname}:3100/loki/api/v1/push"; }];
+          clients = [{ url = "http://${cfg.master.ip}:3100/loki/api/v1/push"; }];
           scrape_configs = [
             {
               job_name = "journal";

@@ -3,14 +3,12 @@ hostname = "ds9"
 ip = "100.83.96.25" # tailscale
 
 [hostOverrides]
-wormhole = "10.0.0.1"
-picard = "ragon.xyz"
 
-#[exporters.nginx]
-#hosts = [
-#  "ds9",
-#  "wormhole"
-#]
+[exporters.nginx]
+hosts = [
+  "ds9",
+  "picard"
+]
 
 [exporters.node]
 hosts = [ "ds9", "picard" ]
