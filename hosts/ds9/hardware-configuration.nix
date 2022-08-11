@@ -17,9 +17,9 @@
     mediadata = false;
     swap = false;
     persistentSnapshot = false;
-    nix = "rpool/content/local/nix";
-    varlog = "rpool/content/local/journal";
-    persistent = "rpool/content/safe/persist";
+    nix = "spool/local/nix";
+    varlog = "spool/local/journal";
+    persistent = "spool/safe/persist";
     arcSize = 8;
   };
 

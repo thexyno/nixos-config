@@ -27,8 +27,8 @@ in
       datasets = {
         backups = "rpool/content/local/backups";
         data = "rpool/content/safe/data";
-        ds9persist = "rpool/content/safe/persist";
-        hassosvm = "rpool/content/safe/vms/hassos";
+        ds9persist = "spool/safe/persist";
+        hassosvm = "spool/safe/vms/hassos";
       };
     in
     builtins.mapAttrs (n: v: { target = "backup/${n}"; source = v; sendOptions = "w"; }) datasets;
@@ -50,6 +50,7 @@ in
     enable = true;
     postCommands = ''
       zpool import rpool
+      zpool import spool
       echo "zfs load-key -a; killall zfs" >> /root/.profile
     '';
     ssh = {
