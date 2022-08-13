@@ -52,7 +52,7 @@ with lib.my;
     home.sessionVariables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
-      PATH = "$PATH:$HOME/go/bin:/etc/profiles/per-user/ragon/bin/:$HOME/development/flutter/bin:/Applications/Android Studio.app/Contents/bin/:/Applications/Docker.app/Contents/Resources/bin:/Applications/Android Studio.app/Contents/jre/Contents/Home/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/system/sw/bin:/nix/var/nix/profiles/per-user/ragon/home-manager/home-path/bin/";
+      PATH = "$PATH:$HOME/go/bin:$HOME/development/flutter/bin:/Applications/Android Studio.app/Contents/bin/:/Applications/Docker.app/Contents/Resources/bin:/Applications/Android Studio.app/Contents/jre/Contents/Home/bin";
       JAVA_HOME = "/Applications/Android Studio.app/Contents/jre/Contents/Home/";
     };
     home.packages = with pkgs; [

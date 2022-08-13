@@ -1,5 +1,7 @@
 { config, pkgs, ... }: {
   programs.gnupg.agent.enable = true;
+  programs.zsh.enable = true;
+  environment.pathsToLink = [ "/share/zsh" ];
   services.nix-daemon.enable = true;
   nix.package = pkgs.nixFlakes;
   nix.buildCores = 0; # use all cores

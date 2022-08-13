@@ -28,6 +28,7 @@ in
   config = lib.mkIf cfg.enable {
     services.matrix-synapse = {
       enable = true;
+      extraConfigFiles = [ config.age.secrets.matrixSecrets.path ];
       settings.server_name = serverName;
       settings.listeners = [
         {
@@ -47,6 +48,7 @@ in
 
 
     };
+    ragon.agenix.secrets."matrixSecrets" = { owner = "matrix-synapse"; };
     services.postgresql = {
       enable = true;
     };
