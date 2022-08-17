@@ -21,7 +21,11 @@ in
   services.openssh.forwardX11 = true;
   services.rpcbind.enable = true;
   boot.supportedFilesystems = [ "nfs" "nfs4" ];
-  environment.systemPackages = [ pkgs.nfs-utils ];
+  environment.systemPackages = [ pkgs.nfs-utils pkgs.virt-manager ];
+
+  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+
 
   ragon = {
     cli.enable = true;
