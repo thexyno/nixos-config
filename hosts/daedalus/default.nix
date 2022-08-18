@@ -28,18 +28,18 @@ with lib.my;
       "parsec"
       "element"
     ];
-    masApps = {
-      # Install Mac App Store apps (install them manually and then do `mas list` to get the id)
-      "AdGuard for Safari" = 1440147259;
-      "Xcode" = 497799835;
-      "Home Assistant" = 1099568401;
-      "WireGuard" = 1451685025;
-      "UTM" = 1538878817;
-      "Bitwarden" = 1352778147;
-      "Shareful" = 1522267256;
-      "app.seashore" = 1448648921;
-      "Tailscale" = 1475387142;
-    };
+    #masApps = {
+    #  # Install Mac App Store apps (install them manually and then do `mas list` to get the id)
+    #  "AdGuard for Safari" = 1440147259;
+    #  "Xcode" = 497799835;
+    #  "Home Assistant" = 1099568401;
+    #  "WireGuard" = 1451685025;
+    #  "UTM" = 1538878817;
+    #  "Bitwarden" = 1352778147;
+    #  "Shareful" = 1522267256;
+    #  "app.seashore" = 1448648921;
+    #  "Tailscale" = 1475387142;
+    #};
   };
 
   programs.gnupg.agent.enable = true;

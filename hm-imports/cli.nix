@@ -48,6 +48,9 @@
   programs = {
     gpg = {
       enable = true;
+      scdaemonSettings = {
+        reader-port = "Yubico YubiKey OTP+FIDO+CCID";
+      };
       settings = {
         cert-digest-algo = "SHA512";
         charset = "utf-8";
