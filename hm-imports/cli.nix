@@ -48,13 +48,11 @@
   programs = {
     gpg = {
       enable = true;
-      scdaemonSettings = {
-        reader-port = "Yubico YubiKey OTP+FIDO+CCID";
-      };
       settings = {
         cert-digest-algo = "SHA512";
         charset = "utf-8";
         default-preference-list = "SHA512 SHA384 SHA256 AES256 AES192 AES ZLIB BZIP2 ZIP Uncompressed";
+        auto-key-retrieve = true;
         fixed-list-mode = true;
         keyserver = "hkps://keyserver.ubuntu.com:443";
         list-options = [ "show-uid-validity" "show-unusable-subkeys" ];
