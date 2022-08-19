@@ -131,17 +131,16 @@
     "mobile-nixos": {
       "flake": false,
       "locked": {
-        "lastModified": 1656299939,
-        "narHash": "sha256-gODt71CCv0gnMNeU4GYdSBJkxsfmBy0uNv8owQC1oPs=",
+        "lastModified": 1659299256,
+        "narHash": "sha256-MzeeBiULuqsj8TpaWWxI44ciYjrR6H3CwljJDwkT6TU=",
         "owner": "NixOS",
         "repo": "mobile-nixos",
-        "rev": "de9a88a70f0ae5fc0839ff94bf29e8a30af399f8",
+        "rev": "87e579471c42def38f719028ad6c5d746f26027b",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "repo": "mobile-nixos",
-        "rev": "de9a88a70f0ae5fc0839ff94bf29e8a30af399f8",
         "type": "github"
       }
     },
@@ -244,6 +243,38 @@
         "type": "github"
       }
     },
+    "octoprint-spoolmanager": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1647619589,
+        "narHash": "sha256-JKPegbnv7nxyhAi8AqF/TDQVaj67JTlcWYHhetX5AGQ=",
+        "owner": "OllisGit",
+        "repo": "OctoPrint-SpoolManager",
+        "rev": "dea8d64c1849c970f3616e158260c4c6fef5a4b7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "OllisGit",
+        "repo": "OctoPrint-SpoolManager",
+        "type": "github"
+      }
+    },
+    "octoprint-telegram": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1646577349,
+        "narHash": "sha256-z/Nhixz83pikM616OEn+bK1889DTdC8F1E7WiBy8gsY=",
+        "owner": "fabianonline",
+        "repo": "OctoPrint-Telegram",
+        "rev": "d8fa9ac4a65600a25deacad9bc0d3e9cc0167751",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fabianonline",
+        "repo": "OctoPrint-Telegram",
+        "type": "github"
+      }
+    },
     "pandoc-latex-template": {
       "flake": false,
       "locked": {
@@ -295,6 +326,8 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-master": "nixpkgs-master",
         "nnn-vim": "nnn-vim",
+        "octoprint-spoolmanager": "octoprint-spoolmanager",
+        "octoprint-telegram": "octoprint-telegram",
         "pandoc-latex-template": "pandoc-latex-template",
         "rnix-lsp": "rnix-lsp",
         "utils": "utils_3",

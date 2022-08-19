@@ -17,8 +17,12 @@
     utils.url = "github:numtide/flake-utils";
 
     #pinephone
-    mobile-nixos.url = "github:NixOS/mobile-nixos?rev=de9a88a70f0ae5fc0839ff94bf29e8a30af399f8";
+    mobile-nixos.url = "github:NixOS/mobile-nixos";
     mobile-nixos.flake = false; # whyever this isn't a flake
+    octoprint-telegram.url = "github:fabianonline/OctoPrint-Telegram";
+    octoprint-telegram.flake = false;
+    octoprint-spoolmanager.url = "github:OllisGit/OctoPrint-SpoolManager";
+    octoprint-spoolmanager.flake = false;
 
     ## emacs
     emacs-overlay.url = "github:nix-community/emacs-overlay";
@@ -71,10 +75,10 @@
         inherit system;
         config.allowUnfree = true;
       };
-        overlays = [
-          self.overlays.default
-          emacs-overlay.overlay
-        ];
+      overlays = [
+        self.overlays.default
+        emacs-overlay.overlay
+      ];
 
 
       hmConfig = { hm, pkgs, inputs, config, ... }: {
@@ -125,19 +129,17 @@
             specialArgs = { inherit lib; };
             modules = [
               home-manager.darwinModules.home-manager
-              ({ config, inputs, self, ... }: {
-                config = {
-                  #system.darwinLabel = "${config.system.darwinLabel}@${rev}";
-                  _module.args = { inherit lib inputs self darwin; };
-                  nixpkgs.pkgs = pkgs;
-                  nixpkgs.overlays = overlays;
-                  networking.hostName = hostName;
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.extraSpecialArgs = { inherit inputs; };
-                  home-manager.users.ragon = hmConfig;
-                };
-              })
+              {
+                #system.darwinLabel = "${config.system.darwinLabel}@${rev}";
+                _module.args = { inherit lib inputs self darwin; };
+                nixpkgs.pkgs = pkgs;
+                nixpkgs.overlays = overlays;
+                networking.hostName = hostName;
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = { inherit inputs; };
+                home-manager.users.ragon = hmConfig;
+              }
               ./darwin-common.nix
             ] ++ (lib.my.mapModulesRec' (toString ./darwin-modules) import) ++ extraModules;
           };
