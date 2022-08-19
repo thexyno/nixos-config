@@ -15,18 +15,23 @@
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     utils.url = "github:numtide/flake-utils";
+
+    #pinephone
+    mobile-nixos.url = "github:NixOS/mobile-nixos?rev=de9a88a70f0ae5fc0839ff94bf29e8a30af399f8";
+    mobile-nixos.flake = false; # whyever this isn't a flake
+
     ## emacs
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     ## vim
     #neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     #neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    coc-nvim.url = "github:neoclide/coc.nvim/release";
-    coc-nvim.flake = false;
+    #coc-nvim.url = "github:neoclide/coc.nvim/release";
+    #coc-nvim.flake = false;
     nnn-vim.url = "github:mcchrish/nnn.vim";
     nnn-vim.flake = false;
-    dart-vim.url = "github:dart-lang/dart-vim-plugin/master";
-    dart-vim.flake = false;
+    #dart-vim.url = "github:dart-lang/dart-vim-plugin/master";
+    #dart-vim.flake = false;
     rnix-lsp.url = "github:nix-community/rnix-lsp";
     rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
     pandoc-latex-template.url = "github:Wandmalfarbe/pandoc-latex-template";
@@ -49,6 +54,7 @@
     , agenix
     , home-manager
     , impermanence
+    , mobile-nixos
     , darwin
     , utils
     , emacs-overlay
@@ -64,12 +70,12 @@
       genPkgs = system: import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+      };
         overlays = [
-          self.overlay
-          #        neovim-nightly-overlay.overlay
+          self.overlays.default
           emacs-overlay.overlay
         ];
-      };
+
 
       hmConfig = { hm, pkgs, inputs, config, ... }: {
         imports = (lib.my.mapModulesRec' ./hm-imports (x: x)) ++ [ "${impermanence}/home-manager.nix" ];
@@ -84,12 +90,15 @@
         nixpkgs.lib.nixosSystem
           rec {
             inherit system;
-            specialArgs = { inherit lib inputs pkgs system; };
+            specialArgs = { inherit lib; };
             modules = [
               agenix.nixosModules.age
               impermanence.nixosModules.impermanence
               home-manager.nixosModules.home-manager
               ({ config, ... }: lib.mkMerge [{
+                _module.args = { inherit inputs; };
+                nixpkgs.pkgs = pkgs;
+                nixpkgs.overlays = overlays;
                 networking.hostName = hostName;
                 system.configurationRevision = rev;
                 services.getty.greetingLine =
@@ -113,12 +122,15 @@
         darwin.lib.darwinSystem
           {
             inherit system;
-            specialArgs = { inherit darwin lib pkgs inputs self; };
+            specialArgs = { inherit lib; };
             modules = [
               home-manager.darwinModules.home-manager
               ({ config, inputs, self, ... }: {
                 config = {
                   #system.darwinLabel = "${config.system.darwinLabel}@${rev}";
+                  _module.args = { inherit lib inputs self darwin; };
+                  nixpkgs.pkgs = pkgs;
+                  nixpkgs.overlays = overlays;
                   networking.hostName = hostName;
                   home-manager.useGlobalPkgs = true;
                   home-manager.useUserPackages = true;
@@ -136,7 +148,7 @@
     in
     {
       lib = lib.my;
-      overlay = final: prev: {
+      overlays.default = final: prev: {
         unstable = import nixpkgs-master {
           system = prev.system;
           config.allowUnfree = true;
@@ -150,6 +162,12 @@
         picard = nixosSystem "x86_64-linux" [ ./hosts/picard/default.nix ];
         ds9 = nixosSystem "x86_64-linux" [ ./hosts/ds9/default.nix ];
         daedalusvm = nixosSystem "aarch64-linux" [ ./hosts/daedalusvm/default.nix ];
+        octopine = nixosSystem "aarch64-linux" [
+          ./hosts/octopine/default.nix
+          (import "${mobile-nixos}/lib/configuration.nix" {
+            device = "pine64-pinephone";
+          })
+        ];
       };
       darwinConfigurations = processConfigurations {
         daedalus = darwinSystem "aarch64-darwin" [ ./hosts/daedalus/default.nix ];

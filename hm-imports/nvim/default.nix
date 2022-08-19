@@ -36,10 +36,10 @@
           #   name = "coc-nvim";
           #   src = inputs.coc-nvim;
           # };
-          dart-vim = pkgs.vimUtils.buildVimPlugin {
-            name = "dart-vim";
-            src = inputs.dart-vim;
-          };
+          #dart-vim = pkgs.vimUtils.buildVimPlugin {
+          #  name = "dart-vim";
+          #  src = inputs.dart-vim;
+          #};
         in
         map (x: { plugin = x; }) (with pkgs.vimPlugins; [
           vim-tmux-navigator
@@ -67,7 +67,7 @@
           # vim-pandoc-syntax
           #  ultisnips
           # coc-nvim
-          dart-vim
+          #dart-vim
         ]);
     };
 }
