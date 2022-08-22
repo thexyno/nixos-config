@@ -62,8 +62,8 @@
     , darwin
     , utils
     , emacs-overlay
-    , #  neovim-nightly-overlay,
-      ...
+    , xynoblog
+    , ...
     }:
     let
       extraSystems = [ ];
@@ -78,6 +78,7 @@
       overlays = [
         self.overlays.default
         emacs-overlay.overlay
+        xynoblog.overlays.default
       ];
 
 
