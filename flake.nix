@@ -78,7 +78,6 @@
       overlays = [
         self.overlays.default
         emacs-overlay.overlay
-        xynoblog.overlays.default
       ];
 
 
@@ -100,6 +99,7 @@
               agenix.nixosModules.age
               impermanence.nixosModules.impermanence
               home-manager.nixosModules.home-manager
+              xynoblog.nixosModule
               ({ config, ... }: lib.mkMerge [{
                 _module.args = { inherit inputs; };
                 nixpkgs.pkgs = pkgs;
