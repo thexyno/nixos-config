@@ -17,6 +17,7 @@ in
     plugins = plugins: with plugins; [ telegram ];
   };
 
+  mobile.boot.stage-1.kernel.modular = true;
   mobile.generatedFilesystems.rootfs = {
     type = "ext4";
     label = "NIXOS_SYSTEM";
@@ -80,7 +81,7 @@ in
   };
   networking.firewall.allowedTCPPorts = [ 5000 5050 ];
   environment.etc."sway/config".text = ''
-    output DSI-1 transform 90 anticlockwise # widescreen
+    output DSI-1 transform 270 clockwise # widescreen
     exec swayidle timeout 1805 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
     exec ${pkgs.chromium}/bin/chromium http://localhost:5000 --start-fullscreen --kiosk
   '';
