@@ -63,32 +63,21 @@ in
     zstd = compressLargeArtifacts;
   };
 
+  mobile.boot.stage-1.kernel.additionalModules = [ "ftdi_sio" ];
   networking.wireless.enable = true;
   networking.useDHCP = true;
+  networking.networkmanager.enable = mkForce false;
   services.mjpg-streamer.enable = true;
   services.mjpg-streamer.inputPlugin = "input_uvc.so -d /dev/video1 -r 640x480 -f 15 -u";
   services.xserver.desktopManager.phosh.enable = true;
   services.xserver.desktopManager.phosh.user = "ragon";
   services.xserver.desktopManager.phosh.group = "wheel";
+  services.xserver.displayManager.autoLogin.user = "ragon";
   hardware.opengl.enable = true;
-  services.getty.autologinUser = "ragon";
-  home-manager.users.ragon = ({ config, pkgs, ... }: {
-    programs.zsh.loginExtra = ''
-      [ "$(tty)" = "/dev/tty1" ] && exec sway
-    '';
-
-  });
+  environment.systemPackages = [ pkgs.epiphany ];
 
   security.sudo.wheelNeedsPassword = false;
-  programs.sway = {
-    enable = true;
-  };
   networking.firewall.allowedTCPPorts = [ 5000 5050 ];
-  environment.etc."sway/config".text = ''
-    output DSI-1 transform 270 clockwise # widescreen
-    exec swayidle timeout 1805 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
-    exec ${pkgs.chromium}/bin/chromium http://localhost:5000 --start-fullscreen --kiosk
-  '';
 
   ragon = {
     cli.enable = true;
