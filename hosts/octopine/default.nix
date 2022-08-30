@@ -63,9 +63,13 @@ in
     zstd = compressLargeArtifacts;
   };
 
+  networking.wireless.enable = true;
   networking.useDHCP = true;
   services.mjpg-streamer.enable = true;
   services.mjpg-streamer.inputPlugin = "input_uvc.so -d /dev/video1 -r 640x480 -f 15 -u";
+  services.xserver.desktopManager.phosh.enable = true;
+  services.xserver.desktopManager.phosh.user = "ragon";
+  services.xserver.desktopManager.phosh.group = "wheel";
   hardware.opengl.enable = true;
   services.getty.autologinUser = "ragon";
   home-manager.users.ragon = ({ config, pkgs, ... }: {
