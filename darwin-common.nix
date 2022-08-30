@@ -4,12 +4,12 @@
   environment.pathsToLink = [ "/share/zsh" ];
   services.nix-daemon.enable = true;
   nix.package = pkgs.nixFlakes;
-  nix.buildCores = 0; # use all cores
-  nix.maxJobs = 10; # use all cores
+  nix.settings.cores = 0; # use all cores
+  nix.settings.max-jobs = 10; # use all cores
   nix.distributedBuilds = true;
   nix.buildMachines = [{
     systems = [ "x86_64-linux" ];
-      supportedFeatures = [ "kvm" "big-parallel" ];
+    supportedFeatures = [ "kvm" "big-parallel" ];
     sshUser = "ragon";
     maxJobs = 12;
     hostName = "ds9";

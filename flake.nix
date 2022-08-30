@@ -79,6 +79,10 @@
         self.overlays.default
         emacs-overlay.overlay
       ];
+      genPkgsWithOverlays = system: import nixpkgs {
+        inherit system overlays;
+        config.allowUnfree = true;
+      };
 
 
       hmConfig = { hm, pkgs, inputs, config, ... }: {
@@ -122,19 +126,16 @@
           };
       darwinSystem = system: extraModules: hostName:
         let
-          pkgs = genPkgs system;
+          pkgs = genPkgsWithOverlays system;
         in
         darwin.lib.darwinSystem
           {
             inherit system;
-            specialArgs = { inherit lib; };
+            specialArgs = { inherit lib pkgs inputs self darwin; };
             modules = [
               home-manager.darwinModules.home-manager
               {
                 #system.darwinLabel = "${config.system.darwinLabel}@${rev}";
-                _module.args = { inherit lib inputs self darwin; };
-                nixpkgs.pkgs = pkgs;
-                nixpkgs.overlays = overlays;
                 networking.hostName = hostName;
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
