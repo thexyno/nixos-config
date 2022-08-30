@@ -68,7 +68,7 @@ in
   networking.useDHCP = true;
   networking.networkmanager.enable = mkForce false;
   services.mjpg-streamer.enable = true;
-  services.mjpg-streamer.inputPlugin = "input_uvc.so -d /dev/video1 -r 640x480 -f 15 -u";
+  services.mjpg-streamer.inputPlugin = "input_uvc.so -d /dev/video1 -r 1280x720 -f 15 -u";
   services.xserver.desktopManager.phosh.enable = true;
   services.xserver.desktopManager.phosh.user = "ragon";
   services.xserver.desktopManager.phosh.group = "wheel";

@@ -5,7 +5,7 @@ set -euo pipefail
 REV=$(curl https://api.github.com/repos/thexyno/nixos-config/branches/main | jq -r .commit.sha)
 
 if [[ $(uname) == "Linux" ]]; then
-  sudo nixos-rebuild switch --flake "github:ragon000/nixos-config?rev=$REV"
+  sudo nixos-rebuild switch --flake "github:thexyno/nixos-config?rev=$REV"
 else # Darwin
-  /nix/var/nix/profiles/system/sw/bin/darwin-rebuild switch  --flake "github:ragon000/nixos-config?rev=$REV"
+  /nix/var/nix/profiles/system/sw/bin/darwin-rebuild switch  --flake "github:thexyno/nixos-config?rev=$REV"
 fi
