@@ -5,13 +5,17 @@
 
 {
   imports = [ "${modulesPath}/profiles/qemu-guest.nix" ];
-  boot.initrd.availableKernelModules = [ "xhci_pci" "virtio_pci" "usbhid" "usb_storage" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "virtio_pci" "usbhid" "usb_storage" "sr_mod" "virtiofs" ];
 
-  networking.interfaces.enp0s5.useDHCP = true;
+  networking.interfaces.enp0s1.useDHCP = true;
   swapDevices = [{ device = "/dev/disk/by-label/NIXOS_SWAP"; }];
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/NIXOS_BOOT";
     fsType = "vfat";
+  };
+  fileSystems."/tmp/rosetta" = {
+    device = "rosetta";
+    fsType = "virtiofs";
   };
 
   fileSystems."/" = {

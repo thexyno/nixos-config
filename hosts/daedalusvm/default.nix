@@ -23,6 +23,17 @@ in
   boot.supportedFilesystems = [ "nfs" "nfs4" ];
   environment.systemPackages = [ pkgs.nfs-utils pkgs.virt-manager pkgs.firefox ];
 
+  nix.settings.extra-platforms = [ "x86_64-linux" ];
+  nix.settings.extra-sandbox-paths = [ "/tmp/rosetta" "/run/binfmt" ];
+  boot.binfmt.registrations."rosetta" = {
+    interpreter = "/tmp/rosetta/rosetta";
+    fixBinary = true;
+    wrapInterpreterInShell = false;
+    matchCredentials = true;
+    magicOrExtension = ''\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x3e\x00'';
+    mask = ''\xff\xff\xff\xff\xff\xfe\xfe\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'';
+  };
+
   services.qemuGuest.enable = true;
 
   services.xserver.desktopManager.gnome.enable = true;

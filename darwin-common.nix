@@ -17,11 +17,12 @@
     publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUorQkJYdWZYQUpoeVVIVmZocWxrOFk0ekVLSmJLWGdKUXZzZEU0ODJscFYgcm9vdEBpc28K";
   }
     {
-      systems = [ "aarch64-linux" ];
+      systems = [ "aarch64-linux" "x86_64-linux" ];
+      speedFactor = 2;
       supportedFeatures = [ "kvm" "big-parallel" ];
       sshUser = "ragon";
       maxJobs = 8;
-      hostName = "192.168.64.5";
+      hostName = "192.168.64.7";
       sshKey = "/Users/ragon/.ssh/id_ed25519";
       publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUJMMm94ZEtha01Ka05iTExZK2xnNFkzd25jWnJwVE1sVHRBUWdsazVkVVEgcm9vdEBkYWVkYWx1c3ZtCg==";
     }];
