@@ -88,9 +88,12 @@ function showHideBundleId(bundleId)
 end
 
 local hyperModifier = {"cmd", "shift", "ctrl", "alt"}
+local cmdShiftModifier = {"cmd", "shift"}
 hs.hotkey.bind(hyperModifier, "b", function() showHideBundleId("com.bitwarden.desktop") end)
 hs.hotkey.bind(hyperModifier, "p", function() showHideBundleId("com.timeular.zei") end)
 hs.hotkey.bind(hyperModifier, "l", function() showHideBundleId("com.electron.logseq") end)
+hs.hotkey.bind(hyperModifier, "e", function() hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end, {"-c"}):start() end)
+hs.hotkey.bind(hyperModifier, "i", function() hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end, {"--eval", "(emacs-everywhere)"}):start() end)
 
 ----------------------------------------------------------------------------------------------------
 -- Tiling

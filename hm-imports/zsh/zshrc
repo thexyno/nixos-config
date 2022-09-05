@@ -47,3 +47,9 @@ n ()
             rm -f "$NNN_TMPFILE" > /dev/null
     fi
 }
+
+ORIGTMPDIR=$TMPDIR # nix-shell overrides tmpdir, but we want to save it
+emacsclient ()
+{
+    command emacsclient -s $ORIGTMPDIR/emacs$(id -u)/server "$@"
+}
