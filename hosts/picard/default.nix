@@ -109,6 +109,8 @@
     script = "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.picardResticHealthCheckUrl.path})/fail";
   };
   services.xynoblog.enable = true;
+  boot.zfs.package = lib.mkForce (pkgs.zfs.override { enableMail = true; });
+  services.zfs.zed.enableMail = true;
   ragon = {
     cli.enable = true;
     user.enable = true;
@@ -117,6 +119,7 @@
 
     services = {
       ssh.enable = true;
+      msmtp.enable = true;
       bitwarden.enable = true;
       gitlab.enable = false; # TODO gitlab-runner
       synapse.enable = true;

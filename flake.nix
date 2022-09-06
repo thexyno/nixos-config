@@ -8,7 +8,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";
-    impermanence.inputs.nixpkgs.follows = "nixpkgs";
+    #impermanence.inputs.nixpkgs.follows = "nixpkgs";
     xynoblog.url = "github:thexyno/blog";
     xynoblog.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -181,7 +181,7 @@
     let pkgs = nixpkgs.legacyPackages.${system}; in
     {
       devShell = pkgs.mkShell {
-        buildInputs = with pkgs; [ lefthook nixpkgs-fmt ];
+        buildInputs = with pkgs; [ lefthook nixpkgs-fmt inputs.agenix.packages.${system}.agenix ];
       };
       packages = lib.my.mapModules ./packages (p: pkgs.callPackage p { inputs = inputs; });
     });
