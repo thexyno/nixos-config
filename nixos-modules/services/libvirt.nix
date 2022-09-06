@@ -10,6 +10,7 @@ in
       enable = true;
     };
     ragon.user.extraGroups = [ "kvm" "libvirtd" ];
+    security.polkit.enable = true;
     ragon.persist.extraDirectories = [
       "/var/lib/libvirt"
     ];

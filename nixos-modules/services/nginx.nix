@@ -21,7 +21,7 @@ in
     security.acme.defaults.email = "nixosacme@phochkamp.de";
     security.acme.acceptTerms = true;
     security.acme.certs."${cfg.domain}" = {
-      dnsProvider = "cloudflare";
+      dnsProvider = "ionos";
       dnsResolver = "1.1.1.1:53";
       group = "nginx";
       extraDomainNames = [
