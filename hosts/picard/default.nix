@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, ... }:
+{ inputs, config, pkgs, lib, ... }:
 
 {
   imports =
@@ -108,9 +108,12 @@
     enable = true;
     script = "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.picardResticHealthCheckUrl.path})/fail";
   };
+  nixpkgs.overlays = [
+    (self: super: {
+      zfs = super.zfs.override {enableMail = true;};
+    })
+  ];
   services.xynoblog.enable = true;
-  boot.zfs.package = lib.mkForce (pkgs.zfs.override { enableMail = true; });
-  services.zfs.zed.enableMail = true;
   ragon = {
     cli.enable = true;
     user.enable = true;
