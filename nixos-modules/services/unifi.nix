@@ -19,6 +19,7 @@ in
       forceSSL = true;
       useACMEHost = "${domain}";
       locations."/".proxyPass = "https://127.0.0.1:8443";
+      locations."/".proxyWebsockets = true;
     };
     ragon.persist.extraDirectories = [
       "/var/lib/unifi"
