@@ -9,7 +9,9 @@
   boot.initrd.availableKernelModules = [ "r8169" "ahci" "vfio-pci" "xhci_pci" "ehci_pci" "nvme" "usbhid" "sd_mod" "sr_mod" ];
   boot.kernelModules = [ "kvm-amd" ];
   nix.settings.max-jobs = lib.mkDefault 12;
-  powerManagement.cpuFreqGovernor = "performance";
+  powerManagement.cpuFreqGovernor = "ondemand";
+  powerManagement.scsiLinkPolicy = "min_power";
+  powerManagement.powertop.enable = true;
 
   services.zfs.autoScrub.enable = true;
   ragon.system.fs = {
