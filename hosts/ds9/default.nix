@@ -38,7 +38,14 @@ in
   networking.bridges."br0".interfaces = [ ];
   networking.hostId = "7b4c2932";
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
+  services.nginx.appendHttpConfig = ''
+    allow 10.0.0.0/8;
+    allow 100.64.0.0/10;
+  '';
   services.nginx.virtualHosts."h.hailsatan.eu" = {
+    extraConfig = ''
+      allow all;
+    '';
     useACMEHost = "hailsatan.eu";
     addSSL = true;
     locations = {
@@ -85,6 +92,7 @@ in
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHvCF8KGgpF9O8Q7k+JXqZ5eMeEeTaMhCIk/2ZFOzXL0"
     ];
   };
+
 
   # Enable Scanning
   hardware.sane.enable = true;
@@ -201,7 +209,7 @@ in
   };
   nixpkgs.overlays = [
     (self: super: {
-      zfs = super.zfs.override {enableMail = true;};
+      zfs = super.zfs.override { enableMail = true; };
     })
   ];
 
@@ -245,7 +253,6 @@ in
       ssh.enable = true;
       nginx.enable = true;
       msmtp.enable = true;
-      jellyfin.enable = true;
       photoprism.enable = true;
       tailscale.enable = true;
       tailscale.exitNode = true;
