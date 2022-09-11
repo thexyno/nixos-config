@@ -38,14 +38,11 @@ in
   networking.bridges."br0".interfaces = [ ];
   networking.hostId = "7b4c2932";
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
-  services.nginx.appendHttpConfig = ''
-    allow 10.0.0.0/8;
-    allow 100.64.0.0/10;
-  '';
+  services.nginx.defaultListenAddresses = [ "100.83.96.25" ];
+  services.nginx.virtualHosts."_".
+    listenAddresses = [ "0.0.0.0" "[::0]" ];
   services.nginx.virtualHosts."h.hailsatan.eu" = {
-    extraConfig = ''
-      allow all;
-    '';
+    listenAddresses = [ "0.0.0.0" "[::0]" ];
     useACMEHost = "hailsatan.eu";
     addSSL = true;
     locations = {
