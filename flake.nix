@@ -26,6 +26,7 @@
 
     ## emacs
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
     ## vim
     #neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
