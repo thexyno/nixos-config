@@ -40,7 +40,7 @@ in
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
   services.nginx.defaultListenAddresses = [ "100.83.96.25" ];
   services.nginx.virtualHosts."_".
-    listenAddresses = [ "0.0.0.0" "[::0]" ];
+  listenAddresses = [ "0.0.0.0" "[::0]" ];
   services.nginx.virtualHosts."h.hailsatan.eu" = {
     listenAddresses = [ "0.0.0.0" "[::0]" ];
     useACMEHost = "hailsatan.eu";
@@ -222,11 +222,18 @@ in
     ZED_SCRUB_AFTER_RESILVER = true;
   };
 
+  services.plex = {
+    enable = true;
+    openFirewall = true;
+    user = "ragon";
+    group = "users";
+  };
+
   ragon = {
     cli.enable = true;
     user.enable = true;
     persist.enable = true;
-    persist.extraDirectories = [ "/var/lib/syncthing" ];
+    persist.extraDirectories = [ "/var/lib/syncthing" config.services.plex.dataDir ];
 
     services = {
       samba.enable = true;
