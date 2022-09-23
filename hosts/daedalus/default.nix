@@ -1,9 +1,9 @@
 { pkgs, inputs, lib, ... }:
 with lib;
 with lib.my;
-    let
-      myEmacs = pkgs.emacsNativeComp;
-    in
+let
+  myEmacs = pkgs.emacsNativeComp;
+in
 {
 
   users.users.ragon = {
@@ -11,7 +11,7 @@ with lib.my;
     home = "/Users/ragon";
   };
   environment.systemPackages = [
-        myEmacs
+    myEmacs
   ];
 
   homebrew = {
@@ -60,18 +60,20 @@ with lib.my;
     {
       home.file.".hammerspoon/init.lua".source =
         pkgs.substituteAll {
-          src = ./hammerspoon.lua; inherit myEmacs;  };
+          src = ./hammerspoon.lua; inherit myEmacs;
+        };
 
       programs.home-manager.enable = true;
       home.stateVersion = "21.11";
 
       home.shellAliases = {
-       v = lib.mkForce "emacsclient -t";
-       vv = lib.mkForce "emacsclient -c";
+        v = lib.mkForce "emacsclient -t";
+        vv = lib.mkForce "emacsclient -c";
       };
       home.sessionVariables = {
-        EDITOR = "emacsclient -t";
-        VISUAL = "emacsclient -c";
+        #EDITOR = "emacsclient -t";
+        #VISUAL = "emacsclient -c";
+        COLORTERM = "truecolor"; # emacs tty fix
         PATH = "$PATH:$HOME/go/bin:$HOME/development/flutter/bin:/Applications/Android Studio.app/Contents/bin/:/Applications/Docker.app/Contents/Resources/bin:/Applications/Android Studio.app/Contents/jre/Contents/Home/bin";
         JAVA_HOME = "/Applications/Android Studio.app/Contents/jre/Contents/Home/";
       };
