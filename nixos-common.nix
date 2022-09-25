@@ -30,7 +30,7 @@ in
       registryInputs = mapAttrs (_: v: { flake = v; }) filteredInputs;
     in
     {
-      package = pkgs.unstable.nixFlakes;
+      package = pkgs.nixVersions.stable;
       settings = {
         trusted-users = mkDefault [ "root" "@wheel" ];
         allowed-users = mkDefault [ "root" "@wheel" ];
