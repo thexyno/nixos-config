@@ -30,6 +30,7 @@
         let
           nnn-vim = pkgs.vimUtils.buildVimPlugin {
             pname = "nnn-vim";
+            version = "1.0.0";
             src = inputs.nnn-vim;
           };
           # coc-nvim = pkgs.vimUtils.buildVimPlugin {
