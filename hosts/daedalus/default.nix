@@ -16,7 +16,6 @@ in
 
   homebrew = {
     enable = true;
-    autoUpdate = true;
     brews = [
       "pam-reattach"
     ];
