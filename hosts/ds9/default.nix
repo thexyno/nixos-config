@@ -33,6 +33,7 @@ in
     in
     builtins.mapAttrs (n: v: { target = "backup/${n}"; source = v; sendOptions = "w"; }) datasets;
 
+  programs.mosh.enable = true;
   security.sudo.wheelNeedsPassword = false;
   networking.useDHCP = true;
   networking.bridges."br0".interfaces = [ ];

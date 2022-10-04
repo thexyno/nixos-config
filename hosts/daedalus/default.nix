@@ -78,6 +78,7 @@ in
       };
       home.packages = with pkgs; [
         terraform-ls
+        mosh
         terraform
 
         cmake

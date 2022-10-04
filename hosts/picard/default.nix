@@ -110,10 +110,11 @@
   };
   nixpkgs.overlays = [
     (self: super: {
-      zfs = super.zfs.override {enableMail = true;};
+      zfs = super.zfs.override { enableMail = true; };
     })
   ];
   services.xynoblog.enable = true;
+  programs.mosh.enable = true;
   ragon = {
     cli.enable = true;
     user.enable = true;
