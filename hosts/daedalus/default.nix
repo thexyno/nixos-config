@@ -29,6 +29,7 @@ in
       "lens"
       "logseq"
       "discord"
+      "finicky"
       "vlc"
       "parsec"
       "element"
@@ -61,6 +62,7 @@ in
         pkgs.substituteAll {
           src = ./hammerspoon.lua; inherit myEmacs;
         };
+      home.file.".finicky.js".source = ./finicky.js;
 
       programs.home-manager.enable = true;
       home.stateVersion = "21.11";
