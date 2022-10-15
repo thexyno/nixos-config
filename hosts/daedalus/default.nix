@@ -72,8 +72,8 @@ in
         vv = lib.mkForce "emacsclient -c";
       };
       home.sessionVariables = {
-        #EDITOR = "emacsclient -t";
-        #VISUAL = "emacsclient -c";
+        EDITOR = "nvim";
+        VISUAL = "nvim";
         COLORTERM = "truecolor"; # emacs tty fix
         PATH = "$PATH:$HOME/go/bin:$HOME/development/flutter/bin:/Applications/Android Studio.app/Contents/bin/:/Applications/Docker.app/Contents/Resources/bin:/Applications/Android Studio.app/Contents/jre/Contents/Home/bin";
         JAVA_HOME = "/Applications/Android Studio.app/Contents/jre/Contents/Home/";
