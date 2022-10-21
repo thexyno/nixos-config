@@ -426,7 +426,7 @@ mouseTap = hs.eventtap.new({ hs.eventtap.event.types.otherMouseDown }, function(
     end
     return true
 end)
-mouseTap:start()
+-- mouseTap:start()
 
 ----------------------------------------------------------------------------------------------------
 -- Clipboard Manager
