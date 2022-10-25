@@ -45,6 +45,7 @@ local bundleID = {
     spotify = "com.spotify.client",
     bitwarden = "com.bitwarden.desktop",
     teams = "com.microsoft.teams",
+    faclieThings = "com.electron.nativefier.facilethings-nativefier-cf88de",
     timeular = "com.timeular.zei",
     logseq = "com.electron.logseq"
 }
@@ -277,7 +278,7 @@ hs.hotkey.bind(modifiers.hyper, hs.keycodes.map.down, moveMouseToLowerRight)
 hs.hotkey.bind(modifiers.hyper, hs.keycodes.map.delete, function() hs.caffeinate.lockScreen() end)
 hs.hotkey.bind(modifiers.hyper, "a", function() showHideBundleId(bundleID.activityMonitor) end)
 hs.hotkey.bind(modifiers.hyper, "c", function() showHideBundleId(bundleID.safari) end)
-hs.hotkey.bind(modifiers.hyper, "f", function() showHideBundleId(bundleID.finder) end)
+hs.hotkey.bind(modifiers.hyper, "f", function() showHideBundleId(bundleID.faclieThings) end)
 hs.hotkey.bind(modifiers.hyper, "e", function() hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end, {"-c"}):start() end)
 hs.hotkey.bind(modifiers.hyper, "i", function() hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end, {"--eval", "(emacs-everywhere)"}):start() end)
 hs.hotkey.bind(modifiers.hyper, "p", function() showHideBundleId(bundleID.timeular) end)
