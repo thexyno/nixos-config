@@ -438,3 +438,30 @@ end)
 --
 -- hs.hotkey.bind(modifiers.clipboard, "v", function() clipboard:toggleClipboard() end)
 -- hs.hotkey.bind(modifiers.clipboard, hs.keycodes.map.delete, function() clipboard:clearAll() end)
+
+----------------------------------------------------------------------------------------------------
+-- Facilethings paste
+----------------------------------------------------------------------------------------------------
+
+local function facileCaptpure()
+    ok,text = hs.dialog.textPrompt("Facilethings","Capture")
+    if ok then
+        hs.osascript.applescript(string.format([[
+tell application "Mail"
+
+        ##Create the message
+        set theMessage to make new outgoing message with properties {subject:"%s", content:"", visible:true}
+
+        ##Set a recipient
+        tell theMessage
+                make new to recipient with properties {name:"inbox@facilethings.com", address:"inbox@facilethings.com"}
+
+                ##Send the Message
+                send
+
+        end tell
+end tell
+]], text))
+    end
+end
+hs.hotkey.bind(modifiers.window, "f",facileCaptpure)
