@@ -13,6 +13,7 @@ in
     networking.firewall.allowedTCPPorts = [ 80 443 ];
     services.nginx = {
       enable = true;
+      package = (pkgs.nginxStable.override { openssl = pkgs.openssl_1_1; });
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
       recommendedGzipSettings = true;

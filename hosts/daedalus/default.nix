@@ -48,13 +48,6 @@ in
     #};
   };
 
-  launchd.user.agents.emacsdaemon = {
-    script = "${myEmacs}/Applications/Emacs.app/Contents/MacOS/Emacs --daemon";
-    serviceConfig.RunAtLoad = true;
-    serviceConfig.UserName = "ragon";
-    serviceConfig.KeepAlive = true;
-    serviceConfig.WorkingDirectory = "/Users/ragon";
-  };
   programs.gnupg.agent.enable = true;
   home-manager.users.ragon = { pkgs, lib, inputs, config, ... }:
     {
