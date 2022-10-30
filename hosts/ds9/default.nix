@@ -204,6 +204,7 @@ in
 
   services.smartd = {
     enable = true;
+    #notifications.test = true;
   };
   nixpkgs.overlays = [
     (self: super: {
@@ -217,7 +218,7 @@ in
     ZED_EMAIL_OPTS = "@ADDRESS@";
 
     ZED_NOTIFY_INTERVAL_SECS = 3600;
-    ZED_NOTIFY_VERBOSE = true;
+    #ZED_NOTIFY_VERBOSE = true;
 
     ZED_USE_ENCLOSURE_LEDS = true;
     ZED_SCRUB_AFTER_RESILVER = true;
