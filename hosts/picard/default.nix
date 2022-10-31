@@ -115,6 +115,11 @@
   ];
   services.xynoblog.enable = true;
   programs.mosh.enable = true;
+  ragon.agenix.secrets."mailmoverConf" = { };
+  services.mailmover = {
+    enable = true;
+    configFile = config.age.secrets.mailmoverConf.path;
+  };
   ragon = {
     cli.enable = true;
     user.enable = true;
