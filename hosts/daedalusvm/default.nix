@@ -21,7 +21,7 @@ in
   services.openssh.forwardX11 = true;
   services.rpcbind.enable = true;
   boot.supportedFilesystems = [ "nfs" "nfs4" ];
-  environment.systemPackages = [ pkgs.nfs-utils pkgs.virt-manager pkgs.firefox pkgs.kitty ];
+  environment.systemPackages = [ pkgs.nfs-utils pkgs.virt-manager pkgs.firefox pkgs.kitty inputs.nixpkgs.legacyPackages.x86_64-linux.hello ];
 
   nix.settings.extra-platforms = [ "x86_64-linux" ];
   nix.settings.extra-sandbox-paths = [ "/tmp/rosetta" "/run/binfmt" ];
