@@ -22,7 +22,7 @@
       supportedFeatures = [ "kvm" "big-parallel" ];
       sshUser = "ragon";
       maxJobs = 8;
-      hostName = "192.168.64.9";
+      hostName = "192.168.65.4";
       sshKey = "/Users/ragon/.ssh/id_ed25519";
       publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU1tU2NqZXVhLzVKQzF2S2VWMGpETUM5cmF2T1JzY0VOWlZ2c2hFSjFYMHUK";
     }];

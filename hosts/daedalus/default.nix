@@ -76,6 +76,9 @@ in
         mosh
         terraform
 
+        python310Packages.ipython
+        jupyter
+
         cmake
 
         pandoc
