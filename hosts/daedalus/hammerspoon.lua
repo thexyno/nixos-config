@@ -15,7 +15,7 @@ configWatcher = hs.pathwatcher.new(hs.configdir, hs.reload)
 configWatcher:start()
 
 local moonlanderMode = false
-local maximizeMode = true
+local maximizeMode = false
 
 ----------------------------------------------------------------------------------------------------
 -- Utilities
