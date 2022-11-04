@@ -9,5 +9,5 @@ if [[ $(uname) == "Linux" ]]; then
 else # Darwin
   darwin-rebuild switch \
     --flake "github:thexyno/nixos-config?rev=$REV" \
-    --update-input private 'git+ssh://git@github.com/thexyno/nixos-config-private'
+    --override-input private 'git+ssh://git@github.com/thexyno/nixos-config-private'
 fi
