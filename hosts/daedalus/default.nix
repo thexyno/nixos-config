@@ -51,6 +51,11 @@ in
   programs.gnupg.agent.enable = true;
   home-manager.users.ragon = { pkgs, lib, inputs, config, ... }:
     {
+
+      imports = [
+        "${inputs.private}/mail.nix"
+      ];
+
       home.file.".hammerspoon/init.lua".source =
         pkgs.substituteAll {
           src = ./hammerspoon.lua; inherit myEmacs;

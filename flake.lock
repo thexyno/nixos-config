@@ -130,22 +130,6 @@
         "type": "github"
       }
     },
-    "mobile-nixos": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1667160126,
-        "narHash": "sha256-YRgxMHdvMuLsuXCaKs5YNMD6NKgvcATSjfi9YkUOOLk=",
-        "owner": "NixOS",
-        "repo": "mobile-nixos",
-        "rev": "da56c338a2b00c868697b75bdbd388f60d50c820",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "mobile-nixos",
-        "type": "github"
-      }
-    },
     "naersk": {
       "inputs": {
         "nixpkgs": [
@@ -279,6 +263,22 @@
         "type": "github"
       }
     },
+    "private": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1667531394,
+        "narHash": "sha256-eo5s09w9DjRTqk4y+ULpYHQw5RNjNi+n9tEyvpbL84g=",
+        "owner": "thexyno",
+        "repo": "nixos-config-private-dummy",
+        "rev": "b38da5d5dd120e7dcc61b2ed3536be69fac649da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thexyno",
+        "repo": "nixos-config-private-dummy",
+        "type": "github"
+      }
+    },
     "rnix-lsp": {
       "inputs": {
         "naersk": "naersk",
@@ -309,7 +309,6 @@
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "mobile-nixos": "mobile-nixos",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
@@ -317,6 +316,7 @@
         "octoprint-spoolmanager": "octoprint-spoolmanager",
         "octoprint-telegram": "octoprint-telegram",
         "pandoc-latex-template": "pandoc-latex-template",
+        "private": "private",
         "rnix-lsp": "rnix-lsp",
         "utils": "utils_3",
         "x": "x",

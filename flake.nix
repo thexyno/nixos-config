@@ -1,6 +1,10 @@
 {
   description = "ragons nix/nixos configs";
   inputs = {
+    # base imports
+    utils.url = "github:numtide/flake-utils";
+
+    ## nixos/nix-darwin dependencies
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     agenix.url = "github:ryantm/agenix/main";
@@ -8,41 +12,28 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";
-    #impermanence.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    # programs
     xynoblog.url = "github:thexyno/blog";
     xynoblog.inputs.nixpkgs.follows = "nixpkgs";
     x.url = "github:thexyno/x";
     x.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    darwin.url = "github:lnl7/nix-darwin/master";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
-    utils.url = "github:numtide/flake-utils";
 
-    #pinephone
-    mobile-nixos.url = "github:NixOS/mobile-nixos";
-    mobile-nixos.flake = false; # whyever this isn't a flake
-    octoprint-telegram.url = "github:fabianonline/OctoPrint-Telegram";
-    octoprint-telegram.flake = false;
-    octoprint-spoolmanager.url = "github:OllisGit/OctoPrint-SpoolManager";
-    octoprint-spoolmanager.flake = false;
+    ## editor stuff
+    rnix-lsp.url = "github:nix-community/rnix-lsp";
+    rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
 
     ## emacs
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
     ## vim
-    #neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    #neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    #coc-nvim.url = "github:neoclide/coc.nvim/release";
-    #coc-nvim.flake = false;
     nnn-vim.url = "github:mcchrish/nnn.vim";
     nnn-vim.flake = false;
-    #dart-vim.url = "github:dart-lang/dart-vim-plugin/master";
-    #dart-vim.flake = false;
-    rnix-lsp.url = "github:nix-community/rnix-lsp";
-    rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
-    pandoc-latex-template.url = "github:Wandmalfarbe/pandoc-latex-template";
-    pandoc-latex-template.flake = false;
+
     ## zsh
     zsh-completions.url = "github:zsh-users/zsh-completions";
     zsh-completions.flake = false;
@@ -52,6 +43,22 @@
     zsh-vim-mode.flake = false;
     agkozak-zsh-prompt.url = "github:agkozak/agkozak-zsh-prompt";
     agkozak-zsh-prompt.flake = false;
+
+
+    #other dependencies
+    pandoc-latex-template.url = "github:Wandmalfarbe/pandoc-latex-template";
+    pandoc-latex-template.flake = false;
+
+    ## octoprint
+    octoprint-telegram.url = "github:fabianonline/OctoPrint-Telegram";
+    octoprint-telegram.flake = false;
+    octoprint-spoolmanager.url = "github:OllisGit/OctoPrint-SpoolManager";
+    octoprint-spoolmanager.flake = false;
+
+    ## mail
+    private.url = "github:thexyno/nixos-config-private-dummy";
+    private.flake = false;
+
   };
 
   outputs =
@@ -61,7 +68,6 @@
     , agenix
     , home-manager
     , impermanence
-    , mobile-nixos
     , darwin
     , utils
     , emacs-overlay
@@ -171,12 +177,6 @@
         picard = nixosSystem "x86_64-linux" [ ./hosts/picard/default.nix ];
         ds9 = nixosSystem "x86_64-linux" [ ./hosts/ds9/default.nix ];
         daedalusvm = nixosSystem "aarch64-linux" [ ./hosts/daedalusvm/default.nix ];
-        octopine = nixosSystem "aarch64-linux" [
-          ./hosts/octopine/default.nix
-          (import "${mobile-nixos}/lib/configuration.nix" {
-            device = "pine64-pinephone";
-          })
-        ];
       };
       darwinConfigurations = processConfigurations {
         daedalus = darwinSystem "aarch64-darwin" [ ./hosts/daedalus/default.nix ];
