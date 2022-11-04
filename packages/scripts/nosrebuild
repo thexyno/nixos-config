@@ -7,5 +7,7 @@ REV=$(curl https://api.github.com/repos/thexyno/nixos-config/branches/main | jq 
 if [[ $(uname) == "Linux" ]]; then
   sudo nixos-rebuild switch --flake "github:thexyno/nixos-config?rev=$REV"
 else # Darwin
-  /nix/var/nix/profiles/system/sw/bin/darwin-rebuild switch  --flake "github:thexyno/nixos-config?rev=$REV" --update-input private "git+ssh://git@github.com/thexyno/nixos-config-private"
+  darwin-rebuild switch \
+    --flake "github:thexyno/nixos-config?rev=$REV" \
+    --update-input private 'git+ssh://git@github.com/thexyno/nixos-config-private'
 fi
