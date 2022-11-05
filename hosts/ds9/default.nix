@@ -40,6 +40,7 @@ in
   networking.hostId = "7b4c2932";
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
   services.nginx.defaultListenAddresses = [ "100.83.96.25" ];
+  services.nginx.clientMaxBodySize = lib.mkForce "8g";
   services.nginx.virtualHosts."_".
   listenAddresses = [ "0.0.0.0" "[::0]" ];
   services.nginx.virtualHosts."h.hailsatan.eu" = {
