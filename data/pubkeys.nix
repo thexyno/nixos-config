@@ -12,6 +12,7 @@ let
         ds9 = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ+BBXufXAJhyUHVfhqlk8Y4zEKJbKXgJQvsdE482lpV" ];
         picard = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAm3UXZaN95WBUaS9SiHLNEuI1tP1x1w07qnYxPe+vdr" ];
         daedalusvm = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMmScjeua/5JC1vKeV0jDMC9ravORscENZVvshEJ1X0u" ];
+        octopi = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+0/lwNc/KN8LrS3KvDCuuipQokO+7qELfksepJXz6a" ];
       };
     in
     {

@@ -108,7 +108,7 @@
         nixpkgs.lib.nixosSystem
           rec {
             inherit system;
-            specialArgs = { inherit lib; };
+            specialArgs = { inherit lib inputs; };
             modules = [
               agenix.nixosModules.age
               impermanence.nixosModules.impermanence
@@ -116,7 +116,6 @@
               xynoblog.nixosModule
               x.nixosModule
               ({ config, ... }: lib.mkMerge [{
-                _module.args = { inherit inputs; };
                 nixpkgs.pkgs = pkgs;
                 nixpkgs.overlays = overlays;
                 networking.hostName = hostName;
@@ -177,6 +176,7 @@
         picard = nixosSystem "x86_64-linux" [ ./hosts/picard/default.nix ];
         ds9 = nixosSystem "x86_64-linux" [ ./hosts/ds9/default.nix ];
         daedalusvm = nixosSystem "aarch64-linux" [ ./hosts/daedalusvm/default.nix ];
+        octopi = nixosSystem "aarch64-linux" [ ./hosts/octopi/default.nix ];
       };
       darwinConfigurations = processConfigurations {
         daedalus = darwinSystem "aarch64-darwin" [ ./hosts/daedalus/default.nix ];
