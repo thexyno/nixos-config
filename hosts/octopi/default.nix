@@ -43,7 +43,7 @@
   ragon.services.tailscale.enable = true;
   networking.useDHCP = true;
   services.mjpg-streamer.enable = true;
-  services.mjpg-streamer.inputPlugin = "input_uvc.so -d /dev/video0 -r 1280x720 -f 15 -u";
+  services.mjpg-streamer.inputPlugin = "input_uvc.so -d /dev/video1 -r 1280x720 -f 15 -u";
   services.octoprint = {
     enable = true;
     plugins = plugins: with plugins; [ telegram ];
