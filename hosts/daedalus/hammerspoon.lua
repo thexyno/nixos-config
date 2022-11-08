@@ -1,4 +1,3 @@
-
 ----------------------------------------------------------------------------------------------------
 -- Settings
 ----------------------------------------------------------------------------------------------------
@@ -255,13 +254,13 @@ end)
 ----------------------------------------------------------------------------------------------------
 
 function showHideBundleId(bundleId)
-  local focusedWindow = hs.window.focusedWindow()
-  if focusedWindow ~= nil and focusedWindow:application():bundleID() == bundleId then -- window is focused
-    focusedWindow:close() -- hide
-  else
-    hs.application.launchOrFocusByBundleID(bundleId)
-    hs.window.focusedWindow():centerOnScreen(hs.mouse.getCurrentScreen())
-  end
+    local focusedWindow = hs.window.focusedWindow()
+    if focusedWindow ~= nil and focusedWindow:application():bundleID() == bundleId then -- window is focused
+        focusedWindow:close() -- hide
+    else
+        hs.application.launchOrFocusByBundleID(bundleId)
+        hs.window.focusedWindow():centerOnScreen(hs.mouse.getCurrentScreen())
+    end
 end
 
 hs.hotkey.bind(modifiers.window, hs.keycodes.map.left, moveCurrentWindowToLeftHalf)
@@ -279,8 +278,12 @@ hs.hotkey.bind(modifiers.hyper, hs.keycodes.map.delete, function() hs.caffeinate
 hs.hotkey.bind(modifiers.hyper, "a", function() showHideBundleId(bundleID.activityMonitor) end)
 hs.hotkey.bind(modifiers.hyper, "c", function() showHideBundleId(bundleID.safari) end)
 hs.hotkey.bind(modifiers.hyper, "f", function() showHideBundleId(bundleID.faclieThings) end)
-hs.hotkey.bind(modifiers.hyper, "e", function() hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end, {"-c", "-a", ""}):start() end)
-hs.hotkey.bind(modifiers.hyper, "i", function() hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end, {"-a", "", "--eval", "(emacs-everywhere)"}):start() end)
+hs.hotkey.bind(modifiers.hyper, "e",
+    function() hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end, { "-c", "-a", "" }):start() end)
+hs.hotkey.bind(modifiers.hyper, "i",
+    function() hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end,
+            { "-a", "", "--eval", "(emacs-everywhere)" }):start()
+    end)
 hs.hotkey.bind(modifiers.hyper, "p", function() showHideBundleId(bundleID.timeular) end)
 hs.hotkey.bind(modifiers.hyper, "b", function() showHideBundleId(bundleID.bitwarden) end)
 hs.hotkey.bind(modifiers.hyper, "t", function() showHideBundleId(bundleID.iterm) end)
@@ -444,7 +447,7 @@ end)
 ----------------------------------------------------------------------------------------------------
 
 local function facileCaptpure()
-    ok,text = hs.dialog.textPrompt("Facilethings","Capture")
+    ok, text = hs.dialog.textPrompt("Facilethings", "Capture")
     if ok then
         hs.osascript.applescript(string.format([[
 tell application "Mail"
@@ -461,7 +464,33 @@ tell application "Mail"
 
         end tell
 end tell
-]], text))
+]]       , text))
     end
 end
-hs.hotkey.bind(modifiers.window, "f",facileCaptpure)
+
+hs.hotkey.bind(modifiers.window, "f", facileCaptpure)
+
+----------------------------------------------------------------------------------------------------
+-- notmuch indicator
+----------------------------------------------------------------------------------------------------
+
+local notmuchTaskRunning = false
+local function refreshNotmuchMenubar()
+    hs.task.new("@notmuchMails@", function(exitCode, stdout, stderr)
+        print(stdout)
+        notmuchMenubar:setTitle(hs.styledtext.new(stdout))
+    end):start()
+end
+
+notmuchMenubar = hs.menubar.new()
+notmuchMenubar:setClickCallback(function() hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end,
+        { "-a", "", "--eval", "(=notmuch)" }):start()
+end)
+notmuchTimer = hs.timer.doEvery(300, function()
+    if not notmuchTaskRunning then
+        notmuchTaskRunning = true
+        hs.task.new("/etc/profiles/per-user/ragon/bin/zsh",
+            function() notmuchTaskRunning = false; refreshNotmuchMenubar() end,
+            function() return false end, { "-c", "syncmail" }):start()
+    end
+end)

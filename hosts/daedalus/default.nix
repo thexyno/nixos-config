@@ -57,8 +57,14 @@ in
       ];
 
       home.file.".hammerspoon/init.lua".source =
+        let
+          notmuchMails = pkgs.writeScript "notmuch-get-mail-count" ''
+            #!/usr/bin/env zsh
+             printf "I%s F%s W%s" $(notmuch search tag:inbox | wc -l) $(notmuch search tag:follow-up | wc -l)  $(notmuch search tag:waiting | wc -l)
+          '';
+        in
         pkgs.substituteAll {
-          src = ./hammerspoon.lua; inherit myEmacs;
+          src = ./hammerspoon.lua; inherit myEmacs notmuchMails;
         };
       home.file.".finicky.js".source = ./finicky.js;
 
