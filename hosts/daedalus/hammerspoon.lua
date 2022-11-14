@@ -475,22 +475,33 @@ hs.hotkey.bind(modifiers.window, "f", facileCaptpure)
 ----------------------------------------------------------------------------------------------------
 
 local notmuchTaskRunning = false
-local function refreshNotmuchMenubar()
+local function refreshNotmuchMenubar(currentlyRunning)
     hs.task.new("@notmuchMails@", function(exitCode, stdout, stderr)
+        if currentlyRunning then
+            stdout = "R: " .. stdout
+        end
         print(stdout)
         notmuchMenubar:setTitle(hs.styledtext.new(stdout))
     end):start()
 end
 
-notmuchMenubar = hs.menubar.new()
-notmuchMenubar:setClickCallback(function() hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end,
-        { "-a", "", "--eval", "(=notmuch)" }):start()
-end)
-notmuchTimer = hs.timer.doEvery(300, function()
+local function notmuchTimerFunction()
     if not notmuchTaskRunning then
+        refreshNotmuchMenubar(true)
         notmuchTaskRunning = true
         hs.task.new("/etc/profiles/per-user/ragon/bin/zsh",
-            function() notmuchTaskRunning = false; refreshNotmuchMenubar() end,
+            function() notmuchTaskRunning = false; refreshNotmuchMenubar(false) end,
             function() return false end, { "-c", "syncmail" }):start()
     end
+end
+
+notmuchMenubar = hs.menubar.new()
+notmuchMenubar:setClickCallback(function(options)
+        if options.shift then
+            notmuchTimerFunction()
+        else
+        hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end,
+        { "-c", "-a", "", "--eval", "(=notmuch)" }):start()
+        end
 end)
+notmuchTimer = hs.timer.doEvery(300, notmuchTimerFunction)
