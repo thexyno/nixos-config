@@ -13,7 +13,7 @@ in
       default = "paperless";
     };
   config = mkIf cfg.enable {
-    services.paperless-override = {
+    services.paperless = {
       enable = true;
       mediaDir = mkDefault "/data/documents/paperless";
       consumptionDir = "/data/applications/paperless-consumption";
