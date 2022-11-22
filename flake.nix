@@ -177,6 +177,7 @@
         ds9 = nixosSystem "x86_64-linux" [ ./hosts/ds9/default.nix ];
         daedalusvm = nixosSystem "aarch64-linux" [ ./hosts/daedalusvm/default.nix ];
         octopi = nixosSystem "aarch64-linux" [ ./hosts/octopi/default.nix ];
+        woolsey = nixosSystem "aarch64-linux" [ ./hosts/woolsey/default.nix ];
         icarus = nixosSystem "x86_64-linux" [ ./hosts/icarus/default.nix ];
       };
       darwinConfigurations = processConfigurations {

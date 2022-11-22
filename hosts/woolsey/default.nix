@@ -2,7 +2,7 @@
 {
   imports = [
     "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-    "${inputs.nixos-hardware}/raspberry-pi/4/default.nix"
+    "${inputs.nixos-hardware}/raspberry-pi/2/default.nix"
   ];
   nixpkgs.overlays = [
     (final: super: {
@@ -11,7 +11,7 @@
     })
   ];
   boot.loader.systemd-boot.enable = false;
-  boot.kernelPackages = pkgs.linuxPackages_rpi3;
+  boot.kernelPackages = pkgs.linuxPackages_rpi2;
   boot.supportedFilesystems = lib.mkForce [ "reiserfs" "vfat" "zfs" "ext4" ];
   networking.hostId = "eec43f51";
   # networking.usePredictableInterfaceNames = false;
