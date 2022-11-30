@@ -87,15 +87,13 @@ in
         mosh
         terraform
 
-        python310Packages.ipython
-        jupyter
+        nodePackages.pyright
+        nodejs
 
         cmake
 
         pandoc
         texlive.combined.scheme-full
-
-        yabai
 
         google-cloud-sdk
       ];
