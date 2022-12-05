@@ -1,4 +1,19 @@
-# my nixos/nix-darwin configs
+# my nixos/nix-darwin Configs
 
+## Folder structure
 
-### 2022-04-12 repository layout was changed completely, the old layout is in https://github.com/thexyno/nixos-config/tree/oldmain
+- `hosts/`
+  - host specific configuration
+- `nixos-modules/`
+  - nixos modules
+- `hm-imports/`
+  - home-manager modules
+- `data/`
+  - some configuration files, pubkeys, ...
+- `lib/`
+  - helper functions
+- `packages/`
+  - packages to small to put into another repo
+- `secrets/`
+  - agenix secrets
+  
