@@ -31,7 +31,7 @@ in
         hassosvm = "spool/safe/vms/hassos";
       };
     in
-    builtins.mapAttrs (n: v: { target = "backup/${n}"; source = v; sendOptions = "w"; }) datasets;
+    builtins.mapAttrs (n: v: { target = "root@gatebridge:backup/${n}"; source = v; sendOptions = "w"; }) datasets;
 
   programs.mosh.enable = true;
   security.sudo.wheelNeedsPassword = false;
