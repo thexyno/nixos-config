@@ -20,9 +20,8 @@ in
   services.syncthing.user = "ragon";
 
   ragon.agenix.secrets."ds9OffsiteBackupSSH" = { owner = config.services.syncoid.user; };
-  services.syncoid.enable = true;
-  services.syncoid.sshKey = lib.mkForce "${config.age.secrets.ds9OffsiteBackupSSH.path}";
-  services.syncoid.commands =
+  ragon.agenix.secrets."gatebridgeHostKeys" = { owner = config.services.syncoid.user; };
+  services.syncoid =
     let
       datasets = {
         backups = "rpool/content/local/backups";
@@ -31,7 +30,25 @@ in
         hassosvm = "spool/safe/vms/hassos";
       };
     in
-    builtins.mapAttrs (n: v: { target = "root@gatebridge:backup/${n}"; source = v; sendOptions = "w"; }) datasets;
+
+    lib.mkMerge (
+      [{
+        localSourceAllow = [
+          "hold"
+          "send"
+          "snapshot"
+          "destroy"
+          "mount"
+        ];
+        enable = true;
+        interval = "*-*-* 2:15:00";
+        commonArgs = [ "--sshoption" "GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path}" ];
+        sshKey = lib.mkForce "${config.age.secrets.ds9OffsiteBackupSSH.path}";
+      }] ++
+      (builtins.attrValues
+        (builtins.mapAttrs (n: v: { commands.${n} = { target = "root@gatebridge:backup/${n}"; source = v; sendOptions = "w"; }; }) (datasets))
+      )
+    );
 
   programs.mosh.enable = true;
   security.sudo.wheelNeedsPassword = false;

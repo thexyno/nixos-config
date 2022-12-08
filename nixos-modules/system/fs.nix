@@ -39,18 +39,6 @@ in
     services.sanoid = {
       enable = mkDefault persistentSnapshot;
     } // (if persistentSnapshot then { datasets."${persistent}" = { }; } else { });
-    services.syncoid = {
-      user = "root";
-      group = "root";
-      sshKey = /persistent/root/.ssh/id_rsa;
-      enable = mkDefault true;
-      commonArgs = [
-      ];
-      commands."${persistent}" = {
-        target = "ragon@ds9:rpool/content/local/backups/${hostName}"; # FIXME extra user
-        recvOptions = "x encryption";
-      };
-    };
     boot.kernelParams = [ "zfs.zfs_arc_max=${toString (arcSize * 1024 * 1024 * 1024)}" ];
     fileSystems."/" =
       {
