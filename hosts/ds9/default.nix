@@ -219,6 +219,7 @@ in
     fruit:wipe_intentionally_left_blank_rfork = yes 
     fruit:delete_empty_adfiles = yes 
     fruit:metadata = stream
+    logging = 0
   '';
 
   services.smartd = {
@@ -263,7 +264,6 @@ in
           path = "/backups/DaedalusTimeMachine";
           comment = "DaedalusTimeMachine";
           "write list" = "@wheel";
-          "log level" = "0";
           "fruit:time machine" = "yes";
           "fruit:time machine max size" = "2050G";
           "vfs objects" = "acl_xattr fruit streams_xattr";
