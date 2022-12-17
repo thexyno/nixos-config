@@ -212,7 +212,8 @@ in
     vfs objects = acl_xattr catia fruit streams_xattr
     fruit:nfs_aces = no
     inherit permissions = yes
-    fruit:posix_rename = yes 
+    fruit:posix_rename = yes
+    fruit:resource = xattr
     fruit:model = MacPro7,1@ECOLOR=226,226,224
     fruit:veto_appledouble = no
     fruit:wipe_intentionally_left_blank_rfork = yes 
@@ -262,6 +263,7 @@ in
           path = "/backups/DaedalusTimeMachine";
           comment = "DaedalusTimeMachine";
           "write list" = "@wheel";
+          "log level" = "0";
           "fruit:time machine" = "yes";
           "fruit:time machine max size" = "2050G";
           "vfs objects" = "acl_xattr fruit streams_xattr";
