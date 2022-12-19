@@ -222,6 +222,15 @@ in
     logging = 0
   '';
 
+  users.users.minecraft = {
+    description = "Minecraft server service user";
+    home = "/var/lib/minecraft";
+    createHome = true;
+    isSystemUser = true;
+    group = "minecraft";
+  };
+  users.groups.minecraft = { };
+
   services.smartd = {
     enable = true;
     #notifications.test = true;
@@ -255,7 +264,7 @@ in
     cli.enable = true;
     user.enable = true;
     persist.enable = true;
-    persist.extraDirectories = [ "/var/lib/syncthing" config.services.plex.dataDir ];
+    persist.extraDirectories = [ "/var/lib/syncthing" config.services.plex.dataDir "/var/lib/minecraft" ];
 
     services = {
       samba.enable = true;
