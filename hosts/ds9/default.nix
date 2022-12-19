@@ -202,7 +202,7 @@ in
   #      "${pkgs.webhook}/bin/webhook -hooks ${hooksFile} -verbose";
   #  };
   #};
-  networking.firewall.allowedTCPPorts = [ 9000 ];
+  networking.firewall.allowedTCPPorts = [ 9000 25565 ];
 
   # Immutable users due to tmpfs
   users.mutableUsers = false;
@@ -230,6 +230,7 @@ in
     group = "minecraft";
   };
   users.groups.minecraft = { };
+  environment.systemPackages = [ pkgs.jre8 ];
 
   services.smartd = {
     enable = true;
