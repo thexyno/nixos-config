@@ -71,10 +71,10 @@ in
       programs.home-manager.enable = true;
       home.stateVersion = "21.11";
 
-      home.shellAliases = {
-        v = lib.mkForce "emacsclient -t";
-        vv = lib.mkForce "emacsclient -c";
-      };
+      #home.shellAliases = {
+      #  v = lib.mkForce "emacsclient -t";
+      #  vv = lib.mkForce "emacsclient -c";
+      #};
       home.sessionVariables = {
         EDITOR = "nvim";
         VISUAL = "nvim";

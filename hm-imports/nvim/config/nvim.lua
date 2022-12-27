@@ -1,3 +1,6 @@
+-- mapleader
+vim.g.mapleader = ' '
+
 require('utils')
 require('keybindings')
 require('filetypes')
@@ -8,8 +11,9 @@ require('plugin.nnn')
 require('plugin.rainbow')
 require('plugin.terminal')
 
+
 -- plugins - coc
--- vim.cmd 'source ~/.config/nvim/coc.vim' -- too lazy to convert all the shit to lua
+vim.cmd 'source ~/.config/nvim/coc.vim' -- too lazy to convert all the shit to lua
 -- terminal
 vim.cmd 'source ~/.config/nvim/terminal.vim' -- too lazy to convert all the shit to lua
 
@@ -18,6 +22,7 @@ vim.g.gruvbox_italic = 1
 vim.cmd ':colorscheme gruvbox'
 opt.termguicolors = true -- 24bit color
 opt.background = 'dark' -- dark gruvbox
+
 
 -- general settings
 vim.cmd [[
@@ -43,5 +48,5 @@ opt.softtabstop = 2
 -- buffers don't get unloaded when hidden
 opt.hidden = true
 -- low updatetime so it isnt as slow
-opt.updatetime = 200
+opt.updatetime = 100
 require('plugin.lualine')

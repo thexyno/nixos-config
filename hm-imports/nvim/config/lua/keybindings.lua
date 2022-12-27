@@ -16,8 +16,8 @@ map { 'n', '<C-k>', '<C-w>k', noremap = true, silent = true}
 map { 'n', '<C-l>', '<C-w>l', noremap = true, silent = true}
 
 -- buffer binds
-map { 'n', ',q', ':bd<CR>', noremap = false, silent = true}
-map { 'n', ',b', ':Buffers<CR>', noremap = false, silent = true}
+map { 'n', '<leader>q', ':bd<CR>', noremap = false, silent = true}
+map { 'n', '<leader>b', ':Buffers<CR>', noremap = false, silent = true}
 -- tab binds
 map { 'n', '<C-t>', ':tabnew<CR>', noremap = false, silent = true}
 
@@ -31,8 +31,8 @@ map { 'c', 'w!!', 'w !sudo tee > /dev/null %', noremap = false, silent = false}
 
 
 -- terminal
-map { 'n', '<leader>t', ':term<CR>', noremap = false, silent = true}
-map { 't', '<C-b>', '<C-\\><C-n>', noremap = true, silent = true}
+-- map { 'n', '<leader>t', ':term<CR>', noremap = false, silent = true}
+-- map { 't', '<C-b>', '<C-\\><C-n>', noremap = true, silent = true}
 
 -- plugins - commentary
 map { 'n', '<leader>c', ':Commentary<CR>', noremap = false, silent = true}
@@ -42,4 +42,5 @@ map { 'n', '<leader>v', ':Vista!!<CR>', noremap = false, silent = true}
 map { 'n', '<tab>', '::NnnPicker %:p:h<CR>', noremap = true, silent = true}
 
 -- plugins - terminal
-map {"n", "<leader>l", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true}}
+map {"n", "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true}}
+map {"n", "<leader>gp", "<cmd>lua _pipeline_toggle()<CR>", {noremap = true, silent = true}}

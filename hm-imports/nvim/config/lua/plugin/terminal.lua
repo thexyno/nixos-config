@@ -14,9 +14,12 @@ function _lazygit_toggle()
 	lazygit:toggle()
 end
 
--- local pipeline = Terminal:new {
--- 	cmd = "glab ci view",
--- 	hidden = true,
--- 	direction = 'float'
--- }
+local pipeline = Terminal:new {
+ 	cmd = "glab ci view",
+ 	hidden = true,
+ 	direction = 'float'
+}
 
+function _pipeline_toggle() 
+	pipeline:toggle()
+end

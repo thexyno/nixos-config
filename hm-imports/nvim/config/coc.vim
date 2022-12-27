@@ -1,6 +1,6 @@
-if system('id -u') > 500
-  let g:coc_global_extensions = [ 'coc-markdownlint', 'coc-diagnostic', 'coc-angular', 'coc-css', 'coc-docker', 'coc-flutter-tools', 'coc-git', 'coc-homeassistant', 'coc-html', 'coc-json', 'coc-marketplace', 'coc-prettier', 'coc-pyright', 'coc-rls', 'coc-rust-analyzer', 'coc-scssmodules', 'coc-sh', 'coc-snippets', 'coc-stylelintplus', 'coc-swagger', 'coc-tabnine', 'coc-eslint', 'coc-tsserver', 'coc-webpack', 'coc-yaml' ]
-endif
+" if system('id -u') > 500
+"  let g:coc_global_extensions = [ 'coc-markdownlint', 'coc-diagnostic', 'coc-angular', 'coc-css', 'coc-docker', 'coc-flutter-tools', 'coc-git', 'coc-homeassistant', 'coc-html', 'coc-json', 'coc-marketplace', 'coc-prettier', 'coc-pyright', 'coc-rls', 'coc-rust-analyzer', 'coc-scssmodules', 'coc-sh', 'coc-snippets', 'coc-stylelintplus', 'coc-swagger', 'coc-tabnine', 'coc-eslint', 'coc-tsserver', 'coc-webpack', 'coc-yaml' ]
+" endif
 " \coc Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
