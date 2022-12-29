@@ -17,14 +17,18 @@ map { 'n', '<C-l>', '<C-w>l', noremap = true, silent = true}
 
 -- buffer binds
 map { 'n', '<leader>q', ':bd<CR>', noremap = false, silent = true}
-map { 'n', '<leader>b', ':Buffers<CR>', noremap = false, silent = true}
+-- telescope
+map { 'n', '<leader>fb', '<cmd>Telescope buffers<CR>', noremap = false, silent = true}
+map { 'n', '<leader>ff', '<cmd>Telescope find_files<CR>', noremap = false, silent = true}
+map { 'n', '<leader>fs', '<cmd>Telescope live_grep<CR>', noremap = false, silent = true}
+map { 'n', '<leader>fr', '<cmd>Telescope registers<CR>', noremap = false, silent = true}
+map { 'n', '<leader>pp', '<cmd>lua require\'telescope\'.extensions.projects.projects{}<cr>', noremap = false, silent = true}
 -- tab binds
 map { 'n', '<C-t>', ':tabnew<CR>', noremap = false, silent = true}
 
 -- copy paste
 map { 'v', '<C-c>', '"+y', noremap = true, silent = true}
 map { 'n', '<C-b>', '"+P', noremap = false, silent = true}
-map { 'n', '<C-p>', ':registers<CR>', noremap = true, silent = true}
 
 -- sudo :w
 map { 'c', 'w!!', 'w !sudo tee > /dev/null %', noremap = false, silent = false}

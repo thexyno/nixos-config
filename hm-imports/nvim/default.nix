@@ -62,9 +62,9 @@
           incsearch-vim
           vim-highlightedyank
           vim-fugitive
-          fzf-vim
+          #fzf-vim
           lualine-nvim
-          fzfWrapper
+          #fzfWrapper
           vim-devicons
           toggleterm-nvim
           undotree
@@ -72,6 +72,10 @@
           vim-pandoc-syntax
           ultisnips
           #dart-vim
+
+          plenary-nvim
+          telescope-nvim
+          project-nvim
 
           coc-nvim
 

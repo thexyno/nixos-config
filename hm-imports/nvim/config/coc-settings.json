@@ -5,7 +5,6 @@
   "python.linting.enabled": true,
   "html.format.enable": true,
   "html.suggest.html5": true,
-  "html.suggest.ionic": true,
   "html.validate.html": true,
   "html.validate.styles": true,
   "diagnostic-languageserver.mergeConfig": true,
@@ -35,6 +34,13 @@
      "command": "rnix-lsp",
      "filetypes": [
        "nix"
+     ]
+   },
+   "csharp-ls": {
+     "command": "csharp-ls",
+     "filetypes": [
+       "cs",
+       "razor"
      ]
    },
    "terraform": {
