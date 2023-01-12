@@ -278,12 +278,6 @@ hs.hotkey.bind(modifiers.hyper, hs.keycodes.map.delete, function() hs.caffeinate
 hs.hotkey.bind(modifiers.hyper, "a", function() showHideBundleId(bundleID.activityMonitor) end)
 hs.hotkey.bind(modifiers.hyper, "c", function() showHideBundleId(bundleID.safari) end)
 hs.hotkey.bind(modifiers.hyper, "f", function() showHideBundleId(bundleID.faclieThings) end)
-hs.hotkey.bind(modifiers.hyper, "e",
-    function() hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end, { "-c", "-a", "" }):start() end)
-hs.hotkey.bind(modifiers.hyper, "i",
-    function() hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end,
-            { "-a", "", "--eval", "(emacs-everywhere)" }):start()
-    end)
 hs.hotkey.bind(modifiers.hyper, "p", function() showHideBundleId(bundleID.timeular) end)
 hs.hotkey.bind(modifiers.hyper, "b", function() showHideBundleId(bundleID.bitwarden) end)
 hs.hotkey.bind(modifiers.hyper, "t", function() showHideBundleId(bundleID.iterm) end)
@@ -331,106 +325,23 @@ local function handleMouse2()
 end
 
 local function handleMouse3()
-    local application = hs.application.frontmostApplication()
-
-    -- Safari: Back
-    if application:bundleID() == bundleID.safari then
-        if languageIsGerman() then
-            application:selectMenuItem({ "Verlauf", "Zurück" })
-        else
-            application:selectMenuItem({ "History", "Back" })
-        end
-
-        -- Safari Technology Preview: Back
-    elseif application:bundleID() == bundleID.safariTechnologyPreview then
-        application:selectMenuItem({ "History", "Back" })
-
-        -- Google Chrome: Back
-    elseif application:bundleID() == bundleID.googleChrome then
-        if languageIsGerman() then
-            application:selectMenuItem({ "Verlauf", "Zurück" })
-        else
-            application:selectMenuItem({ "History", "Back" })
-        end
-
-        -- Firefox: Back
-    elseif application:bundleID() == bundleID.firefox then
         hs.eventtap.keyStroke({ modifier.cmd }, "left")
-
-        -- Teams: Toggle mute
-    elseif application:bundleID() == bundleID.teams then
-        hs.eventtap.keyStroke({ modifier.cmd, modifier.shift }, "m")
-
-        -- Spotify: Next
-    elseif application:bundleID() == bundleID.spotify then
-        hs.eventtap.keyStroke({ modifier.cmd }, "right")
-
-        -- Reeder: Open in Safari
-    elseif application:bundleID() == bundleID.reeder then
-        hs.eventtap.keyStroke({}, "b")
-
-        -- Other: Copy to clipboard
-    else
-        hs.eventtap.keyStroke({ "cmd" }, "c")
-    end
 end
 
 local function handleMouse4()
-    local application = hs.application.frontmostApplication()
-
-    -- Safari: Forward
-    if application:bundleID() == bundleID.safari then
-        if languageIsGerman() then
-            application:selectMenuItem({ "Verlauf", "Vorwärts" })
-        else
-            application:selectMenuItem({ "History", "Forward" })
-        end
-
-        -- Safari Technology Preview: Forward
-    elseif application:bundleID() == bundleID.safariTechnologyPreview then
-        application:selectMenuItem({ "History", "Forward" })
-
-        -- Google Chrome: Forward
-    elseif application:bundleID() == bundleID.googleChrome then
-        if languageIsGerman() then
-            application:selectMenuItem({ "Verlauf", "Vorwärts" })
-        else
-            application:selectMenuItem({ "History", "Forward" })
-        end
-
-        -- Firefox: Forward
-    elseif application:bundleID() == bundleID.firefox then
         hs.eventtap.keyStroke({ modifier.cmd }, "right")
-
-        -- Teams: Toggle video
-    elseif application:bundleID() == bundleID.teams then
-        hs.eventtap.keyStroke({ modifier.cmd, modifier.shift }, "o")
-
-        -- Spotify: Previous
-    elseif application:bundleID() == bundleID.spotify then
-        hs.eventtap.keyStroke({ modifier.cmd }, "left")
-
-        -- Reeder: Mark all as read
-    elseif application:bundleID() == bundleID.reeder then
-        hs.eventtap.keyStroke({}, "a")
-
-        -- Other: Paste from clipboard
-    else
-        hs.eventtap.keyStroke({ modifier.cmd }, "v")
-    end
 end
 
+-- bind mouse3/4 to back and forward
 mouseTap = hs.eventtap.new({ hs.eventtap.event.types.otherMouseDown }, function(event)
-    if event:getButtonState(2) then
-        handleMouse2()
-    elseif event:getButtonState(3) then
+    if event:getButtonState(3) then
         handleMouse3()
     elseif event:getButtonState(4) then
         handleMouse4()
     end
     return true
 end)
--- mouseTap:start()
+mouseTap:start()
 
 ----------------------------------------------------------------------------------------------------
 -- Clipboard Manager
@@ -441,34 +352,6 @@ end)
 --
 -- hs.hotkey.bind(modifiers.clipboard, "v", function() clipboard:toggleClipboard() end)
 -- hs.hotkey.bind(modifiers.clipboard, hs.keycodes.map.delete, function() clipboard:clearAll() end)
-
-----------------------------------------------------------------------------------------------------
--- Facilethings paste
-----------------------------------------------------------------------------------------------------
-
-local function facileCaptpure()
-    ok, text = hs.dialog.textPrompt("Facilethings", "Capture")
-    if ok then
-        hs.osascript.applescript(string.format([[
-tell application "Mail"
-
-        ##Create the message
-        set theMessage to make new outgoing message with properties {subject:"%s", content:"", visible:true}
-
-        ##Set a recipient
-        tell theMessage
-                make new to recipient with properties {name:"inbox@facilethings.com", address:"inbox@facilethings.com"}
-
-                ##Send the Message
-                send
-
-        end tell
-end tell
-]]       , text))
-    end
-end
-
-hs.hotkey.bind(modifiers.window, "f", facileCaptpure)
 
 ----------------------------------------------------------------------------------------------------
 -- notmuch indicator
