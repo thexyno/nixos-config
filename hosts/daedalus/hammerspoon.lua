@@ -295,36 +295,7 @@ end)
 -- Mouse Shortcuts
 ----------------------------------------------------------------------------------------------------
 
-local function handleMouse2()
-    local application = hs.application.frontmostApplication()
-
-    -- Safari: Close tab
-    if application:bundleID() == bundleID.safari then
-        hs.eventtap.keyStroke({ modifier.cmd }, "w")
-
-        -- Safari Technology Preview: Close tab
-    elseif application:bundleID() == bundleID.safariTechnologyPreview then
-        hs.eventtap.keyStroke({ modifier.cmd }, "w")
-
-        -- Google Chrome: Close tab
-    elseif application:bundleID() == bundleID.googleChrome then
-        hs.eventtap.keyStroke({ modifier.cmd }, "w")
-
-        -- Firefox: Close tab
-    elseif application:bundleID() == bundleID.firefox then
-        hs.eventtap.keyStroke({ modifier.cmd }, "w")
-
-        -- Teams: End call
-    elseif application:bundleID() == bundleID.teams then
-        hs.eventtap.keyStroke({ modifier.cmd, modifier.shift }, "h")
-
-        -- Spotify: Toggle play
-    elseif application:bundleID() == bundleID.spotify then
-        hs.eventtap.keyStroke({}, "space")
-    end
-end
-
-local function handleMouse3()
+local function handleMouse5()
         hs.eventtap.keyStroke({ modifier.cmd }, "left")
 end
 
@@ -334,8 +305,8 @@ end
 
 -- bind mouse3/4 to back and forward
 mouseTap = hs.eventtap.new({ hs.eventtap.event.types.otherMouseDown }, function(event)
-    if event:getButtonState(3) then
-        handleMouse3()
+    if event:getButtonState(5) then
+        handleMouse5()
     elseif event:getButtonState(4) then
         handleMouse4()
     end

@@ -8,6 +8,10 @@ module.exports = {
     {
       match: /^https?:\/\/.*\.atlassian\.com\/.*$/,
       browser: "Vivaldi.app"
+    },
+    {
+      match: 'localhost:44422',
+      browser: "Vivaldi.app"
     }
   ]
 }
