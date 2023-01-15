@@ -295,20 +295,20 @@ end)
 -- Mouse Shortcuts
 ----------------------------------------------------------------------------------------------------
 
-local function handleMouse5()
+local function handleMouse4()
         hs.eventtap.keyStroke({ modifier.cmd }, "left")
 end
 
-local function handleMouse4()
+local function handleMouse5()
         hs.eventtap.keyStroke({ modifier.cmd }, "right")
 end
 
 -- bind mouse3/4 to back and forward
 mouseTap = hs.eventtap.new({ hs.eventtap.event.types.otherMouseDown }, function(event)
-    if event:getButtonState(5) then
-        handleMouse5()
-    elseif event:getButtonState(4) then
+    if event:getButtonState(3) then
         handleMouse4()
+    elseif event:getButtonState(4) then
+        handleMouse5()
     end
     return true
 end)
