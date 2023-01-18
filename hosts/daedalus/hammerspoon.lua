@@ -307,10 +307,12 @@ end
 mouseTap = hs.eventtap.new({ hs.eventtap.event.types.otherMouseDown }, function(event)
     if event:getButtonState(3) then
         handleMouse4()
+        return true
     elseif event:getButtonState(4) then
         handleMouse5()
+        return true
     end
-    return true
+    return false
 end)
 mouseTap:start()
 
