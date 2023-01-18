@@ -1,5 +1,9 @@
 {
   "suggest.triggerCompletionWait": 50,
+  "semanticTokens": {
+    "filetypes": ["nix"]
+  },
+  "coc.preferences.formatOnSaveFiletypes": ["nix"],
   "suggest.enablePreview": true,
   "html.enable": true,
   "python.linting.enabled": true,
@@ -11,7 +15,7 @@
   "diagnostic-languageserver.filetypes": {
     "vim": "vint",
     "sh": "shellcheck",
-    "markdown":  "write-good"
+    "markdown": "write-good"
   },
   "diagnostic-languageserver.formatFiletypes": {
     "sh": "shfmt"
@@ -25,34 +29,29 @@
   "rust-analyzer.inlayHints.refreshOnInsertMode": true,
   "rust-analyzer.updates.channel": "nightly",
   "html.validate.scripts": true,
-  "git.gitlab.hosts": [
-    "gitlab.com"
-  ],
+  "git.gitlab.hosts": ["gitlab.com"],
   "git.addGBlameToVirtualText": true,
   "languageserver": {
-   "nix": {
-     "command": "nil",
-     "filetypes": [
-       "nix"
-     ],
-     "rootPatterns":  ["flake.nix"]
-   },
-   "csharp-ls": {
-     "command": "csharp-ls",
-     "filetypes": [
-       "cs",
-       "razor"
-     ]
-   },
-   "terraform": {
-     "command": "terraform-ls",
-     			"args": ["serve"],
-			"filetypes": [
-				"terraform",
-				"tf"
-			],
-			"initializationOptions": {},
-			"settings": {}
-   }
+    "nix": {
+      "command": "nil",
+      "filetypes": ["nix"],
+      "settings": {
+        "nil": {
+          "formatting": { "command": ["nixpkgs-fmt"] }
+        }
+      },
+      "rootPatterns": ["flake.nix"]
+    },
+    "csharp-ls": {
+      "command": "csharp-ls",
+      "filetypes": ["cs", "razor"]
+    },
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["terraform", "tf"],
+      "initializationOptions": {},
+      "settings": {}
+    }
   }
 }
