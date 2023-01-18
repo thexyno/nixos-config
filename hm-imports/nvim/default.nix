@@ -5,7 +5,8 @@
     lazygit
     nodejs # coc-nvim
     yarn # coc-nvim
-    inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
+    #inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
+    nil
 
     # lsp
     shfmt

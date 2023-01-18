@@ -31,10 +31,11 @@
   "git.addGBlameToVirtualText": true,
   "languageserver": {
    "nix": {
-     "command": "rnix-lsp",
+     "command": "nil",
      "filetypes": [
        "nix"
-     ]
+     ],
+     "rootPatterns":  ["flake.nix"]
    },
    "csharp-ls": {
      "command": "csharp-ls",
