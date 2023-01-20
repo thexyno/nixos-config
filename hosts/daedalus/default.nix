@@ -5,8 +5,6 @@ let
   myEmacs = pkgs.emacsNativeComp;
 in
 {
-  nixpkgs.config.allowBroken = true;
-  nixpkgs.config.allowUnsupportedSystem = true;
 
   users.users.ragon = {
     name = "ragon";
