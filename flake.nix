@@ -205,7 +205,7 @@
                 networking.hostName = hostName;
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = { inherit inputs; };
+                home-manager.extraSpecialArgs = { inherit inputs pkgs; };
                 home-manager.users.ragon = hmConfig;
               }
               ./darwin-common.nix
