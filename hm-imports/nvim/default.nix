@@ -104,8 +104,8 @@
           coc-snippets
           #coc-smartf
           coc-sh
-          #coc-rust-analyzer
-          coc-rls
+          coc-rust-analyzer
+          #coc-rls
           #coc-r-lsp
           coc-python
           #coc-pyright
