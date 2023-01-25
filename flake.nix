@@ -95,7 +95,7 @@
             packageOverrides = pyself: pysuper: {
               notmuch2 = pysuper.notmuch2.overridePythonAttrs (old: {
                 postPatch = old.postPatch + ''sed -i "s|/private.*/notmuch-${old.version}/|$(pwd)/../../|g" _notmuch_config.py'';
-                meta.broken = null;
+                meta.broken = false;
               });
             };
           };

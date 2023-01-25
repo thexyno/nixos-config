@@ -11,7 +11,7 @@ in
     home = "/Users/ragon";
   };
   environment.systemPackages = [
-    myEmacs
+    #    myEmacs
   ];
 
   homebrew = {
@@ -64,7 +64,7 @@ in
           '';
         in
         pkgs.substituteAll {
-          src = ./hammerspoon.lua; inherit myEmacs notmuchMails;
+          src = ./hammerspoon.lua; inherit notmuchMails;
         };
       home.file.".finicky.js".source = ./finicky.js;
 

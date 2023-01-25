@@ -352,12 +352,12 @@ local function notmuchTimerFunction()
 end
 
 notmuchMenubar = hs.menubar.new()
-notmuchMenubar:setClickCallback(function(options)
-        if options.shift then
-            notmuchTimerFunction()
-        else
-        hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end,
-        { "-c", "-a", "", "--eval", "(=notmuch)" }):start()
-        end
-end)
+-- notmuchMenubar:setClickCallback(function(options)
+--         if options.shift then
+--             notmuchTimerFunction()
+--         else
+--         hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end,
+--         { "-c", "-a", "", "--eval", "(=notmuch)" }):start()
+--         end
+-- end)
 notmuchTimer = hs.timer.doEvery(300, notmuchTimerFunction)
