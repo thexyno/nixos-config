@@ -9,6 +9,7 @@
       gruvbox
     ];
     extraConfig = ''
+      set -sg escape-time 0 # makes vim esc usable
       new-session -s main
       bind-key -n C-e send-prefix
       bind '"' split-window -c "#{pane_current_path}"
