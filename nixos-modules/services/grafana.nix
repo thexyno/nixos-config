@@ -13,14 +13,14 @@ in
   config = lib.mkIf cfg.enable {
     services.grafana = {
       enable = true;
-      domain = "${cfg.domainPrefix}.${domain}";
-      rootUrl = "https://${cfg.domainPrefix}.${domain}/";
+      settings.server.domain = "${cfg.domainPrefix}.${domain}";
+      settings.server.root_url = "https://${cfg.domainPrefix}.${domain}/";
     };
     services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
       useACMEHost = "${domain}";
       addSSL = true;
       locations = {
-        "/".proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}";
+        "/".proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
         "/".proxyWebsockets = true;
       };
     };
