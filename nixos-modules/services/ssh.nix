@@ -6,9 +6,9 @@ in
 {
   options.ragon.services.ssh.enable = lib.mkEnableOption "Enables sshd";
   config = lib.mkIf cfg.enable {
-    services.openssh.settings.PermitRootLogin = "without-password";
+    services.openssh.permitRootLogin = "without-password";
     services.openssh.enable = true;
-    services.openssh.settings.PasswordAuthentication = false;
+    services.openssh.passwordAuthentication = false;
     users.users.root.openssh.authorizedKeys.keys = pubkeys.ragon.user;
   };
 }

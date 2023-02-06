@@ -11,8 +11,9 @@ in
   config = mkIf cfg.enable {
     security.sudo.execWheelOnly = true;
     services.openssh = {
-      settings.PasswordAuthentication = false;
-      settings.KbdInteractiveAuthentication = false;
+      passwordAuthentication = false;
+      allowSFTP = true; # just use rsync, lol
+      kbdInteractiveAuthentication = false;
       extraConfig = ''
         AllowTcpForwarding yes
         X11Forwarding no

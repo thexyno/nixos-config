@@ -5,11 +5,12 @@
     utils.url = "github:numtide/flake-utils";
 
     ## nixos/nix-darwin dependencies
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     agenix.url = "github:ryantm/agenix/main";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -66,6 +67,7 @@
   outputs =
     inputs @ { self
     , nixpkgs
+    , nixpkgs-darwin
     , nixpkgs-master
     , agenix
     , home-manager
@@ -148,6 +150,10 @@
         inherit system overlays;
         config.allowUnfree = true;
       };
+      genDarwinPkgsWithOverlays = system: import nixpkgs-darwin {
+        inherit system overlays;
+        config.allowUnfree = true;
+      };
 
 
       hmConfig = { hm, pkgs, inputs, config, ... }: {
@@ -191,7 +197,7 @@
           };
       darwinSystem = system: extraModules: hostName:
         let
-          pkgs = genPkgsWithOverlays system;
+          pkgs = genDarwinPkgsWithOverlays system;
         in
         darwin.lib.darwinSystem
           {
