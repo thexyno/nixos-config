@@ -66,6 +66,8 @@ in
         pkgs.substituteAll {
           src = ./hammerspoon.lua; inherit notmuchMails;
         };
+      home.file.".hammerspoon/Spoons/MiroWindowsManager.spoon".source = "${inputs.miro}/MiroWindowsManager.spoon";
+      home.file.".hammerspoon/Spoons/MusicAppMediaFix.spoon".source = "${inputs.spoons}/Source/MusicAppMediaFix.spoon";
       home.file.".finicky.js".source = ./finicky.js;
 
       programs.home-manager.enable = true;

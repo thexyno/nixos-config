@@ -169,6 +169,22 @@
         "type": "github"
       }
     },
+    "miro": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1644177791,
+        "narHash": "sha256-t8L6UboaOcg6JkGjX1NTd13Yw7ATySGxmnkJ7wUyZAE=",
+        "owner": "miromannino",
+        "repo": "miro-windows-manager",
+        "rev": "faa6f5f0bc025cc2465f3198609d2123d86101c2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "miromannino",
+        "repo": "miro-windows-manager",
+        "type": "github"
+      }
+    },
     "naersk": {
       "inputs": {
         "nixpkgs": [
@@ -365,6 +381,7 @@
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "miro": "miro",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-darwin": "nixpkgs-darwin",
@@ -375,12 +392,29 @@
         "pandoc-latex-template": "pandoc-latex-template",
         "private": "private",
         "rnix-lsp": "rnix-lsp",
+        "spoons": "spoons",
         "utils": "utils_2",
         "x": "x",
         "xynoblog": "xynoblog",
         "zsh-completions": "zsh-completions",
         "zsh-syntax-highlighting": "zsh-syntax-highlighting",
         "zsh-vim-mode": "zsh-vim-mode"
+      }
+    },
+    "spoons": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1667424431,
+        "narHash": "sha256-ShfiwQluh89aFmqSKL4Q5X9BECm3qP6jreYGIV0Qb/g=",
+        "owner": "Hammerspoon",
+        "repo": "Spoons",
+        "rev": "b36b6f6c654b787be11b6acde1f9ec4fcd217669",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Hammerspoon",
+        "repo": "Spoons",
+        "type": "github"
       }
     },
     "utils": {

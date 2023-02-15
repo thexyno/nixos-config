@@ -47,6 +47,13 @@
     agkozak-zsh-prompt.url = "github:agkozak/agkozak-zsh-prompt";
     agkozak-zsh-prompt.flake = false;
 
+    ## hammerspoon
+    miro.url = "github:miromannino/miro-windows-manager";
+    miro.flake = false;
+    spoons.url = "github:Hammerspoon/Spoons";
+    spoons.flake = false;
+
+
 
     #other dependencies
     pandoc-latex-template.url = "github:Wandmalfarbe/pandoc-latex-template";

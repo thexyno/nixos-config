@@ -55,28 +55,28 @@ local usbDevice = {
 
 local function languageIsGerman() return hs.host.locale.preferredLanguages()[1]:sub(0, 2) == "de" end
 
-local function maximizeCurrentWindow() hs.window.focusedWindow():maximize() end
-
+-- local function maximizeCurrentWindow() hs.window.focusedWindow():maximize() end
+-- 
 local function centerCurrentWindow() hs.window.focusedWindow():centerOnScreen() end
-
-local function moveCurrentWindowToLeftHalf()
-    local win = hs.window.focusedWindow()
-    local screenFrame = win:screen():frame()
-    local newFrame = hs.geometry.rect(screenFrame.x, screenFrame.y, screenFrame.w / 2, screenFrame.h)
-    win:setFrame(newFrame)
-end
-
-local function moveCurrentWindowToRightHalf()
-    local win = hs.window.focusedWindow()
-    local screenFrame = win:screen():frame()
-    local newFrame = hs.geometry.rect(screenFrame.x + screenFrame.w / 2, screenFrame.y, screenFrame.w / 2, screenFrame.h)
-    win:setFrame(newFrame)
-end
-
-local function moveCurentWindowToNextScreen()
-    local win = hs.window.focusedWindow()
-    win:moveToScreen(win:screen():next())
-end
+-- 
+-- local function moveCurrentWindowToLeftHalf()
+--     local win = hs.window.focusedWindow()
+--     local screenFrame = win:screen():frame()
+--     local newFrame = hs.geometry.rect(screenFrame.x, screenFrame.y, screenFrame.w / 2, screenFrame.h)
+--     win:setFrame(newFrame)
+-- end
+-- 
+-- local function moveCurrentWindowToRightHalf()
+--     local win = hs.window.focusedWindow()
+--     local screenFrame = win:screen():frame()
+--     local newFrame = hs.geometry.rect(screenFrame.x + screenFrame.w / 2, screenFrame.y, screenFrame.w / 2, screenFrame.h)
+--     win:setFrame(newFrame)
+-- end
+-- 
+-- local function moveCurentWindowToNextScreen()
+--     local win = hs.window.focusedWindow()
+--     win:moveToScreen(win:screen():next())
+-- end
 
 local function moveMouseToWindowCenter()
     local windowCenter = hs.window.frontmostWindow():frame().center
@@ -263,11 +263,23 @@ function showHideBundleId(bundleId)
     end
 end
 
-hs.hotkey.bind(modifiers.window, hs.keycodes.map.left, moveCurrentWindowToLeftHalf)
-hs.hotkey.bind(modifiers.window, hs.keycodes.map.right, moveCurrentWindowToRightHalf)
-hs.hotkey.bind(modifiers.window, hs.keycodes.map.down, moveCurentWindowToNextScreen)
-hs.hotkey.bind(modifiers.window, hs.keycodes.map["return"], maximizeCurrentWindow)
+-- hs.hotkey.bind(modifiers.window, hs.keycodes.map.left, moveCurrentWindowToLeftHalf)
+-- hs.hotkey.bind(modifiers.window, hs.keycodes.map.right, moveCurrentWindowToRightHalf)
+-- hs.hotkey.bind(modifiers.window, hs.keycodes.map.down, moveCurentWindowToNextScreen)
+-- hs.hotkey.bind(modifiers.window, hs.keycodes.map["return"], maximizeCurrentWindow)
 hs.hotkey.bind(modifiers.window, "c", centerCurrentWindow)
+
+hs.loadSpoon("MiroWindowsManager")
+hs.window.animationDuration = 0
+spoon.MiroWindowsManager:bindHotkeys({
+  up = {modifiers.window, "up"},
+  right = {modifiers.window, "right"},
+  down = {modifiers.window, "down"},
+  left = {modifiers.window, "left"},
+  fullscreen = {modifiers.window, "return"},
+  nextscreen = {modifiers.hyper, "right"}
+})
+
 
 hs.hotkey.bind(modifiers.hyper, "[", moveMouseToWindowCenter)
 hs.hotkey.bind(modifiers.hyper, "m", moveMouseToUpperLeft)
