@@ -230,7 +230,7 @@ in
     group = "minecraft";
   };
   users.groups.minecraft = { };
-  environment.systemPackages = [ pkgs.jre_minimal ];
+  environment.systemPackages = [ pkgs.jdk ];
 
   services.smartd = {
     enable = true;

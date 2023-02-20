@@ -43,10 +43,10 @@
     device = "rpool/content/local/backups";
     fsType = "zfs";
   };
-  fileSystems."/data/media/nzbr" = {
-    device = "10.0.1.2:/storage/media";
-    fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" ];
-  };
+  # fileSystems."/data/media/nzbr" = {
+  #   device = "10.0.1.2:/storage/media";
+  #   fsType = "nfs";
+  #   options = [ "x-systemd.automount" "noauto" ];
+  # };
 
 }
