@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, inputs, ... }: {
   programs.gnupg.agent.enable = true;
   programs.zsh.enable = true;
   environment.pathsToLink = [ "/share/zsh" ];
@@ -7,6 +7,7 @@
   nix.settings.cores = 0; # use all cores
   nix.settings.max-jobs = 10; # use all cores
   nix.distributedBuilds = true;
+  nix.nixPath = [{ nixpkgs = "${inputs.nixpkgs}"; }];
   nix.buildMachines = [{
     systems = [ "x86_64-linux" ];
     supportedFeatures = [ "kvm" "big-parallel" ];
