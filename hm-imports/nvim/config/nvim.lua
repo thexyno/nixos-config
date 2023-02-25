@@ -25,7 +25,7 @@ vim.cmd ':colorscheme gruvbox'
 opt.termguicolors = true -- 24bit color
 opt.background = 'dark' -- dark gruvbox
 --vimspector
-vim.g.vimspector_base_dir = "$HOME/.local/share/nvim/vimspector"
+vim.g.vimspector_base_dir = vim.env.HOME .. "/.local/share/nvim/vimspector"
 vim.g.vimspector_enable_mappings = "HUMAN"
 
 
