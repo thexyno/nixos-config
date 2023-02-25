@@ -78,6 +78,8 @@
           telescope-nvim
           project-nvim
 
+          vimspector
+
           coc-nvim
 
           #telescope-coc-nvim
