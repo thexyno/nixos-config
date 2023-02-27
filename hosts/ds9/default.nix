@@ -219,7 +219,6 @@ in
     fruit:wipe_intentionally_left_blank_rfork = yes 
     fruit:delete_empty_adfiles = yes 
     fruit:metadata = stream
-    logging = 0
   '';
 
   users.users.minecraft = {
