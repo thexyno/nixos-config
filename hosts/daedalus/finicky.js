@@ -12,6 +12,11 @@ module.exports = {
     {
       match: 'localhost:44422',
       browser: "Vivaldi.app"
+    },
+    {
+      match: 'localhost:7104',
+      browser: "Vivaldi.app"
     }
+
   ]
 }
