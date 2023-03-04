@@ -102,6 +102,7 @@ in
   users.users.picardbackup = {
     createHome = false;
     group = "users";
+    uid = 993;
     home = "/backups/restic/picard";
     isSystemUser = true;
     openssh.authorizedKeys.keys = [
