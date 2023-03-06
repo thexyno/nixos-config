@@ -16,6 +16,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
     # programs
     xynoblog.url = "github:thexyno/blog";
@@ -26,10 +28,6 @@
     ## editor stuff
     rnix-lsp.url = "github:nix-community/rnix-lsp";
     rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
-
-    ## emacs
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
     ## vim
     nnn-vim.url = "github:mcchrish/nnn.vim";
@@ -75,6 +73,7 @@
     inputs @ { self
     , nixpkgs
     , nixpkgs-darwin
+    , neovim-nightly-overlay
     , nixpkgs-master
     , agenix
     , home-manager
@@ -98,7 +97,7 @@
       };
       overlays = [
         self.overlays.default
-        emacs-overlay.overlay
+        neovim-nightly-overlay.overlay
         (final: prev: {
           python3 = prev.python3.override {
             packageOverrides = pyself: pysuper: {

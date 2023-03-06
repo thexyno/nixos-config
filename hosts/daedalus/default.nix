@@ -1,9 +1,6 @@
 { pkgs, inputs, lib, ... }:
 with lib;
 with lib.my;
-let
-  myEmacs = pkgs.emacsNativeComp;
-in
 {
 
   users.users.ragon = {
