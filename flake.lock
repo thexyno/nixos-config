@@ -38,22 +38,6 @@
         "type": "github"
       }
     },
-    "coc-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1677728877,
-        "narHash": "sha256-Btj7crJo0zk8/uF/RXtbGOiD3fQxzxKwmK+mMhf2s0I=",
-        "owner": "neoclide",
-        "repo": "coc.nvim",
-        "rev": "b28b8dc4278f0c68f14b74609d73169c88c97ec4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "neoclide",
-        "repo": "coc.nvim",
-        "type": "github"
-      }
-    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -376,6 +360,38 @@
         "type": "github"
       }
     },
+    "notice-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677882849,
+        "narHash": "sha256-3XQklNVwwzkrQtaKw8U8iXnNcDMiuEvXtceE2ACY6wc=",
+        "owner": "folke",
+        "repo": "noice.nvim",
+        "rev": "c22651651da01239fc4afac4cdb7261797d5f02e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "noice.nvim",
+        "type": "github"
+      }
+    },
+    "notify-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677922748,
+        "narHash": "sha256-3E9FN+dAKswzLTX6PYJIj30MWxd3estsZORBEf2Csn0=",
+        "owner": "rcarriga",
+        "repo": "nvim-notify",
+        "rev": "281e4d793c550c866bea3fb85d39de1f0188fb50",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rcarriga",
+        "repo": "nvim-notify",
+        "type": "github"
+      }
+    },
     "octoprint-spoolmanager": {
       "flake": false,
       "locked": {
@@ -466,7 +482,6 @@
       "inputs": {
         "agenix": "agenix",
         "agkozak-zsh-prompt": "agkozak-zsh-prompt",
-        "coc-nvim": "coc-nvim",
         "darwin": "darwin_2",
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
@@ -478,6 +493,8 @@
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-master": "nixpkgs-master",
         "nnn-vim": "nnn-vim",
+        "notice-nvim": "notice-nvim",
+        "notify-nvim": "notify-nvim",
         "octoprint-spoolmanager": "octoprint-spoolmanager",
         "octoprint-telegram": "octoprint-telegram",
         "pandoc-latex-template": "pandoc-latex-template",

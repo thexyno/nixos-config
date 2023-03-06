@@ -38,6 +38,16 @@
             version = "1.0.0";
             src = inputs.nnn-vim;
           };
+          notify-nvim = pkgs.vimUtils.buildVimPlugin {
+            pname = "notify-nvim";
+            version = "1.0.0";
+            src = inputs.notify-nvim;
+          };
+          notice-nvim = pkgs.vimUtils.buildVimPlugin {
+            pname = "notice-nvim";
+            version = "1.0.0";
+            src = inputs.notice-nvim;
+          };
           #coc-nvim = pkgs.vimUtils.buildVimPlugin {
           #  name = "coc-nvim";
           #  src = inputs.coc-nvim;
@@ -73,6 +83,13 @@
           vim-pandoc-syntax
           ultisnips
           #dart-vim
+
+          nvim-treesitter
+          notify-nvim
+          notice-nvim
+          nui-nvim
+
+
 
           plenary-nvim
           telescope-nvim

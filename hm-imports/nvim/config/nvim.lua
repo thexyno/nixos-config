@@ -11,6 +11,7 @@ require('plugin.nnn')
 require('plugin.rainbow')
 require('plugin.terminal')
 require('plugin.project')
+require('plugin.notice')
 require('plugin.telescope')
 
 
