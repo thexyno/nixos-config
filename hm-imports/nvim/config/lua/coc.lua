@@ -169,18 +169,18 @@ vim.opt.statusline:prepend("%{coc#status()}%{get(b:,'coc_current_function','')}"
 ---@diagnostic disable-next-line: redefined-local
 local opts = {silent = true, nowait = true}
 -- Show all diagnostics
-keyset("n", "<space>a", ":<C-u>CocList diagnostics<cr>", opts)
+keyset("n", ",a", ":<C-u>CocList diagnostics<cr>", opts)
 -- Manage extensions
-keyset("n", "<space>e", ":<C-u>CocList extensions<cr>", opts)
+keyset("n", ",e", ":<C-u>CocList extensions<cr>", opts)
 -- Show commands
-keyset("n", "<space>c", ":<C-u>CocList commands<cr>", opts)
+keyset("n", ",c", ":<C-u>CocList commands<cr>", opts)
 -- Find symbol of current document
-keyset("n", "<space>o", ":<C-u>CocList outline<cr>", opts)
+keyset("n", ",o", ":<C-u>CocList outline<cr>", opts)
 -- Search workspace symbols
-keyset("n", "<space>s", ":<C-u>CocList -I symbols<cr>", opts)
+keyset("n", ",s", ":<C-u>CocList -I symbols<cr>", opts)
 -- Do default action for next item
-keyset("n", "<space>j", ":<C-u>CocNext<cr>", opts)
+keyset("n", ",j", ":<C-u>CocNext<cr>", opts)
 -- Do default action for previous item
-keyset("n", "<space>k", ":<C-u>CocPrev<cr>", opts)
+keyset("n", ",k", ":<C-u>CocPrev<cr>", opts)
 -- Resume latest coc list
-keyset("n", "<space>p", ":<C-u>CocListResume<cr>", opts)
+keyset("n", ",<space>p", ":<C-u>CocListResume<cr>", opts)

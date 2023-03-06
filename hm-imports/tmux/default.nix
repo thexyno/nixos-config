@@ -15,7 +15,8 @@
       bind '"' split-window -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
       bind c new-window -c "#{pane_current_path}"
-
+      set-option -g default-terminal "tmux-256color"
+      set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
     '';
   };
 }

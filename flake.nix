@@ -34,8 +34,8 @@
     nnn-vim.flake = false;
     notify-nvim.url = "github:rcarriga/nvim-notify";
     notify-nvim.flake = false;
-    notice-nvim.url = "github:folke/noice.nvim";
-    notice-nvim.flake = false;
+    noice-nvim.url = "github:folke/noice.nvim";
+    noice-nvim.flake = false;
 
     ## zsh
     zsh-completions.url = "github:zsh-users/zsh-completions";

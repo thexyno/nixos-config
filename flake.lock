@@ -360,7 +360,7 @@
         "type": "github"
       }
     },
-    "notice-nvim": {
+    "noice-nvim": {
       "flake": false,
       "locked": {
         "lastModified": 1677882849,
@@ -493,7 +493,7 @@
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-master": "nixpkgs-master",
         "nnn-vim": "nnn-vim",
-        "notice-nvim": "notice-nvim",
+        "noice-nvim": "noice-nvim",
         "notify-nvim": "notify-nvim",
         "octoprint-spoolmanager": "octoprint-spoolmanager",
         "octoprint-telegram": "octoprint-telegram",

@@ -7,11 +7,12 @@ require('filetypes')
 local opt = vim.opt
 
 -- load plugin luas (idk how to do that autmagically)
+--require('plugin.treesitter')
 require('plugin.nnn')
 require('plugin.rainbow')
 require('plugin.terminal')
 require('plugin.project')
-require('plugin.notice')
+require('plugin.noice')
 require('plugin.telescope')
 
 
@@ -20,9 +21,9 @@ require('plugin.telescope')
 require('coc')
 
 -- color stuff
+opt.termguicolors = true -- 24bit color
 vim.g.gruvbox_italic = 1
 vim.cmd ':colorscheme gruvbox'
-opt.termguicolors = true -- 24bit color
 opt.background = 'dark' -- dark gruvbox
 --vimspector
 vim.g.vimspector_base_dir = vim.env.HOME .. "/.local/share/nvim/vimspector"

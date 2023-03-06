@@ -1,4 +1,4 @@
-{ pkgs, config, inputs, ... }:
+{ pkgs, config, lib, inputs, ... }:
 {
   home.packages = with pkgs;[
     python3 # ultisnips
@@ -19,9 +19,6 @@
   home.file.".config/nvim".source = ./config;
   home.file.".config/nvim".recursive = true;
   programs.neovim =
-    let
-      conf = inputs.self.nixosConfigurations.enterprise.config.programs.neovim.configure;
-    in
     {
       enable = true;
       package = pkgs.neovim-nightly;
@@ -43,10 +40,10 @@
             version = "1.0.0";
             src = inputs.notify-nvim;
           };
-          notice-nvim = pkgs.vimUtils.buildVimPlugin {
-            pname = "notice-nvim";
+          noice-nvim = pkgs.vimUtils.buildVimPlugin {
+            pname = "noice-nvim";
             version = "1.0.0";
-            src = inputs.notice-nvim;
+            src = inputs.noice-nvim;
           };
           #coc-nvim = pkgs.vimUtils.buildVimPlugin {
           #  name = "coc-nvim";
@@ -81,12 +78,12 @@
           undotree
           vim-pandoc
           vim-pandoc-syntax
-          ultisnips
+          #ultisnips
           #dart-vim
 
-          nvim-treesitter
+          nvim-treesitter.withAllGrammars
           notify-nvim
-          notice-nvim
+          noice-nvim
           nui-nvim
 
 
@@ -106,7 +103,7 @@
           #coc-vimtex
           #coc-vimlsp
           #coc-vetur # vue
-          coc-ultisnips
+          #coc-ultisnips
           coc-tsserver
           #coc-tslint-plugin
           #coc-tslint
