@@ -146,8 +146,8 @@ keyset("v", "<C-b>", 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', o
 
 -- Use CTRL-S for selections ranges
 -- Requires 'textDocument/selectionRange' support of language server
-keyset("n", "<C-r>", "<Plug>(coc-range-select)", {silent = true})
-keyset("x", "<C-r>", "<Plug>(coc-range-select)", {silent = true})
+keyset("n", "<C-f>", "<Plug>(coc-range-select)", {silent = true})
+keyset("x", "<C-f>", "<Plug>(coc-range-select)", {silent = true})
 
 
 -- Add `:Format` command to format current buffer
@@ -183,4 +183,4 @@ keyset("n", ",j", ":<C-u>CocNext<cr>", opts)
 -- Do default action for previous item
 keyset("n", ",k", ":<C-u>CocPrev<cr>", opts)
 -- Resume latest coc list
-keyset("n", ",<space>p", ":<C-u>CocListResume<cr>", opts)
+keyset("n", ",p", ":<C-u>CocListResume<cr>", opts)
