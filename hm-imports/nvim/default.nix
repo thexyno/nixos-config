@@ -7,6 +7,8 @@
     yarn # coc-nvim
     #inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
     nil
+    neovim-remote
+    tectonic
 
     # lsp
     shfmt
@@ -108,7 +110,7 @@
           #coc-tslint-plugin
           #coc-tslint
           coc-toml
-          #coc-texlab
+          coc-texlab
           #coc-tailwindcss
           #coc-tabnine
           #coc-svelte

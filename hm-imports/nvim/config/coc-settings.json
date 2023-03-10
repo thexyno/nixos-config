@@ -1,6 +1,17 @@
 {
   "rust-analyzer.procMacro.enable": true,
   "rust-analyzer.updates.channel": "nightly",
+  "texlab.build.executable": "tectonic",
+    "texlab.build.args": [
+        "%f",
+        "--keep-logs",
+        "--synctex",
+    ],
+"texlab.build.onSave": true,
+"texlab.chktex.onOpenAndSave": true,
+"texlab.build.forwardSearchAfter": false,
+"texlab.forwardSearch.executable": "/Applications/Skim.app/Contents/SharedSupport/displayline",
+"texlab.forwardSearch.args": ["-r", "-d", "%l","%p","%f"],
   "html.validate.scripts": true,
   "languageserver": {
     "nix": {

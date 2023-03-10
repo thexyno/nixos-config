@@ -1,5 +1,13 @@
+-- general settings
+vim.cmd [[
+  filetype plugin on
+  filetype indent plugin on
+  filetype plugin indent on
+  syntax on
+]]
 -- mapleader
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ','
 
 require('utils')
 require('keybindings')
@@ -30,13 +38,6 @@ vim.g.vimspector_base_dir = vim.env.HOME .. "/.local/share/nvim/vimspector"
 vim.g.vimspector_enable_mappings = "HUMAN"
 
 
--- general settings
-vim.cmd [[
-  filetype plugin on
-  filetype indent plugin on
-  filetype plugin indent on
-  syntax on
-]]
 opt.encoding = 'utf-8'
 opt.number = true
 opt.relativenumber = true
