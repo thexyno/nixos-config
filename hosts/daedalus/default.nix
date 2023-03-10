@@ -82,9 +82,7 @@ with lib.my;
         JAVA_HOME = "/Applications/Android Studio.app/Contents/jre/Contents/Home/";
       };
       home.packages = with pkgs; [
-        terraform-ls
         mosh
-        terraform
 
         nodePackages.pyright
         nodejs
@@ -92,9 +90,7 @@ with lib.my;
         cmake
 
         pandoc
-        texlive.combined.scheme-full
 
-        google-cloud-sdk
       ];
 
       # home.activation = {
