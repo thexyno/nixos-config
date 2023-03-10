@@ -45,7 +45,7 @@
   ragon.agenix.secrets."picardResticSSHKey" = { };
   ragon.agenix.secrets."picardResticHealthCheckUrl" = { };
 
-  extraConfig = ''
+  appendConfig = ''
     proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=STATIC:10m max_size=4g 
                  inactive=60m use_temp_path=off;
   '';
