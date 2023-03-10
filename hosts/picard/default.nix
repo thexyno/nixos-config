@@ -45,22 +45,11 @@
   ragon.agenix.secrets."picardResticSSHKey" = { };
   ragon.agenix.secrets."picardResticHealthCheckUrl" = { };
 
-  services.nginx.commonHttpConfig = ''
-    proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=STATIC:10m max_size=4g 
-                 inactive=60m use_temp_path=off;
-  '';
   services.nginx.recommendedOptimisation = true;
   services.nginx.virtualHosts."xyno.space" = {
     enableACME = true;
     forceSSL = true;
     locations."/".proxyPass = "http://[::1]${config.services.xynoblog.listen}";
-    locations."/".extraConfig = ''
-      proxy_buffering        on;
-      proxy_cache            STATIC;
-      proxy_cache_valid      200  1d;
-      proxy_cache_use_stale  error timeout invalid_header updating
-                             http_500 http_502 http_503 http_504;
-    '';
   };
 
   services.nginx.appendHttpConfig = ''
