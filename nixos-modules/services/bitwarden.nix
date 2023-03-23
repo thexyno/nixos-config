@@ -29,6 +29,7 @@ in
       forceSSL = true;
       useACMEHost = "${domain}";
       locations."/".proxyPass = "http://${config.services.vaultwarden.config.rocketAddress}:${toString config.services.vaultwarden.config.rocketPort}";
+      locations."/".proxyWebsockets = true;
     };
     services.postgresql = {
       enable = true;
