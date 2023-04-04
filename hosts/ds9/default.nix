@@ -16,6 +16,12 @@ in
   # Don't Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
 
+  # power save stuffzies
+  services.udev.path = [ pkgs.hdparm ];
+  services.udev.extraRules = ''
+    ACTION=="add|change", KERNEL=="sd[a-z]", ATTRS{queue/rotational}=="1", RUN+="${pkgs.hdparm}/bin/hdparm -S 60 -B 100 /dev/%k"
+  '';
+
   services.syncthing.enable = true;
   services.syncthing.user = "ragon";
 
@@ -234,6 +240,7 @@ in
 
   services.smartd = {
     enable = true;
+    extraOptions = [ "--interval=7200" ];
     #notifications.test = true;
   };
   nixpkgs.overlays = [

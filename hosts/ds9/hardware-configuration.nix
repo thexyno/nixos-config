@@ -27,6 +27,7 @@
 
   services.sanoid.datasets."rpool/content/safe/data/media" = { };
   services.sanoid.enable = true;
+  services.sanoid.interval = "0/8:00:00";
 
   swapDevices = [{ device = "/dev/disk/by-id/nvme-eui.000000000000000100a075202c247839-part1"; randomEncryption = true; }];
   fileSystems."/boot".device = "/dev/disk/by-uuid/149F-23AA";
