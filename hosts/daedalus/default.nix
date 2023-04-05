@@ -83,6 +83,7 @@ with lib.my;
       };
       home.packages = with pkgs; [
         mosh
+        nushell
 
         nodePackages.pyright
         nodejs
