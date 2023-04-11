@@ -8,7 +8,7 @@
   nix.settings.max-jobs = 10; # use all cores
   nix.settings.auto-optimise-store = true;
   nix.distributedBuilds = true;
-  nix.nixPath = [{ nixpkgs = "${inputs.nixpkgs}"; }];
+  nix.nixPath = [{ nixpkgs = "${inputs.nixpkgs-darwin}"; nixpkgs-master = "${inputs.nixpkgs-master}"; nixpkgs-nixos = "${inputs.nixpkgs}"; }];
   nix.buildMachines = [{
     systems = [ "x86_64-linux" ];
     supportedFeatures = [ "kvm" "big-parallel" ];
