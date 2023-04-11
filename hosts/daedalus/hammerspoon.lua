@@ -39,7 +39,7 @@ local bundleID = {
     firefox = "org.mozilla.firefox",
     emacs = "org.gnu.emacs",
     iterm = "com.googlecode.iterm2",
-    safari = "com.apple.Safari",
+    orion = "com.kagi.kagimacOS",
     safariTechnologyPreview = "com.apple.SafariTechnologyPreview",
     spotify = "com.spotify.client",
     bitwarden = "com.bitwarden.desktop",
@@ -55,57 +55,6 @@ local usbDevice = {
 
 local function languageIsGerman() return hs.host.locale.preferredLanguages()[1]:sub(0, 2) == "de" end
 
--- local function maximizeCurrentWindow() hs.window.focusedWindow():maximize() end
--- 
-local function centerCurrentWindow() hs.window.focusedWindow():centerOnScreen() end
--- 
--- local function moveCurrentWindowToLeftHalf()
---     local win = hs.window.focusedWindow()
---     local screenFrame = win:screen():frame()
---     local newFrame = hs.geometry.rect(screenFrame.x, screenFrame.y, screenFrame.w / 2, screenFrame.h)
---     win:setFrame(newFrame)
--- end
--- 
--- local function moveCurrentWindowToRightHalf()
---     local win = hs.window.focusedWindow()
---     local screenFrame = win:screen():frame()
---     local newFrame = hs.geometry.rect(screenFrame.x + screenFrame.w / 2, screenFrame.y, screenFrame.w / 2, screenFrame.h)
---     win:setFrame(newFrame)
--- end
--- 
--- local function moveCurentWindowToNextScreen()
---     local win = hs.window.focusedWindow()
---     win:moveToScreen(win:screen():next())
--- end
-
-local function moveMouseToWindowCenter()
-    local windowCenter = hs.window.frontmostWindow():frame().center
-    hs.mouse.absolutePosition(windowCenter)
-end
-
-local function moveMouseToUpperLeft()
-    local screenFrame = (hs.window.focusedWindow():screen() or hs.screen.primaryScreen()):frame()
-    local newPoint = hs.geometry.point(screenFrame.x + screenFrame.w / 4, screenFrame.y + screenFrame.h / 4)
-    hs.mouse.absolutePosition(newPoint)
-end
-
-local function moveMouseToUpperRight()
-    local screenFrame = (hs.window.focusedWindow():screen() or hs.screen.primaryScreen()):frame()
-    local newPoint = hs.geometry.point(screenFrame.x + screenFrame.w * 3 / 4, screenFrame.y + screenFrame.h / 4)
-    hs.mouse.absolutePosition(newPoint)
-end
-
-local function moveMouseToLowerLeft()
-    local screenFrame = (hs.window.focusedWindow():screen() or hs.screen.primaryScreen()):frame()
-    local newPoint = hs.geometry.point(screenFrame.x + screenFrame.w / 4, screenFrame.y + screenFrame.h * 3 / 4)
-    hs.mouse.absolutePosition(newPoint)
-end
-
-local function moveMouseToLowerRight()
-    local screenFrame = (hs.window.focusedWindow():screen() or hs.screen.primaryScreen()):frame()
-    local newPoint = hs.geometry.point(screenFrame.x + screenFrame.w * 3 / 4, screenFrame.y + screenFrame.h * 3 / 4)
-    hs.mouse.absolutePosition(newPoint)
-end
 
 ----------------------------------------------------------------------------------------------------
 -- Menu
@@ -263,12 +212,6 @@ function showHideBundleId(bundleId)
     end
 end
 
--- hs.hotkey.bind(modifiers.window, hs.keycodes.map.left, moveCurrentWindowToLeftHalf)
--- hs.hotkey.bind(modifiers.window, hs.keycodes.map.right, moveCurrentWindowToRightHalf)
--- hs.hotkey.bind(modifiers.window, hs.keycodes.map.down, moveCurentWindowToNextScreen)
--- hs.hotkey.bind(modifiers.window, hs.keycodes.map["return"], maximizeCurrentWindow)
-hs.hotkey.bind(modifiers.window, "c", centerCurrentWindow)
-
 hs.loadSpoon("MiroWindowsManager")
 hs.window.animationDuration = 0
 spoon.MiroWindowsManager:bindHotkeys({
@@ -281,27 +224,13 @@ spoon.MiroWindowsManager:bindHotkeys({
 })
 
 
-hs.hotkey.bind(modifiers.hyper, "[", moveMouseToWindowCenter)
-hs.hotkey.bind(modifiers.hyper, "m", moveMouseToUpperLeft)
-hs.hotkey.bind(modifiers.hyper, "o", moveMouseToUpperRight)
-hs.hotkey.bind(modifiers.hyper, hs.keycodes.map.up, moveMouseToLowerLeft)
-hs.hotkey.bind(modifiers.hyper, hs.keycodes.map.down, moveMouseToLowerRight)
 hs.hotkey.bind(modifiers.hyper, hs.keycodes.map.delete, function() hs.caffeinate.lockScreen() end)
 hs.hotkey.bind(modifiers.hyper, "a", function() showHideBundleId(bundleID.activityMonitor) end)
-hs.hotkey.bind(modifiers.hyper, "c", function() showHideBundleId(bundleID.safari) end)
+hs.hotkey.bind(modifiers.hyper, "o", function() showHideBundleId(bundleID.orion) end)
 hs.hotkey.bind(modifiers.hyper, "f", function() showHideBundleId(bundleID.faclieThings) end)
 hs.hotkey.bind(modifiers.hyper, "p", function() showHideBundleId(bundleID.timeular) end)
 hs.hotkey.bind(modifiers.hyper, "b", function() showHideBundleId(bundleID.bitwarden) end)
 hs.hotkey.bind(modifiers.hyper, "t", function() showHideBundleId(bundleID.iterm) end)
-hs.hotkey.bind({ modifier.cmd }, "\\", function()
-    local application = hs.application.frontmostApplication()
-
-    if application:bundleID() == bundleID.bitwarden then
-        application:hide()
-    else
-        hs.application.launchOrFocusByBundleID(bundleID.bitwarden)
-    end
-end)
 
 ----------------------------------------------------------------------------------------------------
 -- Mouse Shortcuts
@@ -327,49 +256,3 @@ mouseTap = hs.eventtap.new({ hs.eventtap.event.types.otherMouseDown }, function(
     return false
 end)
 mouseTap:start()
-
-----------------------------------------------------------------------------------------------------
--- Clipboard Manager
-----------------------------------------------------------------------------------------------------
-
--- clipboard = require("clipboard")
--- clipboard:start()
---
--- hs.hotkey.bind(modifiers.clipboard, "v", function() clipboard:toggleClipboard() end)
--- hs.hotkey.bind(modifiers.clipboard, hs.keycodes.map.delete, function() clipboard:clearAll() end)
-
-----------------------------------------------------------------------------------------------------
--- notmuch indicator
-----------------------------------------------------------------------------------------------------
-
-local notmuchTaskRunning = false
-local function refreshNotmuchMenubar(currentlyRunning)
-    hs.task.new("@notmuchMails@", function(exitCode, stdout, stderr)
-        if currentlyRunning then
-            stdout = "R: " .. stdout
-        end
-        print(stdout)
-        notmuchMenubar:setTitle(hs.styledtext.new(stdout))
-    end):start()
-end
-
-local function notmuchTimerFunction()
-    if not notmuchTaskRunning then
-        refreshNotmuchMenubar(true)
-        notmuchTaskRunning = true
-        hs.task.new("/etc/profiles/per-user/ragon/bin/zsh",
-            function() notmuchTaskRunning = false; refreshNotmuchMenubar(false) end,
-            function() return false end, { "-c", "syncmail" }):start()
-    end
-end
-
-notmuchMenubar = hs.menubar.new()
--- notmuchMenubar:setClickCallback(function(options)
---         if options.shift then
---             notmuchTimerFunction()
---         else
---         hs.task.new("@myEmacs@/bin/emacsclient", nil, function() return false end,
---         { "-c", "-a", "", "--eval", "(=notmuch)" }):start()
---         end
--- end)
-notmuchTimer = hs.timer.doEvery(300, notmuchTimerFunction)

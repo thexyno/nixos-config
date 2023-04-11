@@ -314,11 +314,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1681235871,
-        "narHash": "sha256-Stj/ZGUQnV9SnpcCOiAXNROLfDa5SzHOdOqPtke8uVg=",
+        "lastModified": 1681239518,
+        "narHash": "sha256-Q2qOhm6GzTIMb9y9sEsvn4hRFqCzVZiUkJkqf/ITXuc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6c5e8bcc15fd27055b3a74d8e179d737fa9607e3",
+        "rev": "c8619bc275bdc78302602b9b60d9635733619578",
         "type": "github"
       },
       "original": {
@@ -440,22 +440,6 @@
         "type": "github"
       }
     },
-    "private": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1667531394,
-        "narHash": "sha256-eo5s09w9DjRTqk4y+ULpYHQw5RNjNi+n9tEyvpbL84g=",
-        "owner": "thexyno",
-        "repo": "nixos-config-private-dummy",
-        "rev": "b38da5d5dd120e7dcc61b2ed3536be69fac649da",
-        "type": "github"
-      },
-      "original": {
-        "owner": "thexyno",
-        "repo": "nixos-config-private-dummy",
-        "type": "github"
-      }
-    },
     "rnix-lsp": {
       "inputs": {
         "naersk": "naersk",
@@ -498,7 +482,6 @@
         "octoprint-spoolmanager": "octoprint-spoolmanager",
         "octoprint-telegram": "octoprint-telegram",
         "pandoc-latex-template": "pandoc-latex-template",
-        "private": "private",
         "rnix-lsp": "rnix-lsp",
         "spoons": "spoons",
         "utils": "utils_2",
