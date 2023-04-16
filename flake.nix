@@ -65,6 +65,10 @@
     octoprint-spoolmanager.url = "github:OllisGit/OctoPrint-SpoolManager";
     octoprint-spoolmanager.flake = false;
 
+    ## mail
+    private.url = "github:thexyno/nixos-config-private-dummy";
+    private.flake = false;
+
   };
 
   outputs =

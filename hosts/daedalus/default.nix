@@ -49,6 +49,10 @@ with lib.my;
   home-manager.users.ragon = { pkgs, lib, inputs, config, ... }:
     {
 
+      imports = [
+        "${inputs.private}/mail.nix"
+      ];
+
       home.file.".hammerspoon/init.lua".source =
         let
           notmuchMails = pkgs.writeScript "notmuch-get-mail-count" ''
