@@ -1,5 +1,7 @@
 {
   "rust-analyzer.procMacro.enable": true,
+  "cSpellExt.enableDictionaries": ["german"],
+  "cSpell.language": "en,de",
   "rust-analyzer.updates.channel": "nightly",
   "texlab.build.executable": "tectonic",
     "texlab.build.args": [

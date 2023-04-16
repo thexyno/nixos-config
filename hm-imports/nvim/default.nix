@@ -47,7 +47,7 @@
             version = "1.0.0";
             src = inputs.noice-nvim;
           };
-          #coc-nvim = pkgs.vimUtils.buildVimPlugin {
+          #coc-ltex = pkgs.vimUtils.buildVimPlugin {
           #  name = "coc-nvim";
           #  src = inputs.coc-nvim;
           #};
@@ -118,6 +118,7 @@
           coc-stylelint
           coc-sqlfluff
           #coc-spell-checker
+          pkgs.nodePackages.coc-ltex
           #coc-solargraph # ruby
           coc-snippets
           #coc-smartf

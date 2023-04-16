@@ -69,7 +69,7 @@ in
   services.nginx.virtualHosts."h.hailsatan.eu" = {
     listenAddresses = [ "0.0.0.0" "[::0]" ];
     useACMEHost = "hailsatan.eu";
-    addSSL = true;
+    forceSSL = true;
     locations = {
       "/".proxyPass = "http://192.168.122.76:8123";
       "/".proxyWebsockets = true;
