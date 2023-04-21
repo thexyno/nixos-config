@@ -1,22 +1,35 @@
 { pkgs, config, lib, inputs, ... }:
 {
   home.packages = with pkgs;[
-    python3 # ultisnips
+    # telescope
+    ripgrep
+    # embedded terminal
     lazygit
-    nodejs # coc-nvim
-    yarn # coc-nvim
-    #inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
-    nil
-    neovim-remote
-    tectonic
-
-    # lsp
-    shfmt
-    shellcheck
-    vim-vint
     glab
-    nodePackages.write-good
-    ctags
+
+    # language servers
+    nil # nix
+    #inputs.rnix-lsp.packages."${pkgs.system}".rnix-lsp
+    gopls # go
+    pyright # python3
+    terraform-ls
+    terraform
+    nodePackages.typescript
+    nodePackages.typescript-language-server
+    sumneko-lua-language-server
+    ltex-ls # languageTool
+    nodePackages.vscode-langservers-extracted # eslint, ...
+    texlab # latex
+    tectonic
+    # rust completion
+    cargo
+    rustc
+    rustfmt
+    rust-analyzer
+
+
+    # other stuff
+    neovim-remote
   ];
   home.file.".config/nvim".source = ./config;
   home.file.".config/nvim".recursive = true;
@@ -32,10 +45,10 @@
       viAlias = true;
       plugins =
         let
-          nnn-vim = pkgs.vimUtils.buildVimPlugin {
-            pname = "nnn-vim";
+          nnn-nvim = pkgs.vimUtils.buildVimPlugin {
+            pname = "nnn-nvim";
             version = "1.0.0";
-            src = inputs.nnn-vim;
+            src = inputs.nnn-nvim;
           };
           notify-nvim = pkgs.vimUtils.buildVimPlugin {
             pname = "notify-nvim";
@@ -47,107 +60,45 @@
             version = "1.0.0";
             src = inputs.noice-nvim;
           };
-          #coc-ltex = pkgs.vimUtils.buildVimPlugin {
-          #  name = "coc-nvim";
-          #  src = inputs.coc-nvim;
-          #};
-          #dart-vim = pkgs.vimUtils.buildVimPlugin {
-          #  name = "dart-vim";
-          #  src = inputs.dart-vim;
-          #};
         in
         map (x: { plugin = x; }) (with pkgs.vimPlugins; [
-          vim-tmux-navigator
-          galaxyline-nvim
-          nvim-web-devicons
-          nnn-vim
-          rainbow
-          vista-vim
-          polyglot
-          vim-commentary
-          vim-table-mode
-          vim-speeddating
-          vim-nix
-          gruvbox
-          incsearch-vim
-          vim-highlightedyank
-          vim-fugitive
-          #fzf-vim
-          lualine-nvim
-          #fzfWrapper
-          vim-devicons
-          toggleterm-nvim
-          undotree
-          vim-pandoc
-          vim-pandoc-syntax
-          #ultisnips
-          #dart-vim
-
-          nvim-treesitter.withAllGrammars
+          vim-tmux-navigator # tmux
+          nnn-nvim # nnn as filebrowser
+          gruvbox # theme
+          # complete ui overhaul
           notify-nvim
-          noice-nvim
           nui-nvim
-
-
-
-          plenary-nvim
+          noice-nvim
           telescope-nvim
-          project-nvim
+          telescope-ui-select-nvim
+          # line
+          lualine-nvim
 
-          vimspector
+          # vcs integration
+          gitsigns-nvim
 
-          coc-nvim
+          # completion
+          nvim-lspconfig # lsp
+          vimspector # dap
+          pkgs.unstable.vimPlugins.rust-tools-nvim # rust special sauce
+          # completion - nvim-cmp
+          cmp-nvim-lsp
+          cmp-buffer
+          cmp-path
+          cmp-cmdline
+          nvim-cmp # completion ui
+          lspkind-nvim # icons for completion
+          # completion-snippets
+          luasnip
+          cmp_luasnip
 
-          #telescope-coc-nvim
-          #coc-yank
-          coc-yaml
-          #coc-wxml
-          #coc-vimtex
-          #coc-vimlsp
-          #coc-vetur # vue
-          #coc-ultisnips
-          coc-tsserver
-          #coc-tslint-plugin
-          #coc-tslint
-          coc-toml
-          coc-texlab
-          #coc-tailwindcss
-          #coc-tabnine
-          #coc-svelte
-          #coc-sumneko-lua
-          coc-stylelint
-          coc-sqlfluff
-          #coc-spell-checker
-          pkgs.nodePackages.coc-ltex
-          #coc-solargraph # ruby
-          coc-snippets
-          #coc-smartf
-          coc-sh
-          coc-rust-analyzer
-          #coc-rls
-          #coc-r-lsp
-          coc-python
-          #coc-pyright
-          coc-prettier
-          #coc-pairs
-          #coc-nginx
-          #coc-neco
-          #coc-metals
-          coc-markdownlint
-          coc-lua
-          #coc-lists
-          coc-json
-          coc-jest
-          coc-java
-          #coc-imselect
-          coc-html
-          coc-highlight
-          #coc-haxe
-          coc-go
-          #coc-git
-          #coc-fzf
-          coc-flutter
-          #coc-explorer
+
+          toggleterm-nvim # embed terminals (for lazygit,...)
+
+          # treesitter
+          (nvim-treesitter.withPlugins (
+            plugins: pkgs.tree-sitter.allGrammars
+          ))
         ]);
     };
 }

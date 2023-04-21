@@ -30,8 +30,8 @@
     rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
 
     ## vim
-    nnn-vim.url = "github:mcchrish/nnn.vim";
-    nnn-vim.flake = false;
+    nnn-nvim.url = "github:luukvbaal/nnn.nvim";
+    nnn-nvim.flake = false;
     notify-nvim.url = "github:rcarriga/nvim-notify";
     notify-nvim.flake = false;
     noice-nvim.url = "github:folke/noice.nvim";

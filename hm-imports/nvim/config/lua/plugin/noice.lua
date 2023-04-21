@@ -4,6 +4,13 @@ require("noice").setup({
       merge = true,
     }
   },
+  lsp = {
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true,
+    },
+  },
   -- you can enable a preset for easier configuration
   presets = {
     bottom_search = true, -- use a classic bottom cmdline for search
@@ -14,6 +21,6 @@ require("noice").setup({
   },
 })
 require("notify").setup({
-    stages = "static",
-    max_width = 70,
+  --    stages = "static",
+  --    max_width = 70,
   })

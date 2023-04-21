@@ -6,27 +6,9 @@ vim.cmd [[
   syntax on
 ]]
 -- mapleader
+local opt = vim.opt
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
-
-require('utils')
-require('keybindings')
-require('filetypes')
-local opt = vim.opt
-
--- load plugin luas (idk how to do that autmagically)
---require('plugin.treesitter')
-require('plugin.nnn')
-require('plugin.rainbow')
-require('plugin.terminal')
-require('plugin.project')
-require('plugin.noice')
-require('plugin.telescope')
-
-
--- plugins - coc
---vim.cmd 'source ~/.config/nvim/coc.vim' -- too lazy to convert all the shit to lua
-require('coc')
 
 -- color stuff
 opt.termguicolors = true -- 24bit color
@@ -56,4 +38,18 @@ opt.softtabstop = 2
 opt.hidden = true
 -- low updatetime so it isnt as slow
 opt.updatetime = 100
+
+require('utils')
+require('keybindings')
+require('filetypes')
+
+-- load plugin luas (idk how to do that autmagically)
+require('plugin.treesitter')
+require('plugin.nnn')
+require('plugin.terminal')
+require('plugin.noice')
+require('plugin.telescope')
+require('plugin.cmp')
+require('plugin.lsp')
 require('plugin.lualine')
+require('plugin.gitsigns')

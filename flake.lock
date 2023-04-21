@@ -344,19 +344,19 @@
         "type": "github"
       }
     },
-    "nnn-vim": {
+    "nnn-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1661779055,
-        "narHash": "sha256-OLghcQP0vQ0ZceFja1SbFqkevjREzNPCMBGRVnVbt/s=",
-        "owner": "mcchrish",
-        "repo": "nnn.vim",
-        "rev": "46bb8355a3bbe7df9f466bb116534dda4f257895",
+        "lastModified": 1681744148,
+        "narHash": "sha256-Kods3PyV1iN+/owXuJxztWpAqAUW76ct96ALTQj3i98=",
+        "owner": "luukvbaal",
+        "repo": "nnn.nvim",
+        "rev": "a2394f3a7a963587a38fb7349d939b12c1c7a757",
         "type": "github"
       },
       "original": {
-        "owner": "mcchrish",
-        "repo": "nnn.vim",
+        "owner": "luukvbaal",
+        "repo": "nnn.nvim",
         "type": "github"
       }
     },
@@ -492,7 +492,7 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-master": "nixpkgs-master",
-        "nnn-vim": "nnn-vim",
+        "nnn-nvim": "nnn-nvim",
         "noice-nvim": "noice-nvim",
         "notify-nvim": "notify-nvim",
         "octoprint-spoolmanager": "octoprint-spoolmanager",

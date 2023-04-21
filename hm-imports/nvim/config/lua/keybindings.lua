@@ -15,8 +15,6 @@ map { 'n', '<C-j>', '<C-w>j', noremap = true, silent = true}
 map { 'n', '<C-k>', '<C-w>k', noremap = true, silent = true}
 map { 'n', '<C-l>', '<C-w>l', noremap = true, silent = true}
 
--- buffer binds
-map { 'n', '<leader>q', '<cmd>bd<CR>', noremap = false, silent = true}
 -- telescope
 map { 'n', '<leader>b', '<cmd>Telescope buffers<CR>', noremap = false, silent = true}
 --map { 'n', '<leader>ff', '<cmd>Telescope find_files<CR>', noremap = false, silent = true}
@@ -43,10 +41,6 @@ map { 'x', '<leader>di', '<Plug>VimspectorBalloonEval', noremap = false, silent 
 -- map { 'n', '<leader>t', ':term<CR>', noremap = false, silent = true}
 -- map { 't', '<C-b>', '<C-\\><C-n>', noremap = true, silent = true}
 
--- plugins - commentary
-map { 'n', '<leader>c', '<cmd>Commentary<CR>', noremap = false, silent = true}
--- plugins - vista
-map { 'n', '<leader>v', '<cmd>Vista!!<CR>', noremap = false, silent = true}
 -- plugins - nnn
 map { 'n', '<tab>', '<cmd>:NnnPicker %:p:h<CR>', noremap = true, silent = true}
 map { 'n', '<s-tab>', '<cmd>:NnnExplorer %:p:h<CR>', noremap = true, silent = true}
@@ -54,3 +48,9 @@ map { 'n', '<s-tab>', '<cmd>:NnnExplorer %:p:h<CR>', noremap = true, silent = tr
 -- plugins - terminal
 map {"n", "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true}}
 map {"n", "<leader>gp", "<cmd>lua _pipeline_toggle()<CR>", {noremap = true, silent = true}}
+
+-- diagnostic
+map {"n", "<leader>e", "<cmd>lua require\'telescope.builtin\'.lsp_diagnostics{}<CR>", { noremap = true, silent = true}}
+map {"n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", { noremap = true, silent = true}}
+map {"n", "]g", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true, silent = true}}
+map {"n", "[g", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true, silent = true}}
