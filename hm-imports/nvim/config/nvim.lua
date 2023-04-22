@@ -12,10 +12,9 @@ vim.g.maplocalleader = ','
 
 -- color stuff
 opt.termguicolors = true -- 24bit color
---vim.g.gruvbox_italic = 1
+require('gruvbox').setup({})
 opt.background = 'dark' -- dark gruvbox
-vim.g.gruvbox_material_background = 'soft'
-vim.cmd ':colorscheme gruvbox-material'
+vim.cmd ':colorscheme gruvbox'
 --vimspector
 vim.g.vimspector_base_dir = vim.env.HOME .. "/.local/share/nvim/vimspector"
 vim.g.vimspector_enable_mappings = "HUMAN"

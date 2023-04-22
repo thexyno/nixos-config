@@ -73,6 +73,7 @@ lspconfig.sumneko_lua.setup {
             diagnostics = { globals = { 'vim' } },
             workspace = {
                 -- Make the LSP aware of Neovim runtime files:
+                checkThirdParty = false,
                 library = vim.api.nvim_get_runtime_file('', true)
             },
             format = {
