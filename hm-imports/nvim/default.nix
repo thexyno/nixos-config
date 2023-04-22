@@ -64,7 +64,7 @@
         map (x: { plugin = x; }) (with pkgs.vimPlugins; [
           vim-tmux-navigator # tmux
           nnn-nvim # nnn as filebrowser
-          gruvbox # theme
+          gruvbox-material # theme
           # complete ui overhaul
           notify-nvim
           nui-nvim
