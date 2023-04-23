@@ -15,6 +15,14 @@
   boot.loader.efi.canTouchEfiVariables = true;
   # Immutable users due to tmpfs
   users.mutableUsers = false;
+  users.users."nzbr" = {
+    extraGroups = [ "wheel" ];
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIkFgHr6OMwsnGhdG4TwKdthlJC/B9ELqZfrmJ9Sf7qk"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIkNP8Lo20fw3Ysq3B64Iep9WyVKWxdv5KJOZRLmAaaM"
+    ];
+  };
   services.openssh.forwardX11 = true;
   services.rpcbind.enable = true;
   boot.supportedFilesystems = [ "nfs" "nfs4" ];
