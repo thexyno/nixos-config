@@ -3,9 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, inputs, pkgs, lib, ... }:
-let
-  pubkeys = import ../../data/pubkeys.nix;
-in
 {
   imports =
     [
@@ -22,6 +19,8 @@ in
   services.rpcbind.enable = true;
   boot.supportedFilesystems = [ "nfs" "nfs4" ];
   environment.systemPackages = [ pkgs.nfs-utils pkgs.virt-manager pkgs.firefox pkgs.kitty inputs.nixpkgs.legacyPackages.x86_64-linux.hello ];
+
+  services.tailscale.enable = true;
 
   nix.settings.extra-platforms = [ "x86_64-linux" ];
   nix.settings.extra-sandbox-paths = [ "/tmp/rosetta" "/run/binfmt" ];

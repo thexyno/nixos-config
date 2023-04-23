@@ -4,10 +4,11 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  fileSystems."/tmp/rosetta" = {
+    device = "rosetta";
+    fsType = "virtiofs";
+  };
+  imports = [ ];
 
   boot.initrd.availableKernelModules = [ "virtio_pci" "xhci_pci" "usb_storage" "usbhid" ];
   boot.initrd.kernelModules = [ ];
@@ -16,22 +17,23 @@
 
   fileSystems."/" =
     {
-      device = "/dev/disk/by-uuid/14a6e16d-ee41-4ad9-bd97-e7a96ca9fa61";
-      fsType = "ext4";
+      device = "/dev/disk/by-uuid/cd9a98fe-0ba3-401d-a2e0-4332faf279dd";
+      fsType = "btrfs";
     };
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/1695-4C0D";
+      device = "/dev/disk/by-uuid/7A8E-EF98";
       fsType = "vfat";
     };
 
   swapDevices =
-    [{ device = "/dev/disk/by-uuid/c7a01b09-8ae7-43c1-b09c-550df57eb3a1"; }];
-  fileSystems."/tmp/rosetta" = {
-    device = "rosetta";
-    fsType = "virtiofs";
-  };
+    [{ device = "/dev/disk/by-uuid/f322c2e1-2aec-4a21-bf76-f01022d07f10"; }];
+
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp0s1.useDHCP = lib.mkDefault true;
 
