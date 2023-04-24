@@ -6,6 +6,7 @@
     # embedded terminal
     lazygit
     glab
+    gh
 
     # language servers
     nil # nix
@@ -26,7 +27,8 @@
     rustc
     rustfmt
     rust-analyzer
-
+    # c# debugging
+    (pkgs.writeShellScriptBin "netcoredbg" ''exec ${pkgs.unstable.netcoredbg}/bin/netcoredbg "$@"'') # don't fill $path with dlls
 
     # other stuff
     neovim-remote
@@ -79,8 +81,11 @@
 
           # completion
           nvim-lspconfig # lsp
-          vimspector # dap
+          nvim-dap # dap
+          nvim-dap-ui # dap stuffzies
+          nvim-dap-go
           pkgs.unstable.vimPlugins.rust-tools-nvim # rust special sauce
+          pkgs.unstable.vimPlugins.flutter-tools-nvim
           # completion - nvim-cmp
           cmp-nvim-lsp
           cmp-buffer
@@ -91,6 +96,7 @@
           # completion-snippets
           luasnip
           cmp_luasnip
+          friendly-snippets # some premade snippets
 
 
           toggleterm-nvim # embed terminals (for lazygit,...)

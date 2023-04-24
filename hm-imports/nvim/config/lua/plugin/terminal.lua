@@ -14,12 +14,22 @@ function _lazygit_toggle()
 	lazygit:toggle()
 end
 
-local pipeline = Terminal:new {
+local glab = Terminal:new {
  	cmd = "glab ci view",
  	hidden = true,
  	direction = 'float'
 }
 
-function _pipeline_toggle() 
-	pipeline:toggle()
+function _glab_toggle() 
+	glab:toggle()
+end
+
+local ghub = Terminal:new {
+ 	cmd = "gh run view",
+ 	hidden = true,
+ 	direction = 'float'
+}
+
+function _ghub_toggle() 
+	ghub:toggle()
 end

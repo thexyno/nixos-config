@@ -47,10 +47,17 @@ map { 'n', '<s-tab>', '<cmd>:NnnExplorer %:p:h<CR>', noremap = true, silent = tr
 
 -- plugins - terminal
 map {"n", "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true}}
-map {"n", "<leader>gp", "<cmd>lua _pipeline_toggle()<CR>", {noremap = true, silent = true}}
+map {"n", "<leader>gl", "<cmd>lua _glab_toggle()<CR>", {noremap = true, silent = true}}
+map {"n", "<leader>gh", "<cmd>lua _ghub_toggle()<CR>", {noremap = true, silent = true}}
 
 -- diagnostic
 map {"n", "<leader>e", "<cmd>lua require\'telescope.builtin\'.lsp_diagnostics{}<CR>", { noremap = true, silent = true}}
 map {"n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", { noremap = true, silent = true}}
 map {"n", "]g", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true, silent = true}}
 map {"n", "[g", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true, silent = true}}
+-- dap
+map {"n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", { noremap = true, silent = true}}
+map {"n", "<leader>du", "<cmd>lua require'dapui'.toggle()<CR>", { noremap = true, silent = true}}
+map {"n", "<leader>dc", "<cmd>lua require'dap'.continue()<CR>", { noremap = true, silent = true}}
+map {"n", "<leader>dr", "<cmd>lua require'dap'.repl.open()<CR>", { noremap = true, silent = true}}
+map {"n", "<leader>di", "<cmd>lua require'dap'.step_into()<CR>", { noremap = true, silent = true}}
