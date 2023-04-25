@@ -3,7 +3,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- lsp keymaps
 local lsp_attach_keymappings = {
   ['gD'] = 'vim.lsp.buf.declaration()',
-  ['gd'] = 'vim.lsp.buf.definition()',
+  ['gd'] = 'require\'telescope.builtin\'.lsp_definitions()',
   ['K'] = 'vim.lsp.buf.hover()',
   ['gi'] = 'require\'telescope.builtin\'.lsp_implementations()',
   ['<localleader>k'] = 'vim.lsp.buf.signature_help()',
