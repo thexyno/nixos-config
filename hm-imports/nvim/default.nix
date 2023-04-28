@@ -17,6 +17,7 @@
     terraform
     nodePackages.typescript
     nodePackages.typescript-language-server
+    haskell-language-server
     sumneko-lua-language-server
     ltex-ls # languageTool
     nodePackages.vscode-langservers-extracted # eslint, ...
@@ -26,7 +27,7 @@
     cargo
     rustc
     rustfmt
-    rust-analyzer
+    unstable.rust-analyzer
     # c# debugging
     (pkgs.writeShellScriptBin "netcoredbg" ''exec ${pkgs.unstable.netcoredbg}/bin/netcoredbg "$@"'') # don't fill $path with dlls
 
@@ -63,7 +64,7 @@
             src = inputs.noice-nvim;
           };
         in
-        map (x: { plugin = x; }) (with pkgs.unstable.vimPlugins; [
+        map (x: { plugin = x; }) (with pkgs.vimPlugins; [
           vim-tmux-navigator # tmux
           nnn-nvim # nnn as filebrowser
           gruvbox-nvim # theme

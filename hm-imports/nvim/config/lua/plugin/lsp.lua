@@ -86,6 +86,8 @@ lspconfig.sumneko_lua.setup {
     }
   }
 }
+-- haskell
+lspconfig.hls.setup { capabilities = capabilities, on_attach = on_lsp_attach }
 
 
 
