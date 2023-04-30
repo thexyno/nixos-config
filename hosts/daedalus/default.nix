@@ -48,10 +48,7 @@ with lib.my;
   programs.gnupg.agent.enable = true;
   home-manager.users.ragon = { pkgs, lib, inputs, config, ... }:
     {
-
-      imports = [
-        "${inputs.private}/mail.nix"
-      ];
+      ragon.nvim.maximal = true;
 
       home.file.".hammerspoon/init.lua".source =
         let
