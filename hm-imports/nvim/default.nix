@@ -76,7 +76,7 @@ in
               src = inputs.noice-nvim;
             };
           in
-          map (x: { plugin = x; }) (with pkgs.vimPlugins; [
+          map (x: { plugin = x; }) (with pkgs.unstable.vimPlugins; [
             vim-tmux-navigator # tmux
             nnn-nvim # nnn as filebrowser
             gruvbox-nvim # theme
@@ -115,9 +115,7 @@ in
             toggleterm-nvim # embed terminals (for lazygit,...)
 
             # treesitter
-            (pkgs.unstable.vimPlugins.nvim-treesitter.withPlugins (
-              plugins: pkgs.tree-sitter.allGrammars
-            ))
+            (nvim-treesitter.withAllGrammars)
           ]);
       };
   };
