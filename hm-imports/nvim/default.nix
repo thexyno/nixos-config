@@ -115,7 +115,7 @@ in
             toggleterm-nvim # embed terminals (for lazygit,...)
 
             # treesitter
-            (nvim-treesitter.withPlugins (
+            (pkgs.unstable.vimPlugins.nvim-treesitter.withPlugins (
               plugins: pkgs.tree-sitter.allGrammars
             ))
           ]);
