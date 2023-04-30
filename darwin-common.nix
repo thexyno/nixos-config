@@ -24,9 +24,9 @@
       supportedFeatures = [ "kvm" "big-parallel" ];
       sshUser = "ragon";
       maxJobs = 8;
-      hostName = "192.168.65.4";
+      hostName = "192.168.65.7";
       sshKey = "/Users/ragon/.ssh/id_ed25519";
-      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU1tU2NqZXVhLzVKQzF2S2VWMGpETUM5cmF2T1JzY0VOWlZ2c2hFSjFYMHUK";
+      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUM4aG9teFlQZlk4bS9JQ2c2NVNWNU9Temp3eW1sNmxEMXhGNi9zWUxPQkY=";
     }];
   nix.extraOptions = ''
     builders-use-substitutes = true

@@ -18,8 +18,8 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-master";
-    neovim-nightly-overlay.inputs.neovim-flake.url = "github:neovim/neovim?dir=contrib&rev=4725ea69feb422a7bc07ceca0af795877d7f4532";
-    neovim-nightly-overlay.inputs.neovim-flake.follows = "nixpkgs-master";
+    neovim-nightly-overlay.inputs.neovim-flake.url = "github:neovim/neovim?dir=contrib&rev=eb151a9730f0000ff46e0b3467e29bb9f02ae362";
+    neovim-nightly-overlay.inputs.neovim-flake.inputs.nixpkgs.follows = "nixpkgs-master";
 
     # programs
     xynoblog.url = "github:thexyno/blog";
