@@ -44,6 +44,7 @@
     dock.mru-spaces = false;
     dock.show-recents = false;
     dock.static-only = true;
+    dock.expose-animation-duration = 0.01;
     finder.AppleShowAllExtensions = true;
     finder.FXEnableExtensionChangeWarning = false;
     loginwindow.GuestEnabled = false;

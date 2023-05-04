@@ -35,6 +35,7 @@ cmp.setup({
   },
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
+    { name = "xynowiki" },
     { name = "luasnip" },
   }, { name = "buffer" }),
   formatting = {
