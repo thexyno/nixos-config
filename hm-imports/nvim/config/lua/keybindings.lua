@@ -61,3 +61,8 @@ map {"n", "<leader>du", "<cmd>lua require'dapui'.toggle()<CR>", { noremap = true
 map {"n", "<leader>dc", "<cmd>lua require'dap'.continue()<CR>", { noremap = true, silent = true}}
 map {"n", "<leader>dr", "<cmd>lua require'dap'.repl.open()<CR>", { noremap = true, silent = true}}
 map {"n", "<leader>di", "<cmd>lua require'dap'.step_into()<CR>", { noremap = true, silent = true}}
+-- cp
+map {"n", "<leader>c", "<cmd>Copilot panel<CR>", { noremap = true, silent = true}}
+vim.cmd [[
+  imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+  ]]

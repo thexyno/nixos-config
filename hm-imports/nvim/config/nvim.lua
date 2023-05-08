@@ -18,6 +18,7 @@ vim.cmd ':colorscheme gruvbox'
 --vimspector
 vim.g.vimspector_base_dir = vim.env.HOME .. "/.local/share/nvim/vimspector"
 vim.g.vimspector_enable_mappings = "HUMAN"
+vim.g.copilot_no_tab_map = true
 
 
 opt.encoding = 'utf-8'
