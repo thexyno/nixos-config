@@ -51,6 +51,11 @@
     forceSSL = true;
     locations."/".proxyPass = "http://[::1]${config.services.xynoblog.listen}";
   };
+  services.nginx.virtualHosts."xyno.systems" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/".return = "307 https://xyno.space$request_uri";
+  };
 
   services.nginx.appendHttpConfig = ''
     map $remote_addr $ip_anonym1 {

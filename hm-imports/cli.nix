@@ -96,8 +96,8 @@
       extraConfig = {
         commit.gpgSign = true;
 
-        user.name = "Philipp Hochkamp";
-        user.email = "git@phochkamp.de";
+        user.name = "xyno (Philipp Hochkamp)";
+        user.email = "git@xyno.systems";
         user.signingKey = "DA5D9235BD5BD4BD6F4C2EA868066BFF4EA525F1";
 
         # Set default "git pull" behaviour so it doesn't try to default to
