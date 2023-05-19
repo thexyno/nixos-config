@@ -26,14 +26,15 @@ in
   services.syncthing.user = "ragon";
 
   ragon.agenix.secrets."ds9OffsiteBackupSSH" = { owner = config.services.syncoid.user; };
+  ragon.agenix.secrets."ds9SyncoidHealthCheckUrl" = { owner = config.services.syncoid.user; mode = "444"; };
   ragon.agenix.secrets."gatebridgeHostKeys" = { owner = config.services.syncoid.user; };
   services.syncoid =
     let
       datasets = {
         backups = "rpool/content/local/backups";
         data = "rpool/content/safe/data";
-        ds9persist = "spool/safe/persist";
-        hassosvm = "spool/safe/vms/hassos";
+        ds9persist2 = "spool/safe/persist";
+        hassosvm2 = "spool/safe/vms/hassos";
       };
     in
 
@@ -55,6 +56,18 @@ in
         (builtins.mapAttrs (n: v: { commands.${n} = { target = "root@gatebridge:backup/${n}"; source = v; sendOptions = "w"; }; }) (datasets))
       )
     );
+  systemd.services."syncoid-ds9persist2" = {
+    # ExecStartPost commands are only run if the ExecStart command succeeded
+    # serviceConfig.ExecStartPost = pkgs.writeShellScript "backupSuccessful" ''
+    #   ${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})
+    # '';
+    unitConfig.OnFailure = "backupFailure.service";
+  };
+
+  systemd.services.backupFailure = {
+    enable = true;
+    script = "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/fail";
+  };
 
   programs.mosh.enable = true;
   security.sudo.wheelNeedsPassword = false;

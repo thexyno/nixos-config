@@ -14,6 +14,7 @@ in
   "paperlessAdminPW.age".publicKeys = pubkeys.ragon.host "ds9";
   "photoprismEnv.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9OffsiteBackupSSH.age".publicKeys = pubkeys.ragon.host "ds9";
+  "ds9SyncoidHealthCheckUrl.age".publicKeys = pubkeys.ragon.host "ds9";
   "gatebridgeHostKeys.age".publicKeys = pubkeys.ragon.host "ds9";
   "hedgedocSecret.age".publicKeys = pubkeys.ragon.host "picard";
   "mailmoverConf.age".publicKeys = pubkeys.ragon.host "picard";

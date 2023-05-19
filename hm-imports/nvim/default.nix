@@ -30,7 +30,8 @@ in
         nodePackages.typescript-language-server
         haskell-language-server
         sumneko-lua-language-server
-        ltex-ls # languageTool
+        pkgs.unstable.ltex-ls # languageTool
+        (hunspellWithDicts [ "de_DE" "en_US" ]) # spellcheck
         nodePackages.vscode-langservers-extracted # eslint, ...
         texlab # latex
         tectonic
