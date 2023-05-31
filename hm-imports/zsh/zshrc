@@ -1,5 +1,5 @@
-AGKOZAK_MULTILINE=0
-AGKOZAK_PROMPT_CHAR=( ❯ ❯ "%F{red}N%f")
+# AGKOZAK_MULTILINE=0
+# AGKOZAK_PROMPT_CHAR=( ❯ ❯ "%F{red}N%f")
 autoload -Uz history-search-end
 
 zle -N history-beginning-search-backward-end history-search-end
@@ -49,8 +49,4 @@ n ()
     fi
 }
 
-export ORIGTMPDIR=${TMPDIR:-$(mktemp -d)} # nix-shell overrides tmpdir, but we want to save it
-emacsclient ()
-{
-    command emacsclient -s $ORIGTMPDIR/emacs$(id -u)/server "$@"
-}
+

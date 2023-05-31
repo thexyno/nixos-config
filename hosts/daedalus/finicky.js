@@ -1,5 +1,5 @@
 module.exports = {
-  defaultBrowser: "Orion",
+  defaultBrowser: "Firefox.app",
   handlers: [
     {
       match: /^https?:\/\/gitlab\.com\/.*$/,
