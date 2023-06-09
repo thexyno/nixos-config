@@ -6,6 +6,7 @@ in
   options.ragon.nvim.enable = lib.mkOption { default = true; };
   options.ragon.nvim.maximal = lib.mkOption { default = false; };
   config = lib.mkIf cfg.enable {
+
     home.packages =
       (with pkgs;[
         # telescope
@@ -32,6 +33,7 @@ in
         sumneko-lua-language-server
         pkgs.unstable.ltex-ls # languageTool
         (hunspellWithDicts [ "de_DE" "en_US" ]) # spellcheck
+        hunspellDicts.de-de
         nodePackages.vscode-langservers-extracted # eslint, ...
         texlab # latex
         tectonic

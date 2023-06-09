@@ -32,6 +32,7 @@ lspconfig.nil_ls.setup { capabilities = capabilities, on_attach = on_lsp_attach 
 -- lspconfig.rnix.setup { capabilities = capabilities, on_attach = on_lsp_attach } -- nix
 lspconfig.terraformls.setup { capabilities = capabilities, on_attach = on_lsp_attach }
 lspconfig.kotlin_language_server.setup { capabilities = capabilities, on_attach = on_lsp_attach }
+lspconfig.sourcekit.setup { capabilities = capabilities, on_attach = on_lsp_attach } -- swift
 lspconfig.tsserver.setup { capabilities = capabilities, on_attach = on_lsp_attach }
 lspconfig.vimls.setup {
   capabilities = capabilities,
