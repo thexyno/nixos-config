@@ -19,7 +19,6 @@ in
   config = mkMerge ([
     (mkIf (cfg.master.hostname == hostName) {
       services.loki.enable = true;
-      networking.firewall.allowedTCPPorts = [ 3100 ];
       services.loki.configFile = pkgs.writeText "loki.yml" ''
         auth_enabled: false
         server:
@@ -57,7 +56,7 @@ in
           boltdb_shipper:
             active_index_directory: /tmp/loki/boltdb-shipper-active
             cache_location: /tmp/loki/boltdb-shipper-cache
-            cache_ttl: 24h         # Can be increased for faster performance over longer query periods, uses more disk space
+            cache_ttl: 4h         # Can be increased for faster performance over longer query periods, uses more disk space
             shared_store: filesystem
           filesystem:
             directory: /tmp/loki/chunks
@@ -114,21 +113,7 @@ in
     {
       # some global settings
       services.prometheus.exporters.node.enabledCollectors = [ "systemd" ];
-      services.prometheus.exporters.dnsmasq.leasesPath = "/var/lib/dnsmasq/dnsmasq.leases";
-      systemd.services."prometheus-smartctl-exporter".serviceConfig.DeviceAllow = [ "* r" ];
-      services.prometheus.exporters.smartctl.user = "root";
-      services.prometheus.exporters.smartctl.group = "root";
       services.prometheus.exporters.smokeping.hosts = [ "1.1.1.1" ];
-      services.nginx.statusPage = mkDefault config.services.prometheus.exporters.nginx.enable;
-      services.prometheus.exporters.nginxlog.user = "nginx";
-      services.prometheus.exporters.nginxlog.group = "nginx";
-      services.prometheus.exporters.nginxlog.settings = {
-        namespaces = [{
-          name = "nginxlog";
-          format = "$remote_addr - - [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
-          source.files = [ "/var/log/nginx/access.log" ];
-        }];
-      };
     }
     (mkIf (builtins.elem hostName cfg.promtail.hosts) {
       services.promtail = {

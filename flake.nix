@@ -16,6 +16,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-master";
     neovim-nightly-overlay.inputs.neovim-flake.url = "github:neovim/neovim?dir=contrib&rev=eb151a9730f0000ff46e0b3467e29bb9f02ae362";
@@ -245,6 +247,7 @@
         daedalusvm = nixosSystem "aarch64-linux" [ ./hosts/daedalusvm/default.nix ];
         octopi = nixosSystem "aarch64-linux" [ ./hosts/octopi/default.nix ];
         icarus = nixosSystem "x86_64-linux" [ ./hosts/icarus/default.nix ];
+        beliskner = nixosSystem "x86_64-linux" [ ./hosts/beliskner/default.nix ];
       };
       darwinConfigurations = processConfigurations {
         daedalus = darwinSystem "aarch64-darwin" [ ./hosts/daedalus/default.nix ];

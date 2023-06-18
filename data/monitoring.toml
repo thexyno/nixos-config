@@ -1,6 +1,6 @@
 [master]
-hostname = "ds9"
-ip = "100.83.96.25" # tailscale
+hostname = "beliskner"
+ip = "beliskner.kangaroo-galaxy.ts.net" # tailscale
 
 [hostOverrides]
 
@@ -16,17 +16,8 @@ hosts = [ "ds9", "picard" ]
 [exporters.smartctl]
 hosts = [ "ds9" ]
 
-# [exporters.dnsmasq]
-# hosts = [ "wormhole" ]
-# 
-# [exporters.wireguard]
-# hosts = [ "wormhole"]
-# 
-# [exporters.smokeping]
-# hosts = [ "wormhole"]
-
-[exporters.nginxlog]
-hosts = [ "picard", "ds9" ]
+[exporters.blackbox]
+hosts = [ "beliskner" ]
 
 [promtail]
 hosts = [ "picard", "ds9" ]
