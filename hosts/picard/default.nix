@@ -50,6 +50,13 @@
     forceSSL = true;
     locations."/".proxyPass = "http://[::1]${config.services.xynoblog.listen}";
   };
+  services.lolpizza2.enable = true;
+  services.nginx.virtualHosts."lolpizza.ragon.xyz" = {
+    useACMEHost = "ragon.xyz";
+    forceSSL = true;
+    locations."/".proxyPass = "http://[::1]${config.services.lolpizza2.listen}";
+  };
+
   services.nginx.virtualHosts."xyno.systems" = {
     enableACME = true;
     forceSSL = true;

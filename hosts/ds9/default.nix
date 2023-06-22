@@ -267,10 +267,10 @@ in
     ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
     ZED_EMAIL_OPTS = "@ADDRESS@";
 
-    ZED_NOTIFY_INTERVAL_SECS = 3600;
+    ZED_NOTIFY_INTERVAL_SECS = 7200;
     #ZED_NOTIFY_VERBOSE = true;
 
-    ZED_USE_ENCLOSURE_LEDS = true;
+    ZED_USE_ENCLOSURE_LEDS = false;
     ZED_SCRUB_AFTER_RESILVER = true;
   };
 
@@ -316,7 +316,6 @@ in
       grafana.enable = true;
       libvirt.enable = true;
       paperless.enable = true;
-      unifi.enable = true;
     };
 
   };

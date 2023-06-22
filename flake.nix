@@ -26,6 +26,8 @@
     # programs
     xynoblog.url = "github:thexyno/blog";
     xynoblog.inputs.nixpkgs.follows = "nixpkgs";
+    lolpizza.url = "github:thexyno/lolpizza2";
+    lolpizza.inputs.nixpkgs.follows = "nixpkgs";
     x.url = "github:thexyno/x";
     x.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -83,6 +85,7 @@
     , darwin
     , utils
     , xynoblog
+    , lolpizza
     , x
     , ...
     }:
@@ -182,6 +185,7 @@
               impermanence.nixosModules.impermanence
               home-manager.nixosModules.home-manager
               xynoblog.nixosModule
+              lolpizza.nixosModule
               x.nixosModule
               ({ config, ... }: lib.mkMerge [{
                 nixpkgs.pkgs = pkgs;

@@ -1,9 +1,9 @@
-{ disks ? [ "/dev/vda" ], ... }: {
+{ ... }: {
   disko.devices = {
     disk = {
       vda = {
         type = "disk";
-        device = builtins.elemAt disks 0;
+        device = "/dev/vda";
         content = {
           type = "table";
           format = "gpt";
@@ -53,8 +53,8 @@
     lvm_vg = {
       pool = {
         type = "lvm_vg";
-        nix = {
-          persistent = {
+        lvs = {
+          nix = {
             size = "100%";
             content = {
               type = "filesystem";
