@@ -15,20 +15,29 @@
   documentation.nixos.enable = false;
   documentation.man.enable = false;
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.device = "/dev/vda";
   boot.loader.systemd-boot.enable = false;
 
-  #networking.interfaces."ens3" = {
-  #  ipv6 = {
-  #    addresses = [
-  #      {
-  #        address = "2a03:4000:54:a98::1";
-  #        prefixLength = 64;
-  #      }
-  #    ];
-  #  };
-  #};
-  #networking.defaultGateway6 = { address = "fe80::1"; interface = "enp0s3"; };
+  networking.interfaces."ens3" = {
+    ipv6 = {
+      addresses = [
+        {
+          address = "2a00:6800:3:744::1";
+          prefixLength = 64;
+        }
+      ];
+    };
+    ipv4 = {
+      addresses = [
+        {
+          address = "195.90.211.163";
+          prefixLength = 22;
+        }
+      ];
+    };
+  };
+  networking.defaultGateway6 = { address = "2a00:6800:3::1"; interface = "ens3"; };
+  networking.defaultGateway = { address = "195.90.208.1"; interface = "ens3"; };
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
   # networking.interfaces.eno1.useDHCP = true;
   networking.hostId = "7c28236a";

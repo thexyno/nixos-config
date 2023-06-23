@@ -7,7 +7,7 @@ let
 in
 {
   imports = [ "${modulesPath}/profiles/qemu-guest.nix" inputs.disko.nixosModules.disko ./disk-config.nix ];
-  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/d2cb12f8-67e3-4725-86c3-0b5c7ebee3a6";
+  #boot.initrd.luks.devices."crypted".device = "/dev/vda2";
 
   boot.initrd = {
     network = {
