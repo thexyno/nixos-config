@@ -12,9 +12,13 @@ in
     type = lib.types.listOf lib.types.str;
     default = [ ];
   };
+  options.ragon.persist.baseDir = lib.mkOption {
+    type = lib.types.str;
+    default = "/persistent";
+  };
   config = lib.mkIf cfg.enable {
 
-    environment.persistence."/persistent" = {
+    environment.persistence.${cfg.baseDir} = {
       directories = [
         "/etc/nixos"
         "/etc/NetworkManager/system-connections"

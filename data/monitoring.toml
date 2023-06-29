@@ -4,12 +4,6 @@ ip = "beliskner.kangaroo-galaxy.ts.net" # tailscale
 
 [hostOverrides]
 
-[exporters.nginx]
-hosts = [
-  "ds9",
-  "picard"
-]
-
 [exporters.node]
 hosts = [ "ds9", "picard" ]
 

@@ -16,8 +16,8 @@ in
         enable = true;
         port = 2222;
         hostKeys = [
-          "/persistent/etc/nixos/secrets/initrd/ssh_host_rsa_key"
-          "/persistent/etc/nixos/secrets/initrd/ssh_host_ed25519_key"
+          "/nix/persistent/etc/nixos/secrets/initrd/ssh_host_rsa_key"
+          "/nix/persistent/etc/nixos/secrets/initrd/ssh_host_ed25519_key"
         ];
         authorizedKeys = pubkeys.ragon.user;
       };

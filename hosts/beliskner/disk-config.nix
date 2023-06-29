@@ -16,9 +16,10 @@
               flags = [ "bios_grub" ];
             }
             {
-              name = "ESP";
+              name = "esp";
               start = "1MiB";
               end = "265MiB";
+              part-type = "primary";
               bootable = true;
               content = {
                 type = "filesystem";
@@ -33,6 +34,7 @@
               name = "luks";
               start = "265MiB";
               end = "100%";
+              part-type = "primary";
               content = {
                 type = "luks";
                 name = "crypted";
@@ -46,6 +48,7 @@
                 };
               };
             }
+
           ];
         };
       };
@@ -55,10 +58,10 @@
         type = "lvm_vg";
         lvs = {
           nix = {
-            size = "100%";
+            size = "100%FREE";
             content = {
               type = "filesystem";
-              format = "ext4";
+              format = "xfs";
               mountpoint = "/nix";
               mountOptions = [
                 "defaults"
@@ -79,16 +82,4 @@
       };
     };
   };
-  fileSystems."/var/log" =
-    {
-      device = "/nix/persistent/varlog";
-      fsType = "bind";
-      neededForBoot = true;
-    };
-  fileSystems."/persistent" =
-    {
-      device = "/nix/persistent";
-      fsType = "bind";
-      neededForBoot = true;
-    };
 }

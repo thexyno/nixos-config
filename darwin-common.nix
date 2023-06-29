@@ -6,7 +6,7 @@
   nix.package = pkgs.nixVersions.stable;
   nix.settings.cores = 0; # use all cores
   nix.settings.max-jobs = 10; # use all cores
-  nix.settings.auto-optimise-store = true;
+  #nix.settings.auto-optimise-store = true;
   nix.distributedBuilds = true;
   nix.nixPath = [{ nixpkgs = "${inputs.nixpkgs-darwin.outPath}"; nixpkgs-master = "${inputs.nixpkgs-master.outPath}"; nixpkgs-nixos = "${inputs.nixpkgs.outPath}"; }];
   nix.buildMachines = [{
@@ -18,16 +18,17 @@
     sshKey = "/Users/ragon/.ssh/id_ed25519";
     publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUorQkJYdWZYQUpoeVVIVmZocWxrOFk0ekVLSmJLWGdKUXZzZEU0ODJscFYgcm9vdEBpc28K";
   }
-    {
-      systems = [ "aarch64-linux" "x86_64-linux" ];
-      speedFactor = 2;
-      supportedFeatures = [ "kvm" "big-parallel" ];
-      sshUser = "ragon";
-      maxJobs = 8;
-      hostName = "192.168.65.7";
-      sshKey = "/Users/ragon/.ssh/id_ed25519";
-      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUM4aG9teFlQZlk4bS9JQ2c2NVNWNU9Temp3eW1sNmxEMXhGNi9zWUxPQkY=";
-    }];
+    #{
+    #  systems = [ "aarch64-linux" "x86_64-linux" ];
+    #  speedFactor = 2;
+    #  supportedFeatures = [ "kvm" "big-parallel" ];
+    #  sshUser = "ragon";
+    #  maxJobs = 8;
+    #  hostName = "192.168.65.7";
+    #  sshKey = "/Users/ragon/.ssh/id_ed25519";
+    #  publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUM4aG9teFlQZlk4bS9JQ2c2NVNWNU9Temp3eW1sNmxEMXhGNi9zWUxPQkY=";
+    #}
+  ];
   nix.extraOptions = ''
     builders-use-substitutes = true
   '';
