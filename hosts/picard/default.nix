@@ -43,6 +43,7 @@
   ragon.agenix.secrets."picardResticPassword" = { };
   ragon.agenix.secrets."picardResticSSHKey" = { };
   ragon.agenix.secrets."picardResticHealthCheckUrl" = { };
+  ragon.agenix.secrets."picardSlidingSyncSecret" = { };
 
   services.nginx.recommendedOptimisation = true;
   services.nginx.virtualHosts."xyno.space" = {

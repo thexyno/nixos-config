@@ -27,6 +27,7 @@ in
   "gitlabJWSFile.age".publicKeys = pubkeys.ragon.host "picard";
   "nextcloudAdminPass.age".publicKeys = pubkeys.ragon.host "picard";
   "picardResticSSHKey.age".publicKeys = pubkeys.ragon.host "picard";
+  "picardSlidingSyncSecret.age".publicKeys = pubkeys.ragon.host "picard";
   "picardResticPassword.age".publicKeys = pubkeys.ragon.host "picard";
   "picardResticHealthCheckUrl.age".publicKeys = pubkeys.ragon.host "picard";
 }

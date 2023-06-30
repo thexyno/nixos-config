@@ -49,6 +49,22 @@ in
 
     };
     ragon.agenix.secrets."matrixSecrets" = { owner = "matrix-synapse"; };
+    users.users.slidingsync = { isSystemUser = true; group = "slidingsync"; };
+    users.groups.slidingsync = { };
+    virtualisation.oci-containers.containers."matrix-sliding-sync" = {
+      image = "ghcr.io/matrix-org/sliding-sync:latest";
+      ports = [ "8008:localhost:8008" ];
+      user = "slidingsync";
+      volumes = [
+        "/run/postgresql:/run/postgresql"
+      ];
+      environmentFiles = [ config.age.secrets.picardSlidingSyncSecret.path ];
+      environment = {
+        SYNCV3_SERVER = "https://m.ragon.xyz";
+        SYNCV3_BINDADDR = ":8008";
+        SYNCV3_DB = "user=slidingsync dbname=slidingsync";
+      };
+    };
     services.postgresql = {
       enable = true;
     };
@@ -94,6 +110,7 @@ in
               "m.homeserver" = { "base_url" = "https://${fqdn}"; };
               "m.identity_server" = { "base_url" = "https://vector.im"; };
               "im.vector.riot.jitsi" = { "preferredDomain" = "jitsi.${domain}"; };
+              "org.matrix.msc3575.proxy" = { "url" = "https://slidingsync.${domain}"; };
             };
             # ACAO required to allow element-web on any URL to request this json file
           in
@@ -118,7 +135,15 @@ in
         locations."/_matrix" = {
           proxyPass = "http://[::1]:8008"; # without a trailing /
         };
+        locations."/synapse" = {
+          proxyPass = "http://[::1]:8008"; # without a trailing /
+        };
       };
+      "slidingsync.${domain}" = {
+        forceSSL = true;
+        useACMEHost = "${domain}";
+      };
+
 
 
     };
