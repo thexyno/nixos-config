@@ -49,12 +49,12 @@ in
 
     };
     ragon.agenix.secrets."matrixSecrets" = { owner = "matrix-synapse"; };
-    users.users.slidingsync = { isSystemUser = true; group = "slidingsync"; };
-    users.groups.slidingsync = { };
+    users.users.slidingsync = { isSystemUser = true; group = "slidingsync"; uid = 990; };
+    users.groups.slidingsync = { gid = 988; };
     virtualisation.oci-containers.containers."matrix-sliding-sync" = {
       image = "ghcr.io/matrix-org/sliding-sync:latest";
-      ports = [ "8008:localhost:8008" ];
-      user = "slidingsync";
+      ports = [ "127.0.0.1:8009:8008" ];
+      user = "${toString config.users.users.slidingsync.uid}:${toString config.users.groups.slidingsync.gid}";
       volumes = [
         "/run/postgresql:/run/postgresql"
       ];
@@ -62,10 +62,17 @@ in
       environment = {
         SYNCV3_SERVER = "https://m.ragon.xyz";
         SYNCV3_BINDADDR = ":8008";
-        SYNCV3_DB = "user=slidingsync dbname=slidingsync";
+        SYNCV3_DB = "host=/run/postgresql user=slidingsync dbname=slidingsync password=slidingsync";
       };
     };
     services.postgresql = {
+      ensureDatabases = [ "slidingsync" ];
+      ensureUsers = [
+        {
+          name = "slidingsync";
+          ensurePermissions."DATABASE slidingsync" = "ALL PRIVILEGES";
+        }
+      ];
       enable = true;
     };
     services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
@@ -142,6 +149,9 @@ in
       "slidingsync.${domain}" = {
         forceSSL = true;
         useACMEHost = "${domain}";
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8009";
+        };
       };
 
 
