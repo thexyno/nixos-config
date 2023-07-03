@@ -9,6 +9,7 @@ with lib.my;
   };
   environment.systemPackages = [
     #    myEmacs
+    pkgs.heroic
   ];
 
   homebrew = {
