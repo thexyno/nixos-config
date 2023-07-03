@@ -9,7 +9,6 @@ with lib.my;
   };
   environment.systemPackages = [
     #    myEmacs
-    pkgs.heroic
   ];
 
   homebrew = {
@@ -18,6 +17,7 @@ with lib.my;
       "pam-reattach"
     ];
     casks = [
+      "heroic"
       "hammerspoon"
       "amethyst"
       "android-platform-tools"
