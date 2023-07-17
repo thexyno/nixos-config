@@ -1,5 +1,5 @@
 module.exports = {
-  defaultBrowser: "Firefox.app",
+  defaultBrowser: "Arc.app",
   handlers: [
     {
       match: /^https?:\/\/gitlab\.com\/.*$/,
