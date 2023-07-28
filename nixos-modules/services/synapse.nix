@@ -83,20 +83,20 @@ in
         LC_CTYPE = "C";
     '';
     services.nginx.virtualHosts = {
-      "${cfg.elementFqdn}" = {
-        useACMEHost = "${domain}";
-        forceSSL = true;
+      #"${cfg.elementFqdn}" = {
+      #  useACMEHost = "${domain}";
+      #  forceSSL = true;
 
-        root = pkgs.element-web.override {
-          conf = {
-            default_server_config."m.homeserver" = {
-              "base_url" = "https://${fqdn}";
-              "server_name" = "${domain}";
-            };
-            default_theme = "dark";
-          }; # TODO make this less shit
-        };
-      };
+      #  root = pkgs.element-web.override {
+      #    conf = {
+      #      default_server_config."m.homeserver" = {
+      #        "base_url" = "https://${fqdn}";
+      #        "server_name" = "${domain}";
+      #      };
+      #      default_theme = "dark";
+      #    }; # TODO make this less shit
+      #  };
+      #};
 
       "${cfg.serverName}" = {
         forceSSL = true;
