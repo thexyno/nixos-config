@@ -50,7 +50,7 @@ in
           reporting_enabled: false
       '';
       services.prometheus = {
-        alertmanager.enable = true;
+        # alertmanager.enable = true;
         enable = true;
         scrapeConfigs = foldl (a: b: a ++ b) [ ] (map
           (x: (map
@@ -119,10 +119,6 @@ in
                   regex = {
                     expression = ''(?P<remote_addr>.+) - - \[(?P<time_local>.+)\] "(?P<method>.+) (?P<url>.+) (HTTP\/(?P<version>\d.\d))" (?P<status>\d{3}) (?P<body_bytes_sent>\d+) (["](?P<http_referer>(\-)|(.+))["]) (["](?P<http_user_agent>.+)["])'';
                   };
-                  drop = {
-                    source = "url";
-                    expression = ''/(_matrix|.well-known|notifications|api|identity).*'';
-                  };
                 }
                 {
                   labels = {
@@ -140,6 +136,12 @@ in
                   timestamp = {
                     source = "time_local";
                     format = "02/Jan/2006:15:04:05 -0700";
+                  };
+                }
+                {
+                  drop = {
+                    source = "url";
+                    expression = ''/(_matrix|.well-known|notifications|api|identity).*'';
                   };
                 }
               ];
