@@ -20,7 +20,8 @@ in
     (mkIf (cfg.master.hostname == hostName) {
       services.loki.enable = true;
       services.loki.configFile = pkgs.writeText "loki.yml" ''
-        chunk_target_size: 5242880
+        ingester:
+          chunk_target_size: 5242880
         auth_enabled: false
         server:
           http_listen_port: 3100
