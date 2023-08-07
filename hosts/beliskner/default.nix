@@ -71,16 +71,29 @@
   };
 
 
-  ragon.agenix.secrets."prometheusBlackboxConfig" = { owner = config.services.prometheus.exporters.blackbox.user; };
-  users.groups.${config.services.prometheus.exporters.blackbox.user} = { };
-  users.users.${config.services.prometheus.exporters.blackbox.user} = {
-    isSystemUser = true;
-    group = config.services.prometheus.exporters.blackbox.user;
-  };
+  ragon.agenix.secrets."prometheusBlackboxConfig.yaml" = { owner = "prometheus"; };
+  services.prometheus.scrapeConfigs = [{
+    job_name = "blackbox";
+    file_sd_configs = [{
+      files = [
+        config.age.secrets."prometheusBlackboxConfig.yaml".path
+      ];
+    }];
+  }];
+  services.prometheus.checkConfig = false;
   services.prometheus.exporters.blackbox = {
     enable = true;
-    configFile = "${config.age.secrets.prometheusBlackboxConfig.path}";
-    enableConfigCheck = false;
+    configFile = pkgs.writeText "blackboxexporter" ''
+      modules:
+        dns:
+          prober: dns
+        http_2xx:
+          prober: http
+          timeout: 5s
+          http:
+            method: GET
+            preferred_ip_protocol: "ip4" # defaults to "ip6"
+    '';
   };
 
 

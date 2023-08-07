@@ -23,7 +23,7 @@ in
   "gitlabSecretFile.age".publicKeys = pubkeys.ragon.host "picard";
   "gitlabDBFile.age".publicKeys = pubkeys.ragon.host "picard";
   "gitlabOTPFile.age".publicKeys = pubkeys.ragon.host "picard";
-  "prometheusBlackboxConfig.age".publicKeys = pubkeys.ragon.host "beliskner";
+  "prometheusBlackboxConfig.yaml.age".publicKeys = pubkeys.ragon.host "beliskner";
   "gitlabJWSFile.age".publicKeys = pubkeys.ragon.host "picard";
   "nextcloudAdminPass.age".publicKeys = pubkeys.ragon.host "picard";
   "picardResticSSHKey.age".publicKeys = pubkeys.ragon.host "picard";

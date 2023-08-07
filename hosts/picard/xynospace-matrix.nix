@@ -111,6 +111,9 @@ in
       locations."/_matrix" = {
         proxyPass = "http://${localAddress}:8008"; # without a trailing /
       };
+      locations."/notifications" = {
+        proxyPass = "http://${localAddress}:8008"; # without a trailing /
+      };
       locations."/synapse" = {
         proxyPass = "http://${localAddress}:8008"; # without a trailing /
       };
