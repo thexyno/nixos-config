@@ -33,7 +33,7 @@ in
       services.matrix-synapse = {
         enable = true;
         settings.server_name = serverName;
-        extraConfigFiles = [ ms ];
+        extraConfigFiles = [ "/host${ms}" ];
         settings.database.args.user = "matrix-synapse-xynospace";
         settings.database.name = "psycopg2";
         settings.database.args.database = "matrix-synapse-xynospace";
@@ -61,7 +61,7 @@ in
     autoStart = true;
 
     bindMounts = {
-      "/run/agenix" = { hostPath = "/run/agenix"; isReadOnly = true; };
+      "/host/run" = { hostPath = "/run"; isReadOnly = true; };
       "/run/agenix.d" = { hostPath = "/run/agenix.d"; isReadOnly = true; };
     };
 
