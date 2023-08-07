@@ -79,7 +79,7 @@
   };
   services.prometheus.exporters.blackbox = {
     enable = true;
-    configFile = config.age.secrets.prometheusBlackboxConfig.path;
+    configFile = "${config.age.secrets.prometheusBlackboxConfig.path}";
     enableConfigCheck = false;
   };
 
