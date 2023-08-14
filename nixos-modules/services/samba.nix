@@ -16,7 +16,6 @@ in
   config = mkIf cfg.enable {
     services.samba = {
       enable = true;
-      package = pkgs.samba4Full;
       shares = cfg.shares;
     };
     ragon.persist.extraDirectories = [
