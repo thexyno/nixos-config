@@ -229,7 +229,7 @@ in
 
   services.samba.extraConfig = ''
     min protocol = SMB3
-    vfs objects = acl_xattr catia fruit streams_xattr
+    vfs objects = acl_xattr catia fruit streams_xattr aio pthread
     fruit:nfs_aces = no
     inherit permissions = yes
     fruit:posix_rename = yes
@@ -239,6 +239,7 @@ in
     fruit:wipe_intentionally_left_blank_rfork = yes 
     fruit:delete_empty_adfiles = yes 
     fruit:metadata = stream
+    aio_pthread:aio open = yes;
   '';
 
   users.users.minecraft = {
@@ -296,7 +297,7 @@ in
           "write list" = "@wheel";
           "fruit:time machine" = "yes";
           "fruit:time machine max size" = "2050G";
-          "vfs objects" = "acl_xattr fruit streams_xattr aio";
+          "vfs objects" = "acl_xattr fruit streams_xattr";
           "inherit acls" = "yes";
         };
         data = {
