@@ -296,8 +296,9 @@ in
           "write list" = "@wheel";
           "fruit:time machine" = "yes";
           "fruit:time machine max size" = "2050G";
-          "vfs objects" = "acl_xattr fruit streams_xattr";
+          "vfs objects" = "acl_xattr fruit streams_xattr aio pthead";
           "inherit acls" = "yes";
+          "aio_pthread:aio open" = "yes";
         };
         data = {
           path = "/data";
