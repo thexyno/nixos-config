@@ -229,7 +229,7 @@ in
 
   services.samba.extraConfig = ''
     min protocol = SMB3
-    vfs objects = acl_xattr catia fruit streams_xattr aio pthread
+    vfs objects = acl_xattr catia fruit streams_xattr aio
     fruit:nfs_aces = no
     inherit permissions = yes
     fruit:posix_rename = yes
@@ -239,7 +239,6 @@ in
     fruit:wipe_intentionally_left_blank_rfork = yes 
     fruit:delete_empty_adfiles = yes 
     fruit:metadata = stream
-    aio_pthread:aio open = yes;
   '';
 
   users.users.minecraft = {
