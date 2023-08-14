@@ -11,11 +11,12 @@ in
   options.ragon.services.samba.enable = mkEnableOption "Enables Samba";
   options.ragon.services.samba.shares = mkOption {
     type = lib.types.attrs;
-    default = {};
+    default = { };
   };
   config = mkIf cfg.enable {
     services.samba = {
       enable = true;
+      package = pkgs.samba4Full;
       shares = cfg.shares;
     };
     ragon.persist.extraDirectories = [
