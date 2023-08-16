@@ -229,12 +229,12 @@ in
 
   services.samba.extraConfig = ''
     min protocol = SMB3
-    vfs objects = acl_xattr catia fruit streams_xattr aio
+    vfs objects = acl_xattr catia fruit streams_xattr
     fruit:nfs_aces = no
     inherit permissions = yes
     fruit:posix_rename = yes
     fruit:resource = xattr
-    fruit:model = MacPro7,1@ECOLOR=226,226,224
+    fruit:model = MacSamba
     fruit:veto_appledouble = no
     fruit:wipe_intentionally_left_blank_rfork = yes 
     fruit:delete_empty_adfiles = yes 
@@ -294,6 +294,9 @@ in
           path = "/backups/DaedalusTimeMachine";
           comment = "DaedalusTimeMachine";
           "write list" = "@wheel";
+          "read only" = "no";
+          "writable" = "yes";
+          "browseable" = "yes";
           "fruit:time machine" = "yes";
           "fruit:time machine max size" = "2050G";
           "vfs objects" = "acl_xattr fruit streams_xattr";
