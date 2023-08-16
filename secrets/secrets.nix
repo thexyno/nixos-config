@@ -12,6 +12,7 @@ in
   "ragonPasswd.age".publicKeys = pubkeys.ragon.computers;
   "tailscaleKey.age".publicKeys = pubkeys.ragon.computers;
   "paperlessAdminPW.age".publicKeys = pubkeys.ragon.host "ds9";
+  "borgmaticEncryptionKey.age".publicKeys = pubkeys.ragon.host "ds9";
   "photoprismEnv.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9OffsiteBackupSSH.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9SyncoidHealthCheckUrl.age".publicKeys = pubkeys.ragon.host "ds9";
@@ -24,6 +25,7 @@ in
   "gitlabDBFile.age".publicKeys = pubkeys.ragon.host "picard";
   "gitlabOTPFile.age".publicKeys = pubkeys.ragon.host "picard";
   "prometheusBlackboxConfig.yaml.age".publicKeys = pubkeys.ragon.host "beliskner";
+  "vpnConfig.age".publicKeys = pubkeys.ragon.host "beliskner";
   "gitlabJWSFile.age".publicKeys = pubkeys.ragon.host "picard";
   "nextcloudAdminPass.age".publicKeys = pubkeys.ragon.host "picard";
   "picardResticSSHKey.age".publicKeys = pubkeys.ragon.host "picard";

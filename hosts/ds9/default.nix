@@ -28,45 +28,65 @@ in
   ragon.agenix.secrets."ds9OffsiteBackupSSH" = { owner = config.services.syncoid.user; };
   ragon.agenix.secrets."ds9SyncoidHealthCheckUrl" = { owner = config.services.syncoid.user; mode = "444"; };
   ragon.agenix.secrets."gatebridgeHostKeys" = { owner = config.services.syncoid.user; };
-  services.syncoid =
-    let
-      datasets = {
-        backups = "rpool/content/local/backups";
-        data = "rpool/content/safe/data";
-        ds9persist2 = "spool/safe/persist";
-        hassosvm2 = "spool/safe/vms/hassos";
-      };
-    in
+  ragon.agenix.secrets."borgmaticEncryptionKey" = { };
+  # services.syncoid =
+  #   let
+  #     datasets = {
+  #       backups = "rpool/content/local/backups";
+  #       data = "rpool/content/safe/data";
+  #       ds9persist2 = "spool/safe/persist";
+  #       hassosvm2 = "spool/safe/vms/hassos";
+  #     };
+  #   in
 
-    lib.mkMerge (
-      [{
-        localSourceAllow = [
-          "hold"
-          "send"
-          "snapshot"
-          "destroy"
-          "mount"
-        ];
-        enable = true;
-        interval = "*-*-* 2:15:00";
-        commonArgs = [ "--sshoption" "GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path}" ];
-        sshKey = lib.mkForce "${config.age.secrets.ds9OffsiteBackupSSH.path}";
-      }] ++
-      (builtins.attrValues
-        (builtins.mapAttrs (n: v: { commands.${n} = { target = "root@gatebridge:backup/${n}"; source = v; sendOptions = "w"; }; }) (datasets))
-      )
-    );
-  systemd.services."syncoid-ds9persist2" = {
-    # ExecStartPost commands are only run if the ExecStart command succeeded
-    # serviceConfig.ExecStartPost = pkgs.writeShellScript "backupSuccessful" ''
-    #   ${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})
-    # '';
-    unitConfig.OnFailure = "backupFailure.service";
-  };
+  #   lib.mkMerge (
+  #     [{
+  #       localSourceAllow = [
+  #         "hold"
+  #         "send"
+  #         "snapshot"
+  #         "destroy"
+  #         "mount"
+  #       ];
+  #       enable = true;
+  #       interval = "*-*-* 2:15:00";
+  #       commonArgs = [ "--sshoption" "GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path}" ];
+  #       sshKey = lib.mkForce "${config.age.secrets.ds9OffsiteBackupSSH.path}";
+  #     }] ++
+  #     (builtins.attrValues
+  #       (builtins.mapAttrs (n: v: { commands.${n} = { target = "root@gatebridge:backup/${n}"; source = v; sendOptions = "w"; }; }) (datasets))
+  #     )
+  #   );
+  # systemd.services."syncoid-ds9persist2" = {
+  #   # ExecStartPost commands are only run if the ExecStart command succeeded
+  #   # serviceConfig.ExecStartPost = pkgs.writeShellScript "backupSuccessful" ''
+  #   #   ${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})
+  #   # '';
+  #   unitConfig.OnFailure = "backupFailure.service";
+  # };
 
-  systemd.services.backupFailure = {
+  # systemd.services.backupFailure = {
+  #   enable = true;
+  #   script = "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/fail";
+  # };
+
+  services.borgmatic = {
     enable = true;
-    script = "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/fail";
+    configurations."ds9-offsite" = {
+      location = {
+        source_directories = [ "/backups" "/data" "/persistent" ];
+        repositories = [ "root@gatebridge:/backup/ds9-offsite" ];
+      };
+      exclude_if_present = [ ".nobackup" ];
+      encryption_passcommand = "cat ${config.age.secrets.borgmaticEncryptionKey.path}";
+      compression = "zstd,10";
+      upload_rate_limit = "4000";
+      ssh_command = "ssh -o GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path} -i ${config.age.secrets.ds9OffsiteBackupSSH.path}";
+      before_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/start" ];
+      after_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})" ];
+      on_error = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/fail" ];
+      postgresql_databases = [ "all" ];
+    };
   };
 
   programs.mosh.enable = true;
