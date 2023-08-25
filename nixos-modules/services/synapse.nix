@@ -48,31 +48,7 @@ in
 
 
     };
-    ragon.agenix.secrets."matrixSecrets" = { owner = "matrix-synapse"; };
-    users.users.slidingsync = { isSystemUser = true; group = "slidingsync"; uid = 990; };
-    users.groups.slidingsync = { gid = 988; };
-    virtualisation.oci-containers.containers."matrix-sliding-sync" = {
-      image = "ghcr.io/matrix-org/sliding-sync:latest";
-      ports = [ "127.0.0.1:8009:8008" ];
-      user = "${toString config.users.users.slidingsync.uid}:${toString config.users.groups.slidingsync.gid}";
-      volumes = [
-        "/run/postgresql:/run/postgresql"
-      ];
-      environmentFiles = [ config.age.secrets.picardSlidingSyncSecret.path ];
-      environment = {
-        SYNCV3_SERVER = "https://m.ragon.xyz";
-        SYNCV3_BINDADDR = ":8008";
-        SYNCV3_DB = "host=/run/postgresql user=slidingsync dbname=slidingsync password=slidingsync";
-      };
-    };
     services.postgresql = {
-      ensureDatabases = [ "slidingsync" ];
-      ensureUsers = [
-        {
-          name = "slidingsync";
-          ensurePermissions."DATABASE slidingsync" = "ALL PRIVILEGES";
-        }
-      ];
       enable = true;
     };
     services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
@@ -117,7 +93,6 @@ in
               "m.homeserver" = { "base_url" = "https://${fqdn}"; };
               "m.identity_server" = { "base_url" = "https://vector.im"; };
               "im.vector.riot.jitsi" = { "preferredDomain" = "jitsi.${domain}"; };
-              "org.matrix.msc3575.proxy" = { "url" = "https://slidingsync.${domain}"; };
             };
             # ACAO required to allow element-web on any URL to request this json file
           in
