@@ -4,7 +4,7 @@ in {
   ragon.agenix.secrets."plausibleAdminPw" = { };
   ragon.agenix.secrets."plausibleReleaseCookie" = { };
   ragon.agenix.secrets."plausibleSecretKeybase" = { };
-  ragon.agenix.secrets."smtpPassword.age" = { };
+  ragon.agenix.secrets."smtpPassword" = { };
   services.nginx.virtualHosts.${domain} = {
     forceSSL = true;
     enableACME = true;
@@ -21,7 +21,7 @@ in {
       # postgresql is configured by the module. This is done by default, but
       # can be turned off with services.plausible.database.postgres.setup.
       activate = true;
-      email = "john.doe@example.com";
+      email = "plausible@xyno.space";
       passwordFile = config.age.secrets.plausibleAdminPw.path;
     };
 
