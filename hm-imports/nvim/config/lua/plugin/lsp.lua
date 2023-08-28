@@ -1,4 +1,5 @@
 local lspconfig = require 'lspconfig'
+local util = require 'lspconfig.util'
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- lsp keymaps
 local lsp_attach_keymappings = {
@@ -26,6 +27,10 @@ local on_lsp_attach = function(_, bufnr)
   for key, cmd in pairs(lsp_attach_keymappings) do buf_nnoremap_lua(bufnr, key, cmd) end
 end
 
+vim.g.markdown_fenced_languages = {
+  "ts=typescript"
+}
+lspconfig.denols.setup { capabilities = capabilities, on_attach = on_lsp_attach, root_dir = util.root_pattern("deno.json", "deno.jsonc") }
 lspconfig.gopls.setup { capabilities = capabilities, on_attach = on_lsp_attach }
 lspconfig.pyright.setup { capabilities = capabilities, on_attach = on_lsp_attach }
 lspconfig.nil_ls.setup { capabilities = capabilities, on_attach = on_lsp_attach } -- nix

@@ -4,6 +4,8 @@ in {
   ragon.agenix.secrets."plausibleAdminPw" = { };
   ragon.agenix.secrets."plausibleReleaseCookie" = { };
   ragon.agenix.secrets."plausibleSecretKeybase" = { };
+  ragon.agenix.secrets."plausibleGoogleClientId" = { };
+  ragon.agenix.secrets."plausibleGoogleClientSecret" = { };
   ragon.agenix.secrets."smtpPassword" = { };
   services.nginx.virtualHosts.${domain} = {
     forceSSL = true;
@@ -11,6 +13,10 @@ in {
     locations."/".proxyPass =
       "http://127.0.0.1:${toString config.services.plausible.server.port}";
   };
+  systemd.services.plausible.serviceConfig.LoadCredential = [
+    "GOOGLE_CLIENT_ID:${config.age.secrets.plausibleGoogleClientId.path}"
+    "GOOGLE_CLIENT_SECRET:${config.age.secrets.plausibleGoogleClientSecret.path}"
+  ];
   services.plausible = {
     enable = true;
     releaseCookiePath = config.age.secrets.plausibleSecretKeybase.path;

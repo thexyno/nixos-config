@@ -52,7 +52,7 @@
     enableACME = true;
     forceSSL = true;
     locations."/".proxyPass = "http://[::1]${config.services.xynoblog.listen}";
-    locations."/gyakapyukawfyuokfgwtyutf.js".proxyPass = "http://127.0.0.1:${toString config.services.plausible.server.port}/js/plausible.js";
+    locations."/gyakapyukawfyuokfgwtyutf.js".proxyPass = "http://127.0.0.1:${toString config.services.plausible.server.port}/js/plausible.outbound-links.js";
     locations."/api/event".proxyPass = "http://127.0.0.1:${toString config.services.plausible.server.port}";
   };
   services.lolpizza2.enable = true;

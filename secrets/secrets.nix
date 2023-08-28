@@ -19,6 +19,8 @@ in
   "ds9SyncoidHealthCheckUrl.age".publicKeys = pubkeys.ragon.host "ds9";
   "gatebridgeHostKeys.age".publicKeys = pubkeys.ragon.host "ds9";
   "plausibleAdminPw.age".publicKeys = pubkeys.ragon.host "picard";
+  "plausibleGoogleClientId.age".publicKeys = pubkeys.ragon.host "picard";
+  "plausibleGoogleClientSecret.age".publicKeys = pubkeys.ragon.host "picard";
   "plausibleReleaseCookie.age".publicKeys = pubkeys.ragon.host "picard";
   "plausibleSecretKeybase.age".publicKeys = pubkeys.ragon.host "picard";
   "hedgedocSecret.age".publicKeys = pubkeys.ragon.host "picard";
