@@ -102,7 +102,7 @@ in
                 target_label = "unit";
               }];
             }
-          ] ++ lib.optionals config.services.nginx.enable [
+          ] ++ lib.optionals false [
             {
               job_name = "nginx";
               static_configs = [
