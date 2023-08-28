@@ -17,6 +17,9 @@ in
   "ds9OffsiteBackupSSH.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9SyncoidHealthCheckUrl.age".publicKeys = pubkeys.ragon.host "ds9";
   "gatebridgeHostKeys.age".publicKeys = pubkeys.ragon.host "ds9";
+  "plausibleAdminPw.age".publicKeys = pubkeys.ragon.host "picard";
+  "plausibleReleaseCookie.age".publicKeys = pubkeys.ragon.host "picard";
+  "plausibleSecretKeybase.age".publicKeys = pubkeys.ragon.host "picard";
   "hedgedocSecret.age".publicKeys = pubkeys.ragon.host "picard";
   "mailmoverConf.age".publicKeys = pubkeys.ragon.host "picard";
   "matrixSecrets.age".publicKeys = pubkeys.ragon.host "picard";

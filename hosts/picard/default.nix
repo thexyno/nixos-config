@@ -10,6 +10,7 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./xynospace-matrix.nix
+      ./plausible.nix
     ];
 
   documentation.enable = false;
@@ -51,6 +52,8 @@
     enableACME = true;
     forceSSL = true;
     locations."/".proxyPass = "http://[::1]${config.services.xynoblog.listen}";
+    locations."/js".proxyPass = "http://127.0.0.1:${toString config.services.plausible.server.port}";
+    locations."/api/event".proxyPass = "http://127.0.0.1:${toString config.services.plausible.server.port}";
   };
   services.lolpizza2.enable = true;
   services.nginx.virtualHosts."lolpizza.ragon.xyz" = {
