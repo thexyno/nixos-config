@@ -4,6 +4,7 @@ in {
   ragon.agenix.secrets."plausibleAdminPw" = { };
   ragon.agenix.secrets."plausibleReleaseCookie" = { };
   ragon.agenix.secrets."plausibleSecretKeybase" = { };
+  ragon.agenix.secrets."smtpPassword.age" = { };
   services.nginx.virtualHosts.${domain} = {
     forceSSL = true;
     enableACME = true;
@@ -27,6 +28,14 @@ in {
     server = {
       baseUrl = "https://${domain}";
       secretKeybaseFile = config.age.secrets.plausibleSecretKeybase.path;
+    };
+    mail.email = "machdas@xyno.space";
+    mail.smtp = {
+      user = "machdas@xyno.space";
+      passwordFile = config.age.secrets.smtpPassword.path;
+      hostAddr = "smtp.ionos.de";
+      hostPort = 465;
+      enableSSL = true;
     };
   };
 

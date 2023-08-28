@@ -7,6 +7,7 @@ in
   "pulseLaunch.age".publicKeys = pubkeys.ragon.client;
   "rootPasswd.age".publicKeys = pubkeys.ragon.computers;
   "msmtprc.age".publicKeys = pubkeys.ragon.computers;
+  "smtpPassword.age".publicKeys = pubkeys.ragon.computers;
   "aliases.age".publicKeys = pubkeys.ragon.computers;
   "wpa_supplicant.age".publicKeys = pubkeys.ragon.computers;
   "ragonPasswd.age".publicKeys = pubkeys.ragon.computers;
