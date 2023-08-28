@@ -139,7 +139,10 @@ in
       locations."/notifications" = {
         proxyPass = "http://${localAddress}:8008"; # without a trailing /
       };
-      locations."/synapse" = {
+      locations."/_synapse/client" = {
+        proxyPass = "http://${localAddress}:8008"; # without a trailing /
+      };
+      locations."/health" = {
         proxyPass = "http://${localAddress}:8008"; # without a trailing /
       };
     };
