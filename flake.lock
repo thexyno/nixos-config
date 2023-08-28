@@ -839,11 +839,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1693227205,
-        "narHash": "sha256-o7rqovuJNUwAhQXrIZ8BkChTE6wb9uc7Q52V1eCQwXo=",
+        "lastModified": 1693227926,
+        "narHash": "sha256-q98urK4F/XDKj91x9fDeFaiw0Y+Oygg3i9BTTHj1c08=",
         "owner": "thexyno",
         "repo": "blog",
-        "rev": "13f66e115604edefba6a671a1ff92b2bda449d85",
+        "rev": "9bcc479ec789144641420eb4dc0148f59108b6ea",
         "type": "github"
       },
       "original": {
