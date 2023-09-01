@@ -13,8 +13,26 @@ vim.g.maplocalleader = ','
 -- color stuff
 opt.termguicolors = true -- 24bit color
 require('gruvbox').setup({})
+require('tokyonight').setup({})
 opt.background = 'dark' -- dark gruvbox
 vim.cmd ':colorscheme gruvbox'
+require('dark_notify').run({
+  schemes = {
+    light = {
+      colorscheme = 'tokyonight',
+      background = 'light',
+      lualine = 'tokyonight'
+    },
+    dark = {
+      colorscheme = 'gruvbox',
+      background = 'dark',
+      lualine = 'gruvbox'
+    }
+  },
+})
+
+
+
 --vimspector
 vim.g.vimspector_base_dir = vim.env.HOME .. "/.local/share/nvim/vimspector"
 vim.g.vimspector_enable_mappings = "HUMAN"
@@ -24,10 +42,10 @@ vim.g.copilot_no_tab_map = true
 opt.encoding = 'utf-8'
 opt.number = true
 opt.relativenumber = true
-opt.undofile = true               -- save undo chages even after computer restart
-opt.showcmd = true                -- show (partial) command in status line
-opt.showmatch = true              -- show match brackets
-opt.wildmenu = true               -- visual autocomplete for command menu
+opt.undofile = true  -- save undo chages even after computer restart
+opt.showcmd = true   -- show (partial) command in status line
+opt.showmatch = true -- show match brackets
+opt.wildmenu = true  -- visual autocomplete for command menu
 -- Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 opt.splitbelow = true
 opt.splitright = true

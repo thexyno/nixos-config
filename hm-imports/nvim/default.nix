@@ -83,6 +83,7 @@ in
             vim-tmux-navigator # tmux
             nnn-nvim # nnn as filebrowser
             gruvbox-nvim # theme
+            tokyonight-nvim # light theme
             # complete ui overhaul
             notify-nvim
             nui-nvim

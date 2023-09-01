@@ -15,6 +15,7 @@ with lib.my;
     enable = true;
     brews = [
       "pam-reattach"
+      "cormacrelf/tap/dark-notify"
     ];
     casks = [
       "heroic"

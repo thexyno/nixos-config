@@ -6,7 +6,6 @@
     historyLimit = 10000;
     plugins = with pkgs.tmuxPlugins; [
       vim-tmux-navigator
-      gruvbox
     ];
     extraConfig = ''
       set -sg escape-time 0 # makes vim esc usable
@@ -17,6 +16,8 @@
       bind c new-window -c "#{pane_current_path}"
       set-option -g default-terminal "tmux-256color"
       set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
+      run-shell -b '~/.config/tmux-switch-colors/start_theme_switcher.sh'
     '';
   };
+  home.file.".config/tmux-switch-colors".source = ./tmux-switch-colors;
 }
