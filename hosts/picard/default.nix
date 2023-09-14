@@ -48,14 +48,15 @@
   ragon.agenix.secrets."picardSlidingSyncSecret" = { };
 
   services.nginx.recommendedOptimisation = true;
+
   services.nginx.virtualHosts."xyno.space" = {
-    enableACME = true;
-    forceSSL = true;
     locations."/".proxyPass = "http://[::1]${config.services.xynoblog.listen}";
     locations."/gyakapyukawfyuokfgwtyutf.js".proxyPass = "http://127.0.0.1:${toString config.services.plausible.server.port}/js/plausible.outbound-links.js";
     locations."/api/event".proxyPass = "http://127.0.0.1:${toString config.services.plausible.server.port}";
-  };
+  } // (lib.my.findOutTlsConfig "xyno.space" config);
+
   services.lolpizza2.enable = true;
+
   services.nginx.virtualHosts."lolpizza.ragon.xyz" = {
     useACMEHost = "ragon.xyz";
     forceSSL = true;
@@ -63,11 +64,18 @@
   };
 
   services.nginx.virtualHosts."xyno.systems" = {
-    enableACME = true;
-    forceSSL = true;
     locations."/".return = "307 https://xyno.space$request_uri";
-  } // (lib.findOutTlsConfig "xyno.systems" config);
+  } // (lib.my.findOutTlsConfig "xyno.systems" config);
 
+  security.acme.certs."xyno.space" = {
+    dnsProvider = "ionos";
+    dnsResolver = "1.1.1.1:53";
+    group = "nginx";
+    extraDomainNames = [
+      "*.xyno.systems"
+    ];
+    credentialsFile = "${config.age.secrets.cloudflareAcme.path}";
+  };
   security.acme.certs."xyno.systems" = {
     dnsProvider = "ionos";
     dnsResolver = "1.1.1.1:53";
@@ -76,7 +84,6 @@
       "*.xyno.systems"
     ];
     credentialsFile = "${config.age.secrets.cloudflareAcme.path}";
-
   };
 
   services.nginx.appendHttpConfig = ''
@@ -160,6 +167,7 @@
       ts3.enable = true;
       nginx.enable = true;
       nginx.domain = "ragon.xyz";
+      nginx.domains = [ "xyno.space" "xyno.systems" ];
     };
 
   };

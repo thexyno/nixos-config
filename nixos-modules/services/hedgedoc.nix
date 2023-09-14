@@ -11,7 +11,7 @@ in
       default = "md.xyno.systems";
     };
   config = lib.mkIf cfg.enable {
-    ragon.secrets.autheliaHedgedoc = { user = "authelia"; };
+    ragon.agenix.secrets.autheliaHedgedoc = { user = "authelia"; };
     services.authelia.instances.main.settingsFiles = [
       config.age.secrets.autheliaHedgedoc.path
     ];

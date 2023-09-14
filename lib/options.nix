@@ -17,18 +17,19 @@ rec {
   };
   findOutTlsConfig = domain: config:
     let
-      spl = builtins.splitString "." domain;
-      outerDomain = builtins.concatStringsSep "." (builtins.take (builtins.length spl - 1) spl);
+      spl = lib.splitString "." domain;
+      len = builtins.length spl;
+      outerDomain = lib.traceVal (lib.concatStringsSep "." (lib.sublist (len - 2) len spl));
+      domains = config.ragon.services.nginx.domains;
+      hasDomain = lib.any (d: d == outerDomain) domains;
     in
-    lib.mkMerge [
-      ((lib.hasAttr outerDomain config.acme.certs) && {
-        forceSSL = true;
-        useACMEHost = "${domain}";
-      })
-      (!(lib.hasAttr outerDomain config.acme.certs) && {
+    if hasDomain then {
+      forceSSL = true;
+      useACMEHost = "${domain}";
+    } else
+      {
         forceSSL = true;
         enableACME = true;
-      })
-    ];
+      };
 
 }

@@ -94,7 +94,6 @@ in
   services.nginx.virtualHosts = {
     "${serverName}" = {
       forceSSL = true;
-      enableACME = true;
 
       locations."= /.well-known/matrix/server".extraConfig =
         let

@@ -9,6 +9,11 @@ in
       type = lib.types.str;
       default = "hailsatan.eu";
     };
+  options.ragon.services.nginx.domains =
+    lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+    };
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ 80 443 ];
     services.nginx = {

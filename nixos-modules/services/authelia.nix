@@ -13,12 +13,12 @@ in
     };
   config = lib.mkIf cfg.enable {
 
-    ragon.secrets.autheliaStorageEncryption = { };
-    ragon.secrets.autheliaSessionSecret = { };
-    ragon.secrets.autheliaOidcIssuerPrivateKey = { };
-    ragon.secrets.autheliaOidcHmacSecret = { };
-    ragon.secrets.autheliaJwtSecret = { };
-    ragon.secrets.autheliaEmail = { user = "authelia"; };
+    ragon.agenix.secrets.autheliaStorageEncryption = { };
+    ragon.agenix.secrets.autheliaSessionSecret = { };
+    ragon.agenix.secrets.autheliaOidcIssuerPrivateKey = { };
+    ragon.agenix.secrets.autheliaOidcHmacSecret = { };
+    ragon.agenix.secrets.autheliaJwtSecret = { };
+    ragon.agenix.secrets.autheliaEmail = { user = "authelia"; };
     services.authelia.instances.${instanceName} = {
       enable = true;
       secrets = {
