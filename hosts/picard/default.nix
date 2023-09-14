@@ -66,6 +66,17 @@
     enableACME = true;
     forceSSL = true;
     locations."/".return = "307 https://xyno.space$request_uri";
+  } // (lib.findOutTlsConfig "xyno.systems" config);
+
+  security.acme.certs."xyno.systems" = {
+    dnsProvider = "ionos";
+    dnsResolver = "1.1.1.1:53";
+    group = "nginx";
+    extraDomainNames = [
+      "*.xyno.systems"
+    ];
+    credentialsFile = "${config.age.secrets.cloudflareAcme.path}";
+
   };
 
   services.nginx.appendHttpConfig = ''

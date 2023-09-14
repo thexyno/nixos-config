@@ -38,4 +38,11 @@ in
   "picardSlidingSyncSecret.age".publicKeys = pubkeys.ragon.host "picard";
   "picardResticPassword.age".publicKeys = pubkeys.ragon.host "picard";
   "picardResticHealthCheckUrl.age".publicKeys = pubkeys.ragon.host "picard";
+  "autheliaStorageEncryption.age".publicKeys = pubkeys.ragon.host "picard";
+  "autheliaSessionSecret.age".publicKeys = pubkeys.ragon.host "picard";
+  "autheliaOidcIssuerPrivateKey.age".publicKeys = pubkeys.ragon.host "picard";
+  "autheliaOidcHmacSecret.age".publicKeys = pubkeys.ragon.host "picard";
+  "autheliaJwtSecret.age".publicKeys = pubkeys.ragon.host "picard";
+  "autheliaEmail.age".publicKeys = pubkeys.ragon.host "picard";
+  "autheliaHedgedoc.age".publicKeys = pubkeys.ragon.host "picard";
 }
