@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.services.authelia;
-  stateDir = "/var/lib/authelia";
   instanceName = "main";
+  stateDir = "/var/lib/authelia-${instanceName}";
 in
 {
   options.ragon.services.authelia.enable = lib.mkEnableOption "Enables the authelia SSO Server";
@@ -13,12 +13,12 @@ in
     };
   config = lib.mkIf cfg.enable {
 
-    ragon.agenix.secrets.autheliaStorageEncryption = { };
-    ragon.agenix.secrets.autheliaSessionSecret = { };
-    ragon.agenix.secrets.autheliaOidcIssuerPrivateKey = { };
-    ragon.agenix.secrets.autheliaOidcHmacSecret = { };
-    ragon.agenix.secrets.autheliaJwtSecret = { };
-    ragon.agenix.secrets.autheliaEmail = { user = "authelia"; };
+    ragon.agenix.secrets.autheliaStorageEncryption = { owner = "authelia-main"; };
+    ragon.agenix.secrets.autheliaSessionSecret = { owner = "authelia-main"; };
+    ragon.agenix.secrets.autheliaOidcIssuerPrivateKey = { owner = "authelia-main"; };
+    ragon.agenix.secrets.autheliaOidcHmacSecret = { owner = "authelia-main"; };
+    ragon.agenix.secrets.autheliaJwtSecret = { owner = "authelia-main"; };
+    ragon.agenix.secrets.autheliaEmail = { owner = "authelia-main"; };
     services.authelia.instances.${instanceName} = {
       enable = true;
       secrets = {
@@ -28,38 +28,35 @@ in
         oidcHmacSecretFile = config.age.secrets.autheliaOidcHmacSecret.path;
         jwtSecretFile = config.age.secrets.autheliaJwtSecret.path;
       };
-      settingstFiles = [
+      settingsFiles = [
         config.age.secrets.autheliaEmail.path
       ];
       settings = {
         theme = "auto";
         default_2fa_method = "webauthn";
+        access_control = {
+          default_policy = "one_factor";
+        };
         authentication_backend = {
           file = {
             path = "${stateDir}/users.yml";
           };
         };
+        session = {
+          domain = cfg.domain;
+        };
         storage = {
           postgres = {
             host = "/run/postgresql";
-          };
-        };
-        notifier = {
-          smtp = {
-            address = "smtp://smtp.ionos.de:465";
-            sender = "xyno.systems SSO <machdas@xyno.space>";
-            username = "machdas@xyno.space";
-            subject = "[xyno.systems SSO] {title}";
-            startup_check_address = "autodelete@phochkamp.de";
+            port = "5432";
+            database = "authelia";
+            username = "authelia-main";
+            password = "dosentmatter";
           };
         };
 
       };
     };
-    systemd.tmpfiles.rules = [
-      "d ${stateDir} 0755 authelia authelia -"
-    ];
-    ragon.agenix.secrets.autheliaSecret.owner = "authelia";
     services.nginx.virtualHosts."${cfg.domain}" = {
       locations."/".proxyWebsockets = true;
       locations."/".proxyPass = "http://127.0.0.1:${toString config.services.authelia.instances.${instanceName}.settings.server.port}";
@@ -71,7 +68,7 @@ in
       ensureDatabases = [ "authelia" ];
       ensureUsers = [
         {
-          name = "authelia";
+          name = "authelia-main";
           ensurePermissions."DATABASE authelia" = "ALL PRIVILEGES";
         }
       ];

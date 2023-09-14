@@ -25,7 +25,7 @@ rec {
     in
     if hasDomain then {
       forceSSL = true;
-      useACMEHost = "${domain}";
+      useACMEHost = "${outerDomain}";
     } else
       {
         forceSSL = true;

@@ -42,10 +42,6 @@
   users.mutableUsers = false;
 
   services.postgresql.package = pkgs.postgresql_13;
-  ragon.agenix.secrets."picardResticPassword" = { };
-  ragon.agenix.secrets."picardResticSSHKey" = { };
-  ragon.agenix.secrets."picardResticHealthCheckUrl" = { };
-  ragon.agenix.secrets."picardSlidingSyncSecret" = { };
 
   services.nginx.recommendedOptimisation = true;
 
@@ -76,14 +72,15 @@
     ];
     credentialsFile = "${config.age.secrets.cloudflareAcme.path}";
   };
+  ragon.agenix.secrets."desec" = { };
   security.acme.certs."xyno.systems" = {
-    dnsProvider = "ionos";
+    dnsProvider = "desec";
     dnsResolver = "1.1.1.1:53";
     group = "nginx";
     extraDomainNames = [
       "*.xyno.systems"
     ];
-    credentialsFile = "${config.age.secrets.cloudflareAcme.path}";
+    credentialsFile = "${config.age.secrets.desec.path}";
   };
 
   services.nginx.appendHttpConfig = ''
@@ -111,38 +108,36 @@
     access_log /var/log/nginx/access.log anonymized;
   '';
 
-  services.restic.backups."picard" = {
-    passwordFile = config.age.secrets.picardResticPassword.path;
-    extraOptions = [
-      "sftp.command='ssh picardbackup@ds9 -i ${config.age.secrets.picardResticSSHKey.path} -s sftp'"
-    ];
-    pruneOpts = [
-      "--keep-daily 7"
-      "--keep-weekly 5"
-      "--keep-monthly 12"
-      "--keep-yearly 75"
-    ];
-    initialize = true;
-    repository = "sftp:picardbackup@ds9:/restic";
-    paths = [
-      "/persistent"
-    ];
-
-  };
-
-
-  systemd.services.restic-backups-picard = {
-    # ExecStartPost commands are only run if the ExecStart command succeeded
-    serviceConfig.ExecStartPost = pkgs.writeShellScript "backupSuccessful" ''
-      ${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.picardResticHealthCheckUrl.path})
-    '';
-    unitConfig.OnFailure = "backupFailure.service";
-  };
-
-  systemd.services.backupFailure = {
+  ragon.agenix.secrets."picardResticPassword" = { };
+  ragon.agenix.secrets."picardResticSSHKey" = { };
+  ragon.agenix.secrets."picardResticHealthCheckUrl" = { };
+  ragon.agenix.secrets."picardSlidingSyncSecret" = { };
+  services.borgmatic = {
     enable = true;
-    script = "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.picardResticHealthCheckUrl.path})/fail";
+    configurations."picard-ds9" = {
+      location = {
+        source_directories = [ "/persistent" ];
+        repositories = [ "picardbackup@ds9:/backups/picard/borgmatic" ];
+      };
+      exclude_if_present = [ ".nobackup" ];
+      encryption_passcommand = "cat ${config.age.secrets.picardResticPassword.path}";
+      compression = "auto,zstd,10";
+      ssh_command =
+        let
+          pks = import ../../data/pubkeys.nix;
+          hst = pks.ragon.host "ds9";
+          lst = map (h: "daedalus ${h}") hst;
+          s = lib.concatStringsSep "\n" lst;
+          fl = pkgs.writeText "ds9-offsite-ssh-known-hosts" s;
+        in
+        "ssh -o GlobalKnownHostsFile=${fl} -i ${config.age.secrets.picardResticSSHKey.path}";
+      before_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.picardResticHealthCheckUrl.path})/start" ];
+      after_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.picardResticHealthCheckUrl.path})" ];
+      on_error = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.picardResticHealthCheckUrl.path})/fail" ];
+      postgresql_databases = [ "all" ];
+    };
   };
+
   nixpkgs.overlays = [
     (self: super: {
       zfs = super.zfs.override { enableMail = true; };
@@ -163,7 +158,8 @@
       gitlab.enable = false; # TODO gitlab-runner
       synapse.enable = true;
       tailscale.enable = true;
-      hedgedoc.enable = false;
+      hedgedoc.enable = true;
+      authelia.enable = true;
       ts3.enable = true;
       nginx.enable = true;
       nginx.domain = "ragon.xyz";

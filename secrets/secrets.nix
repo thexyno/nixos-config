@@ -38,6 +38,7 @@ in
   "picardSlidingSyncSecret.age".publicKeys = pubkeys.ragon.host "picard";
   "picardResticPassword.age".publicKeys = pubkeys.ragon.host "picard";
   "picardResticHealthCheckUrl.age".publicKeys = pubkeys.ragon.host "picard";
+  "desec.age".publicKeys = pubkeys.ragon.host "picard";
   "autheliaStorageEncryption.age".publicKeys = pubkeys.ragon.host "picard";
   "autheliaSessionSecret.age".publicKeys = pubkeys.ragon.host "picard";
   "autheliaOidcIssuerPrivateKey.age".publicKeys = pubkeys.ragon.host "picard";

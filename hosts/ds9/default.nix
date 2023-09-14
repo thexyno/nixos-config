@@ -25,9 +25,9 @@ in
   services.syncthing.enable = true;
   services.syncthing.user = "ragon";
 
-  ragon.agenix.secrets."ds9OffsiteBackupSSH" = { owner = config.services.syncoid.user; };
-  ragon.agenix.secrets."ds9SyncoidHealthCheckUrl" = { owner = config.services.syncoid.user; mode = "444"; };
-  ragon.agenix.secrets."gatebridgeHostKeys" = { owner = config.services.syncoid.user; };
+  ragon.agenix.secrets."ds9OffsiteBackupSSH" = { };
+  ragon.agenix.secrets."ds9SyncoidHealthCheckUrl" = { };
+  ragon.agenix.secrets."gatebridgeHostKeys" = { };
   ragon.agenix.secrets."borgmaticEncryptionKey" = { };
   # services.syncoid =
   #   let
@@ -79,7 +79,7 @@ in
       };
       exclude_if_present = [ ".nobackup" ];
       encryption_passcommand = "cat ${config.age.secrets.borgmaticEncryptionKey.path}";
-      compression = "zstd,10";
+      compression = "auto,zstd,10";
       upload_rate_limit = "4000";
       ssh_command = "ssh -o GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path} -i ${config.age.secrets.ds9OffsiteBackupSSH.path}";
       before_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/start" ];
@@ -130,22 +130,16 @@ in
   boot.kernel.sysctl."fs.inotify.max_user_instances" = 512;
 
   services.openssh.sftpServerExecutable = "internal-sftp";
-  services.openssh.extraConfig = ''
-    Match User picardbackup
-      ChrootDirectory ${config.users.users.picardbackup.home}
-      ForceCommand internal-sftp
-      AllowTcpForwarding no
-  '';
 
   # Backup Target
   users.users.picardbackup = {
     createHome = false;
     group = "users";
     uid = 993;
-    home = "/backups/restic/picard";
+    home = "/backups/picard";
     isSystemUser = true;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHvCF8KGgpF9O8Q7k+JXqZ5eMeEeTaMhCIk/2ZFOzXL0"
+      ''command="${pkgs.borgbackup}/bin/borg serve --restrict-to-path /backups/picard/",restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHvCF8KGgpF9O8Q7k+JXqZ5eMeEeTaMhCIk/2ZFOzXL0''
     ];
   };
 

@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.services.hedgedoc;
-  domain = config.ragon.services.nginx.domain;
 in
 {
   options.ragon.services.hedgedoc.enable = lib.mkEnableOption "Enables the hedgedoc BitWarden Server";
@@ -11,14 +10,14 @@ in
       default = "md.xyno.systems";
     };
   config = lib.mkIf cfg.enable {
-    ragon.agenix.secrets.autheliaHedgedoc = { user = "authelia"; };
+    ragon.agenix.secrets.autheliaHedgedoc = { owner = "authelia-main"; };
     services.authelia.instances.main.settingsFiles = [
       config.age.secrets.autheliaHedgedoc.path
     ];
     services.hedgedoc = {
       enable = true;
       environmentFile = "${config.age.secrets.hedgedocSecret.path}";
-      configuration = {
+      settings = {
         protocolUseSSL = true;
         sessionSecret = "$SESSION_SECRET";
         allowAnonymous = false;
@@ -26,12 +25,12 @@ in
         allowFreeURL = true;
         email = false;
         oauth2 = {
-          clientID = "$OAUTH2_CLIENT_ID";
-          clientSecret = "$OAUTH2_CLIENT_SECRET";
+          clientID = "$CLIENT_ID";
+          clientSecret = "$CLIENT_SECRET";
           providerName = "xyno.systems SSO";
-          authorizationURL = "https://sso.xyno.systems/oauth2/authorize";
-          tokenURL = "https://sso.xyno.systems/oauth2/token";
-          userProfileURL = "https://sso.xyno.systems/oauth2/userinfo";
+          authorizationURL = "https://sso.xyno.systems/api/oidc/authorize";
+          tokenURL = "https://sso.xyno.systems/api/oidc/token";
+          userProfileURL = "https://sso.xyno.systems/api/oidc/userinfo";
           scope = "openid profile email";
           userProfileUsernameAttr = "sub";
           userProfileEmailAttr = "email";
@@ -47,9 +46,9 @@ in
 
     };
     ragon.agenix.secrets.hedgedocSecret.owner = "hedgedoc";
-    services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
+    services.nginx.virtualHosts."${cfg.domain}" = {
       locations."/".proxyWebsockets = true;
-      locations."/".proxyPass = "http://127.0.0.1:${toString config.services.hedgedoc.configuration.port}";
+      locations."/".proxyPass = "http://[::1]:${toString config.services.hedgedoc.settings.port}";
     } // (lib.my.findOutTlsConfig cfg.domain config);
     services.postgresql = {
 
