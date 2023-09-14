@@ -72,7 +72,7 @@
     dnsResolver = "1.1.1.1:53";
     group = "nginx";
     extraDomainNames = [
-      "*.xyno.systems"
+      "*.xyno.space"
     ];
     credentialsFile = "${config.age.secrets.cloudflareAcme.path}";
   };
