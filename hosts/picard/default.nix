@@ -141,6 +141,7 @@
   nixpkgs.overlays = [
     (self: super: {
       zfs = super.zfs.override { enableMail = true; };
+      borgmatic = pkgs.unstable.borgmatic;
     })
   ];
   services.xynoblog.enable = true;

@@ -140,6 +140,7 @@
   ragon = {
     cli.enable = false;
     user.enable = false;
+    tailscaleToVpn.enable = true;
     persist.enable = true;
     persist.baseDir = "/nix/persistent";
     persist.extraDirectories = [
