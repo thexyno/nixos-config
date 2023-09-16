@@ -112,36 +112,45 @@
   ragon.agenix.secrets."picardResticSSHKey" = { };
   ragon.agenix.secrets."picardResticHealthCheckUrl" = { };
   ragon.agenix.secrets."picardSlidingSyncSecret" = { };
+  services.postgresql.ensureUsers = [
+    {
+      name = "root";
+      ensureClauses.superuser = true;
+    }
+  ];
   services.borgmatic = {
     enable = true;
     configurations."picard-ds9" = {
       location = {
         source_directories = [ "/persistent" ];
         repositories = [ "picardbackup@ds9:/backups/picard/borgmatic" ];
+        exclude_if_present = [ ".nobackup" ];
       };
-      exclude_if_present = [ ".nobackup" ];
-      encryption_passcommand = "cat ${config.age.secrets.picardResticPassword.path}";
-      compression = "auto,zstd,10";
-      ssh_command =
-        let
-          pks = import ../../data/pubkeys.nix;
-          hst = pks.ragon.host "ds9";
-          lst = map (h: "daedalus ${h}") hst;
-          s = lib.concatStringsSep "\n" lst;
-          fl = pkgs.writeText "ds9-offsite-ssh-known-hosts" s;
-        in
-        "ssh -o GlobalKnownHostsFile=${fl} -i ${config.age.secrets.picardResticSSHKey.path}";
-      before_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.picardResticHealthCheckUrl.path})/start" ];
-      after_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.picardResticHealthCheckUrl.path})" ];
-      on_error = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.picardResticHealthCheckUrl.path})/fail" ];
-      postgresql_databases = [ "all" ];
+      storage = {
+        encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticPassword.path}";
+        compression = "auto,zstd,10";
+        ssh_command =
+          let
+            pks = import ../../data/pubkeys.nix;
+            hst = pks.ragon.host "ds9";
+            lst = map (h: "daedalus ${h}") hst;
+            s = lib.concatStringsSep "\n" lst;
+            fl = pkgs.writeText "ds9-offsite-ssh-known-hosts" s;
+          in
+          "ssh -o GlobalKnownHostsFile=${fl} -i ${config.age.secrets.picardResticSSHKey.path}";
+      };
+      hooks = {
+        before_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticHealthCheckUrl.path})/start" ];
+        after_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticHealthCheckUrl.path})" ];
+        on_error = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticHealthCheckUrl.path})/fail" ];
+        postgresql_databases = [{ name = "all"; }];
+      };
     };
   };
 
   nixpkgs.overlays = [
     (self: super: {
       zfs = super.zfs.override { enableMail = true; };
-      borgmatic = pkgs.unstable.borgmatic;
     })
   ];
   services.xynoblog.enable = true;
