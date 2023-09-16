@@ -123,7 +123,7 @@
     configurations."picard-ds9" = {
       location = {
         source_directories = [ "/persistent" ];
-        repositories = [ "picardbackup@ds9:/backups/picard/borgmatic" ];
+        repositories = [ "ssh://picardbackup@ds9/backups/picard/borgmatic" ];
         exclude_if_present = [ ".nobackup" ];
       };
       storage = {
@@ -139,11 +139,17 @@
           in
           "ssh -o GlobalKnownHostsFile=${fl} -i ${config.age.secrets.picardResticSSHKey.path}";
       };
+      retention = {
+        keep_daily = 7;
+        keep_weekly = 4;
+        keep_monthly = 12;
+        keep_yearly = 10;
+      };
       hooks = {
         before_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticHealthCheckUrl.path})/start" ];
         after_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticHealthCheckUrl.path})" ];
         on_error = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticHealthCheckUrl.path})/fail" ];
-        postgresql_databases = [{ name = "all"; }];
+        postgresql_databases = [{ name = "all"; pg_dump_command = "${pkgs.postgresql}/bin/pg_dumpall"; pg_restore_command = "${pkgs.postgresql}/bin/pg_restore"; }];
       };
     };
   };

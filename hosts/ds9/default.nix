@@ -137,6 +137,7 @@ in
     group = "users";
     uid = 993;
     home = "/backups/picard";
+    shell = "/run/current-system/sw/bin/bash";
     isSystemUser = true;
     openssh.authorizedKeys.keys = [
       ''command="${pkgs.borgbackup}/bin/borg serve --restrict-to-path /backups/picard/",restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHvCF8KGgpF9O8Q7k+JXqZ5eMeEeTaMhCIk/2ZFOzXL0''
