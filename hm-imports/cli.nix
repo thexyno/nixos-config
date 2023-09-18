@@ -95,10 +95,11 @@
       # Default configs
       extraConfig = {
         commit.gpgSign = true;
+        gpg.format = "ssh";
 
-        user.name = "xyno (Philipp Hochkamp)";
+        user.name = "Lucy Hochkamp";
         user.email = "git@xyno.systems";
-        user.signingKey = "DA5D9235BD5BD4BD6F4C2EA868066BFF4EA525F1";
+        user.signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIuwQJY0H/fdu1UmGXAut7VfcvAk2Dm78tJpkyyv2in2";
 
         # Set default "git pull" behaviour so it doesn't try to default to
         # either "git fetch; git merge" (default) or "git fetch; git rebase".
