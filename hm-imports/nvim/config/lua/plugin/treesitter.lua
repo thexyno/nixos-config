@@ -20,3 +20,7 @@ require'nvim-treesitter.configs'.setup {
   --   highlight_current_scope = { enable = false },
   -- },
 }
+
+require'treesitter-context'.setup{
+  enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+}

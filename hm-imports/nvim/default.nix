@@ -121,6 +121,7 @@ in
 
             # treesitter
             (nvim-treesitter.withAllGrammars)
+            nvim-treesitter-context
           ]);
       };
   };
