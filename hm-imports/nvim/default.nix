@@ -108,6 +108,7 @@ in
             cmp-buffer
             cmp-path
             cmp-cmdline
+            cmp-nvim-lsp-signature-help
             nvim-cmp # completion ui
             lspkind-nvim # icons for completion
             # completion-snippets
