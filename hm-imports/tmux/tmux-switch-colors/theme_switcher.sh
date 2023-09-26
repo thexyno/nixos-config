@@ -12,7 +12,7 @@ SCRIPT_NAME="$(basename $0)"
 THEME_SETTER="$DN/theme_setter.sh"
 
 if pgrep -qf "$SCRIPT_NAME"; then
-	echo "$SCRIPT_NAME is already running, nothing to do here."
+        dark-notify -e -c "$THEME_SETTER" # run once
 	exit 0
 fi
 
