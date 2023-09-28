@@ -22,6 +22,7 @@ in {
   };
   services.plausible = {
     enable = true;
+    package = pkgs.unstable.plausible;
     releaseCookiePath = config.age.secrets.plausibleSecretKeybase.path;
 
     adminUser = {
