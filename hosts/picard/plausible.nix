@@ -17,6 +17,9 @@ in {
     "GOOGLE_CLIENT_ID:${config.age.secrets.plausibleGoogleClientId.path}"
     "GOOGLE_CLIENT_SECRET:${config.age.secrets.plausibleGoogleClientSecret.path}"
   ];
+  systemd.services.plausible.environment = {
+    IP_GEOLOCATION_DB = "${pkgs.unstable.dbip-country-lite}/share/dbip/dbip-country-lite.mmdb";
+  };
   services.plausible = {
     enable = true;
     releaseCookiePath = config.age.secrets.plausibleSecretKeybase.path;

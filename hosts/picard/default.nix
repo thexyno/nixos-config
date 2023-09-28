@@ -48,7 +48,19 @@
   services.nginx.virtualHosts."xyno.space" = {
     locations."/".proxyPass = "http://[::1]${config.services.xynoblog.listen}";
     locations."/gyakapyukawfyuokfgwtyutf.js".proxyPass = "http://127.0.0.1:${toString config.services.plausible.server.port}/js/plausible.outbound-links.js";
-    locations."/api/event".proxyPass = "http://127.0.0.1:${toString config.services.plausible.server.port}";
+    locations."= /api/event" = {
+      proxyPass = "http://127.0.0.1:${toString config.services.plausible.server.port}/api/event";
+      recommendedProxySettings = false;
+      extraConfig = ''
+        proxy_set_header Host stats.xyno.space;
+        proxy_buffering on;
+        proxy_http_version 1.1;
+
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host  $host;
+      '';
+    };
   } // (lib.my.findOutTlsConfig "xyno.space" config);
 
   services.lolpizza2.enable = true;
