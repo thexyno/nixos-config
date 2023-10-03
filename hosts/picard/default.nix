@@ -124,6 +124,7 @@
   ragon.agenix.secrets."picardResticSSHKey" = { };
   ragon.agenix.secrets."picardResticHealthCheckUrl" = { };
   ragon.agenix.secrets."picardSlidingSyncSecret" = { };
+  ragon.agenix.secrets."gatebridgeHostKeys" = { };
   services.postgresql.ensureUsers = [
     {
       name = "root";
@@ -135,21 +136,16 @@
     configurations."picard-ds9" = {
       location = {
         source_directories = [ "/persistent" ];
-        repositories = [ "ssh://picardbackup@ds9/backups/picard/borgmatic" ];
+        repositories = [
+          "ssh://picardbackup@ds9/backups/picard/borgmatic"
+          "ssh://root@gatebridge/media/backup/picard"
+        ];
         exclude_if_present = [ ".nobackup" ];
       };
       storage = {
         encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticPassword.path}";
         compression = "auto,zstd,10";
-        ssh_command =
-          let
-            pks = import ../../data/pubkeys.nix;
-            hst = pks.ragon.host "ds9";
-            lst = map (h: "daedalus ${h}") hst;
-            s = lib.concatStringsSep "\n" lst;
-            fl = pkgs.writeText "ds9-offsite-ssh-known-hosts" s;
-          in
-          "ssh -o GlobalKnownHostsFile=${fl} -i ${config.age.secrets.picardResticSSHKey.path}";
+        ssh_command = "ssh -o GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path} -i ${config.age.secrets.picardResticSSHKey.path}";
       };
       retention = {
         keep_daily = 7;
