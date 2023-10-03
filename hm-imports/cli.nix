@@ -43,6 +43,8 @@
     ls = "exa";
     ll = "exa -l --git";
     cat = "bat";
+    p = "cd ~/proj";
+    pd = "cd ~/proj/devsaur";
   };
 
   programs = {
