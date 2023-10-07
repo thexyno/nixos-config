@@ -102,59 +102,6 @@
       overlays = [
         self.overlays.default
         neovim-nightly-overlay.overlay
-        (final: prev: {
-          python3 = prev.python3.override {
-            packageOverrides = pyself: pysuper: {
-              notmuch2 = pysuper.notmuch2.overridePythonAttrs (old: {
-                postPatch = old.postPatch + ''sed -i "s|/private.*/notmuch-${old.version}/|$(pwd)/../../|g" _notmuch_config.py'';
-                meta.broken = false;
-              });
-            };
-          };
-          alot = prev.alot.overrideAttrs
-            (super: {
-              meta.platforms = lib.platforms.unix;
-              disabledTests = super.disabledTests ++ [
-                "test_returned_string_starts_with_pgp"
-                "test_returned_string_is_lower_case"
-                "test_raises_for_unknown_hash_name"
-                "test_valid_signature_generated"
-                "test_verify_signature_good"
-                "test_verify_signature_bad"
-                "test_valid"
-                "test_revoked"
-                "test_expired"
-                "test_invalid"
-                "test_encrypt"
-                "test_encrypt_no_check"
-                "test_sign"
-                "test_sign_no_check"
-                "test_valid_single"
-                "test_valid_multiple"
-                "test_invalid_email"
-                "test_invalid_revoked"
-                "test_invalid_invalid"
-                "test_invalid_not_enough_trust"
-                "test_list_no_hints"
-                "test_list_hint"
-                "test_list_keys_pub"
-                "test_list_keys_private"
-                "test_plain"
-                "test_validate"
-                "test_missing_key"
-                "test_invalid_key"
-                "test_signed_only_true"
-                "test_signed_only_false"
-                "test_ambiguous_one_valid"
-                "test_ambiguous_two_valid"
-                "test_ambiguous_no_valid"
-                "test_encrypt"
-                "test_decrypt"
-              ];
-            });
-
-
-        })
       ];
       genPkgsWithOverlays = system: import nixpkgs {
         inherit system overlays;
@@ -172,6 +119,40 @@
 
       rev = if (lib.hasAttrByPath [ "rev" ] self.sourceInfo) then self.sourceInfo.rev else "Dirty Build";
 
+      nixosCrossSystem = system: extraModules: hostName:
+        let
+          pkgs = import nixpkgs { localSystem = "x86_64-linux"; crossSystem = system; config.allowUnfree = true; };
+        in
+        nixpkgs.lib.nixosSystem
+          rec {
+            inherit system;
+            specialArgs = { inherit lib inputs; };
+            modules = [
+              agenix.nixosModules.age
+              impermanence.nixosModules.impermanence
+              home-manager.nixosModules.home-manager
+              xynoblog.nixosModule
+              lolpizza.nixosModule
+              x.nixosModule
+              ({ config, ... }: lib.mkMerge [{
+                nixpkgs.pkgs = pkgs;
+                nixpkgs.overlays = overlays;
+                networking.hostName = hostName;
+                system.configurationRevision = rev;
+                services.getty.greetingLine =
+                  "<<< Welcome to ${config.system.nixos.label} @ ${rev} - Please leave \\l >>>";
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = { inherit inputs; };
+              }
+
+                (lib.mkIf config.ragon.user.enable {
+                  # import hm stuff if enabled
+                  home-manager.users.ragon = hmConfig;
+                })])
+              ./nixos-common.nix
+            ] ++ (lib.my.mapModulesRec' (toString ./nixos-modules) import) ++ extraModules;
+          };
       nixosSystem = system: extraModules: hostName:
         let
           pkgs = genPkgs system;
@@ -249,7 +230,7 @@
         picard = nixosSystem "x86_64-linux" [ ./hosts/picard/default.nix ];
         ds9 = nixosSystem "x86_64-linux" [ ./hosts/ds9/default.nix ];
         daedalusvm = nixosSystem "aarch64-linux" [ ./hosts/daedalusvm/default.nix ];
-        octopi = nixosSystem "aarch64-linux" [ ./hosts/octopi/default.nix ];
+        octopi = nixosCrossSystem "aarch64-linux" [ ./hosts/octopi/default.nix ];
         icarus = nixosSystem "x86_64-linux" [ ./hosts/icarus/default.nix ];
         beliskner = nixosSystem "x86_64-linux" [ ./hosts/beliskner/default.nix ];
       };
