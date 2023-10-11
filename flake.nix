@@ -23,6 +23,7 @@
     neovim-nightly-overlay.inputs.neovim-flake.url = "github:neovim/neovim?dir=contrib&rev=eb151a9730f0000ff46e0b3467e29bb9f02ae362";
     neovim-nightly-overlay.inputs.neovim-flake.inputs.nixpkgs.follows = "nixpkgs-master";
 
+
     # programs
     xynoblog.url = "github:thexyno/blog";
     xynoblog.inputs.nixpkgs.follows = "nixpkgs";
@@ -42,6 +43,9 @@
     notify-nvim.flake = false;
     noice-nvim.url = "github:folke/noice.nvim";
     noice-nvim.flake = false;
+
+    ## vscode
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     ## zsh
     zsh-completions.url = "github:zsh-users/zsh-completions";
