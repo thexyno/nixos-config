@@ -65,6 +65,8 @@ with lib.my;
       home.file.".hammerspoon/Spoons/MiroWindowsManager.spoon".source = "${inputs.miro}/MiroWindowsManager.spoon";
       home.file.".finicky.js".source = ./finicky.js;
 
+      ragon.vscode.enable = true;
+
       programs.home-manager.enable = true;
       home.stateVersion = "21.11";
 
