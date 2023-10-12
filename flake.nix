@@ -33,8 +33,9 @@
     x.inputs.nixpkgs.follows = "nixpkgs";
 
     ## editor stuff
-    rnix-lsp.url = "github:nix-community/rnix-lsp";
-    rnix-lsp.inputs.nixpkgs.follows = "nixpkgs";
+    nixd.url = "github:nix-community/nixd";
+    nixd.inputs.nixpkgs.follows = "nixpkgs";
+
 
     ## vim
     nnn-nvim.url = "github:luukvbaal/nnn.nvim";
@@ -90,6 +91,7 @@
     , utils
     , xynoblog
     , lolpizza
+    , nixd
     , x
     , ...
     }:
@@ -106,6 +108,7 @@
       overlays = [
         self.overlays.default
         neovim-nightly-overlay.overlay
+        nixd.overlays.default
       ];
       genPkgsWithOverlays = system: import nixpkgs {
         inherit system overlays;

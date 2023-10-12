@@ -1,0 +1,8 @@
+{
+    "options": {
+        "enable": true,
+        "target": {
+            "installable": ".#nixosConfigurations.picard.options"
+        }
+    }
+}

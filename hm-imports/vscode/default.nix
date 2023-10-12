@@ -8,7 +8,7 @@ in
   options.ragon.vscode.enable = lib.mkOption { default = false; };
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      nil
+      nixd
       nixpkgs-fmt
     ];
     programs.vscode = {
@@ -17,6 +17,7 @@ in
         vscodevim.vim # vim mode (hopefully good)
         jdinhlife.gruvbox # theme
         mkhl.direnv # direnv
+
         # tomoki1207.pdf # reenable when latex workshop goes
 
 
@@ -121,8 +122,25 @@ in
             }
           ];
           ## Nix
-          "nix.serverPath" = "nil";
+          "nix.serverPath" = "nixd";
           "nix.enableLanguageServer" = true;
+          "nix.serverSettings" = {
+            "nixd" = {
+              "formatting" = {
+                "command" = "nixpkgs-fmt";
+              };
+            };
+          };
+          ## dart/flutter
+          "[dart]" = {
+            "editor.formatOnSave" = true;
+            "editor.formatOnType" = true;
+            "editor.rulers" = [ 80 ];
+            "editor.selectionHighlight" = false;
+            "editor.suggestSelection" = "first";
+            "editor.tabCompletion" = "onlySnippets";
+            "editor.wordBasedSuggestions" = false;
+          };
         };
     };
   };
