@@ -1,7 +1,7 @@
 { pkgs, config, lib, inputs, ... }:
 let
   cfg = config.ragon.vscode;
-  exts = inputs.nix-vscode-extensions.extensions.${pkgs.system};
+  marketplace = inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace;
 
 in
 {
@@ -18,23 +18,21 @@ in
         yzhang.markdown-all-in-one # markdown
         jdinhlife.gruvbox # theme
         mkhl.direnv # direnv
+        # tomoki1207.pdf # reenable when latex workshop goes
+        shd101wyy.markdown-preview-enhanced
 
 
         # Language Support 
         jnoortheen.nix-ide # nix
         golang.go # go
-        ms-pyright.pyright # python
+        marketplace.ms-python.python # python
         ms-dotnettools.csharp # c# und so
         rust-lang.rust-analyzer # rust
+        marketplace.sswg.swift-lang # swift
+        marketplace.james-yu.latex-workshop # latex
+        marketplace.ms-toolsai.jupyter # jupiter notebooks
 
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          # swift lsp (official apple somehow)
-          name = "swift-lang";
-          publisher = "sswg";
-          version = "1.6.1";
-          sha256 = "sha256-4/Hb8hgQb8osVqjH6qZgaPC0XcY1YaIxcobhHLGGuxQ=";
-        }
       ];
       userSettings =
         let
