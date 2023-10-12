@@ -15,22 +15,29 @@ in
       enable = true;
       extensions = with pkgs.vscode-extensions; [
         vscodevim.vim # vim mode (hopefully good)
-        yzhang.markdown-all-in-one # markdown
         jdinhlife.gruvbox # theme
         mkhl.direnv # direnv
         # tomoki1207.pdf # reenable when latex workshop goes
-        shd101wyy.markdown-preview-enhanced
 
 
         # Language Support 
+        ## markdown/latex
+        marketplace.james-yu.latex-workshop # latex, also provides pdf preview
+        shd101wyy.markdown-preview-enhanced # pandoc preview
+        yzhang.markdown-all-in-one # markdown
+        marketplace.davidanson.vscode-markdownlint
+
+        ## others
         jnoortheen.nix-ide # nix
         golang.go # go
         marketplace.ms-python.python # python
         ms-dotnettools.csharp # c# und so
         rust-lang.rust-analyzer # rust
         marketplace.sswg.swift-lang # swift
-        marketplace.james-yu.latex-workshop # latex
         marketplace.ms-toolsai.jupyter # jupiter notebooks
+        marketplace.dart-code.flutter # dart/flutter
+        marketplace.dart-code.dart-code # dart/flutter
+        marketplace.alexisvt.flutter-snippets # flutter snippets
 
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       ];
@@ -70,6 +77,16 @@ in
             {
               before = [ "<leader>" "q" ];
               "commands" = [ "workbench.action.closeActiveEditor" ];
+              quiet = true;
+            }
+            {
+              before = [ "<leader>" "c" "a" ];
+              "commands" = [ "editor.action.sourceAction" ];
+              quiet = true;
+            }
+            {
+              before = [ "<leader>" "c" "f" ];
+              "commands" = [ "editor.action.quickFix" ];
               quiet = true;
             }
             {
