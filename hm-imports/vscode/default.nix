@@ -10,6 +10,7 @@ in
     home.packages = with pkgs; [
       nixd
       nixpkgs-fmt
+      (unstable.quarto.overrideAttrs (curr: { meta.platforms = [ pkgs.system ]; }))
     ];
     programs.vscode = {
       enable = true;
@@ -24,9 +25,10 @@ in
         # Language Support 
         ## markdown/latex
         marketplace.james-yu.latex-workshop # latex, also provides pdf preview
-        shd101wyy.markdown-preview-enhanced # pandoc preview
         yzhang.markdown-all-in-one # markdown
         marketplace.davidanson.vscode-markdownlint
+        marketplace.quarto.quarto
+        #marketplace.gpoore.codebraid-preview
 
         ## others
         jnoortheen.nix-ide # nix
@@ -121,6 +123,12 @@ in
               quiet = true;
             }
           ];
+          ## git
+          "git.verboseCommit" = true;
+          "git.allowForcePush" = true;
+          "git.confirmSync" = false;
+          "git.confirmForcePush" = true; # is default but it feels safer to also specify it here
+          "git.useForcePushWithLease" = true; # is default but it feels safer to also specify it here
           ## Nix
           "nix.serverPath" = "nixd";
           "nix.enableLanguageServer" = true;
@@ -141,6 +149,14 @@ in
             "editor.tabCompletion" = "onlySnippets";
             "editor.wordBasedSuggestions" = false;
           };
+          ## md preview
+          #"codebraid.preview.pandoc.build" = {
+          #  "*.md" = {
+          #    "reader" = "markdown"; # use pandoc markdown and not commonmark
+          #    "preview" = { "html" = { defaults = {}; options = []; }; };
+          #  };
+          #};
+
         };
     };
   };
