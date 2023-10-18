@@ -38,6 +38,7 @@ in
         rust-lang.rust-analyzer # rust
         marketplace.sswg.swift-lang # swift
         marketplace.ms-toolsai.jupyter # jupiter notebooks
+        marketplace.jakebecker.elixir-ls # elixir
         marketplace.dart-code.flutter # dart/flutter
         marketplace.dart-code.dart-code # dart/flutter
         marketplace.alexisvt.flutter-snippets # flutter snippets
