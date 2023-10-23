@@ -197,8 +197,8 @@
         my = self.packages."${prev.system}";
       };
       nixosModules = lib.my.mapModulesRec ./nixos-modules import;
-      darwinModules = [ ];
-      #darwinModules = lib.my.mapModulesRec ./darwin-modules import;
+      #darwinModules = [ ];
+      darwinModules = lib.my.mapModulesRec ./darwin-modules import;
       nixosConfigurations = processConfigurations {
         picard = nixosSystem "x86_64-linux" [ ./hosts/picard/default.nix ];
         ds9 = nixosSystem "x86_64-linux" [ ./hosts/ds9/default.nix ];

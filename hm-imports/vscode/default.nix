@@ -37,11 +37,14 @@ in
         ms-dotnettools.csharp # c# und so
         rust-lang.rust-analyzer # rust
         marketplace.sswg.swift-lang # swift
+        marketplace.vadimcn.vscode-lldb # swift
         marketplace.ms-toolsai.jupyter # jupiter notebooks
         marketplace.jakebecker.elixir-ls # elixir
         marketplace.dart-code.flutter # dart/flutter
         marketplace.dart-code.dart-code # dart/flutter
         marketplace.alexisvt.flutter-snippets # flutter snippets
+        marketplace.tauri-apps.tauri-vscode # tauri
+        marketplace.dbaeumer.vscode-eslint # js
 
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       ];
@@ -89,6 +92,11 @@ in
               quiet = true;
             }
             {
+              before = [ "<leader>" "r" "n" ];
+              "commands" = [ "editor.action.rename" ];
+              quiet = true;
+            }
+            {
               before = [ "<leader>" "c" "f" ];
               "commands" = [ "editor.action.quickFix" ];
               quiet = true;
@@ -106,6 +114,11 @@ in
             {
               before = [ "[" "g" ];
               "commands" = [ "editor.action.marker.prev" ];
+              quiet = true;
+            }
+            {
+              before = [ "<leader>" "g" "r" ];
+              "commands" = [ "editor.action.goToReferences" ];
               quiet = true;
             }
             {
@@ -157,6 +170,10 @@ in
           #    "preview" = { "html" = { defaults = {}; options = []; }; };
           #  };
           #};
+          # swift
+          "lldb.library" = "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB";
+          "lldb.launch.expressions" = "native";
+
 
         };
     };
