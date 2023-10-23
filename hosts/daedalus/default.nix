@@ -37,7 +37,7 @@ with lib.my;
     #  # Install Mac App Store apps (install them manually and then do `mas list` to get the id)
     #  "AdGuard for Safari" = 1440147259;
     #  "Xcode" = 497799835;
-    #  "Home Assistant" = 1099568401;
+    #  "Home as Assistant" = 1099568401;
     #  "WireGuard" = 1451685025;
     #  "UTM" = 1538878817;
     #  "Bitwarden" = 1352778147;
@@ -46,6 +46,50 @@ with lib.my;
     #  "Tailscale" = 1475387142;
     #};
   };
+
+  ragon.services.borgmatic =
+    let
+      tmMountPath = "/tmp/timeMachineSnapshotForBorg";
+    in
+    {
+      enable = true;
+      configurations."daedalus-ds9" = {
+        source_directories = [ tmMountPath ];
+        exclude_if_present = [ ".nobackup" ];
+        repositories = [
+          "ssh://ragon@ds9/backups/daedalus/borgmatic"
+          "ssh://root@gatebridge/media/backup/daedalus"
+        ];
+        encryption_passcommand = ''security find-generic-password -a daedalus -s borgmaticKey -g 2>&1 | grep -E 'password' | sed 's/^.*"\(.*\)"$/\1/g' '';
+        compression = "auto,zstd,10";
+        #ssh_command = "ssh -o GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path} -i ${config.age.secrets.picardResticSSHKey.path}";
+        keep_hourly = 24;
+        keep_daily = 7;
+        keep_weekly = 4;
+        keep_monthly = 12;
+        keep_yearly = 10;
+        before_backup = [
+          (pkgs.writeShellScript
+            "apfsSnapshot"
+            ''
+              tmutil localsnapshot
+              SNAPSHOT=$(tmutil listlocalsnapshots / | tail -n 1)
+              mkdir -p "${tmMountPath}"
+              mount -t apfs -r -o -s=$SNAPSHOT / "${tmMountPath}"
+            '')
+        ];
+        after_backup = [
+          (pkgs.writeShellScript
+            "apfsSnapshotUnmount"
+            ''
+              diskutil unmount "${tmMountPath}"
+              SNAPSHOT=$(tmutil listlocalsnapshots / | tail -n 1)
+              tmutil deletelocalsnapshots $(echo $SNAPSHOT | sed 's/com\.apple\.TimeMachine\.//g')
+            '')
+        ];
+      };
+
+    };
 
   programs.gnupg.agent.enable = true;
   home-manager.users.ragon = { pkgs, lib, inputs, config, ... }:
