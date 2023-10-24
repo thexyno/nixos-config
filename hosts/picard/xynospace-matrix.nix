@@ -28,20 +28,20 @@ in
 
   users.users.slidingsync = { isSystemUser = true; group = "slidingsync"; uid = 990; };
   users.groups.slidingsync = { gid = 988; };
-  virtualisation.oci-containers.containers."matrix-sliding-sync" = {
-    image = "ghcr.io/matrix-org/sliding-sync:latest";
-    ports = [ "127.0.0.1:8009:8008" ];
-    user = "${toString config.users.users.slidingsync.uid}:${toString config.users.groups.slidingsync.gid}";
-    volumes = [
-      "/run/postgresql:/run/postgresql"
-    ];
-    environmentFiles = [ config.age.secrets.picardSlidingSyncSecret.path ];
-    environment = {
-      SYNCV3_SERVER = "https://${fqdn}";
-      SYNCV3_BINDADDR = ":8008";
-      SYNCV3_DB = "host=/run/postgresql user=slidingsync dbname=slidingsync password=slidingsync";
-    };
-  };
+  # virtualisation.oci-containers.containers."matrix-sliding-sync" = {
+  #   image = "ghcr.io/matrix-org/sliding-sync:latest";
+  #   ports = [ "127.0.0.1:8009:8008" ];
+  #   user = "${toString config.users.users.slidingsync.uid}:${toString config.users.groups.slidingsync.gid}";
+  #   volumes = [
+  #     "/run/postgresql:/run/postgresql"
+  #   ];
+  #   environmentFiles = [ config.age.secrets.picardSlidingSyncSecret.path ];
+  #   environment = {
+  #     SYNCV3_SERVER = "https://${fqdn}";
+  #     SYNCV3_BINDADDR = ":8008";
+  #     SYNCV3_DB = "host=/run/postgresql user=slidingsync dbname=slidingsync password=slidingsync";
+  #   };
+  # };
   services.postgresql = {
     ensureDatabases = [ "slidingsync" ];
     ensureUsers = [

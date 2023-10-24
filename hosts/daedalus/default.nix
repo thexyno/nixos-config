@@ -52,15 +52,15 @@ with lib.my;
       tmMountPath = "/tmp/timeMachineSnapshotForBorg";
     in
     {
-      enable = true;
+      enable = false;
       configurations."daedalus-ds9" = {
         source_directories = [ tmMountPath ];
         exclude_if_present = [ ".nobackup" ];
         repositories = [
-          "ssh://ragon@ds9/backups/daedalus/borgmatic"
-          "ssh://root@gatebridge/media/backup/daedalus"
+          { path = "ssh://ragon@ds9/backups/daedalus/borgmatic"; label = "ds9"; }
+          { path = "ssh://root@gatebridge/media/backup/daedalus"; label = "gatebridge"; }
         ];
-        encryption_passcommand = ''security find-generic-password -a daedalus -s borgmaticKey -g 2>&1 | grep -E 'password' | sed 's/^.*"\(.*\)"$/\1/g' '';
+        encryption_passcommand = pkgs.writeShellScript "getBorgmaticPw" ''security find-generic-password -a daedalus -s borgmaticKey -g 2>&1 | grep -E 'password' | sed 's/^.*"\(.*\)"$/\1/g' '';
         compression = "auto,zstd,10";
         #ssh_command = "ssh -o GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path} -i ${config.age.secrets.picardResticSSHKey.path}";
         keep_hourly = 24;
@@ -73,9 +73,9 @@ with lib.my;
             "apfsSnapshot"
             ''
               tmutil localsnapshot
-              SNAPSHOT=$(tmutil listlocalsnapshots / | tail -n 1)
+              SNAPSHOT=$(tmutil listlocalsnapshots / | grep TimeMachine | tail -n 1)
               mkdir -p "${tmMountPath}"
-              mount -t apfs -r -o -s=$SNAPSHOT / "${tmMountPath}"
+              mount_apfs -s $SNAPSHOT /System/Volumes/Data "${tmMountPath}"
             '')
         ];
         after_backup = [
@@ -83,8 +83,16 @@ with lib.my;
             "apfsSnapshotUnmount"
             ''
               diskutil unmount "${tmMountPath}"
-              SNAPSHOT=$(tmutil listlocalsnapshots / | tail -n 1)
-              tmutil deletelocalsnapshots $(echo $SNAPSHOT | sed 's/com\.apple\.TimeMachine\.//g')
+              SNAPSHOT=$(tmutil listlocalsnapshots / | grep TimeMachine | tail -n 1)
+              tmutil deletelocalsnapshots $(echo $SNAPSHOT | sed 's/com\.apple\.TimeMachine\.\(.*\)\.local/\1/g')
+            '')
+        ];
+        on_error = [
+
+          (pkgs.writeShellScript
+            "apfsSnapshotUnmountError"
+            ''
+              diskutil unmount "${tmMountPath}"
             '')
         ];
       };

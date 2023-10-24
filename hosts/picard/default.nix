@@ -75,6 +75,12 @@
     locations."/".return = "307 https://xyno.space$request_uri";
   } // (lib.my.findOutTlsConfig "xyno.systems" config);
 
+  services.nginx.virtualHosts."czi.dating" = {
+    locations."/".return = "307 https://foss-ag.de$request_uri";
+    forceSSL = true;
+    enableACME = true;
+  };
+
   security.acme.certs."xyno.space" = {
     dnsProvider = "ionos";
     dnsResolver = "1.1.1.1:53";
@@ -187,7 +193,7 @@
       ts3.enable = true;
       nginx.enable = true;
       nginx.domain = "ragon.xyz";
-      nginx.domains = [ "xyno.space" "xyno.systems" ];
+      nginx.domains = [ "xyno.space" "xyno.systems" "czi.dating" ];
     };
 
   };
