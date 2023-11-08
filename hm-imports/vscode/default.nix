@@ -28,12 +28,15 @@ in
         yzhang.markdown-all-in-one # markdown
         marketplace.davidanson.vscode-markdownlint
         marketplace.quarto.quarto
+        marketplace.valentjn.vscode-ltex # languagetool
         #marketplace.gpoore.codebraid-preview
+
 
         ## others
         jnoortheen.nix-ide # nix
         golang.go # go
         marketplace.ms-python.python # python
+        marketplace.donjayamanne.python-environment-manager # python
         ms-dotnettools.csharp # c# und so
         rust-lang.rust-analyzer # rust
         marketplace.sswg.swift-lang # swift
@@ -45,6 +48,7 @@ in
         marketplace.alexisvt.flutter-snippets # flutter snippets
         marketplace.tauri-apps.tauri-vscode # tauri
         marketplace.dbaeumer.vscode-eslint # js
+        marketplace.arcanis.vscode-zipfs # yarn
 
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       ];
@@ -55,10 +59,14 @@ in
         {
           "editor.fontFamily" = fontFamily;
           "terminal.integrated.fontFamily" = fontFamily;
+          "terminal.integrated.scrollback" = 20000;
           "workbench.colorTheme" = "Gruvbox Dark Soft";
           "editor.autoClosingBrackets" = "never";
           "editor.autoClosingQuotes" = "never";
           "editor.minimap.autohide" = true;
+
+          "editor.tabCompletion" = "onlySnippets";
+          "editor.snippetSuggestions" = "top";
 
           # Addon Configuration
 
@@ -173,6 +181,8 @@ in
           # swift
           "lldb.library" = "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB";
           "lldb.launch.expressions" = "native";
+          # ltex-ls
+          "ltex.ltex-ls.path" = "${pkgs.unstable.ltex-ls}";
 
 
         };

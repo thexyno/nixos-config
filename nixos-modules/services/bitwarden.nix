@@ -13,6 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     services.vaultwarden = {
       enable = true;
+      package = pkgs.unstable.vaultwarden;
       #backupDir = "/persistent/backups/vaultwarden";
       config = {
         domain = "https://${cfg.domainPrefix}.${domain}";

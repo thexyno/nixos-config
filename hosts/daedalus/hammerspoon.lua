@@ -212,16 +212,16 @@ function showHideBundleId(bundleId)
     end
 end
 
-hs.loadSpoon("MiroWindowsManager")
-hs.window.animationDuration = 0
-spoon.MiroWindowsManager:bindHotkeys({
-  up = {modifiers.window, "up"},
-  right = {modifiers.window, "right"},
-  down = {modifiers.window, "down"},
-  left = {modifiers.window, "left"},
-  fullscreen = {modifiers.window, "return"},
-  nextscreen = {modifiers.hyper, "right"}
-})
+-- hs.loadSpoon("MiroWindowsManager")
+-- hs.window.animationDuration = 0
+-- spoon.MiroWindowsManager:bindHotkeys({
+--   up = {modifiers.window, "up"},
+--   right = {modifiers.window, "right"},
+--   down = {modifiers.window, "down"},
+--   left = {modifiers.window, "left"},
+--   fullscreen = {modifiers.window, "return"},
+--   nextscreen = {modifiers.hyper, "right"}
+-- })
 
 
 hs.hotkey.bind(modifiers.hyper, hs.keycodes.map.delete, function() hs.caffeinate.lockScreen() end)

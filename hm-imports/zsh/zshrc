@@ -24,6 +24,10 @@ hash kitty 2>/dev/null && alias ssh="kitty kitten ssh"
 hash helm 2>/dev/null && . <(helm completion zsh)
 hash kubectl 2>/dev/null && . <(kubectl completion zsh)
 export NNN_ARCHIVE="\\.(7z|a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|rar|rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip)$"
+if [[ -d "$HOME/miniconda3" ]]; then
+    export PATH=$PATH:$HOME/miniconda3/bin
+    . <(~/miniconda3/bin/conda shell.zsh hook)
+fi
 
 n ()
 {
