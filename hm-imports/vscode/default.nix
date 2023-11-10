@@ -28,7 +28,8 @@ in
         yzhang.markdown-all-in-one # markdown
         marketplace.davidanson.vscode-markdownlint
         marketplace.quarto.quarto
-        marketplace.valentjn.vscode-ltex # languagetool
+        #marketplace.valentjn.vscode-ltex # languagetool
+        valentjn.vscode-ltex
         #marketplace.gpoore.codebraid-preview
 
 
@@ -182,7 +183,7 @@ in
           "lldb.library" = "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB";
           "lldb.launch.expressions" = "native";
           # ltex-ls
-          "ltex.ltex-ls.path" = "${pkgs.unstable.ltex-ls}";
+          "ltex.language" = "de";
 
 
         };
