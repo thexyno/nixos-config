@@ -65,10 +65,10 @@
 
   services.lolpizza2.enable = true;
 
-  services.nginx.virtualHosts."8000.ragon.xyz" = {
+  services.nginx.virtualHosts."8001.ragon.xyz" = {
     useACMEHost = "ragon.xyz";
     forceSSL = true;
-    locations."/".proxyPass = "http://[::1]:8000";
+    locations."/".proxyPass = "http://[::1]:8001";
   };
   services.nginx.virtualHosts."lolpizza.ragon.xyz" = {
     useACMEHost = "ragon.xyz";
