@@ -52,9 +52,12 @@ with lib.my;
       tmMountPath = "/tmp/timeMachineSnapshotForBorg";
     in
     {
-      enable = false;
+      enable = true;
       configurations."daedalus-ds9" = {
-        source_directories = [ tmMountPath ];
+        source_directories = [
+          # tmMountPath
+          "/Users/ragon"
+        ];
         exclude_if_present = [ ".nobackup" ];
         repositories = [
           { path = "ssh://ragon@ds9/backups/daedalus/borgmatic"; label = "ds9"; }
@@ -68,33 +71,33 @@ with lib.my;
         keep_weekly = 4;
         keep_monthly = 12;
         keep_yearly = 10;
-        before_backup = [
-          (pkgs.writeShellScript
-            "apfsSnapshot"
-            ''
-              tmutil localsnapshot
-              SNAPSHOT=$(tmutil listlocalsnapshots / | grep TimeMachine | tail -n 1)
-              mkdir -p "${tmMountPath}"
-              mount_apfs -s $SNAPSHOT /System/Volumes/Data "${tmMountPath}"
-            '')
-        ];
-        after_backup = [
-          (pkgs.writeShellScript
-            "apfsSnapshotUnmount"
-            ''
-              diskutil unmount "${tmMountPath}"
-              SNAPSHOT=$(tmutil listlocalsnapshots / | grep TimeMachine | tail -n 1)
-              tmutil deletelocalsnapshots $(echo $SNAPSHOT | sed 's/com\.apple\.TimeMachine\.\(.*\)\.local/\1/g')
-            '')
-        ];
-        on_error = [
-
-          (pkgs.writeShellScript
-            "apfsSnapshotUnmountError"
-            ''
-              diskutil unmount "${tmMountPath}"
-            '')
-        ];
+        #        before_backup = [
+        #          (pkgs.writeShellScript
+        #            "apfsSnapshot"
+        #            ''
+        #              tmutil localsnapshot
+        #              SNAPSHOT=$(tmutil listlocalsnapshots / | grep TimeMachine | tail -n 1)
+        #              mkdir -p "${tmMountPath}"
+        #              mount_apfs -s $SNAPSHOT /System/Volumes/Data "${tmMountPath}"
+        #            '')
+        #        ];
+        #        after_backup = [
+        #          (pkgs.writeShellScript
+        #            "apfsSnapshotUnmount"
+        #            ''
+        #              diskutil unmount "${tmMountPath}"
+        #              SNAPSHOT=$(tmutil listlocalsnapshots / | grep TimeMachine | tail -n 1)
+        #              tmutil deletelocalsnapshots $(echo $SNAPSHOT | sed 's/com\.apple\.TimeMachine\.\(.*\)\.local/\1/g')
+        #            '')
+        #        ];
+        #        on_error = [
+        #
+        #          (pkgs.writeShellScript
+        #            "apfsSnapshotUnmountError"
+        #            ''
+        #              diskutil unmount "${tmMountPath}"
+        #            '')
+        #        ];
       };
 
     };
@@ -143,6 +146,9 @@ with lib.my;
         cmake
 
         pandoc
+
+        #unstable.qutebrowser
+        unstable.python311Packages.adblock
 
       ];
 

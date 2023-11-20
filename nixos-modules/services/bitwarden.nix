@@ -17,7 +17,7 @@ in
       #backupDir = "/persistent/backups/vaultwarden";
       config = {
         domain = "https://${cfg.domainPrefix}.${domain}";
-        signupsAllowed = false;
+        signupsAllowed = true;
         rocketPort = 8222;
         rocketAddress = "127.0.0.1";
         databaseUrl = "postgresql://%2Frun%2Fpostgresql/vaultwarden";

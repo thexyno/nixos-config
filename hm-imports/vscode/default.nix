@@ -14,6 +14,7 @@ in
     ];
     programs.vscode = {
       enable = true;
+      package = pkgs.unstable.vscode;
       extensions = with pkgs.vscode-extensions; [
         vscodevim.vim # vim mode (hopefully good)
         jdinhlife.gruvbox # theme
@@ -38,7 +39,8 @@ in
         golang.go # go
         marketplace.ms-python.python # python
         marketplace.donjayamanne.python-environment-manager # python
-        ms-dotnettools.csharp # c# und so
+        #ms-dotnettools.csharp # c# und so
+        (marketplace.ms-dotnettools.csdevkit.overrideAttrs (super: a: { sourceRoot = "."; }))
         rust-lang.rust-analyzer # rust
         marketplace.sswg.swift-lang # swift
         marketplace.vadimcn.vscode-lldb # swift
