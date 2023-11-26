@@ -29,6 +29,7 @@ in
         yzhang.markdown-all-in-one # markdown
         marketplace.davidanson.vscode-markdownlint
         marketplace.quarto.quarto
+        marketplace.pokey.cursorless # too much xe exposure
         #marketplace.valentjn.vscode-ltex # languagetool
         valentjn.vscode-ltex
         #marketplace.gpoore.codebraid-preview
