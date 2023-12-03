@@ -121,6 +121,7 @@ with lib.my;
       home.file.".finicky.js".source = ./finicky.js;
 
       ragon.vscode.enable = true;
+      ragon.xonsh.enable = true;
 
       programs.home-manager.enable = true;
       home.stateVersion = "21.11";

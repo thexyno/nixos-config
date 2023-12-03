@@ -29,13 +29,17 @@ in
         yzhang.markdown-all-in-one # markdown
         marketplace.davidanson.vscode-markdownlint
         marketplace.quarto.quarto
-        marketplace.pokey.cursorless # too much xe exposure
+        # marketplace.pokey.cursorless # too much xe exposure
         #marketplace.valentjn.vscode-ltex # languagetool
         valentjn.vscode-ltex
         #marketplace.gpoore.codebraid-preview
 
 
         ## others
+        marketplace.ms-vscode.cpptools-extension-pack # cpp
+        marketplace.ms-vscode.cmake-tools
+        marketplace.ms-vscode.cpptools
+        marketplace.ms-azuretools.vscode-docker # docker
         jnoortheen.nix-ide # nix
         golang.go # go
         marketplace.ms-python.python # python
