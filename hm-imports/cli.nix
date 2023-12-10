@@ -9,7 +9,7 @@
     nnn
     bat
     htop
-    exa
+    eza
     curl
     fd
     file
@@ -38,10 +38,10 @@
     gs = "git status -v";
     gfc = "git fetch && git checkout";
     gl = "git log --graph";
-    l = "exa -la --git";
-    la = "exa -la --git";
-    ls = "exa";
-    ll = "exa -l --git";
+    l = "eza -la --git";
+    la = "eza -la --git";
+    ls = "eza";
+    ll = "eza -l --git";
     cat = "bat";
     p = "cd ~/proj";
     pd = "cd ~/proj/devsaur";
