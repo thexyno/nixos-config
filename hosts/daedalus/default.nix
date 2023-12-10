@@ -47,6 +47,8 @@ with lib.my;
     #};
   };
 
+  environment.pathsToLink = [ "/share/fish" ];
+
   ragon.services.borgmatic =
     let
       tmMountPath = "/tmp/timeMachineSnapshotForBorg";
@@ -149,7 +151,7 @@ with lib.my;
         pandoc
 
         #unstable.qutebrowser
-        unstable.python311Packages.adblock
+        #unstable.python311Packages.adblock
 
       ];
 

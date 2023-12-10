@@ -73,23 +73,17 @@ in
   services.borgmatic = {
     enable = true;
     configurations."ds9-offsite" = {
-      location = {
-        source_directories = [ "/backups" "/data" "/persistent" ];
-        repositories = [ "ssh://root@gatebridge/media/backup/ds9" ];
-        exclude_if_present = [ ".nobackup" ];
-      };
+      source_directories = [ "/backups" "/data" "/persistent" ];
+      repositories = [ "ssh://root@gatebridge/media/backup/ds9" ];
+      exclude_if_present = [ ".nobackup" ];
       #upload_rate_limit = "4000";
-      storage = {
-        encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.borgmaticEncryptionKey.path}";
-        compression = "auto,zstd,10";
-        ssh_command = "ssh -o GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path} -i ${config.age.secrets.ds9OffsiteBackupSSH.path}";
-      };
-      hooks = {
-        before_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/start" ];
-        after_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})" ];
-        on_error = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/fail" ];
-        # postgresql_databases = [{ name = "all"; pg_dump_command = "${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dumpall"; pg_restore_command = "${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_restore"; }];
-      };
+      encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.borgmaticEncryptionKey.path}";
+      compression = "auto,zstd,10";
+      ssh_command = "ssh -o GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path} -i ${config.age.secrets.ds9OffsiteBackupSSH.path}";
+      before_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/start" ];
+      after_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})" ];
+      on_error = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/fail" ];
+      # postgresql_databases = [{ name = "all"; pg_dump_command = "${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dumpall"; pg_restore_command = "${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_restore"; }];
       retention = {
         keep_daily = 7;
         keep_weekly = 4;

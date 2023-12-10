@@ -19,5 +19,6 @@
       run-shell -b '~/.config/tmux-switch-colors/start_theme_switcher.sh'
     '';
   };
+
   home.file.".config/tmux-switch-colors".source = ./tmux-switch-colors;
 }

@@ -5,12 +5,12 @@
     utils.url = "github:numtide/flake-utils";
 
     ## nixos/nix-darwin dependencies
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-23.05-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-23.11-darwin";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     agenix.url = "github:ryantm/agenix/main";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-23.05";
+    home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -57,6 +57,12 @@
     zsh-vim-mode.flake = false;
     agkozak-zsh-prompt.url = "github:agkozak/agkozak-zsh-prompt";
     agkozak-zsh-prompt.flake = false;
+
+    ## xonsh
+    xonsh-fish-completer.url = "github:xonsh/xontrib-fish-completer";
+    xonsh-fish-completer.flake = false;
+    xonsh-direnv.url = "github:74th/xonsh-direnv";
+    xonsh-direnv.flake = false;
 
     ## hammerspoon
     miro.url = "github:miromannino/miro-windows-manager";
