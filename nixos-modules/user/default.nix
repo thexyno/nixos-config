@@ -57,7 +57,7 @@ in
       extraGroups = [ "wheel" ] ++ extraGroups;
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = pubkeys.ragon.user ++ extraAuthorizedKeys;
-      passwordFile = config.age.secrets.ragonPasswd.path;
+      hashedPasswordFile = config.age.secrets.ragonPasswd.path;
     };
     ragon.agenix.secrets.ragonPasswd = { };
 

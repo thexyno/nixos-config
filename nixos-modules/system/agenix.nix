@@ -19,7 +19,7 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ inputs.agenix.packages.${pkgs.system}.default ];
     # Set passwords
-    users.users.root.passwordFile = config.age.secrets.rootPasswd.path;
+    users.users.root.hashedPasswordFile = config.age.secrets.rootPasswd.path;
     age.identityPaths =
       [
         "/persistent/etc/ssh/ssh_host_ed25519_key"

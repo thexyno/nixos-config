@@ -147,8 +147,8 @@
     configurations."picard-ds9" = {
       source_directories = [ "/persistent" ];
       repositories = [
-        "ssh://picardbackup@ds9/backups/picard/borgmatic"
-        "ssh://root@gatebridge/media/backup/picard"
+        { label = "ds9"; path = "ssh://picardbackup@ds9/backups/picard/borgmatic"; }
+        { label = "gatebridge"; path = "ssh://root@gatebridge/media/backup/picard"; }
       ];
       exclude_if_present = [ ".nobackup" ];
       encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticPassword.path}";

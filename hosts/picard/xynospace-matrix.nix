@@ -47,7 +47,7 @@ in
     ensureUsers = [
       {
         name = "slidingsync";
-        ensurePermissions."DATABASE slidingsync" = "ALL PRIVILEGES";
+        ensureDBOwnership = true;
       }
     ];
   };

@@ -59,7 +59,7 @@ in
       ensureUsers = [
         {
           name = "hedgedoc";
-          ensurePermissions."DATABASE hedgedoc" = "ALL PRIVILEGES";
+          ensureDBOwnership = true;
         }
       ];
     };

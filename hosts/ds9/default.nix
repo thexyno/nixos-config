@@ -74,7 +74,7 @@ in
     enable = true;
     configurations."ds9-offsite" = {
       source_directories = [ "/backups" "/data" "/persistent" ];
-      repositories = [ "ssh://root@gatebridge/media/backup/ds9" ];
+      repositories = [{ label = "gatebridge"; path = "ssh://root@gatebridge/media/backup/ds9"; }];
       exclude_if_present = [ ".nobackup" ];
       #upload_rate_limit = "4000";
       encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.borgmaticEncryptionKey.path}";
