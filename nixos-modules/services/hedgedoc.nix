@@ -64,7 +64,7 @@ in
       ];
     };
     ragon.persist.extraDirectories = [
-      "${config.services.hedgedoc.workDir}"
+      "/var/lib/hedgedoc"
     ];
   };
 }
