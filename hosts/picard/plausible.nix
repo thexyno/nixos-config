@@ -23,7 +23,7 @@ in {
   services.plausible = {
     enable = true;
     package = pkgs.unstable.plausible;
-    releaseCookiePath = config.age.secrets.plausibleSecretKeybase.path;
+    # releaseCookiePath = config.age.secrets.plausibleSecretKeybase.path;
 
     adminUser = {
       # activate is used to skip the email verification of the admin-user that's
