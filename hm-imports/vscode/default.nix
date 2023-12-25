@@ -2,6 +2,7 @@
 let
   cfg = config.ragon.vscode;
   marketplace = inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace;
+  marketplace-release = inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace-release;
 
 in
 {
@@ -10,11 +11,12 @@ in
     home.packages = with pkgs; [
       nixd
       nixpkgs-fmt
-      (unstable.quarto.overrideAttrs (curr: { meta.platforms = [ pkgs.system ]; }))
+      # (unstable.quarto.overrideAttrs (curr: { meta.platforms = [ pkgs.system ]; }))
     ];
     programs.vscode = {
       enable = true;
       package = pkgs.unstable.vscode;
+      mutableExtensionsDir = false;
       extensions = with pkgs.vscode-extensions; [
         vscodevim.vim # vim mode (hopefully good)
         jdinhlife.gruvbox # theme
@@ -28,14 +30,24 @@ in
         marketplace.james-yu.latex-workshop # latex, also provides pdf preview
         yzhang.markdown-all-in-one # markdown
         marketplace.davidanson.vscode-markdownlint
-        marketplace.quarto.quarto
+        # marketplace.quarto.quarto
         # marketplace.pokey.cursorless # too much xe exposure
         #marketplace.valentjn.vscode-ltex # languagetool
         valentjn.vscode-ltex
         #marketplace.gpoore.codebraid-preview
+        marketplace.ms-vscode.hexeditor # a hex editor
+        ms-vscode-remote.remote-containers # container envs for stuff
+        marketplace.ms-vscode-remote.remote-ssh
+
 
 
         ## others
+        marketplace.vscjava.vscode-java-pack # java schmava
+        marketplace.vscjava.vscode-java-debug
+        marketplace.vscjava.vscode-java-test
+        marketplace.vscjava.vscode-java-dependency
+        marketplace.vscjava.vscode-maven
+        marketplace.redhat.java
         marketplace.ms-vscode.cpptools-extension-pack # cpp
         marketplace.ms-vscode.cmake-tools
         marketplace.ms-vscode.cpptools
@@ -45,17 +57,21 @@ in
         marketplace.ms-python.python # python
         marketplace.donjayamanne.python-environment-manager # python
         #ms-dotnettools.csharp # c# und so
+        #marketplace.ms-dotnettools.csdevkit
         (marketplace.ms-dotnettools.csdevkit.overrideAttrs (super: a: { sourceRoot = "."; }))
         rust-lang.rust-analyzer # rust
         marketplace.sswg.swift-lang # swift
         marketplace.vadimcn.vscode-lldb # swift
-        marketplace.ms-toolsai.jupyter # jupiter notebooks
+        # marketplace.ms-toolsai.jupyter # jupiter notebooks, broken on 2023-12-19
+        marketplace.ms-toolsai.jupyter-renderers
+        ms-toolsai.jupyter
         marketplace.jakebecker.elixir-ls # elixir
         marketplace.dart-code.flutter # dart/flutter
         marketplace.dart-code.dart-code # dart/flutter
         marketplace.alexisvt.flutter-snippets # flutter snippets
         marketplace.tauri-apps.tauri-vscode # tauri
         marketplace.dbaeumer.vscode-eslint # js
+        marketplace.firefox-devtools.vscode-firefox-debug # js debugging
         marketplace.arcanis.vscode-zipfs # yarn
 
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [

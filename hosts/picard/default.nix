@@ -80,6 +80,11 @@
     locations."/".return = "307 https://xyno.space$request_uri";
   } // (lib.my.findOutTlsConfig "xyno.systems" config);
 
+  services.nginx.virtualHosts."graph.czi.dating" = {
+    locations."/".return = "307 https://graph-czi-dating-s8tan-01d008685713bd0312de3223b3b980279b0ca590.fspages.org$request_uri";
+    forceSSL = true;
+    enableACME = true;
+  };
   services.nginx.virtualHosts."czi.dating" = {
     locations."/".return = "307 https://foss-ag.de$request_uri";
     forceSSL = true;
