@@ -217,9 +217,24 @@
         daedalus = darwinSystem "aarch64-darwin" [ ./hosts/daedalus/default.nix ];
       };
 
+
+
     } // utils.lib.eachDefaultSystem (system:
     let pkgs = nixpkgs.legacyPackages.${system}; in
     {
+      homeConfigurations."fedora-vm" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        extraSpecialArgs = { inherit inputs; };
+        modules = [
+          hmConfig
+          {
+            ragon.vscode.enable = true;
+          }
+        ];
+
+      };
       devShell = pkgs.mkShell {
         buildInputs = with pkgs; [ lefthook nixpkgs-fmt inputs.agenix.packages.${system}.agenix ];
       };

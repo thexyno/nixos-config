@@ -56,6 +56,8 @@ in
         golang.go # go
         marketplace.ms-python.python # python
         marketplace.donjayamanne.python-environment-manager # python
+        marketplace.denoland.vscode-deno # deno
+        marketplace.bradlc.vscode-tailwindcss
         #ms-dotnettools.csharp # c# und so
         #marketplace.ms-dotnettools.csdevkit
         (marketplace.ms-dotnettools.csdevkit.overrideAttrs (super: a: { sourceRoot = "."; }))
