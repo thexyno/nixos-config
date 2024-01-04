@@ -63,78 +63,113 @@
     };
   } // (lib.my.findOutTlsConfig "xyno.space" config);
 
-  services.lolpizza2.enable = true;
 
-  services.nginx.virtualHosts."8001.ragon.xyz" = {
-    useACMEHost = "ragon.xyz";
-    forceSSL = true;
-    locations."/".proxyPass = "http://[::1]:8001";
-  };
-  services.nginx.virtualHosts."lolpizza.ragon.xyz" = {
-    useACMEHost = "ragon.xyz";
-    forceSSL = true;
-    locations."/".proxyPass = "http://[::1]${config.services.lolpizza2.listen}";
+  services.caddy = {
+    enable = true;
+    package = (pkgs.callPackage ./custom-caddy.nix {
+      externalPlugins = [
+        { name = "dns-desec"; repo = "github.com/caddy-dns/desec"; version = "e1e64971fe34c29ce3f4176464adb84d6890aa50"; }
+      ];
+      vendorHash = lib.fakeSha256;
+    });
+    extraConfig = ''
+      acme_dns desec {TOKEN}
+    '';
+    virtualHosts."*.ragon.xyz".extraConfig = ''
+      @8081 host 8081.ragon.xyz
+      handle @8081 {
+        reverse_proxy http://[::1]:8081
+      }
+      @lolpizza host lolpizza.ragon.xyz
+      handle @lolpizza {
+        reverse_proxy http://[::1]${config.services.lolpizza2.listen}
+      }
+      @files host files.ragon.xyz
+      handle @files {
+        encode zstd gzip
+        root /srv/www
+        file_server browse
+      }
+      @bw host bw.ragon.xyz
+      handle @bw {
+        reverse_proxy http://${config.services.vaultwarden.config.rocketAddress}:${toString config.services.vaultwarden.config.rocketPort}
+      }
+
+      handle {
+        abort
+      }
+    '';
+    virtualHosts."xyno.space".extraConfig =
+      let
+        fqdn = "matrix.xyno.space";
+        wkServer = { "m.server" = "${fqdn}:443"; };
+        wkClient = {
+          "m.homeserver" = { "base_url" = "https://${fqdn}"; };
+          "m.identity_server" = { "base_url" = "https://vector.im"; };
+          # "org.matrix.msc3575.proxy" = { "url" = "https://slidingsync.ragon.xyz"; };
+        };
+      in
+      ''
+        encode zstd gzip
+        handle /.well-known/matrix/server {
+           header Content-Type "application/json"
+           respond "${builtins.toJSON wkServer}"
+        }
+        handle /.well-known/matrix/client {
+           header Content-Type "application/json"
+           header Access-Control-Allow-Origin "*"
+           respond "${builtins.toJSON wkClient}"
+        }
+        handle /gyakapyukawfyuokfgwtyutf.js {
+           rewrite * /js/plausible.outbound-links.js
+           reverse_proxy http://[::1]:${toString config.services.plausible.server.port}
+        }
+        handle /api/event {
+          reverse_proxy http://[::1]:${toString config.services.plausible.server.port}
+        }
+
+        reverse_proxy http://[::1]${config.services.xynoblog.listen}
+      '';
+    virtualHosts."*.xyno.space".extraConfig = ''
+      @stats host stats.xyno.space
+      handle @stats {
+        reverse_proxy http://[::1]${toString config.services.plausible.server.port}
+      }
+      @matrix host matrix.xyno.space
+      handle @matrix {
+        handle /_matrix/* /notifications /_synapse/client/* /health {
+          reverse_proxy http://192.168.100.11:8008
+        }
+      }
+      handle {
+        abort
+      }
+    '';
+    virtualHosts."*.xyno.systems".extraConfig = ''
+      @md host md.xyno.systems
+      handle @md {
+        reverse_proxy http://[::1]${toString config.services.hedgedoc.settings.port}
+      }
+      @sso host sso.xyno.systems
+      handle @sso {
+        reverse_proxy http://[::1]:${toString config.services.authelia.instances.main.settings.server.port}
+      }
+      handle {
+        abort
+      }
+    '';
+    virtualHosts."xyno.systems".extraConfig = ''
+      redir https://xyno.space{uri}
+    '';
+    virtualHosts."graph.czi.dating".extraConfig = ''
+      redir https://graph-czi-dating-s8tan-01d008685713bd0312de3223b3b980279b0ca590.fspages.org{uri}
+    '';
+    virtualHosts."czi.dating".extraConfig = ''
+      redir https://foss-ag.de{uri}
+    '';
   };
 
-  services.nginx.virtualHosts."xyno.systems" = {
-    locations."/".return = "307 https://xyno.space$request_uri";
-  } // (lib.my.findOutTlsConfig "xyno.systems" config);
-
-  services.nginx.virtualHosts."graph.czi.dating" = {
-    locations."/".return = "307 https://graph-czi-dating-s8tan-01d008685713bd0312de3223b3b980279b0ca590.fspages.org$request_uri";
-    forceSSL = true;
-    enableACME = true;
-  };
-  services.nginx.virtualHosts."czi.dating" = {
-    locations."/".return = "307 https://foss-ag.de$request_uri";
-    forceSSL = true;
-    enableACME = true;
-  };
-
-  security.acme.certs."xyno.space" = {
-    dnsProvider = "ionos";
-    dnsResolver = "1.1.1.1:53";
-    group = "nginx";
-    extraDomainNames = [
-      "*.xyno.space"
-    ];
-    credentialsFile = "${config.age.secrets.cloudflareAcme.path}";
-  };
   ragon.agenix.secrets."desec" = { };
-  security.acme.certs."xyno.systems" = {
-    dnsProvider = "desec";
-    dnsResolver = "1.1.1.1:53";
-    group = "nginx";
-    extraDomainNames = [
-      "*.xyno.systems"
-    ];
-    credentialsFile = "${config.age.secrets.desec.path}";
-  };
-
-  services.nginx.appendHttpConfig = ''
-    map $remote_addr $ip_anonym1 {
-     default 0.0.0;
-     "~(?P<ip>(\d+)\.(\d+)\.(\d+))\.\d+" $ip;
-     "~(?P<ip>[^:]+:[^:]+):" $ip;
-    }
-
-    map $remote_addr $ip_anonym2 {
-     default .0;
-     "~(?P<ip>(\d+)\.(\d+)\.(\d+))\.\d+" .0;
-     "~(?P<ip>[^:]+:[^:]+):" ::;
-    }
-
-    map $ip_anonym1$ip_anonym2 $ip_anonymized {
-     default 0.0.0.0;
-     "~(?P<ip>.*)" $ip;
-    }
-
-    log_format anonymized '$ip_anonymized - $remote_user [$time_local] '
-       '"$request" $status $body_bytes_sent '
-       '"$http_referer" "$http_user_agent"';
-
-    access_log /var/log/nginx/access.log anonymized;
-  '';
 
   ragon.agenix.secrets."picardResticPassword" = { };
   ragon.agenix.secrets."picardResticSSHKey" = { };
@@ -178,6 +213,7 @@
     })
   ];
   services.xynoblog.enable = true;
+  services.lolpizza2.enable = true;
   programs.mosh.enable = true;
   ragon = {
     cli.enable = true;
@@ -189,13 +225,12 @@
       ssh.enable = true;
       msmtp.enable = true;
       bitwarden.enable = true;
-      gitlab.enable = false; # TODO gitlab-runner
-      synapse.enable = true;
+      synapse.enable = false;
       tailscale.enable = true;
       hedgedoc.enable = true;
       authelia.enable = true;
       ts3.enable = true;
-      nginx.enable = true;
+      nginx.enable = false;
       nginx.domain = "ragon.xyz";
       nginx.domains = [ "xyno.space" "xyno.systems" "czi.dating" ];
     };

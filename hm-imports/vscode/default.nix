@@ -24,6 +24,8 @@ in
 
         # tomoki1207.pdf # reenable when latex workshop goes
 
+        marketplace.johnpapa.vscode-peacock # colors per workspace
+
 
         # Language Support 
         ## markdown/latex
