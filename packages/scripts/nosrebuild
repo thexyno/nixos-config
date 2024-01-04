@@ -5,10 +5,7 @@ set -euo pipefail
 REV=$(curl https://api.github.com/repos/thexyno/nixos-config/branches/main | jq -r .commit.sha)
 
 if [[ $(uname) == "Linux" ]]; then
-  sudo nixos-rebuild switch --flake "github:thexyno/nixos-config?rev=$REV"
+  sudo nixos-rebuild switch --flake "github:thexyno/nixos-config?rev=$REV" -L
 else # Darwin
-  PRIVATEREV=$(git ls-remote ssh://git@github.com/thexyno/nixos-config-private.git HEAD | awk '{print($1)}')
-  darwin-rebuild switch \
-    --flake "github:thexyno/nixos-config?rev=$REV" \
-    --override-input private "git+ssh://git@github.com/thexyno/nixos-config-private?rev=$PRIVATEREV"
+  darwin-rebuild switch --flake "github:thexyno/nixos-config?rev=$REV" -L
 fi

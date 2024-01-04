@@ -11,7 +11,7 @@ in
     home.packages = with pkgs; [
       nixd
       nixpkgs-fmt
-      # (unstable.quarto.overrideAttrs (curr: { meta.platforms = [ pkgs.system ]; }))
+      (unstable.quarto.overrideAttrs (curr: { meta.platforms = [ pkgs.system ]; }))
     ];
     programs.vscode = {
       enable = true;
@@ -32,7 +32,7 @@ in
         marketplace.james-yu.latex-workshop # latex, also provides pdf preview
         yzhang.markdown-all-in-one # markdown
         marketplace.davidanson.vscode-markdownlint
-        # marketplace.quarto.quarto
+        marketplace.quarto.quarto
         # marketplace.pokey.cursorless # too much xe exposure
         #marketplace.valentjn.vscode-ltex # languagetool
         valentjn.vscode-ltex

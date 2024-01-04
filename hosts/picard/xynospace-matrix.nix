@@ -7,6 +7,14 @@ let
   stateVer = config.system.stateVersion;
 in
 {
+  users.users.matrix-synapse = {
+    group = "matrix-synapse";
+    shell = "${pkgs.bash}/bin/bash";
+    uid = config.ids.uids.matrix-synapse;
+  };
+  users.groups.matrix-synapse = {
+    gid = config.ids.gids.matrix-synapse;
+  };
   ragon.agenix.secrets."matrixSecrets" = { owner = "matrix-synapse"; };
   services.postgresql.enable = true;
   services.postgresql.initialScript = lib.mkForce (pkgs.writeText "synapse-init.sql" ''

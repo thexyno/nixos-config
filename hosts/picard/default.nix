@@ -44,16 +44,20 @@
   services.postgresql.package = pkgs.postgresql_13;
 
   systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.desec.path;
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
   services.caddy = {
+    logFormat = "level INFO";
     enable = true;
     package = (pkgs.callPackage ./custom-caddy.nix {
       externalPlugins = [
-        { name = "dns-desec"; repo = "github.com/caddy-dns/desec"; version = "e1e64971fe34c29ce3f4176464adb84d6890aa50"; }
+        { name = "desec"; repo = "github.com/caddy-dns/desec"; version = "e1e64971fe34c29ce3f4176464adb84d6890aa50"; }
       ];
-      vendorHash = lib.fakeSha256;
+      vendorHash = "sha256-WWMR4ZpUcDmIv355LBuN5TqVfiCc0+Byxw8LnYei4fs=";
     });
     globalConfig = ''
-      acme_dns desec {$TOKEN}
+      acme_dns desec {
+        token "{$TOKEN}"
+      }
     '';
     virtualHosts."*.ragon.xyz".extraConfig = ''
       @8081 host 8081.ragon.xyz
@@ -67,9 +71,9 @@
       @files host files.ragon.xyz
       handle @files {
         encode zstd gzip
-        root /srv/www
+        root * /srv/www
         file_server browse
-        basicauth /* {
+        basicauth * {
           {$BAUSER} {$BAPASSWD}
         }
       }
@@ -95,20 +99,20 @@
       ''
         encode zstd gzip
         handle /.well-known/matrix/server {
-           header Content-Type "application/json"
-           respond "${builtins.toJSON wkServer}"
+           header Content-Type application/json
+           respond `${builtins.toJSON wkServer}` 200
         }
         handle /.well-known/matrix/client {
-           header Content-Type "application/json"
+           header Content-Type application/json
            header Access-Control-Allow-Origin "*"
-           respond "${builtins.toJSON wkClient}"
+           respond `${builtins.toJSON wkClient}` 200
         }
         handle /gyakapyukawfyuokfgwtyutf.js {
            rewrite * /js/plausible.outbound-links.js
-           reverse_proxy http://[::1]:${toString config.services.plausible.server.port}
+           reverse_proxy http://127.0.0.1:${toString config.services.plausible.server.port}
         }
         handle /api/event {
-          reverse_proxy http://[::1]:${toString config.services.plausible.server.port}
+          reverse_proxy http://127.0.0.1:${toString config.services.plausible.server.port}
         }
 
         reverse_proxy http://[::1]${config.services.xynoblog.listen}
@@ -116,11 +120,20 @@
     virtualHosts."*.xyno.space".extraConfig = ''
       @stats host stats.xyno.space
       handle @stats {
-        reverse_proxy http://[::1]${toString config.services.plausible.server.port}
+        reverse_proxy http://127.0.0.1:${toString config.services.plausible.server.port}
       }
       @matrix host matrix.xyno.space
       handle @matrix {
-        handle /_matrix/* /notifications /_synapse/client/* /health {
+        handle /_matrix/* {
+          reverse_proxy http://192.168.100.11:8008
+        }
+        handle /notifications {
+          reverse_proxy http://192.168.100.11:8008
+        }
+        handle /_synapse/client/* {
+          reverse_proxy http://192.168.100.11:8008
+        }
+        handle /health {
           reverse_proxy http://192.168.100.11:8008
         }
       }
@@ -131,7 +144,7 @@
     virtualHosts."*.xyno.systems".extraConfig = ''
       @md host md.xyno.systems
       handle @md {
-        reverse_proxy http://[::1]${toString config.services.hedgedoc.settings.port}
+        reverse_proxy http://[::1]:${toString config.services.hedgedoc.settings.port}
       }
       @sso host sso.xyno.systems
       handle @sso {
@@ -202,7 +215,7 @@
     cli.enable = true;
     user.enable = true;
     persist.enable = true;
-    persist.extraDirectories = [ "/srv/www" config.services.caddy.dataDir "/var/lib/syncthing" "/var/lib/${config.services.xynoblog.stateDirectory}" ];
+    persist.extraDirectories = [ "/srv/www" config.services.caddy.dataDir "/var/lib/syncthing" "/var/lib/${config.services.xynoblog.stateDirectory}" "/var/lib/postgresql" ];
 
     services = {
       ssh.enable = true;
