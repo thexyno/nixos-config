@@ -43,27 +43,7 @@
 
   services.postgresql.package = pkgs.postgresql_13;
 
-  services.nginx.recommendedOptimisation = true;
-
-  services.nginx.virtualHosts."xyno.space" = {
-    locations."/".proxyPass = "http://[::1]${config.services.xynoblog.listen}";
-    locations."/gyakapyukawfyuokfgwtyutf.js".proxyPass = "http://127.0.0.1:${toString config.services.plausible.server.port}/js/plausible.outbound-links.js";
-    locations."= /api/event" = {
-      proxyPass = "http://127.0.0.1:${toString config.services.plausible.server.port}/api/event";
-      recommendedProxySettings = false;
-      extraConfig = ''
-        proxy_set_header Host stats.xyno.space;
-        proxy_buffering on;
-        proxy_http_version 1.1;
-
-        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Host  $host;
-      '';
-    };
-  } // (lib.my.findOutTlsConfig "xyno.space" config);
-
-
+  systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.desec.path;
   services.caddy = {
     enable = true;
     package = (pkgs.callPackage ./custom-caddy.nix {
@@ -72,8 +52,8 @@
       ];
       vendorHash = lib.fakeSha256;
     });
-    extraConfig = ''
-      acme_dns desec {TOKEN}
+    globalConfig = ''
+      acme_dns desec {$TOKEN}
     '';
     virtualHosts."*.ragon.xyz".extraConfig = ''
       @8081 host 8081.ragon.xyz
@@ -89,6 +69,9 @@
         encode zstd gzip
         root /srv/www
         file_server browse
+        basicauth /* {
+          {$BAUSER} {$BAPASSWD}
+        }
       }
       @bw host bw.ragon.xyz
       handle @bw {
@@ -219,7 +202,7 @@
     cli.enable = true;
     user.enable = true;
     persist.enable = true;
-    persist.extraDirectories = [ "/var/lib/syncthing" "/var/lib/${config.services.xynoblog.stateDirectory}" ];
+    persist.extraDirectories = [ "/srv/www" config.services.caddy.dataDir "/var/lib/syncthing" "/var/lib/${config.services.xynoblog.stateDirectory}" ];
 
     services = {
       ssh.enable = true;
