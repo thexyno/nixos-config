@@ -69,7 +69,7 @@ in
       ensureUsers = [
         {
           name = "authelia-main";
-          ensureDBOwnership = true;
+          #ensureDBOwnership = true;
         }
       ];
     };
