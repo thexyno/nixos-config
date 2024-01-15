@@ -50,7 +50,7 @@ in
             host = "/run/postgresql";
             port = "5432";
             database = "authelia";
-            username = "authelia";
+            username = "authelia-main";
             password = "dosentmatter";
           };
         };
@@ -68,7 +68,7 @@ in
       ensureDatabases = [ "authelia" ];
       ensureUsers = [
         {
-          name = "authelia";
+          name = "authelia-main";
           ensureDBOwnership = true;
         }
       ];

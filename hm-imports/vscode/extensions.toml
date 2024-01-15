@@ -1,0 +1,151 @@
+vscode_version = "1.85.1"
+
+[[extensions]]
+publisher_name = "vscodevim"
+extension_name = "vim"
+
+[[extensions]]
+publisher_name = "jdinhlife"
+extension_name = "gruvbox"
+
+[[extensions]]
+publisher_name = "mkhl"
+extension_name = "direnv"
+
+# tomoki1207.pdf # reenable when latex workshop goes
+
+[[extensions]]
+publisher_name = "johnpapa"
+extension_name = "vscode-peacock"
+
+
+# Language Support 
+## markdown/latex
+[[extensions]]
+publisher_name = "james-yu"
+extension_name = "latex-workshop" # latex, also provides pdf preview
+[[extensions]]
+publisher_name = "yzhang"
+extension_name = "markdown-all-in-one" # markdown
+[[extensions]]
+publisher_name = "davidanson"
+extension_name = "vscode-markdownlint"
+[[extensions]]
+publisher_name = "quarto"
+extension_name = "quarto"
+# marketplace.pokey.cursorless # too much xe exposure
+[[extensions]]
+publisher_name = "valentjn"
+extension_name = "vscode-ltex" # languagetool
+#marketplace.gpoore.codebraid-preview
+[[extensions]]
+publisher_name = "ms-vscode"
+extension_name = "hexeditor" # a hex editor
+#ms-vscode-remote.remote-containers # container envs for stuff
+[[extensions]]
+publisher_name = "ms-vscode-remote"
+extension_name = "remote-ssh"
+
+
+
+## others
+[[extensions]]
+publisher_name = "vscjava"
+extension_name = "vscode-java-pack" # java schmava
+[[extensions]]
+publisher_name = "vscjava"
+extension_name = "vscode-java-debug"
+[[extensions]]
+publisher_name = "vscjava"
+extension_name = "vscode-java-test"
+[[extensions]]
+publisher_name = "vscjava"
+extension_name = "vscode-java-dependency"
+[[extensions]]
+publisher_name = "vscjava"
+extension_name = "vscode-maven"
+[[extensions]]
+publisher_name = "redhat"
+extension_name = "java"
+[[extensions]]
+publisher_name = "ms-vscode"
+extension_name = "cpptools-extension-pack" # cpp
+[[extensions]]
+publisher_name = "ms-vscode"
+extension_name = "cmake-tools"
+[[extensions]]
+publisher_name = "ms-vscode"
+extension_name = "cpptools"
+[[extensions]]
+publisher_name = "ms-azuretools"
+extension_name = "vscode-docker" # docker
+[[extensions]]
+publisher_name = "jnoortheen"
+extension_name = "nix-ide" # nix
+[[extensions]]
+publisher_name = "golang"
+extension_name = "go"
+[[extensions]]
+publisher_name = "ms-python"
+extension_name = "python"
+[[extensions]]
+publisher_name = "donjayamanne"
+extension_name = "python-environment-manager"
+[[extensions]]
+publisher_name = "denoland"
+extension_name = "vscode-deno"
+[[extensions]]
+publisher_name = "bradlc"
+extension_name = "vscode-tailwindcss"
+[[extensions]]
+publisher_name = "ms-dotnettools"
+extension_name = "csharp"
+[[extensions]]
+publisher_name = "ms-dotnettools"
+extension_name = "csdevkit"
+[[extensions]]
+publisher_name = "ms-dotnettools"
+extension_name = "vscode-dotnet-runtime"
+#(marketplace.ms-dotnettools.csdevkit.overrideAttrs (super: a: { sourceRoot = "."; }))
+[[extensions]]
+publisher_name = "rust-lang"
+extension_name = "rust-analyzer"
+[[extensions]]
+publisher_name = "sswg"
+extension_name = "swift-lang"
+[[extensions]]
+publisher_name = "vadimcn"
+extension_name = "vscode-lldb"
+asset_url = '''
+https://github.com/vadimcn/codelldb/releases/download/v{{ extension.version }}/codelldb-{{ system.arch }}-{{ system.ostype }}.vsix
+'''
+#[[extensions]]
+#publisher_name = "ms-toolsai"
+#extension_name = "jupyter"
+[[extensions]]
+publisher_name = "ms-toolsai"
+extension_name = "jupyter-renderers"
+#marketplace.jakebecker.elixir-ls # elixir
+[[extensions]]
+publisher_name = "dart-code"
+extension_name = "flutter"
+[[extensions]]
+publisher_name = "dart-code"
+extension_name = "dart-code"
+[[extensions]]
+publisher_name = "alexisvt"
+extension_name = "flutter-snippets"
+[[extensions]]
+publisher_name = "tauri-apps"
+extension_name = "tauri-vscode"
+[[extensions]]
+publisher_name = "dbaeumer"
+extension_name = "vscode-eslint"
+[[extensions]]
+publisher_name = "firefox-devtools"
+extension_name = "vscode-firefox-debug"
+
+# needed for yarn
+[[extensions]]
+publisher_name = "arcanis"
+extension_name = "vscode-zipfs"

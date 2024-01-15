@@ -1,8 +1,9 @@
 { pkgs, config, lib, inputs, ... }:
 let
   cfg = config.ragon.vscode;
-  marketplace = inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace;
-  marketplace-release = inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace-release;
+  #marketplace = inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace;
+  #marketplace-release = inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace-release;
+  marketplace = (import ../../data/vscode-extensions.nix { inherit pkgs lib; });
 
 in
 {
@@ -16,8 +17,8 @@ in
     programs.vscode = {
       enable = true;
       package = pkgs.unstable.vscode;
-      mutableExtensionsDir = false;
-      extensions = with pkgs.vscode-extensions; [
+      #mutableExtensionsDir = false;
+      extensions = with marketplace; [
         vscodevim.vim # vim mode (hopefully good)
         jdinhlife.gruvbox # theme
         mkhl.direnv # direnv
@@ -38,7 +39,7 @@ in
         valentjn.vscode-ltex
         #marketplace.gpoore.codebraid-preview
         marketplace.ms-vscode.hexeditor # a hex editor
-        ms-vscode-remote.remote-containers # container envs for stuff
+        #ms-vscode-remote.remote-containers # container envs for stuff
         marketplace.ms-vscode-remote.remote-ssh
 
 
@@ -62,14 +63,16 @@ in
         marketplace.bradlc.vscode-tailwindcss
         #ms-dotnettools.csharp # c# und so
         #marketplace.ms-dotnettools.csdevkit
-        (marketplace.ms-dotnettools.csdevkit.overrideAttrs (super: a: { sourceRoot = "."; }))
+        #marketplace.ms-dotnettools.csharp
+        #marketplace.ms-dotnettools.vscode-dotnet-runtime
+        #(marketplace.ms-dotnettools.csdevkit.overrideAttrs (super: a: { sourceRoot = "."; }))
         rust-lang.rust-analyzer # rust
         marketplace.sswg.swift-lang # swift
-        marketplace.vadimcn.vscode-lldb # swift
+        #marketplace.vadimcn.vscode-lldb # swift
         # marketplace.ms-toolsai.jupyter # jupiter notebooks, broken on 2023-12-19
         marketplace.ms-toolsai.jupyter-renderers
-        ms-toolsai.jupyter
-        marketplace.jakebecker.elixir-ls # elixir
+        #ms-toolsai.jupyter
+        #marketplace.jakebecker.elixir-ls # elixir
         marketplace.dart-code.flutter # dart/flutter
         marketplace.dart-code.dart-code # dart/flutter
         marketplace.alexisvt.flutter-snippets # flutter snippets
