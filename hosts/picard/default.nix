@@ -44,7 +44,7 @@
   services.postgresql.package = pkgs.postgresql_13;
 
   systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.desec.path;
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 config.services.forgejo.settings.server.SSH_PORT ];
   services.caddy = {
     logFormat = "level INFO";
     enable = true;
@@ -150,6 +150,10 @@
       handle @sso {
         reverse_proxy http://127.0.0.1:${toString config.services.authelia.instances.main.settings.server.port}
       }
+      @git host git.xyno.systems
+      handle @git {
+        reverse_proxy http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}
+      }
       handle {
         abort
       }
@@ -163,6 +167,29 @@
     virtualHosts."czi.dating".extraConfig = ''
       redir https://foss-ag.de{uri}
     '';
+  };
+
+  services.forgejo = {
+    enable = true;
+    lfs.enable = true;
+    settings = {
+      global.APP_NAME = "xyno.systems git";
+      session.COOKIE_SECURE = true;
+      server.DOMAIN = "git.xyno.systems";
+      server.ROOT_URL = "https://git.xyno.systems/";
+      server.HTTP_PORT = 3031;
+      server.HTTP_HOST = "127.0.0.1";
+      service.DISABLE_REGISTRATION = false;
+      service.ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
+      service.SHOW_REGISTRATION_BUTTON = false;
+
+      openid = {
+        ENABLE_OPENID_SIGNIN = false;
+        ENABLE_OPENID_SIGNUP = true;
+        WHITELISTED_URIS = "sso.xyno.systems";
+      };
+
+    };
   };
 
   ragon.agenix.secrets."desec" = { };
@@ -215,7 +242,7 @@
     cli.enable = true;
     user.enable = true;
     persist.enable = true;
-    persist.extraDirectories = [ "/srv/www" config.services.caddy.dataDir "/var/lib/syncthing" "/var/lib/${config.services.xynoblog.stateDirectory}" "/var/lib/postgresql" ];
+    persist.extraDirectories = [ "/srv/www" config.services.caddy.dataDir "/var/lib/syncthing" "/var/lib/${config.services.xynoblog.stateDirectory}" "/var/lib/postgresql" config.services.forgejo.stateDir ];
 
     services = {
       ssh.enable = true;
