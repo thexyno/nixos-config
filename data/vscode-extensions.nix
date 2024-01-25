@@ -4,18 +4,78 @@ let
   vscode-utils = pkgs.vscode-utils;
 in
 {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "valentjn"."vscode-ltex" = (vscode-utils.buildVscodeExtension {
+    name = "valentjn.vscode-ltex";
+    vscodeExtPublisher = "valentjn";
+    vscodeExtName = "vscode-ltex";
+    src = (pkgs.fetchurl {
+      url = "https://github.com/valentjn/vscode-ltex/releases/download/13.1.0/vscode-ltex-13.1.0-offline-mac-x64.vsix";
+      sha256 = "0s9vkgapzsly3143w04axg71xh52miyzsm7q74wqnzydh29ql3dz";
+      name = "valentjn.vscode-ltex.zip";
+    }).outPath;
+    vscodeExtUniqueId = "valentjn.vscode-ltex";
+    version = "13.1.0";
+  });
+
+
+
+
+
+
+
   "ms-python"."python" = vscode-utils.extensionFromVscodeMarketplace {
     name = "python";
     publisher = "ms-python";
-    version = "2023.25.10111009";
-    sha256 = "0bzxdkhxg9yz8ml9xhbghg4cc656gplwbjj969qqhdf60rsyl7il";
+    version = "2023.25.10221012";
+    sha256 = "14bkvlflib4wky6lw1hq0i01ymzf5349cl4d9minaam2lq0451i0";
   };
 
   "ms-vscode"."cpptools" = vscode-utils.extensionFromVscodeMarketplace {
     name = "cpptools";
     publisher = "ms-vscode";
-    version = "1.19.1";
-    sha256 = "1sa9012pbi6wz7c0rx8lwf8lrd7ffc25cd4jly2qk7kqfcp56in9";
+    version = "1.19.2";
+    sha256 = "0amq6f59i12kppg56670a4300k2wswlpnjh12qx914p6r92jq9gx";
   };
 
   "ms-toolsai"."jupyter-renderers" = vscode-utils.extensionFromVscodeMarketplace {
@@ -28,8 +88,8 @@ in
   "dbaeumer"."vscode-eslint" = vscode-utils.extensionFromVscodeMarketplace {
     name = "vscode-eslint";
     publisher = "dbaeumer";
-    version = "2.4.2";
-    sha256 = "1g5mavks3m4fnn7wav659rdnd9f3lp7r96g8niad4g1vaj4xm23q";
+    version = "2.4.4";
+    sha256 = "1c10n36a3bxwwjgd4vhrf79wg14dm0hxvz9z23pqdyxzcwrar49l";
   };
 
   "redhat"."java" = vscode-utils.extensionFromVscodeMarketplace {
@@ -63,22 +123,22 @@ in
   "vscjava"."vscode-maven" = vscode-utils.extensionFromVscodeMarketplace {
     name = "vscode-maven";
     publisher = "vscjava";
-    version = "0.43.0";
-    sha256 = "07bm7q13364zzbfbh6s5p5ll7labn41wdmj5b4dhp03y0fxhk9yi";
+    version = "0.43.2024011905";
+    sha256 = "0hmv7m38ffai5cz7lsswfw6d58h2miczcppd7x6yc2i7vnv6v6pg";
   };
 
   "ms-dotnettools"."csharp" = vscode-utils.extensionFromVscodeMarketplace {
     name = "csharp";
     publisher = "ms-dotnettools";
-    version = "2.15.30";
-    sha256 = "0s2rwaxbcl689x8gf8rmmzd09hqji32q371p6x3hix6y55n564fa";
+    version = "2.16.24";
+    sha256 = "019jr326hsrxvs40gvlz6xcmq37fmw64svs7hckwn8wiab83qv9z";
   };
 
   "vscjava"."vscode-java-test" = vscode-utils.extensionFromVscodeMarketplace {
     name = "vscode-java-test";
     publisher = "vscjava";
-    version = "0.40.2023122104";
-    sha256 = "1nfbrsldlxadf4wskgpy9vr5qqyarg419pczzv7fh3v2wjm2lhr5";
+    version = "0.40.2024011806";
+    sha256 = "1fnr8r9z2jz7gabc677zrhvdzqhlrrasnzlr2ralgq9pi3vpwyfa";
   };
 
   "vscjava"."vscode-java-dependency" = vscode-utils.extensionFromVscodeMarketplace {
@@ -112,8 +172,8 @@ in
   "golang"."go" = vscode-utils.extensionFromVscodeMarketplace {
     name = "go";
     publisher = "golang";
-    version = "0.40.1";
-    sha256 = "0844kxbi7qi79wal0cqcd4wiygc42fyhamn33lsx2ms4yj5jxri9";
+    version = "0.40.3";
+    sha256 = "15kicpv9xpn7l3w9mbmsjdzjmavh88p3skkim0a9prg9p40bsq0m";
   };
 
   "ms-dotnettools"."vscode-dotnet-runtime" = vscode-utils.extensionFromVscodeMarketplace {
@@ -126,15 +186,15 @@ in
   "dart-code"."dart-code" = vscode-utils.extensionFromVscodeMarketplace {
     name = "dart-code";
     publisher = "dart-code";
-    version = "3.81.20231227";
-    sha256 = "0wqw4q5h3s7smrfd5igg49yf50ws9m5ad68vyshvfj6b0nkkrwzx";
+    version = "3.81.20240117";
+    sha256 = "18hcvyvfli7h3y7h7272cbkmfqh6fazkbq75yr92561qq5i9hqc8";
   };
 
   "yzhang"."markdown-all-in-one" = vscode-utils.extensionFromVscodeMarketplace {
     name = "markdown-all-in-one";
     publisher = "yzhang";
-    version = "3.6.1";
-    sha256 = "1yibicrnbbrvcdlyjmw0w92391b25bi73k0zb87r793ckwkb3gq4";
+    version = "3.6.2";
+    sha256 = "1n9d3qh7vypcsfygfr5rif9krhykbmbcgf41mcjwgjrf899f11h4";
   };
 
   "dart-code"."flutter" = vscode-utils.extensionFromVscodeMarketplace {
@@ -203,15 +263,36 @@ in
   "rust-lang"."rust-analyzer" = vscode-utils.extensionFromVscodeMarketplace {
     name = "rust-analyzer";
     publisher = "rust-lang";
-    version = "0.4.1805";
-    sha256 = "0b8x02lhlr5049m5vakizlgv1xjawppnrczni1rp8ga0ng3w4d4s";
+    version = "0.4.1818";
+    sha256 = "028489jb8f4yy1g8bimna2fk0sk59ymj1zz5yavpm229ln24xkaw";
+  };
+
+  "vsls-contrib"."gitdoc" = vscode-utils.extensionFromVscodeMarketplace {
+    name = "gitdoc";
+    publisher = "vsls-contrib";
+    version = "0.1.0";
+    sha256 = "0sb5iwsrcqh6gsdngqy1wm6f6kqgqmx2kpqp6hkqri41j2phydjy";
   };
 
   "ms-dotnettools"."csdevkit" = vscode-utils.extensionFromVscodeMarketplace {
     name = "csdevkit";
     publisher = "ms-dotnettools";
-    version = "1.3.2";
-    sha256 = "1niy7nwlvkcsrblg3m8j8bdpbyb9ihnb003pcmw9acbc24zy6253";
+    version = "1.3.6";
+    sha256 = "1rwz7cs5raa5mlxal9rs33kbv99iaas82wjr0i1ii7mmps6k0djr";
+  };
+
+  "hediet"."vscode-drawio" = vscode-utils.extensionFromVscodeMarketplace {
+    name = "vscode-drawio";
+    publisher = "hediet";
+    version = "1.6.6";
+    sha256 = "0hwvcncl2206p7yjh7flr9qxxpk80mdj32fqh7wi57fb5sfi5xs8";
+  };
+
+  "bierner"."markdown-mermaid" = vscode-utils.extensionFromVscodeMarketplace {
+    name = "markdown-mermaid";
+    publisher = "bierner";
+    version = "1.21.0";
+    sha256 = "1ix0l8h1g32yn65nsc1sja7ddh42y5wdxbr7w753zdqyx04rs8v3";
   };
 
   "alexisvt"."flutter-snippets" = vscode-utils.extensionFromVscodeMarketplace {
@@ -224,8 +305,8 @@ in
   "denoland"."vscode-deno" = vscode-utils.extensionFromVscodeMarketplace {
     name = "vscode-deno";
     publisher = "denoland";
-    version = "3.31.0";
-    sha256 = "0p2y9kai1f768n58jfrk4c3qnz171nwhazik0kg7is08rnx2d8wy";
+    version = "3.33.1";
+    sha256 = "00b9gz599h4dd3f9yy8nnr5vrx210j4pxhhzi4gmj16fbpaj7jp6";
   };
 
   "jdinhlife"."gruvbox" = vscode-utils.extensionFromVscodeMarketplace {
@@ -233,6 +314,20 @@ in
     publisher = "jdinhlife";
     version = "1.18.0";
     sha256 = "07iy4649vjqif40agvp2ck9695vl1kv4zv69rn4j6hi0jra8dhg2";
+  };
+
+  "bierner"."markdown-footnotes" = vscode-utils.extensionFromVscodeMarketplace {
+    name = "markdown-footnotes";
+    publisher = "bierner";
+    version = "0.1.1";
+    sha256 = "1pp64x8cn4vmpscmzv2dg6bakjhnwd36rms2wl6bs5laq29k5wl7";
+  };
+
+  "bpruitt-goddard"."mermaid-markdown-syntax-highlighting" = vscode-utils.extensionFromVscodeMarketplace {
+    name = "mermaid-markdown-syntax-highlighting";
+    publisher = "bpruitt-goddard";
+    version = "1.6.0";
+    sha256 = "14vkkha82pnvvpg4pnzi4d5k9wp272mjmd2m3mrx0jn2kj9r10ax";
   };
 
   "sswg"."swift-lang" = vscode-utils.extensionFromVscodeMarketplace {
@@ -249,18 +344,19 @@ in
     sha256 = "0wvrqnsiqsxb0a7hyccri85f5pfh9biifq4x2bllpl8mg79l5m68";
   };
 
-  "valentjn"."vscode-ltex" = vscode-utils.extensionFromVscodeMarketplace {
-    name = "vscode-ltex";
-    publisher = "valentjn";
-    version = "13.1.0";
-    sha256 = "15qm97i9l65v3x0zxl1895ilazz2jk2wmizbj7kmds613jz7d46c";
-  };
 
   "tauri-apps"."tauri-vscode" = vscode-utils.extensionFromVscodeMarketplace {
     name = "tauri-vscode";
     publisher = "tauri-apps";
     version = "0.2.6";
     sha256 = "03nfyiac562kpndy90j7vc49njmf81rhdyhjk9bxz0llx4ap3lrv";
+  };
+
+  "foam"."foam-vscode" = vscode-utils.extensionFromVscodeMarketplace {
+    name = "foam-vscode";
+    publisher = "foam";
+    version = "0.25.7";
+    sha256 = "11za3jb47vrxwxy6mqmvf23amkz27sfhjxfzrchl57ygzw5d0q84";
   };
 
   "quarto"."quarto" = vscode-utils.extensionFromVscodeMarketplace {
@@ -280,8 +376,8 @@ in
   "mkhl"."direnv" = vscode-utils.extensionFromVscodeMarketplace {
     name = "direnv";
     publisher = "mkhl";
-    version = "0.15.2";
-    sha256 = "06lp4qgnksklgc6nvx1l9z38y7apbx0a6v886nd15aq9rq8my0ka";
+    version = "0.16.0";
+    sha256 = "1jmwqbbh5x5z7dscgcn4pb0g41k7zlhgf5i8syl3ipv6z270aq5v";
   };
 }
 

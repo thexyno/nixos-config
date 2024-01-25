@@ -18,6 +18,25 @@ extension_name = "direnv"
 publisher_name = "johnpapa"
 extension_name = "vscode-peacock"
 
+# notetaking
+[[extensions]]
+publisher_name = "foam"
+extension_name = "foam-vscode"
+[[extensions]]
+publisher_name = "vsls-contrib"
+extension_name = "gitdoc"
+[[extensions]]
+publisher_name = "bierner"
+extension_name = "markdown-mermaid"
+[[extensions]]
+publisher_name = "bierner"
+extension_name = "markdown-footnotes"
+[[extensions]]
+publisher_name = "bpruitt-goddard"
+extension_name = "mermaid-markdown-syntax-highlighting"
+[[extensions]]
+publisher_name = "hediet"
+extension_name = "vscode-drawio"
 
 # Language Support 
 ## markdown/latex
@@ -37,6 +56,9 @@ extension_name = "quarto"
 [[extensions]]
 publisher_name = "valentjn"
 extension_name = "vscode-ltex" # languagetool
+asset_url = '''
+https://github.com/valentjn/vscode-ltex/releases/download/{{ extension.version }}/vscode-ltex-{{ extension.version }}-offline-mac-x64.vsix
+'''
 #marketplace.gpoore.codebraid-preview
 [[extensions]]
 publisher_name = "ms-vscode"
@@ -117,7 +139,7 @@ extension_name = "swift-lang"
 publisher_name = "vadimcn"
 extension_name = "vscode-lldb"
 asset_url = '''
-https://github.com/vadimcn/codelldb/releases/download/v{{ extension.version }}/codelldb-{{ system.arch }}-{{ system.ostype }}.vsix
+https://github.com/vadimcn/codelldb/releases/download/v{{ extension.version }}/codelldb-{{ system.arch }}-darwin.vsix
 '''
 #[[extensions]]
 #publisher_name = "ms-toolsai"

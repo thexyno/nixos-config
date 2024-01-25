@@ -31,12 +31,10 @@ in
         # Language Support 
         ## markdown/latex
         marketplace.james-yu.latex-workshop # latex, also provides pdf preview
-        yzhang.markdown-all-in-one # markdown
-        marketplace.davidanson.vscode-markdownlint
         marketplace.quarto.quarto
         # marketplace.pokey.cursorless # too much xe exposure
-        #marketplace.valentjn.vscode-ltex # languagetool
-        valentjn.vscode-ltex
+        marketplace.valentjn.vscode-ltex # languagetool
+        #valentjn.vscode-ltex
         #marketplace.gpoore.codebraid-preview
         marketplace.ms-vscode.hexeditor # a hex editor
         #ms-vscode-remote.remote-containers # container envs for stuff
@@ -81,6 +79,14 @@ in
         marketplace.firefox-devtools.vscode-firefox-debug # js debugging
         marketplace.arcanis.vscode-zipfs # yarn
 
+        marketplace.foam.foam-vscode
+        marketplace."vsls-contrib"."gitdoc"
+        yzhang.markdown-all-in-one # markdown
+        marketplace.davidanson.vscode-markdownlint
+        marketplace.bierner.markdown-mermaid
+        marketplace.bpruitt-goddard.mermaid-markdown-syntax-highlighting
+        marketplace.bierner.markdown-footnotes
+        marketplace.hediet.vscode-drawio
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       ];
       userSettings =
@@ -200,7 +206,7 @@ in
             "editor.selectionHighlight" = false;
             "editor.suggestSelection" = "first";
             "editor.tabCompletion" = "onlySnippets";
-            "editor.wordBasedSuggestions" = false;
+            "editor.wordBasedSuggestions" = "off";
           };
           ## md preview
           #"codebraid.preview.pandoc.build" = {
@@ -213,8 +219,12 @@ in
           "lldb.library" = "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB";
           "lldb.launch.expressions" = "native";
           # ltex-ls
-          "ltex.language" = "de";
-
+          #"ltex.language" = "de";
+          #"ltex.ltex-ls.path" = "${pkgs.ltex-ls}";
+          #"ltex.ltex-ls.logLevel" = "finest";
+          #"ltex.trace.server" = "verbose";
+          # idk
+          "hediet.vscode-drawio.resizeImages" = "null";
 
         };
     };

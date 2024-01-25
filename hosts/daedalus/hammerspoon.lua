@@ -72,11 +72,11 @@ local function menuItems()
             checked = moonlanderMode,
             fn = function() moonlanderDetected(not moonlanderMode) end
         },
-        {
-            title = "Maximize Mode",
-            checked = maximizeMode,
-            fn = function() maximizeMode = not maximizeMode end
-        },
+      --  {
+      --      title = "Maximize Mode",
+      --      checked = maximizeMode,
+      --      fn = function() maximizeMode = not maximizeMode end
+      --  },
         { title = "-" },
         {
             title = "Reload",
@@ -147,70 +147,70 @@ caffeinateWatcher:start()
 -- Window Management
 ----------------------------------------------------------------------------------------------------
 
-hs.window.filter.ignoreAlways = {
-    ["Mail Web Content"] = true,
-    ["Mail-Webinhalt"] = true,
-    ["QLPreviewGenerationExtension (Finder)"] = true,
-    ["Reeder Web Content"] = true,
-    ["Reeder-Webinhalt"] = true,
-    ["Safari Web Content (Cached)"] = true,
-    ["Safari Web Content (Prewarmed)"] = true,
-    ["Safari Web Content"] = true,
-    ["Safari Technology Preview Web Content (Cached)"] = true,
-    ["Safari Technology Preview Web Content (Prewarmed)"] = true,
-    ["Safari Technology Preview Web Content"] = true,
-    ["Safari-Webinhalt (im Cache)"] = true,
-    ["Safari-Webinhalt (vorgeladen)"] = true,
-    ["Safari-Webinhalt"] = true,
-    ["Strongbox (Safari)"] = true,
-}
-windowFilter = hs.window.filter.new({
-    "App Store",
-    "Code",
-    "DataGrip",
-    "Firefox",
-    "Fork",
-    "Fotos",
-    "Google Chrome",
-    "Vivaldi",
-    "IntelliJ IDEA",
-    "Mail",
-    "Emacs",
-    "Microsoft Outlook",
-    "Microsoft Teams",
-    "Music",
-    "Musik",
-    "Photos",
-    "Postman",
-    "Reeder",
-    "Safari",
-    "Safari Technology Preview",
-    "Spotify",
-    "Strongbox",
-    "BitWarden",
-    "Logseq",
-    "Timeular",
-    "Tower",
-})
-windowFilter:subscribe({ hs.window.filter.windowCreated, hs.window.filter.windowFocused }, function(window)
-    if maximizeMode and window ~= nil and window:isStandard() and window:frame().h > 500 then
-        window:maximize()
-    end
-end)
+--hs.window.filter.ignoreAlways = {
+--    ["Mail Web Content"] = true,
+--    ["Mail-Webinhalt"] = true,
+--    ["QLPreviewGenerationExtension (Finder)"] = true,
+--    ["Reeder Web Content"] = true,
+--    ["Reeder-Webinhalt"] = true,
+--    ["Safari Web Content (Cached)"] = true,
+--    ["Safari Web Content (Prewarmed)"] = true,
+--    ["Safari Web Content"] = true,
+--    ["Safari Technology Preview Web Content (Cached)"] = true,
+--    ["Safari Technology Preview Web Content (Prewarmed)"] = true,
+--    ["Safari Technology Preview Web Content"] = true,
+--    ["Safari-Webinhalt (im Cache)"] = true,
+--    ["Safari-Webinhalt (vorgeladen)"] = true,
+--    ["Safari-Webinhalt"] = true,
+--    ["Strongbox (Safari)"] = true,
+--}
+--windowFilter = hs.window.filter.new({
+--    "App Store",
+--    "Code",
+--    "DataGrip",
+--    "Firefox",
+--    "Fork",
+--    "Fotos",
+--    "Google Chrome",
+--    "Vivaldi",
+--    "IntelliJ IDEA",
+--    "Mail",
+--    "Emacs",
+--    "Microsoft Outlook",
+--    "Microsoft Teams",
+--    "Music",
+--    "Musik",
+--    "Photos",
+--    "Postman",
+--    "Reeder",
+--    "Safari",
+--    "Safari Technology Preview",
+--    "Spotify",
+--    "Strongbox",
+--    "BitWarden",
+--    "Logseq",
+--    "Timeular",
+--    "Tower",
+--})
+--windowFilter:subscribe({ hs.window.filter.windowCreated, hs.window.filter.windowFocused }, function(window)
+--    if maximizeMode and window ~= nil and window:isStandard() and window:frame().h > 500 then
+--        window:maximize()
+--    end
+--end)
 
 ----------------------------------------------------------------------------------------------------
 -- Keyboard Shortcuts
 ----------------------------------------------------------------------------------------------------
 
-function showHideBundleId(bundleId)
-    local focusedWindow = hs.window.focusedWindow()
-    if focusedWindow ~= nil and focusedWindow:application():bundleID() == bundleId then -- window is focused
-        focusedWindow:close() -- hide
-    else
-        hs.application.launchOrFocusByBundleID(bundleId)
-        hs.window.focusedWindow():centerOnScreen(hs.mouse.getCurrentScreen())
-    end
-end
+-- function showHideBundleId(bundleId)
+--     local focusedWindow = hs.window.focusedWindow()
+--     if focusedWindow ~= nil and focusedWindow:application():bundleID() == bundleId then -- window is focused
+--         focusedWindow:close() -- hide
+--     else
+--         hs.application.launchOrFocusByBundleID(bundleId)
+--         hs.window.focusedWindow():centerOnScreen(hs.mouse.getCurrentScreen())
+--     end
+-- end
 
 -- hs.loadSpoon("MiroWindowsManager")
 -- hs.window.animationDuration = 0
@@ -224,13 +224,13 @@ end
 -- })
 
 
-hs.hotkey.bind(modifiers.hyper, hs.keycodes.map.delete, function() hs.caffeinate.lockScreen() end)
-hs.hotkey.bind(modifiers.hyper, "a", function() showHideBundleId(bundleID.activityMonitor) end)
-hs.hotkey.bind(modifiers.hyper, "o", function() showHideBundleId(bundleID.orion) end)
-hs.hotkey.bind(modifiers.hyper, "f", function() showHideBundleId(bundleID.faclieThings) end)
-hs.hotkey.bind(modifiers.hyper, "p", function() showHideBundleId(bundleID.timeular) end)
-hs.hotkey.bind(modifiers.hyper, "b", function() showHideBundleId(bundleID.bitwarden) end)
-hs.hotkey.bind(modifiers.hyper, "t", function() showHideBundleId(bundleID.iterm) end)
+-- hs.hotkey.bind(modifiers.hyper, hs.keycodes.map.delete, function() hs.caffeinate.lockScreen() end)
+-- hs.hotkey.bind(modifiers.hyper, "a", function() showHideBundleId(bundleID.activityMonitor) end)
+-- hs.hotkey.bind(modifiers.hyper, "o", function() showHideBundleId(bundleID.orion) end)
+-- hs.hotkey.bind(modifiers.hyper, "f", function() showHideBundleId(bundleID.faclieThings) end)
+-- hs.hotkey.bind(modifiers.hyper, "p", function() showHideBundleId(bundleID.timeular) end)
+-- hs.hotkey.bind(modifiers.hyper, "b", function() showHideBundleId(bundleID.bitwarden) end)
+-- hs.hotkey.bind(modifiers.hyper, "t", function() showHideBundleId(bundleID.iterm) end)
 
 ----------------------------------------------------------------------------------------------------
 -- Mouse Shortcuts
