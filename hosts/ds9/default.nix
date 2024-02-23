@@ -108,7 +108,7 @@ in
     useACMEHost = "hailsatan.eu";
     forceSSL = true;
     locations = {
-      "/".proxyPass = "http://192.168.122.76:8123";
+      "/".proxyPass = "http://10.0.0.12:8123";
       "/".proxyWebsockets = true;
     };
   };
