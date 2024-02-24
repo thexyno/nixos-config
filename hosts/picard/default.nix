@@ -11,6 +11,7 @@
       ./hardware-configuration.nix
       ./xynospace-matrix.nix
       ./plausible.nix
+      ./calcom.nix
     ];
 
   documentation.enable = false;
