@@ -11,7 +11,7 @@
   };
   virtualisation.oci-containers.containers."calcom" = {
     image = "calcom/cal.com:latest";
-    ports = [ "127.0.0.1:8009:8008" ];
+    ports = [ "127.0.0.1:3469:3000" ];
     user = "${toString config.users.users.calcom.uid}:${toString config.users.groups.calcom.gid}";
     volumes = [
       "/run/postgresql:/run/postgresql"
