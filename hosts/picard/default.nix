@@ -11,7 +11,6 @@
       ./hardware-configuration.nix
       ./xynospace-matrix.nix
       ./plausible.nix
-      ./calcom.nix
     ];
 
   documentation.enable = false;
@@ -154,10 +153,6 @@
       @git host git.xyno.systems
       handle @git {
         reverse_proxy http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}
-      }
-      @cal host cal.xyno.systems
-      handle @cal {
-        reverse_proxy http://127.0.0.1:3469
       }
       handle {
         abort
