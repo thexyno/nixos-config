@@ -28,6 +28,7 @@ with lib.my;
       "space-capsule"
       "iterm2"
       "signal"
+      "eqmac"
 
     ];
     #masApps = {
