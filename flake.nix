@@ -183,7 +183,7 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.extraSpecialArgs = { inherit inputs pkgs; };
-                home-manager.users.ragon = hmConfig;
+                home-manager.users.xyno = hmConfig;
               }
               ./darwin-common.nix
             ] ++ (lib.my.mapModulesRec' (toString ./darwin-modules) import) ++ extraModules;
