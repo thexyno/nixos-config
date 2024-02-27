@@ -3,35 +3,29 @@ with lib;
 with lib.my;
 {
 
-  users.users.ragon = {
-    name = "ragon";
-    home = "/Users/ragon";
+  users.users.xyno = {
+    name = "xyno";
+    home = "/Users/xyno";
   };
-  environment.systemPackages = [
-    #    myEmacs
-  ];
 
   homebrew = {
     enable = true;
     brews = [
-      "pam-reattach"
       "cormacrelf/tap/dark-notify"
     ];
     casks = [
-      "heroic"
       "hammerspoon"
-      "amethyst"
       "android-platform-tools"
       "alfred"
       "ukelele"
       "homebrew/cask-drivers/zsa-wally"
       "lens"
-      "logseq"
       "discord"
       "finicky"
       "vlc"
-      "parsec"
-      "element"
+      "rectangle"
+      "floorp"
+      "space-capsule"
     ];
     #masApps = {
     #  # Install Mac App Store apps (install them manually and then do `mas list` to get the id)
@@ -54,7 +48,7 @@ with lib.my;
       tmMountPath = "/tmp/timeMachineSnapshotForBorg";
     in
     {
-      enable = true;
+      enable = false;
       configurations."daedalus-ds9" = {
         source_directories = [
           # tmMountPath
@@ -104,8 +98,8 @@ with lib.my;
 
     };
 
-  programs.gnupg.agent.enable = true;
-  home-manager.users.ragon = { pkgs, lib, inputs, config, ... }:
+  programs.gnupg.agent.enable = false;
+  home-manager.users.xyno = { pkgs, lib, inputs, config, ... }:
     {
       ragon.nvim.maximal = true;
 
@@ -126,7 +120,7 @@ with lib.my;
       ragon.xonsh.enable = true;
 
       programs.home-manager.enable = true;
-      home.stateVersion = "21.11";
+      home.stateVersion = "23.11";
 
       #home.shellAliases = {
       #  v = lib.mkForce "emacsclient -t";
@@ -141,7 +135,6 @@ with lib.my;
       };
       home.packages = with pkgs; [
         mosh
-        nushell
 
         nodePackages.pyright
         nodejs
