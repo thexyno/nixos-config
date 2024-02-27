@@ -26,6 +26,7 @@ with lib.my;
       "rectangle"
       "floorp"
       "space-capsule"
+      "iterm2"
     ];
     #masApps = {
     #  # Install Mac App Store apps (install them manually and then do `mas list` to get the id)
