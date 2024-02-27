@@ -102,7 +102,7 @@ with lib.my;
 
     };
 
-  programs.gnupg.agent.enable = false;
+  programs.gnupg.agent.enable = lib.mkForce false;
   home-manager.users.xyno = { pkgs, lib, inputs, config, ... }:
     {
       ragon.nvim.maximal = true;
