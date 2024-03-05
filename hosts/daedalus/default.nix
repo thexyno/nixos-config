@@ -10,16 +10,27 @@ with lib.my;
 
   homebrew = {
     enable = true;
+    taps = [
+      "cormacrelf/tap" # dark-notify
+      "leoafarias/fvm" # flutter version manager
+    ];
     brews = [
       "cormacrelf/tap/dark-notify"
+      "lima"
+      "docker" # docker cli
+      "docker-compose"
+      "leoafarias/fvm/fvm" # flutter version manager
+      "cocoapods" # flutter/other ios shit
     ];
     casks = [
       "hammerspoon"
       "android-platform-tools"
       "alfred"
       "ukelele"
-      "homebrew/cask-drivers/zsa-wally"
-      "lens"
+#      "homebrew/cask-drivers/zsa-wally"
+      "thunderbird"
+      "openlens"
+      "ferdium"
       "discord"
       "finicky"
       "vlc"
@@ -29,6 +40,10 @@ with lib.my;
       "iterm2"
       "signal"
       "eqmac"
+      "syncthing"
+      "android-studio"
+      "temurin"
+      "whisky"
 
     ];
     #masApps = {
@@ -135,7 +150,7 @@ with lib.my;
         VISUAL = "nvim";
         COLORTERM = "truecolor"; # emacs tty fix
         PATH = "$PATH:$HOME/go/bin:$HOME/development/flutter/bin:/Applications/Android Studio.app/Contents/bin/:/Applications/Docker.app/Contents/Resources/bin:/Applications/Android Studio.app/Contents/jre/Contents/Home/bin";
-        JAVA_HOME = "/Applications/Android Studio.app/Contents/jre/Contents/Home/";
+        # JAVA_HOME = "/Applications/Android Studio.app/Contents/jre/Contents/Home/";
       };
       home.packages = with pkgs; [
         mosh
@@ -146,6 +161,7 @@ with lib.my;
         cmake
 
         pandoc
+        micromamba
 
         #unstable.qutebrowser
         #unstable.python311Packages.adblock

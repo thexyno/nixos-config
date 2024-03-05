@@ -6,6 +6,12 @@
   nix.package = pkgs.nixVersions.stable;
   nix.settings.cores = 0; # use all cores
   nix.settings.max-jobs = 10; # use all cores
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  security.pam.enableSudoTouchIdAuth = true;
+  programs.zsh.shellInit = ''
+   eval $(/opt/homebrew/bin/brew shellenv)'
+  '';
+  environment.systemPath = [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ];
   #nix.settings.auto-optimise-store = true;
   nix.distributedBuilds = true;
   nix.nixPath = [{ nixpkgs = "${inputs.nixpkgs-darwin.outPath}"; nixpkgs-master = "${inputs.nixpkgs-master.outPath}"; nixpkgs-nixos = "${inputs.nixpkgs.outPath}"; }];
@@ -15,7 +21,7 @@
     sshUser = "ragon";
     maxJobs = 12;
     hostName = "ds9";
-    sshKey = "/Users/ragon/.ssh/id_ed25519";
+    sshKey = "/Users/xyno/.ssh/id_ed25519";
     publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUorQkJYdWZYQUpoeVVIVmZocWxrOFk0ekVLSmJLWGdKUXZzZEU0ODJscFYgcm9vdEBpc28K";
   }
     #{

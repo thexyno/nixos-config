@@ -23,6 +23,13 @@ in
         jdinhlife.gruvbox # theme
         mkhl.direnv # direnv
 
+        
+        marketplace.eamodio.gitlens
+        marketplace.ms-vscode-remote.remote-containers
+
+        marketplace.sonarsource.sonarlint-vscode
+
+
         # tomoki1207.pdf # reenable when latex workshop goes
 
         marketplace.johnpapa.vscode-peacock # colors per workspace
@@ -50,24 +57,26 @@ in
         marketplace.vscjava.vscode-maven
         marketplace.redhat.java
         marketplace.ms-vscode.cpptools-extension-pack # cpp
-        marketplace.ms-vscode.cmake-tools
+        # marketplace.ms-vscode.cmake-tools # broken rn
         marketplace.ms-vscode.cpptools
         marketplace.ms-azuretools.vscode-docker # docker
         jnoortheen.nix-ide # nix
         golang.go # go
         marketplace.ms-python.python # python
+        marketplace.ms-python.vscode-pylance # python
+        #marketplace.ms-python.debugpy # python
         marketplace.donjayamanne.python-environment-manager # python
         marketplace.denoland.vscode-deno # deno
         marketplace.bradlc.vscode-tailwindcss
         #ms-dotnettools.csharp # c# und so
         #marketplace.ms-dotnettools.csdevkit
-        #marketplace.ms-dotnettools.csharp
-        #marketplace.ms-dotnettools.vscode-dotnet-runtime
-        #(marketplace.ms-dotnettools.csdevkit.overrideAttrs (super: a: { sourceRoot = "."; }))
+        # marketplace.ms-dotnettools.csharp
+        # marketplace.ms-dotnettools.vscode-dotnet-runtime
+        # (marketplace.ms-dotnettools.csdevkit.overrideAttrs (super: a: { sourceRoot = "."; }))
         rust-lang.rust-analyzer # rust
         marketplace.sswg.swift-lang # swift
         #marketplace.vadimcn.vscode-lldb # swift
-        # marketplace.ms-toolsai.jupyter # jupiter notebooks, broken on 2023-12-19
+        #marketplace.ms-toolsai.jupyter # jupiter notebooks, broken on 2023-12-19
         marketplace.ms-toolsai.jupyter-renderers
         #ms-toolsai.jupyter
         #marketplace.jakebecker.elixir-ls # elixir

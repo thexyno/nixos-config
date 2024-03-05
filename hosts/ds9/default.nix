@@ -163,7 +163,7 @@ in
       <service>
         <type>_smb._tcp</type>
         <port>445</port>
-        <host-name>ds9.hailsatan.eu</host-name>
+        <host-name>ds9.kangaroo-galaxy.ts.net</host-name>
       </service>
       <service>
         <type>_device-info._tcp</type>
@@ -174,7 +174,7 @@ in
         <type>_adisk._tcp</type>
         <txt-record>sys=waMa=0,adVF=0x100</txt-record>
         <txt-record>dk0=adVN=TimeMachine,adVF=0x82</txt-record>
-        <host-name>ds9.hailsatan.eu</host-name>
+        <host-name>ds9.kangaroo-galaxy.ts.net</host-name>
       </service>
     </service-group>
   '';

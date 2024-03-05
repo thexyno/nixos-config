@@ -4,6 +4,9 @@ let
   xonsh =
     pkgs.unstable.xonsh.override {
       extraPackages = ps: [
+        ps.numpy
+        ps.pandas
+        ps.requests
         (ps.buildPythonPackage {
           pname = "xonsh-direnv";
           version = "0.0.0";
@@ -13,8 +16,12 @@ let
           pname = "xonsh-fish-completer";
           version = "0.0.0";
           format = "pyproject";
-          doCheck = false;
           src = inputs.xonsh-fish-completer;
+          prePatch = ''
+            pkgs.lib.substituteInPlace pyproject.toml --replace '"xonsh>=0.12.5"' ""
+          '';
+          patchPhase = "sed -i -e 's/^dependencies.*$/dependencies = []/' pyproject.toml";
+          doCheck = false;
           propagatedBuildInputs = [
             ps.setuptools
           ];

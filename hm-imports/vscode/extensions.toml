@@ -1,4 +1,4 @@
-vscode_version = "1.85.1"
+vscode_version = "1.86.2"
 
 [[extensions]]
 publisher_name = "vscodevim"
@@ -15,8 +15,19 @@ extension_name = "direnv"
 # tomoki1207.pdf # reenable when latex workshop goes
 
 [[extensions]]
+publisher_name = "eamodio"
+extension_name = "gitlens"
+
+[[extensions]]
+publisher_name = "ms-vscode-remote"
+extension_name = "remote-containers"
+
+[[extensions]]
 publisher_name = "johnpapa"
 extension_name = "vscode-peacock"
+[[extensions]]
+publisher_name = "sonarsource"
+extension_name = "sonarlint-vscode"
 
 # notetaking
 [[extensions]]
@@ -110,6 +121,12 @@ extension_name = "go"
 [[extensions]]
 publisher_name = "ms-python"
 extension_name = "python"
+[[extensions]]
+publisher_name = "ms-python"
+extension_name = "vscode-pylance"
+[[extensions]]
+publisher_name = "ms-python"
+extension_name = "debugpy"
 [[extensions]]
 publisher_name = "donjayamanne"
 extension_name = "python-environment-manager"
