@@ -44,6 +44,7 @@ with lib.my;
       "android-studio"
       "temurin"
       "whisky"
+      "dbeaver-community"
 
     ];
     #masApps = {
