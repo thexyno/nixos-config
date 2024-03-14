@@ -25,7 +25,7 @@ with lib.my;
     casks = [
       "hammerspoon"
       "android-platform-tools"
-      "alfred"
+      "raycast"
       "ukelele"
 #      "homebrew/cask-drivers/zsa-wally"
       "thunderbird"

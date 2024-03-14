@@ -44,7 +44,7 @@
     ll = "eza -l --git";
     cat = "bat";
     p = "cd ~/proj";
-    pd = "cd ~/proj/devsaur";
+    ytl = ''yt-dlp -f "bv*+mergeall[vcodec=none]" --audio-multistreams'';
   };
 
   programs = {
