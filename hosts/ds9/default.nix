@@ -103,15 +103,6 @@ in
   services.nginx.clientMaxBodySize = lib.mkForce "8g";
   services.nginx.virtualHosts."_".
   listenAddresses = [ "0.0.0.0" "[::0]" ];
-  services.nginx.virtualHosts."h.hailsatan.eu" = {
-    listenAddresses = [ "0.0.0.0" "[::0]" ];
-    useACMEHost = "hailsatan.eu";
-    forceSSL = true;
-    locations = {
-      "/".proxyPass = "http://10.0.0.12:8123";
-      "/".proxyWebsockets = true;
-    };
-  };
   boot.initrd.network = {
     enable = true;
     postCommands = ''
@@ -298,6 +289,23 @@ in
     openFirewall = true;
     user = "ragon";
     group = "users";
+  };
+
+  services.nginx.virtualHosts."bzzt-api.hailsatan.eu" = {
+    useACMEHost = "hailsatan.eu";
+    forceSSL = true;
+    locations = {
+      "/".proxyPass = "http://127.0.0.1:5001";
+      "/".proxyWebsockets = true;
+    };
+  };
+  services.nginx.virtualHosts."bzzt.hailsatan.eu" = {
+    useACMEHost = "hailsatan.eu";
+    forceSSL = true;
+    locations = {
+      "/".proxyPass = "http://127.0.0.1:5001";
+      "/".proxyWebsockets = true;
+    };
   };
 
   ragon = {
