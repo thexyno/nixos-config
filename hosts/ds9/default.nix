@@ -301,7 +301,7 @@ in
 
   services.nginx.virtualHosts."bzzt-api.hailsatan.eu" = {
     useACMEHost = "hailsatan.eu";
-    listenAddresses = [ "0.0.0.0" "[::0]" ];
+    listenAddresses = [ "10.0.0.2" "100.83.96.25" ];
     locations = {
       "/".proxyPass = "http://127.0.0.1:5001";
       "/".proxyWebsockets = true;
@@ -309,7 +309,7 @@ in
   };
   services.nginx.virtualHosts."bzzt-lcg.hailsatan.eu" = {
     useACMEHost = "hailsatan.eu";
-    listenAddresses = [ "0.0.0.0" "[::0]" ];
+    listenAddresses = [ "10.0.0.2" "100.83.96.25" ];
     locations = {
       "/".proxyPass = "http://127.0.0.1:5003";
       "/".proxyWebsockets = true;
