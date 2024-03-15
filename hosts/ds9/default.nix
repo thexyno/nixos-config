@@ -311,6 +311,7 @@ in
   services.nginx.virtualHosts."bzzt-lcg.hailsatan.eu" = {
     useACMEHost = "hailsatan.eu";
     forceSSL = true;
+    listenAddresses = [ "0.0.0.0" "[::0]" "100.83.96.25" ];
     locations = {
       "/".proxyPass = "http://127.0.0.1:5003";
       "/".proxyWebsockets = true;
