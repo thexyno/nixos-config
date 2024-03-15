@@ -251,6 +251,14 @@ in
     fruit:metadata = stream
   '';
 
+  users.users.bzzt = {
+    description = "bzzt server service user";
+    home = "/var/lib/bzzt";
+    createHome = true;
+    isSystemUser = true;
+    group = "bzzt";
+  };
+  users.groups.bzzt = { };
   users.users.minecraft = {
     description = "Minecraft server service user";
     home = "/var/lib/minecraft";
@@ -259,7 +267,7 @@ in
     group = "minecraft";
   };
   users.groups.minecraft = { };
-  environment.systemPackages = [ pkgs.jdk pkgs.jdk17 pkgs.borgbackup ];
+  environment.systemPackages = [ pkgs.jdk pkgs.jdk17 pkgs.borgbackup pkgs.docker-compose pkgs.docker ];
 
   services.smartd = {
     enable = true;
@@ -307,12 +315,13 @@ in
       "/".proxyWebsockets = true;
     };
   };
+  virtualisation.docker.enable = true;
 
   ragon = {
     cli.enable = true;
     user.enable = true;
     persist.enable = true;
-    persist.extraDirectories = [ "/var/lib/syncthing" config.services.plex.dataDir "/var/lib/minecraft" ];
+    persist.extraDirectories = [ "/var/lib/syncthing" config.services.plex.dataDir "/var/lib/minecraft" "/var/lib/bzzt" ];
 
     services = {
       samba.enable = true;
