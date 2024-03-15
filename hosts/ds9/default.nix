@@ -307,11 +307,19 @@ in
       "/".proxyWebsockets = true;
     };
   };
+  services.nginx.virtualHosts."bzzt-lcg.hailsatan.eu" = {
+    useACMEHost = "hailsatan.eu";
+    forceSSL = true;
+    locations = {
+      "/".proxyPass = "http://127.0.0.1:5003";
+      "/".proxyWebsockets = true;
+    };
+  };
   services.nginx.virtualHosts."bzzt.hailsatan.eu" = {
     useACMEHost = "hailsatan.eu";
     forceSSL = true;
     locations = {
-      "/".proxyPass = "http://127.0.0.1:5001";
+      "/".proxyPass = "http://127.0.0.1:5002";
       "/".proxyWebsockets = true;
     };
   };
