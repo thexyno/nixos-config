@@ -20,6 +20,8 @@ in
       #mutableExtensionsDir = false;
       extensions = with marketplace; [
         vscodevim.vim # vim mode (hopefully good)
+        fathulfahmy.lunarkeymap
+        vspacecode.whichkey
         jdinhlife.gruvbox # theme
         mkhl.direnv # direnv
 
@@ -112,29 +114,29 @@ in
           "editor.minimap.autohide" = true;
 
           "editor.tabCompletion" = "onlySnippets";
-          "editor.snippetSuggestions" = "top";
+          #"editor.snippetSuggestions" = "top";
 
           # Addon Configuration
 
           ## Vim
           "vim.leader" = "<space>";
-          "vim.normalModeKeyBindings" = [
-            { before = [ "<C-h>" ]; after = [ "<C-w>" "h" ]; }
-            { before = [ "<C-j>" ]; after = [ "<C-w>" "j" ]; }
-            { before = [ "<C-k>" ]; after = [ "<C-w>" "k" ]; }
-            { before = [ "<C-l>" ]; after = [ "<C-w>" "l" ]; }
-          ];
+          # "vim.normalModeKeyBindings" = [
+          #   { before = [ "<C-h>" ]; after = [ "<C-w>" "h" ]; }
+          #   { before = [ "<C-j>" ]; after = [ "<C-w>" "j" ]; }
+          #   { before = [ "<C-k>" ]; after = [ "<C-w>" "k" ]; }
+          #   { before = [ "<C-l>" ]; after = [ "<C-w>" "l" ]; }
+          # ];
           "vim.normalModeKeyBindingsNonRecursive" = [
-            {
-              before = [ "<leader>" "s" ];
-              "commands" = [ "workbench.action.splitEditor" ];
-              quiet = true;
-            }
-            {
-              before = [ "<leader>" "a" "s" ];
-              "commands" = [ "workbench.action.splitEditorDown" ];
-              quiet = true;
-            }
+            # {
+            #   before = [ "<leader>" "s" ];
+            #   "commands" = [ "workbench.action.splitEditor" ];
+            #   quiet = true;
+            # }
+            # {
+            #   before = [ "<leader>" "a" "s" ];
+            #   "commands" = [ "workbench.action.splitEditorDown" ];
+            #   quiet = true;
+            # }
             {
               before = [ "<leader>" "q" ];
               "commands" = [ "workbench.action.closeActiveEditor" ];
@@ -175,22 +177,12 @@ in
               "commands" = [ "editor.action.goToReferences" ];
               quiet = true;
             }
-            {
-              before = [ "<Tab>" ];
-              "commands" = [ "workbench.view.explorer" ];
-              quiet = true;
-            }
-            {
-              before = [ "<S-Tab>" ];
-              "commands" = [ "workbench.action.closeSidebar" ];
-              quiet = true;
-            }
-            {
-              before = [ "<leader>" "t" ];
-              "commands" = [ "terminal.focus" ];
-              quiet = true;
-            }
           ];
+          "vim.useSystemClipboard" = false;
+          "vim.handleKeys" = {
+            "<C-w>" = false;
+          };
+          "vim.camelCaseMotion.enable" = true;
           ## git
           "git.verboseCommit" = true;
           "git.allowForcePush" = true;
@@ -236,6 +228,9 @@ in
           "hediet.vscode-drawio.resizeImages" = "null";
 
         };
+        keybindings = [
+          { "key" = "ctrl+w"; "command" = "whichkey.show"; }
+        ];
     };
   };
 }

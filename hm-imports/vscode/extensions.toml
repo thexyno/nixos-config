@@ -28,6 +28,12 @@ extension_name = "vscode-peacock"
 [[extensions]]
 publisher_name = "sonarsource"
 extension_name = "sonarlint-vscode"
+[[extensions]]
+publisher_name = "fathulfahmy"
+extension_name = "lunarkeymap"
+[[extensions]]
+publisher_name = "VSpaceCode"
+extension_name = "whichkey"
 
 # notetaking
 [[extensions]]
