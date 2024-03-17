@@ -46,10 +46,6 @@ in
 
     };
     ragon.agenix.secrets.hedgedocSecret.owner = "hedgedoc";
-    services.nginx.virtualHosts."${cfg.domain}" = {
-      locations."/".proxyWebsockets = true;
-      locations."/".proxyPass = "http://[::1]:${toString config.services.hedgedoc.settings.port}";
-    } // (lib.my.findOutTlsConfig cfg.domain config);
     services.postgresql = {
 
       enable = true;

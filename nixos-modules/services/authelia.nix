@@ -57,10 +57,6 @@ in
 
       };
     };
-    services.nginx.virtualHosts."${cfg.domain}" = {
-      locations."/".proxyWebsockets = true;
-      locations."/".proxyPass = "http://127.0.0.1:${toString config.services.authelia.instances.${instanceName}.settings.server.port}";
-    } // (lib.my.findOutTlsConfig cfg.domain config);
     services.postgresql = {
       enable = true;
 

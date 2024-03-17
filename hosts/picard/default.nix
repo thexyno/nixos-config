@@ -13,15 +13,18 @@
       ./plausible.nix
 
       ../../nixos-modules/system/persist.nix
+      ../../nixos-modules/system/agenix.nix
       ../../nixos-modules/system/fs.nix
       ../../nixos-modules/system/security.nix
       ../../nixos-modules/services/ssh.nix
       ../../nixos-modules/services/msmtp.nix
+      ../../nixos-modules/services/caddy
       ../../nixos-modules/services/bitwarden.nix
       ../../nixos-modules/networking/tailscale.nix
       ../../nixos-modules/services/authelia.nix
       ../../nixos-modules/services/hedgedoc.nix
       ../../nixos-modules/services/ts3.nix
+      ../../nixos-modules/user
     ];
 
   documentation.enable = false;

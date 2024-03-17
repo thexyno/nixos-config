@@ -1,14 +1,13 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.ragon.services.bitwarden;
-  domain = config.ragon.services.nginx.domain;
 in
 {
   options.ragon.services.bitwarden.enable = lib.mkEnableOption "Enables the vaultwarden BitWarden Server";
-  options.ragon.services.bitwarden.domainPrefix =
+  options.ragon.services.bitwarden.domain =
     lib.mkOption {
       type = lib.types.str;
-      default = "bw";
+      default = "bw.ragon.xyz";
     };
   config = lib.mkIf cfg.enable {
     services.vaultwarden = {
@@ -16,7 +15,7 @@ in
       package = pkgs.unstable.vaultwarden;
       #backupDir = "/persistent/backups/vaultwarden";
       config = {
-        domain = "https://${cfg.domainPrefix}.${domain}";
+        domain = "https://${cfg.domain}";
         signupsAllowed = true;
         rocketPort = 8222;
         rocketAddress = "127.0.0.1";
@@ -25,12 +24,6 @@ in
       };
       dbBackend = "postgresql";
 
-    };
-    services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
-      forceSSL = true;
-      useACMEHost = "${domain}";
-      locations."/".proxyPass = "http://${config.services.vaultwarden.config.rocketAddress}:${toString config.services.vaultwarden.config.rocketPort}";
-      locations."/".proxyWebsockets = true;
     };
     services.postgresql = {
       enable = true;
