@@ -41,26 +41,26 @@
   '';
 
   ragon.services = {
-      samba.enable = true;
-      samba.shares = {
-        TimeMachine = {
-          path = "/backups/DaedalusTimeMachine";
-          comment = "DaedalusTimeMachine";
-          "write list" = "@wheel";
-          "read only" = "no";
-          "writable" = "yes";
-          "browseable" = "yes";
-          "fruit:time machine" = "yes";
-          "fruit:time machine max size" = "2050G";
-          "vfs objects" = "acl_xattr fruit streams_xattr";
-          "inherit acls" = "yes";
-        };
-        data = {
-          path = "/data";
-          comment = "some data for the people";
-          "write list" = "@wheel";
-        };
+    samba.enable = true;
+    samba.shares = {
+      TimeMachine = {
+        path = "/backups/DaedalusTimeMachine";
+        comment = "DaedalusTimeMachine";
+        "write list" = "@wheel";
+        "read only" = "no";
+        "writable" = "yes";
+        "browseable" = "yes";
+        "fruit:time machine" = "yes";
+        "fruit:time machine max size" = "2050G";
+        "vfs objects" = "acl_xattr fruit streams_xattr";
+        "inherit acls" = "yes";
       };
+      data = {
+        path = "/data";
+        comment = "some data for the people";
+        "write list" = "@wheel";
+      };
+    };
   };
 
 }

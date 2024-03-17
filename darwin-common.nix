@@ -8,7 +8,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   security.pam.enableSudoTouchIdAuth = true;
   programs.zsh.shellInit = ''
-   eval $(/opt/homebrew/bin/brew shellenv)'
+    eval $(/opt/homebrew/bin/brew shellenv)'
   '';
   environment.systemPath = [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ];
   #nix.settings.auto-optimise-store = true;
@@ -22,8 +22,7 @@
     hostName = "ds9";
     sshKey = "/Users/xyno/.ssh/id_ed25519";
     publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUorQkJYdWZYQUpoeVVIVmZocWxrOFk0ekVLSmJLWGdKUXZzZEU0ODJscFYgcm9vdEBpc28K";
-  }
-  ];
+  }];
   nix.extraOptions = ''
     builders-use-substitutes = true
   '';

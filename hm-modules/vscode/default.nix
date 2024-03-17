@@ -25,7 +25,7 @@ in
         jdinhlife.gruvbox # theme
         mkhl.direnv # direnv
 
-        
+
         marketplace.eamodio.gitlens
         marketplace.ms-vscode-remote.remote-containers
 
@@ -228,9 +228,9 @@ in
           "hediet.vscode-drawio.resizeImages" = "null";
 
         };
-        keybindings = [
-          { "key" = "ctrl+w"; "command" = "whichkey.show"; }
-        ];
+      keybindings = [
+        { "key" = "ctrl+w"; "command" = "whichkey.show"; }
+      ];
     };
   };
 }

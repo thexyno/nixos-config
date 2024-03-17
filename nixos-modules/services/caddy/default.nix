@@ -1,8 +1,8 @@
-{ config, pkgs, lib, ...}:
+{ config, pkgs, lib, ... }:
 let
   cfg = config.ragon.services.caddy;
-  in
- {
+in
+{
   options.ragon.services.caddy.enable = lib.mkEnableOption "enables the caddy webserver";
   config = lib.mkIf cfg.enable {
     services.caddy = {

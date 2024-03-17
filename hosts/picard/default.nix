@@ -244,19 +244,19 @@
   services.lolpizza2.enable = true;
   programs.mosh.enable = true;
 
-  home-manager.users.ragon = { pkgs, lib, inputs, config, ...}: {
-      imports = [
-        ../../hm-modules/nvim
-        ../../hm-modules/zsh
-        ../../hm-modules/tmux
-        ../../hm-modules/xonsh
-        ../../hm-modules/cli.nix
-        ../../hm-modules/files.nix
-      ];
-      ragon.xonsh.enable = true;
+  home-manager.users.ragon = { pkgs, lib, inputs, config, ... }: {
+    imports = [
+      ../../hm-modules/nvim
+      ../../hm-modules/zsh
+      ../../hm-modules/tmux
+      ../../hm-modules/xonsh
+      ../../hm-modules/cli.nix
+      ../../hm-modules/files.nix
+    ];
+    ragon.xonsh.enable = true;
 
-      programs.home-manager.enable = true;
-      home.stateVersion = "23.11";
+    programs.home-manager.enable = true;
+    home.stateVersion = "23.11";
   };
 
   ragon = {

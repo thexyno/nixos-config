@@ -27,7 +27,7 @@ with lib.my;
       "android-platform-tools"
       "raycast"
       "ukelele"
-#      "homebrew/cask-drivers/zsa-wally"
+      #      "homebrew/cask-drivers/zsa-wally"
       "thunderbird"
       "openlens"
       "ferdium"

@@ -29,7 +29,7 @@ let
       ];
     };
 
-    aliasesJson = pkgs.writeText "shell-aliases.json" (builtins.toJSON config.home.shellAliases);
+  aliasesJson = pkgs.writeText "shell-aliases.json" (builtins.toJSON config.home.shellAliases);
 in
 {
   options.ragon.xonsh.enable = lib.mkOption { default = false; };

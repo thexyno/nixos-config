@@ -15,4 +15,4 @@ let
 in
 mylib.extend
   (self: super:
-    foldr (a: b: a // b) { } (attrValues super))
+  foldr (a: b: a // b) { } (attrValues super))
