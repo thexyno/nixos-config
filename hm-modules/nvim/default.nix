@@ -54,7 +54,6 @@ in
     programs.neovim =
       {
         enable = true;
-        package = pkgs.neovim-nightly;
         extraConfig = ''
           set runtimepath^=~/.config/nvim
           lua dofile('${./config/nvim.lua}')

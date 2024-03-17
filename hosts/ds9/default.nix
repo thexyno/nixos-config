@@ -1,16 +1,29 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, inputs, pkgs, lib, ... }:
 let
   pubkeys = import ../../data/pubkeys.nix;
+  caddy-with-plugins = import ./custom-caddy.nix { inherit pkgs; };
 in
 {
   imports =
     [
       # Include the results of the hardware scan.
+      ./backup.nix
+      ./plex.nix
       ./hardware-configuration.nix
+
+      ../../nixos-modules/networking/tailscale.nix
+      ../../nixos-modules/services/docker.nix
+      ../../nixos-modules/services/libvirt.nix
+      ../../nixos-modules/services/msmtp.nix
+      ../../nixos-modules/services/paperless.nix
+      ../../nixos-modules/services/photoprism.nix
+      ../../nixos-modules/services/samba.nix
+      ../../nixos-modules/services/ssh.nix
+      ../../nixos-modules/system/agenix.nix
+      ../../nixos-modules/system/fs.nix
+      ../../nixos-modules/system/persist.nix
+      ../../nixos-modules/system/security.nix
+      ../../nixos-modules/user
     ];
 
   # Don't Use the systemd-boot EFI boot loader.
@@ -25,84 +38,13 @@ in
   services.syncthing.enable = true;
   services.syncthing.user = "ragon";
 
-  ragon.agenix.secrets."ds9OffsiteBackupSSH" = { };
-  ragon.agenix.secrets."ds9SyncoidHealthCheckUrl" = { };
-  ragon.agenix.secrets."gatebridgeHostKeys" = { };
-  ragon.agenix.secrets."borgmaticEncryptionKey" = { };
-  # services.syncoid =
-  #   let
-  #     datasets = {
-  #       backups = "rpool/content/local/backups";
-  #       data = "rpool/content/safe/data";
-  #       ds9persist2 = "spool/safe/persist";
-  #       hassosvm2 = "spool/safe/vms/hassos";
-  #     };
-  #   in
-
-  #   lib.mkMerge (
-  #     [{
-  #       localSourceAllow = [
-  #         "hold"
-  #         "send"
-  #         "snapshot"
-  #         "destroy"
-  #         "mount"
-  #       ];
-  #       enable = true;
-  #       interval = "*-*-* 2:15:00";
-  #       commonArgs = [ "--sshoption" "GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path}" ];
-  #       sshKey = lib.mkForce "${config.age.secrets.ds9OffsiteBackupSSH.path}";
-  #     }] ++
-  #     (builtins.attrValues
-  #       (builtins.mapAttrs (n: v: { commands.${n} = { target = "root@gatebridge:backup/${n}"; source = v; sendOptions = "w"; }; }) (datasets))
-  #     )
-  #   );
-  # systemd.services."syncoid-ds9persist2" = {
-  #   # ExecStartPost commands are only run if the ExecStart command succeeded
-  #   # serviceConfig.ExecStartPost = pkgs.writeShellScript "backupSuccessful" ''
-  #   #   ${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})
-  #   # '';
-  #   unitConfig.OnFailure = "backupFailure.service";
-  # };
-
-  # systemd.services.backupFailure = {
-  #   enable = true;
-  #   script = "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/fail";
-  # };
-
-  services.borgmatic = {
-    enable = true;
-    configurations."ds9-offsite" = {
-      source_directories = [ "/backups" "/data" "/persistent" ];
-      repositories = [{ label = "gatebridge"; path = "ssh://root@gatebridge/media/backup/ds9"; }];
-      exclude_if_present = [ ".nobackup" ];
-      #upload_rate_limit = "4000";
-      encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.borgmaticEncryptionKey.path}";
-      compression = "auto,zstd,10";
-      ssh_command = "ssh -o GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path} -i ${config.age.secrets.ds9OffsiteBackupSSH.path}";
-      before_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/start" ];
-      after_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})" ];
-      on_error = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/fail" ];
-      # postgresql_databases = [{ name = "all"; pg_dump_command = "${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_dumpall"; pg_restore_command = "${pkgs.sudo}/bin/sudo -u postgres ${pkgs.postgresql}/bin/pg_restore"; }];
-      retention = {
-        keep_daily = 7;
-        keep_weekly = 4;
-        keep_monthly = 12;
-        keep_yearly = 10;
-      };
-    };
-  };
-
   programs.mosh.enable = true;
   security.sudo.wheelNeedsPassword = false;
   networking.useDHCP = true;
   networking.bridges."br0".interfaces = [ ];
   networking.hostId = "7b4c2932";
+  networking.firewall.allowedTCPPorts = [ 9000 25565 ];
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
-  services.nginx.defaultListenAddresses = [ "100.83.96.25" ];
-  services.nginx.clientMaxBodySize = lib.mkForce "8g";
-  services.nginx.virtualHosts."_".
-  listenAddresses = [ "0.0.0.0" "[::0]" ];
   boot.initrd.network = {
     enable = true;
     postCommands = ''
@@ -124,25 +66,6 @@ in
   };
   boot.kernel.sysctl."fs.inotify.max_user_instances" = 512;
 
-  services.openssh.sftpServerExecutable = "internal-sftp";
-
-  # Backup Target
-  users.users.picardbackup = {
-    createHome = false;
-    group = "users";
-    uid = 993;
-    home = "/backups/picard";
-    shell = "/run/current-system/sw/bin/bash";
-    isSystemUser = true;
-    openssh.authorizedKeys.keys = [
-      ''command="${pkgs.borgbackup}/bin/borg serve --restrict-to-path /backups/picard/",restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHvCF8KGgpF9O8Q7k+JXqZ5eMeEeTaMhCIk/2ZFOzXL0''
-    ];
-  };
-
-
-  # Enable Scanning
-  hardware.sane.enable = true;
-  hardware.sane.extraBackends = [ pkgs.sane-airscan ];
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
   services.avahi.publish.enable = true;
@@ -169,70 +92,6 @@ in
       </service>
     </service-group>
   '';
-  # Webhook service to trigger scanning the ADF from HomeAssistant
-  #systemd.services.scanhook = {
-  #  description = "webhook go server to trigger scanning";
-  #  documentation = [ "https://github.com/adnanh/webhook" ];
-  #  wantedBy = [ "multi-user.target" ];
-  #  path = with pkgs; [ bash ];
-  #  serviceConfig = {
-  #    TemporaryFileSystem = "/:ro";
-  #    BindReadOnlyPaths = [
-  #      "/nix/store"
-  #      "-/etc/resolv.conf"
-  #      "-/etc/nsswitch.conf"
-  #      "-/etc/hosts"
-  #      "-/etc/localtime"
-  #    ];
-  #    BindPaths = [
-  #      "/data/applications/paperless-consumption"
-  #    ];
-  #    LockPersonality = true;
-  #    NoNewPrivileges = true;
-  #    PrivateMounts = true;
-  #    PrivateTmp = true;
-  #    PrivateUsers = true;
-  #    ProcSubset = "pid";
-  #    ProtectHome = true;
-  #    ProtectControlGroups = true;
-  #    ProtectKernelLogs = true;
-  #    ProtectKernelModules = true;
-  #    ProtectKernelTunables = true;
-  #    ProtectProc = "invisible";
-  #    RestrictNamespaces = true;
-  #    RestrictRealtime = true;
-  #    RestrictSUIDSGID = true;
-  #    DynamicUser = true;
-  #    ExecStart =
-  #      let
-  #        scanScript = pkgs.writeScript "plscan.sh" ''
-  #          #!/usr/bin/env bash
-  #          export PATH=${lib.makeBinPath [ pkgs.strace pkgs.gnugrep pkgs.coreutils pkgs.sane-backends pkgs.sane-airscan pkgs.imagemagick ]}
-  #          export LD_LIBRARY_PATH=${config.environment.sessionVariables.LD_LIBRARY_PATH} # Adds SANE Libraries to the ld library path of this script
-  #          set -x
-  #          date="''$(date --iso-8601=seconds)"
-  #          filename="Scan ''$date.pdf"
-  #          tmpdir="''$(mktemp -d)"
-  #          pushd "''$tmpdir"
-  #          scanimage --batch=out%d.jpg --format=jpeg --mode Gray -d "airscan:e0:Canon MB5100 series" --source "ADF Duplex" --resolution 300
-  #          for i in $(ls out*.jpg | grep 'out.*[24680]\.jpg'); do convert $i -rotate 180 $i; done # rotate even stuff
-  #          convert out*.jpg /data/applications/paperless-consumption/"''$filename"
-  #          chmod 666 /data/applications/paperless-consumption/"''$filename"
-  #          popd
-  #          rm -r "''$tmpdir"
-  #        '';
-  #        hooksFile = pkgs.writeText "webhook.json" (builtins.toJSON [
-  #          {
-  #            id = "scan-webhook";
-  #            execute-command = "${scanScript}";
-
-  #          }
-  #        ]);
-  #      in
-  #      "${pkgs.webhook}/bin/webhook -hooks ${hooksFile} -verbose";
-  #  };
-  #};
-  networking.firewall.allowedTCPPorts = [ 9000 25565 ];
 
   # Immutable users due to tmpfs
   users.mutableUsers = false;
@@ -272,7 +131,7 @@ in
   services.smartd = {
     enable = true;
     extraOptions = [ "--interval=7200" ];
-    #notifications.test = true;
+    notifications.test = true;
   };
   nixpkgs.overlays = [
     (self: super: {
@@ -286,54 +145,54 @@ in
     ZED_EMAIL_OPTS = "@ADDRESS@";
 
     ZED_NOTIFY_INTERVAL_SECS = 7200;
-    #ZED_NOTIFY_VERBOSE = true;
+    ZED_NOTIFY_VERBOSE = true;
 
     ZED_USE_ENCLOSURE_LEDS = false;
     ZED_SCRUB_AFTER_RESILVER = true;
   };
 
-  services.plex = {
+  systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.ionos.path;
+  services.caddy = {
     enable = true;
-    openFirewall = true;
-    user = "ragon";
-    group = "users";
+    package = caddy-with-plugins;
+    globalConfig = ''
+      acme_dns ionos {
+        api_token "{$IONOS_API_KEY}"
+      }
+    '';
+    virtualHosts."*.hailsatan.eu".extraConfig = ''
+      @paperless host paperless.hailsatan.eu
+      handle @paperless {
+        reverse_proxy ${config.ragon.services.paperless.location}
+      }
+      @photos host photos.hailsatan.eu
+      handle @photos {
+        reverse_proxy ${config.ragon.services.photoprism.location}
+      }
+      @bzzt-api host bzzt-api.hailsatan.eu
+      handle @bzzt-api {
+        reverse_proxy http://127.0.0.1:5001
+      }
+      @bzzt-lcg host bzzt-lcg.hailsatan.eu
+      handle @bzzt-lcg {
+        reverse_proxy http://127.0.0.1:5003
+      }
+      @bzzt host bzzt.hailsatan.eu
+      handle @bzzt {
+        reverse_proxy http://127.0.0.1:5002
+      }
+    '';
   };
-
-  services.nginx.virtualHosts."bzzt-api.hailsatan.eu" = {
-    useACMEHost = "hailsatan.eu";
-    listenAddresses = [ "10.0.0.2" "100.83.96.25" ];
-    addSSL = true;
-    locations = {
-      "/".proxyPass = "http://127.0.0.1:5001";
-      "/".proxyWebsockets = true;
-    };
-  };
-  services.nginx.virtualHosts."bzzt-lcg.hailsatan.eu" = {
-    useACMEHost = "hailsatan.eu";
-    addSSL = true;
-    listenAddresses = [ "10.0.0.2" "100.83.96.25" ];
-    locations = {
-      "/".proxyPass = "http://127.0.0.1:5003";
-      "/".proxyWebsockets = true;
-    };
-  };
-  services.nginx.virtualHosts."bzzt.hailsatan.eu" = {
-    useACMEHost = "hailsatan.eu";
-    forceSSL = true;
-    locations = {
-      "/".proxyPass = "http://127.0.0.1:5002";
-      "/".proxyWebsockets = true;
-    };
-  };
-  virtualisation.docker.enable = true;
 
   ragon = {
+    agenix.secrets."ionos" = { };
     cli.enable = true;
     user.enable = true;
     persist.enable = true;
     persist.extraDirectories = [ "/var/lib/syncthing" config.services.plex.dataDir "/var/lib/minecraft" "/var/lib/bzzt" ];
 
     services = {
+      docker.enable = true;
       samba.enable = true;
       samba.shares = {
         TimeMachine = {
@@ -356,7 +215,6 @@ in
       };
       docker.enable = true;
       ssh.enable = true;
-      nginx.enable = true;
       msmtp.enable = true;
       photoprism.enable = true;
       tailscale.enable = true;

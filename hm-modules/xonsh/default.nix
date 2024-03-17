@@ -41,26 +41,6 @@ in
       $PROMPT_FIELDS['sshhostname'] = lambda: "{user}@{hostname}" if "SSH_TTY" in ''${...} else $PROMPT_FIELDS['rootuser']()
       $PROMPT = '{gitstatus:{RESET}[{}{RESET}] }{sshhostname:{} }{BOLD_GREEN}{short_cwd}{RED}{last_return_code_if_nonzero: [{BOLD_INTENSE_RED}{}{RED}] }{RESET}{BOLD_BLUE}{RESET}> '
       $VI_MODE = True
-      aliases['v'] = "nvim"
-      aliases['c'] = "code"
-      aliases['vim'] = "nvim"
-      aliases['gpl'] = "git pull"
-      aliases['gpf'] = "git push --force-with-lease --force-if-includes"
-      aliases['gp'] = "git push"
-      aliases['gd'] = "git diff"
-      aliases['lg'] = "lazygit"
-      aliases['gc'] = "git commit -v"
-      # aliases['kb'] = "git commit -m \"\$(curl -s http://whatthecommit.com/index.txt)\""
-      aliases['gs'] = "git status -v"
-      aliases['gfc'] = "git fetch && git checkout"
-      aliases['gl'] = "git log --graph"
-      aliases['l'] =  "eza -la --git"
-      aliases['la'] = "eza -la --git"
-      aliases['ls'] = "eza"
-      aliases['ll'] = "eza -l --git"
-      aliases['cat'] = "bat"
-      aliases['p'] = "cd ~/proj"
-      aliases['pd'] = "cd ~/proj/devsaur"
 
       # https://xon.sh/xonshrc.html?highlight=nix#use-the-nix-package-manager-with-xonsh
       import os.path

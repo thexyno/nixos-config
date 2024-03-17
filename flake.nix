@@ -16,13 +16,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-master";
-    neovim-nightly-overlay.inputs.neovim-flake.url = "github:neovim/neovim?dir=contrib&rev=eb151a9730f0000ff46e0b3467e29bb9f02ae362";
-    neovim-nightly-overlay.inputs.neovim-flake.inputs.nixpkgs.follows = "nixpkgs-master";
-
 
     # programs
     xynoblog.url = "github:thexyno/blog";
@@ -44,9 +37,6 @@
     notify-nvim.flake = false;
     noice-nvim.url = "github:folke/noice.nvim";
     noice-nvim.flake = false;
-
-    ## vscode
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     ## zsh
     zsh-completions.url = "github:zsh-users/zsh-completions";
@@ -76,19 +66,12 @@
     pandoc-latex-template.url = "github:Wandmalfarbe/pandoc-latex-template";
     pandoc-latex-template.flake = false;
 
-    ## octoprint
-    octoprint-telegram.url = "github:fabianonline/OctoPrint-Telegram";
-    octoprint-telegram.flake = false;
-    octoprint-spoolmanager.url = "github:OllisGit/OctoPrint-SpoolManager";
-    octoprint-spoolmanager.flake = false;
-
   };
 
   outputs =
     inputs @ { self
     , nixpkgs
     , nixpkgs-darwin
-    , neovim-nightly-overlay
     , nixpkgs-master
     , agenix
     , home-manager
@@ -107,13 +90,8 @@
         my = import ./lib { inherit inputs; lib = self; };
       });
 
-      genPkgs = system: import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
       overlays = [
         self.overlays.default
-        neovim-nightly-overlay.overlay
         nixd.overlays.default
       ];
       genPkgsWithOverlays = system: import nixpkgs {
@@ -126,15 +104,11 @@
       };
 
 
-      hmConfig = { hm, pkgs, inputs, config, ... }: {
-        imports = (lib.my.mapModulesRec' ./hm-imports (x: x)) ++ [ "${impermanence}/home-manager.nix" ];
-      };
-
       rev = if (lib.hasAttrByPath [ "rev" ] self.sourceInfo) then self.sourceInfo.rev else "Dirty Build";
 
       nixosSystem = system: extraModules: hostName:
         let
-          pkgs = genPkgs system;
+          pkgs = genPkgsWithOverlays system;
         in
         nixpkgs.lib.nixosSystem
           rec {
@@ -159,12 +133,9 @@
                 home-manager.extraSpecialArgs = { inherit inputs; };
               }
 
-                (lib.mkIf config.ragon.user.enable {
-                  # import hm stuff if enabled
-                  home-manager.users.ragon = hmConfig;
-                })])
+                ])
               ./nixos-common.nix
-            ] ++ (lib.my.mapModulesRec' (toString ./nixos-modules) import) ++ extraModules;
+            ] ++ extraModules;
           };
       darwinSystem = system: extraModules: hostName:
         let
@@ -178,15 +149,13 @@
               home-manager.darwinModules.home-manager
               {
                 nixpkgs.overlays = overlays;
-                #system.darwinLabel = "${config.system.darwinLabel}@${rev}";
                 networking.hostName = hostName;
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.extraSpecialArgs = { inherit inputs pkgs; };
-                home-manager.users.xyno = hmConfig;
               }
               ./darwin-common.nix
-            ] ++ (lib.my.mapModulesRec' (toString ./darwin-modules) import) ++ extraModules;
+            ] ++ extraModules;
           };
 
       processConfigurations = lib.mapAttrs (n: v: v n);
@@ -202,37 +171,16 @@
         };
         my = self.packages."${prev.system}";
       };
-      nixosModules = lib.my.mapModulesRec ./nixos-modules import;
-      #darwinModules = [ ];
-      darwinModules = lib.my.mapModulesRec ./darwin-modules import;
+      # nixosModules = lib.my.mapModulesRec ./nixos-modules import;
+      # darwinModules = lib.my.mapModulesRec ./darwin-modules import;
+
       nixosConfigurations = processConfigurations {
         picard = nixosSystem "x86_64-linux" [ ./hosts/picard/default.nix ];
         ds9 = nixosSystem "x86_64-linux" [ ./hosts/ds9/default.nix ];
-        daedalusvm = nixosSystem "aarch64-linux" [ ./hosts/daedalusvm/default.nix ];
-        octopi = nixosSystem "aarch64-linux" [ ./hosts/octopi/default.nix ];
-        icarus = nixosSystem "x86_64-linux" [ ./hosts/icarus/default.nix ];
-        beliskner = nixosSystem "x86_64-linux" [ ./hosts/beliskner/default.nix ];
       };
       darwinConfigurations = processConfigurations {
         daedalus = darwinSystem "aarch64-darwin" [ ./hosts/daedalus/default.nix ];
       };
-
-      homeConfigurations."fedora-vm" =
-        let pkgs = genPkgsWithOverlays "aarch64-linux"; in
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            hmConfig
-            {
-              ragon.vscode.enable = true;
-              home.username = "ragon";
-              home.packages = [ pkgs.openvscode-server ];
-              home.homeDirectory = "/home/ragon.linux";
-            }
-          ];
-
-        };
 
     } // utils.lib.eachDefaultSystem (system:
     let pkgs = nixpkgs.legacyPackages.${system}; in

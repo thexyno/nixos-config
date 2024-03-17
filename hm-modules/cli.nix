@@ -3,7 +3,6 @@
 
   home.stateVersion = lib.mkDefault "22.05";
   home.packages = with pkgs; [
-
     my.scripts
     jq
     nnn
@@ -13,8 +12,6 @@
     curl
     fd
     file
-    lorri
-    fzf
     git
     neofetch
     ripgrep
@@ -22,16 +19,16 @@
     unzip
     pv
     killall
-    lefthook
     yt-dlp
     aria2
-    libqalculate
   ];
   home.shellAliases = {
     v = "nvim";
+    c = "code";
     vim = "nvim";
     gpl = "git pull";
     gp = "git push";
+    gd = "git diff";
     lg = "lazygit";
     gc = "git commit -v";
     kb = "git commit -m \"\$(curl -s http://whatthecommit.com/index.txt)\"";
@@ -48,47 +45,9 @@
   };
 
   programs = {
-    # gpg = {
-    #   enable = true;
-    #   settings = {
-    #     cert-digest-algo = "SHA512";
-    #     charset = "utf-8";
-    #     default-preference-list = "SHA512 SHA384 SHA256 AES256 AES192 AES ZLIB BZIP2 ZIP Uncompressed";
-    #     auto-key-retrieve = true;
-    #     fixed-list-mode = true;
-    #     keyserver = "hkps://keyserver.ubuntu.com:443";
-    #     list-options = [ "show-uid-validity" "show-unusable-subkeys" ];
-    #     no-comments = true;
-    #     no-emit-version = true;
-    #     no-greeting = true;
-    #     no-symkey-cache = true;
-    #     personal-cipher-preferences = "AES256 AES192 AES";
-    #     personal-compress-preferences = "ZLIB BZIP2 ZIP Uncompressed";
-    #     personal-digest-preferences = "SHA512 SHA384 SHA256";
-    #     require-cross-certification = true;
-    #     s2k-cipher-algo = "AES256";
-    #     s2k-digest-algo = "SHA512";
-    #     throw-keyids = true;
-    #     use-agent = true;
-    #     verbose = true;
-    #     verify-options = "show-uid-validity";
-    #     with-fingerprint = true;
-    #     with-key-origin = true;
-    #   };
-    # };
     bat = {
       enable = true;
       config.theme = "gruvbox-dark";
-    };
-    fzf = {
-      enable = true;
-      enableZshIntegration = true;
-      defaultOptions = [
-        "--height 40%"
-        "--layout=reverse"
-        "--border"
-        "--inline-info"
-      ];
     };
     git = {
       enable = true;
@@ -119,7 +78,6 @@
         tree_view = false;
       };
     };
-
 
   };
 }

@@ -2,7 +2,7 @@ let
   pubkeys = import ../data/pubkeys.nix;
 in
 {
-  "cloudflareAcme.age".publicKeys = pubkeys.ragon.server;
+  "ionos.age".publicKeys = pubkeys.ragon.server;
   "nextshot.age".publicKeys = pubkeys.ragon.client;
   "pulseLaunch.age".publicKeys = pubkeys.ragon.client;
   "rootPasswd.age".publicKeys = pubkeys.ragon.computers;

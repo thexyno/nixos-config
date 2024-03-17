@@ -1,5 +1,4 @@
 { config, pkgs, inputs, ... }: {
-  programs.gnupg.agent.enable = true;
   programs.zsh.enable = true;
   environment.pathsToLink = [ "/share/zsh" ];
   services.nix-daemon.enable = true;
@@ -24,16 +23,6 @@
     sshKey = "/Users/xyno/.ssh/id_ed25519";
     publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUorQkJYdWZYQUpoeVVIVmZocWxrOFk0ekVLSmJLWGdKUXZzZEU0ODJscFYgcm9vdEBpc28K";
   }
-    #{
-    #  systems = [ "aarch64-linux" "x86_64-linux" ];
-    #  speedFactor = 2;
-    #  supportedFeatures = [ "kvm" "big-parallel" ];
-    #  sshUser = "ragon";
-    #  maxJobs = 8;
-    #  hostName = "192.168.65.7";
-    #  sshKey = "/Users/ragon/.ssh/id_ed25519";
-    #  publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUM4aG9teFlQZlk4bS9JQ2c2NVNWNU9Temp3eW1sNmxEMXhGNi9zWUxPQkY=";
-    #}
   ];
   nix.extraOptions = ''
     builders-use-substitutes = true

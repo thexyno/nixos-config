@@ -1,5 +1,8 @@
 { inputs, config, lib, pkgs, ... }:
 {
+  imports = [
+    "${inputs.impermanence}/home-manager.nix"
+  ];
         home.file = {
           # Home nix config.
           ".config/nixpkgs/config.nix".text = "{ allowUnfree = true; }";

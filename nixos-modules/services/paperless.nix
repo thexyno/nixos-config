@@ -7,10 +7,10 @@ let
 in
 {
   options.ragon.services.paperless.enable = mkEnableOption "Enables paperless ng";
-  options.ragon.services.paperless.domainPrefix =
+  options.ragon.services.paperless.location =
     lib.mkOption {
       type = lib.types.str;
-      default = "paperless";
+      default = "http://${config.services.paperless.address}:${toString config.services.paperless.port}";
     };
   config = mkIf cfg.enable {
     services.paperless = {
@@ -25,13 +25,6 @@ in
       };
     };
     ragon.agenix.secrets.paperlessAdminPW = { group = "${config.services.paperless.user}"; mode = "0440"; };
-    services.nginx.clientMaxBodySize = "100m";
-    services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
-      useACMEHost = "${domain}";
-      addSSL = true;
-      locations."/".proxyPass = "http://${config.services.paperless.address}:${toString config.services.paperless.port}";
-      locations."/".proxyWebsockets = true;
-    };
     ragon.persist.extraDirectories = [
       "${config.services.paperless.dataDir}"
     ];

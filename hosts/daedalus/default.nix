@@ -63,65 +63,72 @@ with lib.my;
 
   environment.pathsToLink = [ "/share/fish" ];
 
-  ragon.services.borgmatic =
-    let
-      tmMountPath = "/tmp/timeMachineSnapshotForBorg";
-    in
-    {
-      enable = false;
-      configurations."daedalus-ds9" = {
-        source_directories = [
-          # tmMountPath
-          "/Users/ragon"
-        ];
-        exclude_if_present = [ ".nobackup" ];
-        repositories = [
-          { path = "ssh://ragon@ds9/backups/daedalus/borgmatic"; label = "ds9"; }
-          { path = "ssh://root@gatebridge/media/backup/daedalus"; label = "gatebridge"; }
-        ];
-        encryption_passcommand = pkgs.writeShellScript "getBorgmaticPw" ''security find-generic-password -a daedalus -s borgmaticKey -g 2>&1 | grep -E 'password' | sed 's/^.*"\(.*\)"$/\1/g' '';
-        compression = "auto,zstd,10";
-        #ssh_command = "ssh -o GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path} -i ${config.age.secrets.picardResticSSHKey.path}";
-        keep_hourly = 24;
-        keep_daily = 7;
-        keep_weekly = 4;
-        keep_monthly = 12;
-        keep_yearly = 10;
-        #        before_backup = [
-        #          (pkgs.writeShellScript
-        #            "apfsSnapshot"
-        #            ''
-        #              tmutil localsnapshot
-        #              SNAPSHOT=$(tmutil listlocalsnapshots / | grep TimeMachine | tail -n 1)
-        #              mkdir -p "${tmMountPath}"
-        #              mount_apfs -s $SNAPSHOT /System/Volumes/Data "${tmMountPath}"
-        #            '')
-        #        ];
-        #        after_backup = [
-        #          (pkgs.writeShellScript
-        #            "apfsSnapshotUnmount"
-        #            ''
-        #              diskutil unmount "${tmMountPath}"
-        #              SNAPSHOT=$(tmutil listlocalsnapshots / | grep TimeMachine | tail -n 1)
-        #              tmutil deletelocalsnapshots $(echo $SNAPSHOT | sed 's/com\.apple\.TimeMachine\.\(.*\)\.local/\1/g')
-        #            '')
-        #        ];
-        #        on_error = [
-        #
-        #          (pkgs.writeShellScript
-        #            "apfsSnapshotUnmountError"
-        #            ''
-        #              diskutil unmount "${tmMountPath}"
-        #            '')
-        #        ];
-      };
+  #ragon.services.borgmatic =
+  #  let
+  #    tmMountPath = "/tmp/timeMachineSnapshotForBorg";
+  #  in
+  #  {
+  #    enable = false;
+  #    configurations."daedalus-ds9" = {
+  #      source_directories = [
+  #        # tmMountPath
+  #        "/Users/ragon"
+  #      ];
+  #      exclude_if_present = [ ".nobackup" ];
+  #      repositories = [
+  #        { path = "ssh://ragon@ds9/backups/daedalus/borgmatic"; label = "ds9"; }
+  #        { path = "ssh://root@gatebridge/media/backup/daedalus"; label = "gatebridge"; }
+  #      ];
+  #      encryption_passcommand = pkgs.writeShellScript "getBorgmaticPw" ''security find-generic-password -a daedalus -s borgmaticKey -g 2>&1 | grep -E 'password' | sed 's/^.*"\(.*\)"$/\1/g' '';
+  #      compression = "auto,zstd,10";
+  #      #ssh_command = "ssh -o GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path} -i ${config.age.secrets.picardResticSSHKey.path}";
+  #      keep_hourly = 24;
+  #      keep_daily = 7;
+  #      keep_weekly = 4;
+  #      keep_monthly = 12;
+  #      keep_yearly = 10;
+  #      #        before_backup = [
+  #      #          (pkgs.writeShellScript
+  #      #            "apfsSnapshot"
+  #      #            ''
+  #      #              tmutil localsnapshot
+  #      #              SNAPSHOT=$(tmutil listlocalsnapshots / | grep TimeMachine | tail -n 1)
+  #      #              mkdir -p "${tmMountPath}"
+  #      #              mount_apfs -s $SNAPSHOT /System/Volumes/Data "${tmMountPath}"
+  #      #            '')
+  #      #        ];
+  #      #        after_backup = [
+  #      #          (pkgs.writeShellScript
+  #      #            "apfsSnapshotUnmount"
+  #      #            ''
+  #      #              diskutil unmount "${tmMountPath}"
+  #      #              SNAPSHOT=$(tmutil listlocalsnapshots / | grep TimeMachine | tail -n 1)
+  #      #              tmutil deletelocalsnapshots $(echo $SNAPSHOT | sed 's/com\.apple\.TimeMachine\.\(.*\)\.local/\1/g')
+  #      #            '')
+  #      #        ];
+  #      #        on_error = [
+  #      #
+  #      #          (pkgs.writeShellScript
+  #      #            "apfsSnapshotUnmountError"
+  #      #            ''
+  #      #              diskutil unmount "${tmMountPath}"
+  #      #            '')
+  #      #        ];
+  #    };
 
-    };
+  #  };
 
-  programs.gnupg.agent.enable = lib.mkForce false;
   home-manager.users.xyno = { pkgs, lib, inputs, config, ... }:
     {
-      ragon.nvim.maximal = true;
+      imports = [
+        ../../hm-modules/nvim
+        ../../hm-modules/tmux
+        ../../hm-modules/vscode
+        ../../hm-modules/xonsh
+        ../../cli.nix
+        ../../files.nix
+      ];
+      ragon.nvim.maximal = false;
 
       home.file.".hammerspoon/init.lua".source =
         let
@@ -134,7 +141,6 @@ with lib.my;
           src = ./hammerspoon.lua; inherit notmuchMails;
         };
       home.file.".hammerspoon/Spoons/MiroWindowsManager.spoon".source = "${inputs.miro}/MiroWindowsManager.spoon";
-      home.file.".finicky.js".source = ./finicky.js;
 
       ragon.vscode.enable = true;
       ragon.xonsh.enable = true;
@@ -150,8 +156,6 @@ with lib.my;
         EDITOR = "nvim";
         VISUAL = "nvim";
         COLORTERM = "truecolor"; # emacs tty fix
-        PATH = "$PATH:$HOME/go/bin:$HOME/development/flutter/bin:/Applications/Android Studio.app/Contents/bin/:/Applications/Docker.app/Contents/Resources/bin:/Applications/Android Studio.app/Contents/jre/Contents/Home/bin";
-        # JAVA_HOME = "/Applications/Android Studio.app/Contents/jre/Contents/Home/";
       };
       home.packages = with pkgs; [
         mosh
@@ -164,37 +168,7 @@ with lib.my;
         pandoc
         micromamba
 
-        #unstable.qutebrowser
-        #unstable.python311Packages.adblock
-
       ];
-
-      # home.activation = {
-      #   aliasApplications =
-      #     let
-      #       apps = pkgs.buildEnv {
-      #         name = "home-manager-applications";
-      #         paths = config.home.packages;
-      #         pathsToLink = "/Applications";
-      #       };
-      #     in
-      #     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      #       # Install MacOS applications to the user environment.
-      #       HM_APPS="$HOME/Applications/Home Manager Apps"
-
-      #       # Reset current state
-      #       [ -e "$HM_APPS" ] && $DRY_RUN_CMD rm -r "$HM_APPS"
-      #       $DRY_RUN_CMD mkdir -p "$HM_APPS"
-
-      #       # .app dirs need to be actual directories for Finder to detect them as Apps.
-      #       # The files inside them can be symlinks though.
-      #       $DRY_RUN_CMD cp --recursive --symbolic-link --no-preserve=mode -H ${apps}/Applications/* "$HM_APPS" || true # can fail if no apps exist
-      #       # Modes need to be stripped because otherwise the dirs wouldn't have +w,
-      #       # preventing us from deleting them again
-      #       # In the env of Apps we build, the .apps are symlinks. We pass all of them as
-      #       # arguments to cp and make it dereference those using -H
-      #     '';
-      # };
 
     };
 

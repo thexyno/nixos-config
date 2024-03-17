@@ -3,7 +3,7 @@ let
   cfg = config.ragon.vscode;
   #marketplace = inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace;
   #marketplace-release = inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace-release;
-  marketplace = (import ../../data/vscode-extensions.nix { inherit pkgs lib; });
+  marketplace = (import ./vscode-extensions.nix { inherit pkgs lib; });
 
 in
 {

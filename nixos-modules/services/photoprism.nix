@@ -7,10 +7,10 @@ let
 in
 {
   options.ragon.services.photoprism.enable = mkEnableOption "Enables the hedgedoc BitWarden Server";
-  options.ragon.services.photoprism.domainPrefix =
-    mkOption {
+  options.ragon.services.photoprism.location =
+    lib.mkOption {
       type = lib.types.str;
-      default = "photos";
+      default = "http://127.0.0.1:${toString config.ragon.services.photoprism.port}";
     };
   options.ragon.services.photoprism.port =
     mkOption {
@@ -31,12 +31,6 @@ in
       ];
     };
     ragon.agenix.secrets.photoprismEnv.owner = "root";
-    services.nginx.virtualHosts."${cfg.domainPrefix}.${domain}" = {
-      forceSSL = true;
-      useACMEHost = "${domain}";
-      locations."/".proxyWebsockets = true;
-      locations."/".proxyPass = "http://127.0.0.1:${cfg.port}";
-    };
     ragon.persist.extraDirectories = [
       "/var/lib/photoprism"
     ];
