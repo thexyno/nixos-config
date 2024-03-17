@@ -184,15 +184,27 @@ in
     '';
   };
 
+  home-manager.users.ragon = { pkgs, lib, inputs, config, ...}: {
+      imports = [
+        ../../hm-modules/nvim
+        ../../hm-modules/tmux
+        ../../hm-modules/xonsh
+        ../../hm-modules/cli.nix
+        ../../hm-modules/files.nix
+      ];
+      ragon.xonsh.enable = true;
+
+      programs.home-manager.enable = true;
+      home.stateVersion = "23.11";
+  };
+
   ragon = {
     agenix.secrets."ionos" = { };
-    cli.enable = true;
     user.enable = true;
     persist.enable = true;
     persist.extraDirectories = [ "/var/lib/syncthing" config.services.plex.dataDir "/var/lib/minecraft" "/var/lib/bzzt" ];
 
     services = {
-      docker.enable = true;
       samba.enable = true;
       samba.shares = {
         TimeMachine = {
@@ -220,7 +232,6 @@ in
       tailscale.enable = true;
       tailscale.exitNode = true;
       tailscale.extraUpCommands = "--advertise-routes=10.0.0.0/16";
-      grafana.enable = true;
       libvirt.enable = true;
       paperless.enable = true;
     };

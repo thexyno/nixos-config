@@ -125,10 +125,9 @@ with lib.my;
         ../../hm-modules/tmux
         ../../hm-modules/vscode
         ../../hm-modules/xonsh
-        ../../cli.nix
-        ../../files.nix
+        ../../hm-modules/cli.nix
+        ../../hm-modules/files.nix
       ];
-      ragon.nvim.maximal = false;
 
       home.file.".hammerspoon/init.lua".source =
         let
@@ -160,14 +159,8 @@ with lib.my;
       home.packages = with pkgs; [
         mosh
 
-        nodePackages.pyright
-        nodejs
-
-        cmake
-
         pandoc
         micromamba
-
       ];
 
     };

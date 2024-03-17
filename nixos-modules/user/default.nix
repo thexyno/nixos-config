@@ -49,6 +49,8 @@ in
   config = lib.mkIf cfg.enable {
     # Let ~/bin/ be in $PATH
     environment.homeBinInPath = true;
+    ragon.persist.extraDirectories = [ "/home/${username}" ];
+    programs.zsh.enable = true;
 
     # Define my user account
     users.extraUsers.${username} = {

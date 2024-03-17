@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }: {
   ragon.agenix.secrets."ds9OffsiteBackupSSH" = { };
   ragon.agenix.secrets."ds9SyncoidHealthCheckUrl" = { };
   ragon.agenix.secrets."gatebridgeHostKeys" = { };
