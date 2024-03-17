@@ -7,12 +7,6 @@ in {
   ragon.agenix.secrets."plausibleGoogleClientId" = { };
   ragon.agenix.secrets."plausibleGoogleClientSecret" = { };
   ragon.agenix.secrets."smtpPassword" = { };
-  services.nginx.virtualHosts.${domain} = {
-    forceSSL = true;
-    enableACME = true;
-    locations."/".proxyPass =
-      "http://127.0.0.1:${toString config.services.plausible.server.port}";
-  };
   systemd.services.plausible.serviceConfig.LoadCredential = [
     "GOOGLE_CLIENT_ID:${config.age.secrets.plausibleGoogleClientId.path}"
     "GOOGLE_CLIENT_SECRET:${config.age.secrets.plausibleGoogleClientSecret.path}"

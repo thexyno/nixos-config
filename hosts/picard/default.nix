@@ -11,6 +11,17 @@
       ./hardware-configuration.nix
       ./xynospace-matrix.nix
       ./plausible.nix
+
+      ../../nixos-modules/system/persist.nix
+      ../../nixos-modules/system/fs.nix
+      ../../nixos-modules/system/security.nix
+      ../../nixos-modules/services/ssh.nix
+      ../../nixos-modules/services/msmtp.nix
+      ../../nixos-modules/services/bitwarden.nix
+      ../../nixos-modules/networking/tailscale.nix
+      ../../nixos-modules/services/authelia.nix
+      ../../nixos-modules/services/hedgedoc.nix
+      ../../nixos-modules/services/ts3.nix
     ];
 
   documentation.enable = false;
@@ -48,12 +59,6 @@
   services.caddy = {
     logFormat = "level INFO";
     enable = true;
-    package = (pkgs.callPackage ./custom-caddy.nix {
-      externalPlugins = [
-        { name = "desec"; repo = "github.com/caddy-dns/desec"; version = "e1e64971fe34c29ce3f4176464adb84d6890aa50"; }
-      ];
-      vendorHash = "sha256-WWMR4ZpUcDmIv355LBuN5TqVfiCc0+Byxw8LnYei4fs=";
-    });
     globalConfig = ''
       acme_dns desec {
         token "{$TOKEN}"
@@ -238,24 +243,36 @@
   services.xynoblog.enable = true;
   services.lolpizza2.enable = true;
   programs.mosh.enable = true;
+
+  home-manager.users.ragon = { pkgs, lib, inputs, config, ...}: {
+      imports = [
+        ../../hm-modules/nvim
+        ../../hm-modules/zsh
+        ../../hm-modules/tmux
+        ../../hm-modules/xonsh
+        ../../hm-modules/cli.nix
+        ../../hm-modules/files.nix
+      ];
+      ragon.xonsh.enable = true;
+
+      programs.home-manager.enable = true;
+      home.stateVersion = "23.11";
+  };
+
   ragon = {
-    cli.enable = true;
     user.enable = true;
     persist.enable = true;
     persist.extraDirectories = [ "/srv/www" config.services.caddy.dataDir "/var/lib/syncthing" "/var/lib/${config.services.xynoblog.stateDirectory}" "/var/lib/postgresql" config.services.forgejo.stateDir ];
 
     services = {
+      caddy.enable = true;
       ssh.enable = true;
       msmtp.enable = true;
       bitwarden.enable = true;
-      synapse.enable = false;
       tailscale.enable = true;
       hedgedoc.enable = true;
       authelia.enable = true;
       ts3.enable = true;
-      nginx.enable = false;
-      nginx.domain = "ragon.xyz";
-      nginx.domains = [ "xyno.space" "xyno.systems" "czi.dating" ];
     };
 
   };

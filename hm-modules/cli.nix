@@ -28,6 +28,7 @@
     vim = "nvim";
     gpl = "git pull";
     gp = "git push";
+    gpf = "git push --force-with-lease";
     gd = "git diff";
     lg = "lazygit";
     gc = "git commit -v";

@@ -28,6 +28,8 @@ let
         })
       ];
     };
+
+    aliasesJson = pkgs.writeText "shell-aliases.json" (builtins.toJSON config.home.shellAliases);
 in
 {
   options.ragon.xonsh.enable = lib.mkOption { default = false; };
@@ -41,6 +43,11 @@ in
       $PROMPT_FIELDS['sshhostname'] = lambda: f"{$PROMPT_FIELDS['user']}@{$PROMPT_FIELDS['hostname']}" if "SSH_TTY" in ''${...} else $PROMPT_FIELDS['rootuser']()
       $PROMPT = '{gitstatus:{RESET}[{}{RESET}] }{sshhostname:{} }{BOLD_GREEN}{short_cwd}{RED}{last_return_code_if_nonzero: [{BOLD_INTENSE_RED}{}{RED}] }{RESET}{BOLD_BLUE}{RESET}> '
       $VI_MODE = True
+
+
+      with open("${aliasesJson}") as f_in:
+        import json
+        aliases |= json.load(f_in)
 
       # https://xon.sh/xonshrc.html?highlight=nix#use-the-nix-package-manager-with-xonsh
       import os.path
