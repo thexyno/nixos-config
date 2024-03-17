@@ -18,6 +18,7 @@ caddy.override {
 
       plugins = [
         "github.com/caddy-dns/ionos@751e8e24162290ee74bea465ae733a2bf49551a6"
+        "github.com/caddy-dns/desec@e1e64971fe34c29ce3f4176464adb84d6890aa50"
       ];
 
       configurePhase = ''
@@ -36,7 +37,7 @@ caddy.override {
         cp -r --reflink=auto . $out
       '';
 
-      outputHash = "sha256-QsGrtpBJ9b2Nn3i5mUHYA60481ceTJDeCRl0qL6OWlE=";
+      outputHash = "sha256-r+FDV9mYhcMyysjMk91O6MIbsBkDMwvK4H1KGQ5ZrV8=";
       outputHashMode = "recursive";
     };
 

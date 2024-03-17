@@ -19,6 +19,7 @@ in
       ../../nixos-modules/services/photoprism.nix
       ../../nixos-modules/services/samba.nix
       ../../nixos-modules/services/ssh.nix
+      ../../nixos-modules/services/caddy
       ../../nixos-modules/system/agenix.nix
       ../../nixos-modules/system/fs.nix
       ../../nixos-modules/system/persist.nix
@@ -152,9 +153,7 @@ in
   };
 
   systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.ionos.path;
-  services.caddy = {
-    enable = true;
-    package = caddy-with-plugins;
+  services.caddy = { # ragon.services.caddy is enabled
     globalConfig = ''
       acme_dns ionos {
         api_token "{$IONOS_API_KEY}"
@@ -205,6 +204,7 @@ in
     persist.extraDirectories = [ "/var/lib/syncthing" config.services.plex.dataDir "/var/lib/minecraft" "/var/lib/bzzt" ];
 
     services = {
+      caddy.enable = true;
       samba.enable = true;
       samba.shares = {
         TimeMachine = {
