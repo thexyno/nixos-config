@@ -119,6 +119,23 @@ in
         api_token "{$IONOS_API_KEY}"
       }
     '';
+    virtualHosts."http://*.hailsatan.eu".extraConfig = ''
+      @bzzt-api host bzzt-api.hailsatan.eu
+      handle @bzzt-api {
+        reverse_proxy http://127.0.0.1:5001
+      }
+      @bzzt-lcg host bzzt-lcg.hailsatan.eu
+      handle @bzzt-lcg {
+        reverse_proxy http://127.0.0.1:5003
+      }
+      @bzzt host bzzt.hailsatan.eu
+      handle @bzzt {
+        reverse_proxy http://127.0.0.1:5002
+      }
+      handle {
+        abort
+      }
+    '';
     virtualHosts."*.hailsatan.eu".extraConfig = ''
       @paperless host paperless.hailsatan.eu
       handle @paperless {

@@ -24,7 +24,9 @@ with lib.my;
     ];
     casks = [
       "hammerspoon"
+      "kicad"
       "android-platform-tools"
+      "nheko"
       "raycast"
       "ukelele"
       #      "homebrew/cask-drivers/zsa-wally"
@@ -45,6 +47,9 @@ with lib.my;
       "temurin"
       "whisky"
       "dbeaver-community"
+
+      "qutebrowser" # rly want to switch to it
+      "dmenu-mac"
 
     ];
     #masApps = {
@@ -161,6 +166,9 @@ with lib.my;
 
         pandoc
         micromamba
+
+        bitwarden-cli
+        rustup
       ];
 
     };
