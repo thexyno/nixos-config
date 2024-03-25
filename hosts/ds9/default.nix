@@ -45,7 +45,7 @@ in
   networking.useDHCP = true;
   networking.bridges."br0".interfaces = [ ];
   networking.hostId = "7b4c2932";
-  networking.firewall.allowedTCPPorts = [ 9000 25565 ];
+  networking.firewall.allowedTCPPorts = [ 9000 25565 80 443 ];
   boot.initrd.network = {
     enable = true;
     postCommands = ''
