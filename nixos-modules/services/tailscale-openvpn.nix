@@ -37,8 +37,8 @@ with lib;
           cfg.config
         );
         containers = imap0
-          (i: v: {
-            name = v.name;
+          (i: name: {
+            name = name;
             value = {
               autoStart = true;
               ephemeral = true;
@@ -51,9 +51,9 @@ with lib;
                 "/run/agenix.d" = { hostPath = "/run/agenix.d"; isReadOnly = true; };
               };
               config = {
-                services.openvpn.servers.${v.name} = {
+                services.openvpn.servers.${name} = {
                   config = ''
-                    config ${v.value}
+                    config ${cfg.config.${name}}
                   '';
                   up = "echo nameserver $nameserver | ${pkgs.openresolv}/sbin/resolvconf -m 0 -a $dev";
                   down = "${pkgs.openresolv}/sbin/resolvconf -d $dev";
@@ -69,7 +69,7 @@ with lib;
 
             };
           })
-          (nameValuePair cfg.config);
+          (builtins.attrNames cfg.config);
 
 
 
