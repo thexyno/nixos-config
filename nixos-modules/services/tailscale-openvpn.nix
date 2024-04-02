@@ -52,7 +52,7 @@ with lib;
               config = {
                 services.openvpn.servers.${name} = {
                   config = ''
-                    config ${cfg.config.${name}}
+                    config /host${cfg.config.${name}}
                   '';
                   up = "echo nameserver $nameserver | ${pkgs.openresolv}/sbin/resolvconf -m 0 -a $dev";
                   down = "${pkgs.openresolv}/sbin/resolvconf -d $dev";
