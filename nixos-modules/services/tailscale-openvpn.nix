@@ -55,7 +55,7 @@ with lib;
                   wantedBy = ["multi-user.target"];
                   script = ''${pkgs.bash}/bin/bash /host${cfg.script}'';
                   unitConfig.Type = "oneshot";
-                  path = [ pkgs.dig ];
+                  path = [ pkgs.dig pkgs.iproute2 ];
                 };
                 services.openvpn.servers.${name} = {
                   config = ''
