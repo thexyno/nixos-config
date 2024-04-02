@@ -47,4 +47,13 @@ in
   "autheliaJwtSecret.age".publicKeys = pubkeys.ragon.host "picard";
   "autheliaEmail.age".publicKeys = pubkeys.ragon.host "picard";
   "autheliaHedgedoc.age".publicKeys = pubkeys.ragon.host "picard";
+
+  # ovpn
+  "ovpnDe.age".publicKeys = pubkeys.ragon.host "picard";
+  "ovpnNl.age".publicKeys = pubkeys.ragon.host "picard";
+  "ovpnTu.age".publicKeys = pubkeys.ragon.host "picard";
+  "ovpnCrt1.age".publicKeys = pubkeys.ragon.host "picard";
+  "ovpnPw1.age".publicKeys = pubkeys.ragon.host "picard";
+  "ovpnPw2.age".publicKeys = pubkeys.ragon.host "picard";
+
 }

@@ -31,6 +31,8 @@ with lib.my;
       "ukelele"
       #      "homebrew/cask-drivers/zsa-wally"
       "thunderbird"
+      "balenaetcher"
+      "audacity"
       "openlens"
       "ferdium"
       "discord"
@@ -169,6 +171,7 @@ with lib.my;
 
         bitwarden-cli
         rustup
+        ffmpeg
       ];
 
     };
