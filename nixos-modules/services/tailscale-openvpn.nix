@@ -61,9 +61,10 @@ with lib;
                   enable = true;
                   useRoutingFeatures = "server";
                   extraUpFlags = [ "--advertise-exit-node" ];
-                  authKeyFile = cfg.tsAuthKey;
+                  authKeyFile = "/host${cfg.tsAuthKey}";
                   openFirewall = true;
                 };
+                system.stateVersion = "23.11";
               };
 
             })
