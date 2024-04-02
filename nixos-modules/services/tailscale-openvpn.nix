@@ -51,6 +51,7 @@ with lib;
                 "/run/agenix.d" = { hostPath = "/run/agenix.d"; isReadOnly = true; };
               };
               config = {
+                networking.nameservers = [ "9.9.9.9" ];
                 systemd.services.ovpnScript = {
                   wantedBy = ["multi-user.target"];
                   script = ''${pkgs.bash}/bin/bash /host${cfg.script}'';
