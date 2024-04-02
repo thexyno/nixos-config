@@ -27,15 +27,7 @@ with lib;
           cfg.config);
         networking.interfaces = {
           ${bridgeExt}.ipv4.addresses = [{ address = "192.168.129.1"; prefixLength = 24; }];
-        } // (optionalAttrs cfg.bridges
-          (mapAttrs
-            (server: _: {
-              name = bridge server;
-              value = { ipv4.addresses = [ ]; };
-            })
-            cfg.config
-          )
-        );
+        };
 
         networking.nat = {
           enable = true;
