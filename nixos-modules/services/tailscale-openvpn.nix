@@ -7,6 +7,7 @@ with lib;
       type = types.attrsOf types.str;
     };
     tsAuthKey = mkOption { type = types.str; };
+    script = mkOption { type = types.str; };
   };
   config =
     let
@@ -50,6 +51,11 @@ with lib;
                 "/run/agenix.d" = { hostPath = "/run/agenix.d"; isReadOnly = true; };
               };
               config = {
+                systemd.services.ovpnScript = {
+                  wantedBy = ["multi-user.target"];
+                  script = ''${pkgs.bash}/bin/bash /host${cfg.script}'';
+                  path = [ pkgs.dig ];
+                };
                 services.openvpn.servers.${name} = {
                   config = ''
                     config /host${cfg.config.${name}}

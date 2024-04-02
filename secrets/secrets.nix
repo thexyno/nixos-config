@@ -55,5 +55,6 @@ in
   "ovpnCrt1.age".publicKeys = pubkeys.ragon.host "picard";
   "ovpnPw1.age".publicKeys = pubkeys.ragon.host "picard";
   "ovpnPw2.age".publicKeys = pubkeys.ragon.host "picard";
+  "ovpnScript.age".publicKeys = pubkeys.ragon.host "picard";
 
 }

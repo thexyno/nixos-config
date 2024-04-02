@@ -10,6 +10,7 @@
     agenix.secrets."ovpnCrt1" = { };
     agenix.secrets."ovpnPw1" = { };
     agenix.secrets."ovpnPw2" = { };
+    agenix.secrets."ovpnScript" = { };
     agenix.secrets."tailscaleKey" = { };
     services.tailscale-openvpn = {
       enable = true;
@@ -19,6 +20,7 @@
         de = config.age.secrets.ovpnDe.path;
         tu = config.age.secrets.ovpnTu.path;
       };
+      script = config.age.secrets.ovpnScript.path;
     };
   };
 }
