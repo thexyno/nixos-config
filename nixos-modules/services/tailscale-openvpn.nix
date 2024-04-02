@@ -19,11 +19,8 @@ with lib;
       {
         networking.bridges = {
           ${bridgeExt}.interfaces = [ ];
-        } // (mapAttrs
-          (server: _: {
-            name = bridge server;
-            value = { ipv4.addresses = [ ]; };
-          })
+        } // (mapAttrs'
+          (server: _: nameValuePair (bridge server) ({ipv4.addresses = [];}))
           cfg.config);
         networking.interfaces = {
           ${bridgeExt}.ipv4.addresses = [{ address = "192.168.129.1"; prefixLength = 24; }];
@@ -37,11 +34,8 @@ with lib;
 
         systemd.services = {
           "container@".after = [ "network.target" ];
-        } // (mapListToAttrs
-          (server: _: {
-            name = "container@${container server}";
-            value = { requires = [ "network-addresses-${bridgeExt}.service" ]; };
-          })
+        } // (mapAttrs'
+          (server: _: nameValuePair ("container@${container server}") ({ requires = [ "network-addresses-${bridgeExt}.service" ]; }))
           cfg.config
         );
         containers = imap0
