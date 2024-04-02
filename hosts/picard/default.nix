@@ -11,6 +11,7 @@
       ./hardware-configuration.nix
       ./xynospace-matrix.nix
       ./plausible.nix
+      ./ts-ovpn.nix
 
       ../../nixos-modules/system/persist.nix
       ../../nixos-modules/system/agenix.nix
@@ -24,7 +25,6 @@
       ../../nixos-modules/services/authelia.nix
       ../../nixos-modules/services/hedgedoc.nix
       ../../nixos-modules/services/ts3.nix
-      ../../nixos-modules/services/tailscale-openvpn.nix
       ../../nixos-modules/user
     ];
 
@@ -264,14 +264,6 @@
   };
 
   ragon = {
-
-    agenix.secrets."ovpnNl" = { };
-    agenix.secrets."ovpnDe" = { };
-    agenix.secrets."ovpnTu" = { };
-    agenix.secrets."ovpnCrt1" = { };
-    agenix.secrets."ovpnPw1" = { };
-    agenix.secrets."ovpnPw2" = { };
-    agenix.secrets."tailscaleKey" = { };
     user.enable = true;
     persist.enable = true;
     persist.extraDirectories = [ "/var/lib/nixos-containers" "/srv/www" config.services.caddy.dataDir "/var/lib/syncthing" "/var/lib/${config.services.xynoblog.stateDirectory}" "/var/lib/postgresql" config.services.forgejo.stateDir ];
@@ -285,16 +277,6 @@
       hedgedoc.enable = true;
       authelia.enable = true;
       ts3.enable = true;
-      tailscale-openvpn = {
-        enable = true;
-        tsAuthKey = config.age.secrets.tailscaleKey.path;
-        config = {
-          nl = config.age.secrets.ovpnNl.path;
-          de = config.age.secrets.ovpnDe.path;
-          tu = config.age.secrets.ovpnTu.path;
-        };
-      };
-
     };
 
   };
