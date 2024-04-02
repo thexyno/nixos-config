@@ -18,7 +18,7 @@ with lib;
     mkIf cfg.enable
       {
         networking.bridges = {
-          ${bridgeExt}.interfaces = { };
+          ${bridgeExt}.interfaces = [ ];
         } // (mapAttrs
           (server: _: {
             name = bridge server;
