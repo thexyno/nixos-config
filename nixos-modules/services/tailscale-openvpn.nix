@@ -36,10 +36,9 @@ with lib;
           (server: _: nameValuePair ("container@${container server}") ({ requires = [ "network-addresses-${bridgeExt}.service" ]; }))
           cfg.config
         );
-        containers = imap0
-          (i: name: {
-            name = name;
-            value = {
+        containers = builtins.listToAttrs (imap0
+          (i: name: nameValuePair name
+            {
               autoStart = true;
               ephemeral = true;
               enableTun = true;
@@ -67,9 +66,8 @@ with lib;
                 };
               };
 
-            };
-          })
-          (builtins.attrNames cfg.config);
+            })
+          (builtins.attrNames cfg.config));
 
 
 
