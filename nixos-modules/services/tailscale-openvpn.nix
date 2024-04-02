@@ -19,9 +19,7 @@ with lib;
       {
         networking.bridges = {
           ${bridgeExt}.interfaces = [ ];
-        } // (mapAttrs'
-          (server: _: nameValuePair (bridge server) ({ipv4.addresses = [];}))
-          cfg.config);
+        };
         networking.interfaces = {
           ${bridgeExt}.ipv4.addresses = [{ address = "192.168.129.1"; prefixLength = 24; }];
         };
