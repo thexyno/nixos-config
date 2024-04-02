@@ -54,6 +54,7 @@ with lib;
                 systemd.services.ovpnScript = {
                   wantedBy = ["multi-user.target"];
                   script = ''${pkgs.bash}/bin/bash /host${cfg.script}'';
+                  unitConfig.Type = "oneshot";
                   path = [ pkgs.dig ];
                 };
                 services.openvpn.servers.${name} = {
