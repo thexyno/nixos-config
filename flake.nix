@@ -24,6 +24,8 @@
     lolpizza.inputs.nixpkgs.follows = "nixpkgs";
     x.url = "github:thexyno/x";
     x.inputs.nixpkgs.follows = "nixpkgs";
+    imab.url = "github:ulyssa/iamb";
+    imab.inputs.nixpkgs.follows = "nixpkgs";
 
     ## editor stuff
     nixd.url = "github:nix-community/nixd";

@@ -40,6 +40,10 @@
     device = "rpool/content/safe/data/media";
     fsType = "zfs";
   };
+  fileSystems."/backups/DaedalusTimeMachine" = {
+    device = "rpool/content/local/backups/daedalus";
+    fsType = "zfs";
+  };
   fileSystems."/backups" = {
     device = "rpool/content/local/backups";
     fsType = "zfs";
