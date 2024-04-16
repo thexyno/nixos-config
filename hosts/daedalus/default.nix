@@ -21,8 +21,14 @@ with lib.my;
       "docker-compose"
       "leoafarias/fvm/fvm" # flutter version manager
       "cocoapods" # flutter/other ios shit
+
+      "borgbackup" # time machine can eat my ass
     ];
     casks = [
+      "plexamp"
+      "vorta" # (borgbackup GUI) time machine can eat my ass
+      "grandperspective"
+      "xquartz"
       "hammerspoon"
       "kicad"
       "android-platform-tools"
@@ -36,7 +42,6 @@ with lib.my;
       "openlens"
       "ferdium"
       "discord"
-      "finicky"
       "vlc"
       "rectangle"
       "floorp"
@@ -167,6 +172,8 @@ with lib.my;
         mosh
 
         pandoc
+        tectonic
+
         micromamba
 
         bitwarden-cli

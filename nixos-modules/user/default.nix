@@ -56,7 +56,7 @@ in
     users.extraUsers.${username} = {
       isNormalUser = true;
       uid = uid;
-      extraGroups = [ "wheel" ] ++ extraGroups;
+      extraGroups = [ "wheel" "cdrom" ] ++ extraGroups;
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = pubkeys.ragon.user ++ extraAuthorizedKeys;
       hashedPasswordFile = config.age.secrets.ragonPasswd.path;
