@@ -7,6 +7,7 @@
       ../../nixos-modules/networking/tailscale.nix
       ../../nixos-modules/services/ssh.nix
       ../../nixos-modules/system/agenix.nix
+      ../../nixos-modules/system/persist.nix
       ../../nixos-modules/user
     ];
 
