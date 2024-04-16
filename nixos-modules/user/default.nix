@@ -47,6 +47,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+
+    imports = [
+      "../system/persist.nix"
+    ];
     # Let ~/bin/ be in $PATH
     environment.homeBinInPath = true;
     ragon.persist.extraDirectories = [ "/home/${username}" ];

@@ -13,7 +13,7 @@ let
       hosts = {
         ds9 = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ+BBXufXAJhyUHVfhqlk8Y4zEKJbKXgJQvsdE482lpV" ];
         picard = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAm3UXZaN95WBUaS9SiHLNEuI1tP1x1w07qnYxPe+vdr" ];
-        daedalusvm = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKJCNGGsnAPPmhQnEMBWJulM2pi3pw/tdX1vi3l6cRky" ];
+        voyager = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBntmqiQPd0AvlWZdSXsby+iTcbEYt0oUBT/9fmHZ81a" ];
         octopi = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+0/lwNc/KN8LrS3KvDCuuipQokO+7qELfksepJXz6a" ];
         beliskner = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJumJeu6QjTUan7UiRkH7EAEcMXZSky4UsW1bci24hfM" ];
       };
