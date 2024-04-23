@@ -35,6 +35,7 @@ with lib.my;
       "nheko"
       "raycast"
       "ukelele"
+      "imhex"
       #      "homebrew/cask-drivers/zsa-wally"
       "thunderbird"
       "balenaetcher"
