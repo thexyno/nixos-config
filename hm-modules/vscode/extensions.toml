@@ -1,4 +1,4 @@
-vscode_version = "1.86.2"
+vscode_version = "1.88.0"
 
 [[extensions]]
 publisher_name = "vscodevim"

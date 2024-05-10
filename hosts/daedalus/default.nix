@@ -22,6 +22,7 @@ with lib.my;
       "leoafarias/fvm/fvm" # flutter version manager
       "cocoapods" # flutter/other ios shit
 
+      "butane"
       "borgbackup" # time machine can eat my ass
     ];
     casks = [
