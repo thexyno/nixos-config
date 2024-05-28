@@ -75,6 +75,8 @@ in
       _sys.modules["xontrib.mamba"] = _mod
       del _sys, _mod, _ModuleType
       # <<< mamba initialize <<<
+      execx($(mise activate xonsh))
+
     '';
     programs.vscode.userSettings."terminal.integrated.profiles.osx" = {
       xonsh = {

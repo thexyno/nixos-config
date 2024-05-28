@@ -10,7 +10,7 @@ in
   options.ragon.vscode.enable = lib.mkOption { default = false; };
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      nixd
+      #nixd
       nixpkgs-fmt
       (unstable.quarto.overrideAttrs (curr: { meta.platforms = [ pkgs.system ]; }))
     ];

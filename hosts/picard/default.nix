@@ -60,6 +60,7 @@
 
   systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.desec.path;
   networking.firewall.allowedTCPPorts = [ 80 443 config.services.forgejo.settings.server.SSH_PORT ];
+  networking.firewall.allowedUDPPorts = [ 443 ];
   services.caddy = {
     logFormat = "level INFO";
     enable = true;
