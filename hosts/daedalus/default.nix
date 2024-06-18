@@ -74,6 +74,8 @@ with lib.my;
     #  "Tailscale" = 1475387142;
     #};
   };
+    nix.configureBuildUsers = true;
+    ids.uids.nixbld = lib.mkForce 400; 
 
   environment.pathsToLink = [ "/share/fish" ];
 
@@ -139,6 +141,9 @@ with lib.my;
         ../../hm-modules/tmux
         ../../hm-modules/vscode
         ../../hm-modules/xonsh
+        ../../hm-modules/helix
+        ../../hm-modules/zellij
+        ../../hm-modules/nushell
         ../../hm-modules/cli.nix
         ../../hm-modules/files.nix
       ];
@@ -156,7 +161,9 @@ with lib.my;
       home.file.".hammerspoon/Spoons/MiroWindowsManager.spoon".source = "${inputs.miro}/MiroWindowsManager.spoon";
 
       ragon.vscode.enable = true;
-      ragon.xonsh.enable = true;
+      ragon.helix.enable = true;
+      ragon.nushell.enable = true;
+      ragon.zellij.enable = true;
 
       programs.home-manager.enable = true;
       home.stateVersion = "23.11";
@@ -166,8 +173,8 @@ with lib.my;
       #  vv = lib.mkForce "emacsclient -c";
       #};
       home.sessionVariables = {
-        EDITOR = "nvim";
-        VISUAL = "nvim";
+        # EDITOR = "nvim";
+        # VISUAL = "nvim";
         COLORTERM = "truecolor"; # emacs tty fix
       };
       home.packages = with pkgs; [
