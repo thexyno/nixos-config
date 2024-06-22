@@ -178,11 +178,19 @@ in
     home.stateVersion = "23.11";
   };
 
+  # begin kube
+  services.k3s = {
+    enable = true;
+    extraFlags = "--disable=traefik --cluster-cidr 10.42.0.0/16,2001:cafe:42::/56 --service-cidr=10.43.0.0/16,2001:cafe:43::/112 --vpn-auth-file=/persistent/tailscale-auth-file";
+  };
+  systemd.services.k3s.path =  [pkgs.tailscale pkgs.coreutils pkgs.bash];
+  # end kube
+
   ragon = {
     agenix.secrets."ionos" = { };
     user.enable = true;
     persist.enable = true;
-    persist.extraDirectories = [ "/var/lib/syncthing" config.services.plex.dataDir "/var/lib/minecraft" "/var/lib/bzzt" ];
+    persist.extraDirectories = [ "/var/lib/syncthing" config.services.plex.dataDir "/var/lib/minecraft" "/var/lib/bzzt" "/var/lib/rancher" "/etc/rancher" ];
 
     services = {
       caddy.enable = true;
