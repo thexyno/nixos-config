@@ -6,6 +6,8 @@ in
   options.ragon.helix.enable = lib.mkOption { default = false; };
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      jsonnet-language-server
+      jsonnet
       nixpkgs-fmt
       ## ts
       typescript
