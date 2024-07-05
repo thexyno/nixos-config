@@ -254,11 +254,9 @@
       ../../hm-modules/nvim
       ../../hm-modules/zsh
       ../../hm-modules/tmux
-      ../../hm-modules/xonsh
       ../../hm-modules/cli.nix
       ../../hm-modules/files.nix
     ];
-    ragon.xonsh.enable = true;
 
     programs.home-manager.enable = true;
     home.stateVersion = "23.11";
