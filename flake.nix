@@ -16,6 +16,10 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # programs
     xynoblog.url = "github:thexyno/blog";
@@ -29,33 +33,33 @@
     helix.url = "github:helix-editor/helix";
 
     ## editor stuff
-    nixd.url = "github:nix-community/nixd";
-    nixd.inputs.nixpkgs.follows = "nixpkgs";
+    # nixd.url = "github:nix-community/nixd";
+    # nixd.inputs.nixpkgs.follows = "nixpkgs";
 
 
     ## vim
-    nnn-nvim.url = "github:luukvbaal/nnn.nvim";
-    nnn-nvim.flake = false;
-    notify-nvim.url = "github:rcarriga/nvim-notify";
-    notify-nvim.flake = false;
-    noice-nvim.url = "github:folke/noice.nvim";
-    noice-nvim.flake = false;
+    # nnn-nvim.url = "github:luukvbaal/nnn.nvim";
+    # nnn-nvim.flake = false;
+    # notify-nvim.url = "github:rcarriga/nvim-notify";
+    # notify-nvim.flake = false;
+    # noice-nvim.url = "github:folke/noice.nvim";
+    # noice-nvim.flake = false;
 
-    ## zsh
-    zsh-completions.url = "github:zsh-users/zsh-completions";
-    zsh-completions.flake = false;
-    zsh-syntax-highlighting.url = "github:zsh-users/zsh-syntax-highlighting/master";
-    zsh-syntax-highlighting.flake = false;
-    zsh-vim-mode.url = "github:softmoth/zsh-vim-mode";
-    zsh-vim-mode.flake = false;
-    agkozak-zsh-prompt.url = "github:agkozak/agkozak-zsh-prompt";
-    agkozak-zsh-prompt.flake = false;
+    # ## zsh
+    # zsh-completions.url = "github:zsh-users/zsh-completions";
+    # zsh-completions.flake = false;
+    # zsh-syntax-highlighting.url = "github:zsh-users/zsh-syntax-highlighting/master";
+    # zsh-syntax-highlighting.flake = false;
+    # zsh-vim-mode.url = "github:softmoth/zsh-vim-mode";
+    # zsh-vim-mode.flake = false;
+    # agkozak-zsh-prompt.url = "github:agkozak/agkozak-zsh-prompt";
+    # agkozak-zsh-prompt.flake = false;
 
-    ## xonsh
-    xonsh-fish-completer.url = "github:xonsh/xontrib-fish-completer";
-    xonsh-fish-completer.flake = false;
-    xonsh-direnv.url = "github:74th/xonsh-direnv";
-    xonsh-direnv.flake = false;
+    # ## xonsh
+    # xonsh-fish-completer.url = "github:xonsh/xontrib-fish-completer";
+    # xonsh-fish-completer.flake = false;
+    # xonsh-direnv.url = "github:74th/xonsh-direnv";
+    # xonsh-direnv.flake = false;
 
     ## hammerspoon
     miro.url = "github:miromannino/miro-windows-manager";
@@ -83,7 +87,7 @@
     , utils
     , xynoblog
     , lolpizza
-    , nixd
+    , lix-module
     , x
     , ...
     }:
@@ -95,7 +99,6 @@
 
       overlays = [
         self.overlays.default
-        nixd.overlays.default
       ];
       genPkgsWithOverlays = system: import nixpkgs {
         inherit system overlays;
@@ -118,6 +121,7 @@
             inherit system;
             specialArgs = { inherit lib inputs; };
             modules = [
+              lix-module.nixosModules.default
               agenix.nixosModules.age
               impermanence.nixosModules.impermanence
               home-manager.nixosModules.home-manager

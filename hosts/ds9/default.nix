@@ -8,16 +8,17 @@ in
     [
       ./hardware-configuration.nix
 
+      ./containers.nix
       ./backup.nix
-      ./plex.nix
+      # ./plex.nix
       ./samba.nix
 
       ../../nixos-modules/networking/tailscale.nix
       ../../nixos-modules/services/docker.nix
       ../../nixos-modules/services/libvirt.nix
       ../../nixos-modules/services/msmtp.nix
-      ../../nixos-modules/services/paperless.nix
-      ../../nixos-modules/services/photoprism.nix
+      # ../../nixos-modules/services/paperless.nix
+      # ../../nixos-modules/services/photoprism.nix
       ../../nixos-modules/services/samba.nix
       ../../nixos-modules/services/ssh.nix
       ../../nixos-modules/services/caddy
@@ -137,13 +138,13 @@ in
       }
     '';
     virtualHosts."*.hailsatan.eu".extraConfig = ''
-      @paperless host paperless.hailsatan.eu
-      handle @paperless {
-        reverse_proxy ${config.ragon.services.paperless.location}
-      }
-      @photos host photos.hailsatan.eu
-      handle @photos {
-        reverse_proxy ${config.ragon.services.photoprism.location}
+      @immich host immich.hailsatan.eu
+      handle @immich {
+        reverse_proxy http://immich-server:3001 {
+          transport http {
+            resolvers 10.89.0.1 # podman dns
+          }
+        }
       }
       @bzzt-api host bzzt-api.hailsatan.eu
       handle @bzzt-api {
@@ -165,44 +166,45 @@ in
 
   home-manager.users.ragon = { pkgs, lib, inputs, config, ... }: {
     imports = [
-      ../../hm-modules/nvim
-      ../../hm-modules/zsh
+      # ../../hm-modules/nvim
+      ../../hm-modules/helix
+      # ../../hm-modules/zsh
       ../../hm-modules/tmux
-      ../../hm-modules/xonsh
+      # ../../hm-modules/xonsh
       ../../hm-modules/cli.nix
       ../../hm-modules/files.nix
     ];
-    ragon.xonsh.enable = true;
+    # ragon.xonsh.enable = true;
 
     programs.home-manager.enable = true;
     home.stateVersion = "23.11";
   };
 
   # begin kube
-  services.k3s = {
-    enable = true;
-    extraFlags = "--disable=traefik --cluster-cidr 10.42.0.0/16,2001:cafe:42::/56 --service-cidr=10.43.0.0/16,2001:cafe:43::/112 --vpn-auth-file=/persistent/tailscale-auth-file";
-  };
-  systemd.services.k3s.path =  [pkgs.tailscale pkgs.coreutils pkgs.bash];
+  # services.k3s = {
+  #   enable = true;
+  #   extraFlags = "--disable=traefik --cluster-cidr 10.42.0.0/16,2001:cafe:42::/56 --service-cidr=10.43.0.0/16,2001:cafe:43::/112 --vpn-auth-file=/persistent/tailscale-auth-file";
+  #};
+  # systemd.services.k3s.path =  [pkgs.tailscale pkgs.coreutils pkgs.bash];
   # end kube
 
   ragon = {
     agenix.secrets."ionos" = { };
     user.enable = true;
     persist.enable = true;
-    persist.extraDirectories = [ "/var/lib/syncthing" config.services.plex.dataDir "/var/lib/minecraft" "/var/lib/bzzt" "/var/lib/rancher" "/etc/rancher" ];
+    persist.extraDirectories = [ "/var/lib/syncthing" "/var/lib/minecraft" "/var/lib/bzzt" "/var/lib/rancher" "/etc/rancher" "/root/.cache" ];
 
     services = {
       caddy.enable = true;
       docker.enable = true;
       ssh.enable = true;
       msmtp.enable = true;
-      photoprism.enable = true;
+      # photoprism.enable = true;
       tailscale.enable = true;
       tailscale.exitNode = true;
       tailscale.extraUpCommands = "--advertise-routes=10.0.0.0/16";
       libvirt.enable = true;
-      paperless.enable = true;
+      # paperless.enable = true;
     };
 
   };

@@ -9,7 +9,9 @@ in
       jsonnet-language-server
       jsonnet
       nixpkgs-fmt
+      omnisharp-roslyn
       ## ts
+      nodePackages_latest.prettier
       typescript
       dprint
       nodePackages_latest.typescript-language-server
@@ -30,16 +32,26 @@ in
         };
       };
       languages = {
+            language-server.pyright.config.python.analysis.typeCheckingMode = "basic";
+            language-server.ruff = {
+              command = "ruff-lsp";
+              config.settings.args = ["--ignore" "E501"];
+            };
         language = lib.flatten [
           (map
             (x: {
               name = x;
               language-servers = [ "typescript-language-server" "eslint" ];
-              formatter = { command = "dprint"; args = [ "fmt" "--stdin" x ]; };
+              #formatter = { command = "dprint"; args = [ "fmt" "--stdin" x ]; };
+              formatter = { command = "prettier"; args = ["--parser" "typescript"]; };
             }) [ "typescript" "javascript" "jsx" "tsx" ])
           {
             name = "nix";
             formatter = { command = "nixpkgs-fmt"; };
+          }
+          {
+            name = "python";
+            language-servers = [ "pyright" "ruff" ];
           }
         ];
       };

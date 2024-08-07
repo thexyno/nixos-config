@@ -17,6 +17,8 @@ in
   "photoprismEnv.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9OffsiteBackupSSH.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9SyncoidHealthCheckUrl.age".publicKeys = pubkeys.ragon.host "ds9";
+  "ds9PostgresEnv.age".publicKeys = pubkeys.ragon.host "ds9";
+  "ds9ImmichEnv.age".publicKeys = pubkeys.ragon.host "ds9";
   "gatebridgeHostKeys.age".publicKeys = pubkeys.ragon.server;
   "plausibleAdminPw.age".publicKeys = pubkeys.ragon.host "picard";
   "plausibleGoogleClientId.age".publicKeys = pubkeys.ragon.host "picard";
