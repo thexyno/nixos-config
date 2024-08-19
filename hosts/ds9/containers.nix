@@ -124,5 +124,20 @@ in
       config.age.secrets.ds9ImmichEnv.path
     ];
   };
+  # navidrome
+  virtualisation.oci-containers.containers.navidrome = {
+    user = "1000:100";
+    image = "deluan/navidrome:latest";
+    extraOptions = [ "--network=podman" ];
+    volumes = [
+      "navidrome-data:/data"
+      "/data/media/music:/music:ro"
+    ];
+    environment = {
+      ND_SCANSCHEDULE = "1h";
+      ND_SESSIONTIMEOUT = "900h";
+      ND_BASEURL = "https://nd.hailsatan.eu";
+    };
+  };
 
 }

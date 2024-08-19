@@ -22,6 +22,7 @@ in
       directories = [
         "/etc/nixos"
         "/etc/NetworkManager/system-connections"
+        "/var/lib/nixos"
         "/root/.ssh"
       ] ++ (lib.unique cfg.extraDirectories);
       files = [

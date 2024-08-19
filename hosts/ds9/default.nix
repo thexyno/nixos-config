@@ -146,6 +146,14 @@ in
           }
         }
       }
+      @nd host nd.hailsatan.eu
+      handle @nd {
+        reverse_proxy http://navidrome:4533 {
+          transport http {
+            resolvers 10.89.0.1 # podman dns
+          }
+        }
+      }
       @bzzt-api host bzzt-api.hailsatan.eu
       handle @bzzt-api {
         reverse_proxy http://127.0.0.1:5001
