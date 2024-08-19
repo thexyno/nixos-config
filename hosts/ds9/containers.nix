@@ -91,7 +91,7 @@ in
   virtualisation.oci-containers.containers.immich-server = {
     user = "1000:100";
     image = "ghcr.io/immich-app/immich-server:release";
-    extraOptions = [ "--network=immich-net" "--network=db-net" ];
+    extraOptions = [ "--network=podman" "--network=immich-net" "--network=db-net" ];
     dependsOn = [ "immich-network" "immich-redis" "postgres" ];
     ports = [ "8765:3001" ];
     volumes = [

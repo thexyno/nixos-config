@@ -112,12 +112,12 @@ in
     ZED_SCRUB_AFTER_RESILVER = true;
   };
 
-  systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.ionos.path;
+  systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.desec.path;
   services.caddy = {
     # ragon.services.caddy is enabled
     globalConfig = ''
-      acme_dns ionos {
-        api_token "{$IONOS_API_KEY}"
+      acme_dns desec {
+        token "{$TOKEN}"
       }
     '';
     virtualHosts."http://*.hailsatan.eu".extraConfig = ''
@@ -142,7 +142,7 @@ in
       handle @immich {
         reverse_proxy http://immich-server:3001 {
           transport http {
-            resolvers 10.89.0.1 # podman dns
+            resolvers 10.88.0.1 # podman dns
           }
         }
       }
@@ -150,7 +150,7 @@ in
       handle @nd {
         reverse_proxy http://navidrome:4533 {
           transport http {
-            resolvers 10.89.0.1 # podman dns
+            resolvers 10.88.0.1 # podman dns
           }
         }
       }
@@ -197,7 +197,7 @@ in
   # end kube
 
   ragon = {
-    agenix.secrets."ionos" = { };
+    agenix.secrets."desec" = { };
     user.enable = true;
     persist.enable = true;
     persist.extraDirectories = [ "/var/lib/syncthing" "/var/lib/minecraft" "/var/lib/bzzt" "/var/lib/rancher" "/etc/rancher" "/root/.cache" ];
