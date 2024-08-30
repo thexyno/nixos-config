@@ -67,6 +67,7 @@ in
         enable = true;
         settings.server_name = serverName;
         extraConfigFiles = [ "/host${ms}" ];
+        settings.experimental.msc3575_enabled = true; 
         settings.database.args.user = "matrix-synapse-xynospace";
         settings.database.name = "psycopg2";
         settings.database.args.database = "matrix-synapse-xynospace";

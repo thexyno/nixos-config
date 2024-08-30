@@ -11,7 +11,7 @@
       ./hardware-configuration.nix
       ./xynospace-matrix.nix
       ./plausible.nix
-      ./ts-ovpn.nix
+      # ./ts-ovpn.nix
 
       ../../nixos-modules/system/persist.nix
       ../../nixos-modules/system/agenix.nix

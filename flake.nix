@@ -17,7 +17,7 @@
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -149,7 +149,7 @@
         darwin.lib.darwinSystem
           {
             inherit system;
-            specialArgs = { inherit lib pkgs inputs self darwin; };
+            specialArgs = { inherit lib inputs self darwin; };
             modules = [
               home-manager.darwinModules.home-manager
               {
@@ -160,6 +160,7 @@
                 home-manager.extraSpecialArgs = { inherit inputs pkgs; };
               }
               ./darwin-common.nix
+              lix-module.nixosModules.default
             ] ++ extraModules;
           };
 
