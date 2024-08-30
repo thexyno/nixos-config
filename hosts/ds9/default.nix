@@ -154,6 +154,14 @@ in
           }
         }
       }
+      @cd host cd.hailsatan.eu
+      handle @cd {
+        reverse_proxy http://changedetection:5000 {
+          transport http {
+            resolvers 10.88.0.1 # podman dns
+          }
+        }
+      }
       @bzzt-api host bzzt-api.hailsatan.eu
       handle @bzzt-api {
         reverse_proxy http://127.0.0.1:5001

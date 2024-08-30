@@ -2,7 +2,6 @@
   programs.zsh.enable = true;
   environment.pathsToLink = [ "/share/zsh" ];
   services.nix-daemon.enable = true;
-  nix.package = pkgs.nix;
   nix.settings.cores = 0; # use all cores
   nix.settings.max-jobs = 10; # use all cores
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

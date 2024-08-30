@@ -43,5 +43,5 @@ in {
     };
   };
 
-  ragon.persist.extraDirectories = [ "/var/lib/private/plausible" ];
+  ragon.persist.extraDirectories = [ "/var/lib/private/plausible" "/var/lib/clickhouse" ];
 }

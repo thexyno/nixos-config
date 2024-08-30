@@ -62,31 +62,31 @@ in
         viAlias = true;
         plugins =
           let
-            nnn-nvim = pkgs.vimUtils.buildVimPlugin {
-              pname = "nnn-nvim";
-              version = "1.0.0";
-              src = inputs.nnn-nvim;
-            };
-            notify-nvim = pkgs.vimUtils.buildVimPlugin {
-              pname = "notify-nvim";
-              version = "1.0.0";
-              src = inputs.notify-nvim;
-            };
-            noice-nvim = pkgs.vimUtils.buildVimPlugin {
-              pname = "noice-nvim";
-              version = "1.0.0";
-              src = inputs.noice-nvim;
-            };
+            # nnn-nvim = pkgs.vimUtils.buildVimPlugin {
+            #   pname = "nnn-nvim";
+            #   version = "1.0.0";
+            #   src = inputs.nnn-nvim;
+            # };
+            # notify-nvim = pkgs.vimUtils.buildVimPlugin {
+            #   pname = "notify-nvim";
+            #   version = "1.0.0";
+            #   src = inputs.notify-nvim;
+            # };
+            # noice-nvim = pkgs.vimUtils.buildVimPlugin {
+            #   pname = "noice-nvim";
+            #   version = "1.0.0";
+            #   src = inputs.noice-nvim;
+            # };
           in
           map (x: { plugin = x; }) (with pkgs.unstable.vimPlugins; [
             vim-tmux-navigator # tmux
-            nnn-nvim # nnn as filebrowser
+            # nnn-nvim # nnn as filebrowser
             gruvbox-nvim # theme
             tokyonight-nvim # light theme
             # complete ui overhaul
-            notify-nvim
+            # notify-nvim
             nui-nvim
-            noice-nvim
+            # noice-nvim
             telescope-nvim
             telescope-ui-select-nvim
             # line

@@ -19,10 +19,10 @@ with lib.my;
       "lima"
       "docker" # docker cli
       "docker-compose"
-      "leoafarias/fvm/fvm" # flutter version manager
+      # "leoafarias/fvm/fvm" # flutter version manager
       "cocoapods" # flutter/other ios shit
 
-      "butane"
+      # "butane"
       "borgbackup" # time machine can eat my ass
     ];
     casks = [
@@ -33,7 +33,7 @@ with lib.my;
       "hammerspoon"
       "kicad"
       "android-platform-tools"
-      "nheko"
+      # "nheko"
       "raycast"
       "ukelele"
       "imhex"
@@ -42,23 +42,23 @@ with lib.my;
       "balenaetcher"
       "audacity"
       "openlens"
-      "ferdium"
+      # "ferdium"
       "discord"
       "vlc"
       "rectangle"
       "floorp"
-      "space-capsule"
+      # "space-capsule"
       "iterm2"
       "signal"
       "eqmac"
       "syncthing"
       "android-studio"
-      "temurin"
+      # "temurin"
       "whisky"
       "dbeaver-community"
 
-      "qutebrowser" # rly want to switch to it
-      "dmenu-mac"
+      # "qutebrowser" # rly want to switch to it
+      # "dmenu-mac"
 
     ];
     #masApps = {

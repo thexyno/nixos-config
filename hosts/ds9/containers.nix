@@ -140,4 +140,19 @@ in
     };
   };
 
+  # changedetection
+  systemd.services."podman-cd-network" = {
+    script = ''
+      ${pkgs.podman}/bin/podman network exists cd-net || ${pkgs.podman}/bin/podman network create cd-net --internal --ipv6
+    '';
+  };
+
+  virtualisation.oci-containers.containers.changedetection = {
+    image = "dgtlmoon/changedetection.io";
+    extraOptions = [ "--network=podman" "--network=cd-net" ];
+    volumes = [
+      "changedetection-data:/datastore"
+    ];
+  };
+
 }

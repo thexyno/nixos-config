@@ -251,8 +251,8 @@
 
   home-manager.users.ragon = { pkgs, lib, inputs, config, ... }: {
     imports = [
-      ../../hm-modules/nvim
-      ../../hm-modules/zsh
+      # ../../hm-modules/nvim
+      # ../../hm-modules/zsh
       ../../hm-modules/tmux
       ../../hm-modules/cli.nix
       ../../hm-modules/files.nix
