@@ -155,4 +155,16 @@ in
     ];
   };
 
+  virtualisation.oci-containers.containers.grafana = {
+    image = "grafana/grafana-oss:latest";
+    extraOptions = [ "--network=podman" ];
+    volumes = [
+      "grafana-data:/var/lib/grafana"
+    ];
+    environment = {
+      GF_SERVER_ROOT_URL = "https://grafana.hailsatan.eu/";
+      GF_INSTALL_PLUGINS = "";
+    };
+  };
+
 }
