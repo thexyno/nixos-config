@@ -157,7 +157,7 @@ in
 
   virtualisation.oci-containers.containers.grafana = {
     image = "grafana/grafana-oss:latest";
-    extraOptions = [ "--network=podman" ];
+    extraOptions = [ "--network=podman" "--network=db-net" ];
     volumes = [
       "grafana-data:/var/lib/grafana"
     ];
@@ -168,7 +168,7 @@ in
   };
   virtualisation.oci-containers.containers.node-red = {
     image = "nodered/node-red:latest";
-    extraOptions = [ "--network=podman" ];
+    extraOptions = [ "--network=podman" "--network=db-net" ];
     volumes = [
       "nodered-data:/data"
     ];
