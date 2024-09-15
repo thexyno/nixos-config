@@ -170,6 +170,14 @@ in
           }
         }
       }
+      @node-red host node-red.hailsatan.eu
+      handle @node-red {
+        reverse_proxy http://node-red:1880 {
+          transport http {
+            resolvers 10.88.0.1 # podman dns
+          }
+        }
+      }
       @bzzt-api host bzzt-api.hailsatan.eu
       handle @bzzt-api {
         reverse_proxy http://127.0.0.1:5001

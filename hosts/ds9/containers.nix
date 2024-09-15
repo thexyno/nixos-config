@@ -166,5 +166,13 @@ in
       GF_INSTALL_PLUGINS = "";
     };
   };
+  virtualisation.oci-containers.containers.node-red = {
+    image = "nodered/node-red:latest";
+    extraOptions = [ "--network=podman" ];
+    volumes = [
+      "nodered-data:/data"
+    ];
+  };
+
 
 }
