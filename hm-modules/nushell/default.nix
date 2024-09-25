@@ -88,6 +88,7 @@ in
         alias gc = git commit
         alias gp = git push
         alias gpl = git pull
+        alias ytl = yt-dlp -f "bv*+mergeall[vcodec=none]" --audio-multistreams
       '';
       shellAliases = {
         vi = "hx";

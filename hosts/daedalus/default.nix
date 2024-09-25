@@ -2,6 +2,7 @@
 with lib;
 with lib.my;
 {
+  system.stateVersion = 5;
 
   users.users.xyno = {
     name = "xyno";
