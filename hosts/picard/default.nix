@@ -11,6 +11,7 @@
       ./hardware-configuration.nix
       ./xynospace-matrix.nix
       ./plausible.nix
+      ./obsidianshare.nix
       # ./ts-ovpn.nix
 
       ../../nixos-modules/system/persist.nix
@@ -164,15 +165,17 @@
       handle @git {
         reverse_proxy http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}
       }
+      @notes host notes.xyno.systems
+      handle @notes {
+        reverse_proxy http://127.0.0.1:8086
+      }
+      
       handle {
         abort
       }
     '';
     virtualHosts."xyno.systems".extraConfig = ''
       redir https://xyno.space{uri}
-    '';
-    virtualHosts."graph.czi.dating".extraConfig = ''
-      redir https://graph-czi-dating-s8tan-01d008685713bd0312de3223b3b980279b0ca590.fspages.org{uri}
     '';
     virtualHosts."czi.dating".extraConfig = ''
       redir https://foss-ag.de{uri}

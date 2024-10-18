@@ -3,6 +3,7 @@ with lib;
 with lib.my;
 {
   system.stateVersion = 5;
+  ids.gids.nixbld = 30000;
 
   users.users.xyno = {
     name = "xyno";
@@ -57,6 +58,8 @@ with lib.my;
       # "temurin"
       "whisky"
       "dbeaver-community"
+
+      "rider" # I'm sorry
 
       # "qutebrowser" # rly want to switch to it
       # "dmenu-mac"

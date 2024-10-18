@@ -36,6 +36,7 @@ in
   "vpnConfig.age".publicKeys = pubkeys.ragon.host "beliskner";
   "gitlabJWSFile.age".publicKeys = pubkeys.ragon.host "picard";
   "nextcloudAdminPass.age".publicKeys = pubkeys.ragon.host "picard";
+  "picardSharenoteEnv.age".publicKeys = pubkeys.ragon.host "picard";
   "picardResticSSHKey.age".publicKeys = pubkeys.ragon.host "picard";
   "picardSlidingSyncSecret.age".publicKeys = pubkeys.ragon.host "picard";
   "picardCalCom.age".publicKeys = pubkeys.ragon.host "picard";
