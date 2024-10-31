@@ -185,6 +185,7 @@
         ds9 = nixosSystem "x86_64-linux" [ ./hosts/ds9/default.nix ];
 
         voyager = nixosSystem "x86_64-linux" [ ./hosts/voyager/default.nix ];
+        theseus = nixosSystem "x86_64-linux" [ ./hosts/theseus/default.nix ];
       };
       darwinConfigurations = processConfigurations {
         daedalus = darwinSystem "aarch64-darwin" [ ./hosts/daedalus/default.nix ];

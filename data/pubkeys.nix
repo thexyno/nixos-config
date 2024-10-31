@@ -16,6 +16,7 @@ let
         voyager = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBntmqiQPd0AvlWZdSXsby+iTcbEYt0oUBT/9fmHZ81a" ];
         octopi = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+0/lwNc/KN8LrS3KvDCuuipQokO+7qELfksepJXz6a" ];
         beliskner = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJumJeu6QjTUan7UiRkH7EAEcMXZSky4UsW1bci24hfM" ];
+        theseus = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP/pPCcq0ziQhdyZSObly3bUUJqH56Ly+uYS6MNdR2D+"];
       };
     in
     {
