@@ -47,6 +47,9 @@ input * {
     xkb_variant colemak_dh_iso
     xkb_options caps:swapescape
 }
+input 12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I {
+    xkb_layout eu
+}
 bindsym $mod+Return exec $term
 bindsym $mod+Print exec $screenshot
 bindsym $mod+Shift+Print exec $screenclip

@@ -16,6 +16,8 @@
   boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/4cd8dbb3-8eea-48ff-87b1-92945be291ac";
   programs.fuse.userAllowOther = true;
   programs.sway.enable = true;
+  networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
   environment.systemPackages = [
