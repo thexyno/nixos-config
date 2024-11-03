@@ -20,20 +20,50 @@
   networking.networkmanager.wifi.backend = "iwd";
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
+  services.upower.enable = true;
+  users.users.ragon.extraGroups = [ "networkmanager" ];
   environment.systemPackages = [
     pkgs.wezterm
   ];
+  fonts.packages = [
+    pkgs.nerdfonts
+  ];
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+  };
+  services.fwupd.enable = true;
 
   home-manager.users.ragon = { pkgs, lib, inputs, config, ... }: {
     imports = [
       ../../hm-modules/helix
       ../../hm-modules/nushell
+      ../../hm-modules/zellij
       ../../hm-modules/cli.nix
       ./swaycfg.nix
       ../../hm-modules/files.nix
     ];
     ragon.helix.enable = true;
     ragon.nushell.enable = true;
+    ragon.zellij.enable = true;
+    home.file.".config/wezterm/wezterm.lua".text = ''
+local wezterm = require 'wezterm'
+
+-- This will hold the configuration.
+local config = wezterm.config_builder()
+
+config.default_prog = { 'zellij', 'attach', '-c' }
+config.hide_tab_bar_if_only_one_tab = true
+config.max_fps = 144
+
+-- This is where you actually apply your config choices
+
+-- For example, changing the color scheme:
+config.color_scheme = 'Gruvbox Dark (Gogh)'
+
+-- and finally, return the configuration to wezterm
+return config
+      '';
 
 
     # home.persistence."/persistent/home/ragon" =

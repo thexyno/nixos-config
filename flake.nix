@@ -31,6 +31,10 @@
     imab.url = "github:ulyssa/iamb";
     imab.inputs.nixpkgs.follows = "nixpkgs";
     helix.url = "github:helix-editor/helix";
+    ironbar = {
+      url = "github:JakeStanger/ironbar";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     ## editor stuff
     # nixd.url = "github:nix-community/nixd";
