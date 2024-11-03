@@ -35,6 +35,10 @@
       url = "github:JakeStanger/ironbar";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    swaymonad = {
+      url = "github:nicolasavru/swaymonad";
+      inputs.nixpkgs.follows = "nixpkgs"; # not mandatory but recommended
+    };
 
     ## editor stuff
     # nixd.url = "github:nix-community/nixd";

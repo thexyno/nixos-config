@@ -1,5 +1,14 @@
 { pkgs, config, inputs, ... }: {
   imports = [ inputs.ironbar.homeManagerModules.default ];
+  gtk = {
+    enable = true;
+    # font.size = 10;
+    theme.name = "adwaita-dark";
+  };
+  qt = {
+    enable = true;
+    style.name = "adwaita-dark";
+  };
   home.packages = with pkgs; [
     slurp
     grim
@@ -22,8 +31,8 @@
       @define-color color_text #ebdbb2;
       @define-color color_urgent #cc241d;
       * {
-          font-family: Noto Sans Nerd Font, sans-serif;
-          font-size: 10px;
+          font-family: Source Sans Pro Nerd Font, sans-serif;
+          font-size: 15px;
           border: none;
           border-radius: 0;
       }
@@ -58,12 +67,12 @@
     '';
     config = {
       position = "top";
-      height = 10;
+      height = 20;
       start = [
         { type = "workspaces"; }
         { type = "sway_mode"; }
       ];
-      middle = [
+      center = [
         {
           type = "focused";
           show_icon = true;
@@ -87,12 +96,13 @@
         }
         {
           type = "upower";
-          format = "󰁹 {percentage}%";
+          format = "{icon} {percentage}%";
         }
         {
           type = "sys_info";
           format = [
-            " {cpu_percent}% {temp_c:acpitz-acpi-0}°C"
+            "  {cpu_percent}%"
+            " {temp_c:k10temp-Tctl}°C"
             " {memory_used}/{memory_total}GB"
             "󰋊 {disk_used:/persistent}/{disk_total:/persistent}GB"
             "󰓢 {net_down:wlan0}/{net_up:wlan0} Mbps"
@@ -152,7 +162,14 @@
     input * {
         xkb_layout us
         xkb_variant colemak_dh_iso
-        xkb_options caps:swapescape
+        xkb_options caps:escape
+    }
+    input type:touchpad {
+      tap enabled
+    }
+    output eDP-1 {
+      scale 1
+      adaptive_sync on
     }
     bindsym $mod+Shift+Return exec $term
     bindsym $mod+Space exec $menu
@@ -208,7 +225,7 @@
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+f focus mode_toggle
+    # bindsym $mod+f focus mode_toggle
 
     # Move the currently focused window to the scratchpad
     bindsym $mod+Shift+minus move scratchpad
@@ -231,7 +248,7 @@
     }
     bindsym $mod+Shift+e mode "$mode_system"
 
-    exec_always "pkill -f 'python3? .+/swaymonad.py';  ~/.config/sway/swaymonad/swaymonad.py"
+    exec_always "pkill -f 'python3? .+/swaymonad.py';  swaymonad"
 bindsym $mod+Return nop promote_window
 
 bindsym $mod+j nop focus_next_window
@@ -283,12 +300,14 @@ bindsym $mod+r mode "resize"
 
 mode "layout" {
   bindsym t nop set_layout tall
+  bindsym 2 nop set_layout 2_col
   bindsym 3 nop set_layout 3_col
   bindsym n nop set_layout nop
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
+# nop set_layout 2_col
 bindsym $mod+l mode "layout"
 
 mouse_warping container
