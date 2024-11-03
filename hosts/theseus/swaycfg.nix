@@ -9,53 +9,52 @@
     playerctl
     jq
     rofi
+    inputs.swaymonad.defaultPackage.x86_64-linux
     swaylock
   ];
   programs.ironbar = {
     enable = true;
     style = ''
-        @define-color color_bg #282828;
-        @define-color color_bg_dark #3c3836;
-        @define-color color_border #665c54;
-        @define-color color_border_active #7c6f64;
-        @define-color color_text #ebdbb2;
-        @define-color color_urgent #cc241d;
-        * {
-            font-family: Noto Sans Nerd Font, sans-serif;
-            font-size: 10px;
-            border: none;
-            border-radius: 0;
-        }
-      
-        box, menubar, button {
-            background-color: @color_bg;
-            background-image: none;
-            box-shadow: none;
-        }
-      
-        button, label {
-            color: @color_text;
-        }
-      
-        button:hover {
-            background-color: @color_bg_dark;
-        }
-      
-        scale trough {
-            min-width: 1px;
-            min-height: 2px;
-        }
-      
-        /* #bar {
-            border-top: 1px solid @color_border;
-        } */
-      
-        .popup {
-            border: 1px solid @color_border;
-            padding: 1em;
+      @define-color color_bg #282828;
+      @define-color color_bg_dark #3c3836;
+      @define-color color_border #665c54;
+      @define-color color_border_active #7c6f64;
+      @define-color color_text #ebdbb2;
+      @define-color color_urgent #cc241d;
+      * {
+          font-family: Noto Sans Nerd Font, sans-serif;
+          font-size: 10px;
+          border: none;
+          border-radius: 0;
       }
-
-
+      
+      box, menubar, button {
+          background-color: @color_bg;
+          background-image: none;
+          box-shadow: none;
+      }
+      
+      button, label {
+          color: @color_text;
+      }
+      
+      button:hover {
+          background-color: @color_bg_dark;
+      }
+      
+      scale trough {
+          min-width: 1px;
+          min-height: 2px;
+      }
+      
+      /* #bar {
+          border-top: 1px solid @color_border;
+      } */
+      
+      .popup {
+          border: 1px solid @color_border;
+          padding: 1em;
+      }
     '';
     config = {
       position = "top";
@@ -93,11 +92,11 @@
         {
           type = "sys_info";
           format = [
-            " {cpu_percent}% {temp_c:k10temp-Tccd1}°C"
+            " {cpu_percent}% {temp_c:acpitz-acpi-0}°C"
             " {memory_used}/{memory_total}GB"
             "󰋊 {disk_used:/persistent}/{disk_total:/persistent}GB"
             "󰓢 {net_down:wlan0}/{net_up:wlan0} Mbps"
-            "󰖡 {load_average:1} | {load_average:5} | {load_average:15}"
+            # "󰖡 {load_average:1} | {load_average:5} | {load_average:15}"
           ];
           interval = {
             "cpu" = 1;
@@ -155,7 +154,7 @@
         xkb_variant colemak_dh_iso
         xkb_options caps:swapescape
     }
-    bindsym $mod+Return exec $term
+    bindsym $mod+Shift+Return exec $term
     bindsym $mod+Space exec $menu
     bindsym $mod+Print exec $screenshot
     bindsym $mod+Shift+Print exec $screenclip
@@ -203,11 +202,6 @@
     bindsym $mod+Shift+0    move container to workspace $ws0
     # Layout stuff:
 
-    # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
-
     # Make the current focus fullscreen
     bindsym $mod+Shift+f fullscreen
 
@@ -221,19 +215,6 @@
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
-
-    # Modes
-    mode "resize" {
-        bindsym Left resize shrink width 10px
-        bindsym Down resize grow height 10px
-        bindsym Up resize shrink height 10px
-        bindsym Right resize grow width 10px
-
-        # return to default mode
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-    }
-    bindsym $mod+r mode "resize"
 
     set $mode_system System: (l) lock, (e) logout, (s) suspend, (r) reboot, (S) shutdown, (R) UEFI
     mode "$mode_system" {
@@ -249,6 +230,69 @@
         bindsym Escape mode "default"
     }
     bindsym $mod+Shift+e mode "$mode_system"
+
+    exec_always "pkill -f 'python3? .+/swaymonad.py';  ~/.config/sway/swaymonad/swaymonad.py"
+bindsym $mod+Return nop promote_window
+
+bindsym $mod+j nop focus_next_window
+bindsym $mod+k nop focus_prev_window
+bindsym $mod+Down nop focus_next_window
+bindsym $mod+Up nop focus_prev_window
+
+bindsym $mod+Shift+Left nop move left
+bindsym $mod+Shift+Down nop move down
+bindsym $mod+Shift+Up nop move up
+bindsym $mod+Shift+Right nop move right
+
+bindsym $mod+Shift+j nop swap_with_next_window
+bindsym $mod+Shift+k nop swap_with_prev_window
+
+bindsym $mod+x nop reflectx
+bindsym $mod+y nop reflecty
+bindsym $mod+t nop transpose
+
+bindsym $mod+f nop fullscreen
+
+bindsym $mod+Comma nop increment_masters
+bindsym $mod+Period nop decrement_masters
+
+mode "resize" {
+  bindsym Left resize shrink width 10px
+  bindsym Down resize grow height 10px
+  bindsym Up resize shrink height 10px
+  bindsym Right resize grow width 10px
+
+  bindsym Shift+Left nop resize_master shrink width 10px
+  bindsym Shift+Down nop resize_master grow height 10px
+  bindsym Shift+Up nop resize_master shrink height 10px
+  bindsym Shift+Right nop resize_master grow width 10px
+
+  # bindsym n resize set width (n-1/n)
+  bindsym 2 resize set width 50ppt  # 1/2, 1/2
+  bindsym 3 resize set width 66ppt  # 2/3, 1/3
+  bindsym 4 resize set width 75ppt  # 3/4, 1/4
+
+  bindsym Shift+2 nop resize_master set width 50ppt
+  bindsym Shift+3 nop resize_master set width 66ppt
+  bindsym Shift+4 nop resize_master set width 75ppt
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+mode "layout" {
+  bindsym t nop set_layout tall
+  bindsym 3 nop set_layout 3_col
+  bindsym n nop set_layout nop
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+l mode "layout"
+
+mouse_warping container
+focus_wrapping no
 
   '';
 }
