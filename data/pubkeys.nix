@@ -7,6 +7,7 @@ let
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKZ0hlF6EFQXpw74kkpoA8vxMX6vVDTnpM41rCDXRMuo" # daedalusvm
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC6xx1IWlRoSQvCUZ+iyzekjFjoXBKmDT4Kxww4Tl+63" # iPad
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJmN2QRbwQyeUChQ0ZxNzjNnUZTOUVbM4kDEGfEtmufc" # iPhone
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID/oMAi5jyQsNohfhcSH2ItisTpBGB0WtYTVxJYKKqhj" # theseus
       ];
       server = user ++ hosts.ds9 ++ hosts.picard;
       client = user;

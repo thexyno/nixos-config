@@ -16,12 +16,21 @@
   boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/4cd8dbb3-8eea-48ff-87b1-92945be291ac";
   programs.fuse.userAllowOther = true;
   programs.sway.enable = true;
+  programs.sway.extraSessionCommands = ''
+    export NIXOS_OZONE_WL=1
+  '';
+  # start bt
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+  
+  # end bt
+  programs.light.enable = true;
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
   services.upower.enable = true;
-  users.users.ragon.extraGroups = [ "networkmanager" ];
+  users.users.ragon.extraGroups = [ "networkmanager" "video" ];
   environment.systemPackages = [
     pkgs.wezterm
   ];
@@ -41,6 +50,8 @@
       ../../hm-modules/zellij
       ../../hm-modules/cli.nix
       ./swaycfg.nix
+      ./river.nix
+      ./kanshi.nix
       ../../hm-modules/files.nix
     ];
     ragon.helix.enable = true;
@@ -64,6 +75,11 @@ config.color_scheme = 'Gruvbox Dark (Gogh)'
 -- and finally, return the configuration to wezterm
 return config
       '';
+      home.packages = [
+        pkgs.element-desktop # this is not a place of honor
+        pkgs.plexamp
+        pkgs.firefox
+      ];
 
 
     # home.persistence."/persistent/home/ragon" =
