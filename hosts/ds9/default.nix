@@ -74,8 +74,8 @@ in
   users.users.nia = {
     createHome = true;
     isNormalUser = true;
-    extraGroups = [ "docker" "podman" ];
-    openssh.authorizedKeys = [
+    extraGroups = [ "docker" "podman" "wheel" ];
+    openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDq+jk1Bi8/x0lYDiVi/iVnp9nEleocoQ+xHmlpDt9Qs"
     ];
   };
