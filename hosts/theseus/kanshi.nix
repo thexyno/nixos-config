@@ -15,7 +15,7 @@ in
           {
             criteria = "eDP-1";
             adaptiveSync = true;
-            scale = 1.25;
+            scale = 1.5;
             mode = "2880x1920@120Hz";
           }
         ];

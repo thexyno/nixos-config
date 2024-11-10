@@ -83,11 +83,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1730600078,
-        "narHash": "sha256-BoyFmE59HDF3uybBySsWVoyjNuHvz3Wv8row/mSb958=",
+        "lastModified": 1730878299,
+        "narHash": "sha256-0VIz/3PKaylSIoRdOE07kkT1tMXgqaybXrfIS2Xz+so=",
         "owner": "lnl7",
         "repo": "nix-darwin",
-        "rev": "4652874d014b82cb746173ffc64f6a70044daa7e",
+        "rev": "98e7dba87238e4fa4eac609dc44f07dab40661c4",
         "type": "github"
       },
       "original": {
@@ -210,11 +210,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1730313564,
-        "narHash": "sha256-1RBs/WOH3gp2ETDruEbM2vq2tPiJmqQ3wrjiKREE5NU=",
+        "lastModified": 1730790589,
+        "narHash": "sha256-xJ6bQ4VmdTB7A+dMbmOMaZ8a6erB6rkZkB+yzqD7gd4=",
         "owner": "helix-editor",
         "repo": "helix",
-        "rev": "38faf74febf3332fb119302324bfd21229d39e14",
+        "rev": "b53dafe326d51b7f64a1c52379e3d4150cd2991e",
         "type": "github"
       },
       "original": {
@@ -312,17 +312,41 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1730449396,
-        "narHash": "sha256-EMUiH4wPXSv2xfEygVlxEoPU67EaUYumMCmnclQql94=",
+        "lastModified": 1730812834,
+        "narHash": "sha256-pZ8PMNXrI5yvPWjFy2CW0740DwQZuKkEdNeJd/lfnFc=",
         "owner": "JakeStanger",
         "repo": "ironbar",
-        "rev": "c7cf896164334206f07647789d5364d90f05862a",
+        "rev": "e53a9067b03de002a07f85e5302e3774e53521f2",
         "type": "github"
       },
       "original": {
         "owner": "JakeStanger",
         "repo": "ironbar",
         "type": "github"
+      }
+    },
+    "kmonad": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "nix",
+        "lastModified": 1730793763,
+        "narHash": "sha256-m9agq+UNNwAovZj+WS5/1Yc1xoExG4A3SqmVP/e0r9Q=",
+        "ref": "refs/heads/master",
+        "rev": "606c488862df6c3be1e4e670f6e1e06008c84732",
+        "revCount": 875,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/kmonad/kmonad"
+      },
+      "original": {
+        "dir": "nix",
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/kmonad/kmonad"
       }
     },
     "lix": {
@@ -417,11 +441,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1730537918,
-        "narHash": "sha256-GJB1/aaTnAtt9sso/EQ77TAGJ/rt6uvlP0RqZFnWue8=",
+        "lastModified": 1730919458,
+        "narHash": "sha256-yMO0T0QJlmT/x4HEyvrCyigGrdYfIXX3e5gWqB64wLg=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "f6e0cd5c47d150c4718199084e5764f968f1b560",
+        "rev": "e1cc1f6483393634aee94514186d21a4871e78d7",
         "type": "github"
       },
       "original": {
@@ -449,11 +473,11 @@
     },
     "nixpkgs-darwin": {
       "locked": {
-        "lastModified": 1730381317,
-        "narHash": "sha256-JhEY6lGAdVzpytYgVd80bLeOqqrQ2SwWYEq2RXFnofg=",
+        "lastModified": 1730891215,
+        "narHash": "sha256-i85DPrhDuvzgvIWCpJlbfM2UFtNYbapo20MtQXsvay4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9706f4dd0e516de529fbd15bb8337e4a10d53307",
+        "rev": "c128e44a249d6180740d0a979b6480d5b795c013",
         "type": "github"
       },
       "original": {
@@ -465,11 +489,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1730671215,
-        "narHash": "sha256-bCt0uxoFfD8aXjnwz98DZegnEyrH0tBWO/9H+pt8+k4=",
+        "lastModified": 1730930401,
+        "narHash": "sha256-jESb/dY9BvYw1kttkMGhiYgkH6G/jvpbeIDpLau0onc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ab272732b148a5f208a2a49612d67695e7fa8abb",
+        "rev": "2c9461ecb17d46e9a3b7947a8d923f17351bfe92",
         "type": "github"
       },
       "original": {
@@ -511,11 +535,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1730327045,
-        "narHash": "sha256-xKel5kd1AbExymxoIfQ7pgcX6hjw9jCgbiBjiUfSVJ8=",
+        "lastModified": 1730741070,
+        "narHash": "sha256-edm8WG19kWozJ/GqyYx2VjW99EdhjKwbY3ZwdlPAAlo=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "080166c15633801df010977d9d7474b4a6c549d7",
+        "rev": "d063c1dd113c91ab27959ba540c0d9753409edf3",
         "type": "github"
       },
       "original": {
@@ -572,6 +596,7 @@
         "imab": "imab",
         "impermanence": "impermanence",
         "ironbar": "ironbar",
+        "kmonad": "kmonad",
         "lix-module": "lix-module",
         "lolpizza": "lolpizza",
         "miro": "miro",

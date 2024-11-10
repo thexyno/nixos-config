@@ -39,6 +39,11 @@
       url = "github:nicolasavru/swaymonad";
       inputs.nixpkgs.follows = "nixpkgs"; # not mandatory but recommended
     };
+    kmonad = {
+
+      url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     ## editor stuff
     # nixd.url = "github:nix-community/nixd";
@@ -96,6 +101,7 @@
     , xynoblog
     , lolpizza
     , lix-module
+    , kmonad
     , x
     , ...
     }:
@@ -133,6 +139,7 @@
               agenix.nixosModules.age
               impermanence.nixosModules.impermanence
               home-manager.nixosModules.home-manager
+              kmonad.nixosModules.default
               xynoblog.nixosModule
               lolpizza.nixosModule
               x.nixosModule

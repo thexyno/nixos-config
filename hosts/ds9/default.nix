@@ -71,6 +71,14 @@ in
   # Immutable users due to tmpfs
   users.mutableUsers = false;
 
+  users.users.nia = {
+    createHome = true;
+    isNormalUser = true;
+    extraGroups = [ "docker" "podman" ];
+    openssh.authorizedKeys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDq+jk1Bi8/x0lYDiVi/iVnp9nEleocoQ+xHmlpDt9Qs"
+    ];
+  };
   users.users.bzzt = {
     description = "bzzt server service user";
     home = "/var/lib/bzzt";
@@ -87,7 +95,7 @@ in
     group = "minecraft";
   };
   users.groups.minecraft = { };
-  environment.systemPackages = [ pkgs.jdk pkgs.jdk17 pkgs.borgbackup pkgs.docker-compose pkgs.docker ];
+  environment.systemPackages = [ pkgs.jdk17 pkgs.borgbackup ];
 
   services.smartd = {
     enable = true;
@@ -224,7 +232,7 @@ in
     agenix.secrets."desec" = { };
     user.enable = true;
     persist.enable = true;
-    persist.extraDirectories = [ "/var/lib/syncthing" "/var/lib/minecraft" "/var/lib/bzzt" "/var/lib/rancher" "/etc/rancher" "/root/.cache" ];
+    persist.extraDirectories = [ "/home/nia" "/var/lib/syncthing" "/var/lib/minecraft" "/var/lib/bzzt" "/var/lib/rancher" "/etc/rancher" "/root/.cache" ];
 
     services = {
       caddy.enable = true;
