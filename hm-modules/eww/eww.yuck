@@ -1,0 +1,39 @@
+(defwindow bar
+  :monitor 0
+  :hexpand false
+  :vexpand false
+  :geometry (geometry :anchor "top left" :x 0 :y 0 :width "100%")
+  ; :reserve (struts :distance "10px" :side "top")
+  (bar))
+
+(defwidget bar
+    (centerbox :orientation "h"
+    (left)
+    (center)
+    (right)))
+
+(defwidget left []
+       :halign "start"
+      (workspaces)
+   )
+
+(defwidget workspaces []
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :spacing 5
+    (button :onclick "wmctrl -s 0" 1)
+    (button :onclick "wmctrl -s 1" 2)
+    (button :onclick "wmctrl -s 2" 3)
+    (button :onclick "wmctrl -s 3" 4)
+    (button :onclick "wmctrl -s 4" 5)
+    (button :onclick "wmctrl -s 5" 6)
+    (button :onclick "wmctrl -s 6" 7)
+    (button :onclick "wmctrl -s 7" 8)
+    (button :onclick "wmctrl -s 8" 9)))
+
+(defwidget center []
+  :haligh "center"
+  (window_name))
+
+(defwidget )

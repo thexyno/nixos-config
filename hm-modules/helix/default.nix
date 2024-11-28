@@ -18,7 +18,7 @@ in
       nodePackages_latest.vscode-langservers-extracted
       ## python
       ruff-lsp
-      nodePackages_latest.pyright
+      # nodePackages_latest.pyright
     ];
     programs.helix = {
       package = inputs.helix.packages.${pkgs.system}.default;

@@ -66,6 +66,7 @@
     logFormat = "level INFO";
     enable = true;
     globalConfig = ''
+      email ssl@xyno.systems
       acme_dns desec {
         token "{$TOKEN}"
       }
@@ -74,10 +75,6 @@
       @8081 host 8081.ragon.xyz
       handle @8081 {
         reverse_proxy http://[::1]:8081
-      }
-      @lolpizza host lolpizza.ragon.xyz
-      handle @lolpizza {
-        reverse_proxy http://[::1]${config.services.lolpizza2.listen}
       }
       @files host files.ragon.xyz
       handle @files {
@@ -159,7 +156,7 @@
       }
       @sso host sso.xyno.systems
       handle @sso {
-        reverse_proxy http://127.0.0.1:${toString config.services.authelia.instances.main.settings.server.port}
+        reverse_proxy http://127.0.0.1:9091
       }
       @git host git.xyno.systems
       handle @git {
@@ -176,9 +173,6 @@
     '';
     virtualHosts."xyno.systems".extraConfig = ''
       redir https://xyno.space{uri}
-    '';
-    virtualHosts."czi.dating".extraConfig = ''
-      redir https://foss-ag.de{uri}
     '';
   };
 

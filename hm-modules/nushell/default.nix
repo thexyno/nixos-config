@@ -5,6 +5,7 @@ let
 in
 {
   options.ragon.nushell.enable = lib.mkOption { default = false; };
+  options.ragon.nushell.isNixOS = lib.mkOption { default = false; };
   config = lib.mkIf cfg.enable {
     programs.direnv = {
       enable = true;
@@ -13,82 +14,86 @@ in
     programs.nushell = {
       enable = true;
       extraConfig = ''
-         let carapace_completer = {|spans: list<string>|
-             carapace $spans.0 nushell ...$spans
-             | from json
-             | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
-         }
-         let external_completer = {|spans|
-             let expanded_alias = scope aliases
-             | where name == $spans.0
-             | get -i 0.expansion
+           let carapace_completer = {|spans: list<string>|
+               carapace $spans.0 nushell ...$spans
+               | from json
+               | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
+           }
+           let external_completer = {|spans|
+               let expanded_alias = scope aliases
+               | where name == $spans.0
+               | get -i 0.expansion
          
-             let spans = if $expanded_alias != null {
-                 $spans
-                 | skip 1
-                 | prepend ($expanded_alias | split row ' ' | take 1)
-             } else {
-                 $spans
-             }
+               let spans = if $expanded_alias != null {
+                   $spans
+                   | skip 1
+                   | prepend ($expanded_alias | split row ' ' | take 1)
+               } else {
+                   $spans
+               }
          
-             match $spans.0 {
-                 # carapace completions are incorrect for nu
-                 # nu => $fish_completer
-                 # fish completes commits and branch names in a nicer way
-                 # git => $fish_completer
-                 # carapace doesn't have completions for asdf
-                 # asdf => $fish_completer
-                 # use zoxide completions for zoxide commands
-                 # __zoxide_z | __zoxide_zi => $zoxide_completer
-                 _ => $carapace_completer
-             } | do $in $spans
-         }
-         $env.config = {
-          edit_mode: vi
-          show_banner: false,
-          completions: {
-          case_sensitive: false # case-sensitive completions
-          quick: true    # set to false to prevent auto-selecting completions
-          partial: true    # set to false to prevent partial filling of the prompt
-          algorithm: "fuzzy"    # prefix or fuzzy
-          external: {
-          # set to false to prevent nushell looking into $env.PATH to find more suggestions
-              enable: true 
-          # set to lower can improve completion performance at the cost of omitting some options
-              max_results: 100 
-              completer: $external_completer # check 'carapace_completer' 
+               match $spans.0 {
+                   # carapace completions are incorrect for nu
+                   # nu => $fish_completer
+                   # fish completes commits and branch names in a nicer way
+                   # git => $fish_completer
+                   # carapace doesn't have completions for asdf
+                   # asdf => $fish_completer
+                   # use zoxide completions for zoxide commands
+                   # __zoxide_z | __zoxide_zi => $zoxide_completer
+                   _ => $carapace_completer
+               } | do $in $spans
+           }
+           $env.config = {
+            edit_mode: vi
+            show_banner: false,
+            completions: {
+            case_sensitive: false # case-sensitive completions
+            quick: true    # set to false to prevent auto-selecting completions
+            partial: true    # set to false to prevent partial filling of the prompt
+            algorithm: "fuzzy"    # prefix or fuzzy
+            external: {
+            # set to false to prevent nushell looking into $env.PATH to find more suggestions
+                enable: true 
+            # set to lower can improve completion performance at the cost of omitting some options
+                max_results: 100 
+                completer: $external_completer # check 'carapace_completer' 
+              }
             }
-          }
-         } 
-        $env.EDITOR = "hx"
-        $env.VISUAL = "hx"
-        $env.NIX_REMOTE = "daemon"
-        $env.NIX_USER_PROFILE_DIR = $"/nix/var/nix/profiles/per-user/($env.USER)"
-        $env.NIX_PROFILES = $"/nix/var/nix/profiles/default:($env.HOME)/.nix-profile"
-        $env.NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"
-        $env.NIX_PATH = "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs:/nix/var/nix/profiles/per-user/root/channels"
-        $env.PATH = ($env.PATH | 
-        split row (char esep) |
-        append /usr/bin/env |
-        append $"($env.HOME)/.nix-profile/bin" |
-        append "/nix/var/nix/profiles/default/bin" |
-        append $"/etc/profiles/per-user/($env.USER)/bin" |
-        append "/run/current-system/sw/bin" |
-        append "/opt/homebrew/bin" |
-        append $"($env.HOME)/.cargo/bin" |
-        append $"($env.HOME)/.local/bin"
-        )
-        alias no = open
-        alias open = ^open
-        alias l = ls -al
-        alias ll = ls -l
-        alias ga = git add
-        alias gaa = git add -A
-        alias gd = git diff
-        alias gc = git commit
-        alias gp = git push
-        alias gpl = git pull
-        alias ytl = yt-dlp -f "bv*+mergeall[vcodec=none]" --audio-multistreams
+           } 
+          $env.EDITOR = "hx"
+          $env.VISUAL = "hx"
+          alias no = open
+          alias open = ^open
+          alias l = ls -al
+          alias ll = ls -l
+          alias ga = git add
+          alias gaa = git add -A
+          alias gd = git diff
+          alias gc = git commit
+          alias gp = git push
+          alias gpl = git pull
+          alias ytl = yt-dlp -f "bv*+mergeall[vcodec=none]" --audio-multistreams
+          alias conf = cd ~/proj/nixos-config
+          ${(if !cfg.isNixOS then ''
+        
+          $env.NIX_REMOTE = "daemon"
+          $env.NIX_USER_PROFILE_DIR = $"/nix/var/nix/profiles/per-user/($env.USER)"
+          $env.NIX_PROFILES = $"/nix/var/nix/profiles/default:($env.HOME)/.nix-profile"
+          $env.NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"
+          $env.NIX_PATH = "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs:/nix/var/nix/profiles/per-user/root/channels"
+          $env.PATH = ($env.PATH | 
+          split row (char esep) |
+          append /usr/bin/env |
+          append $"($env.HOME)/.nix-profile/bin" |
+          append "/nix/var/nix/profiles/default/bin" |
+          append $"/etc/profiles/per-user/($env.USER)/bin" |
+          append "/run/current-system/sw/bin" |
+          append "/opt/homebrew/bin" |
+          append $"($env.HOME)/.cargo/bin" |
+          append $"($env.HOME)/.local/bin"
+          )
+        '' else "")}
       '';
       shellAliases = {
         vi = "hx";

@@ -61,7 +61,8 @@
 
         user.name = "Lucy Hochkamp";
         user.email = "git@xyno.systems";
-        user.signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIuwQJY0H/fdu1UmGXAut7VfcvAk2Dm78tJpkyyv2in2";
+        user.signingKey = # TODO: don't hardcode a computer
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID/oMAi5jyQsNohfhcSH2ItisTpBGB0WtYTVxJYKKqhj"; # theseus
 
         # Set default "git pull" behaviour so it doesn't try to default to
         # either "git fetch; git merge" (default) or "git fetch; git rebase".

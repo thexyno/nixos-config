@@ -1,16 +1,29 @@
-{ lib, pkgs, config, inputs, ... }: {
+{ lib, pkgs, config, inputs, ... }:
+let
+  # backgroundImage = builtins.fetchurl {
+    # url = "https://gruvbox-wallpapers.pages.dev/wallpapers/anime/wallhaven-2e2xyx.jpg";
+    # sha256 = "1zw1a8x20bp9mn9lx18mxzgzvzi02ss57r4q1lc9f14fsmzphnlq";
+  # };
+  backgroundImage = "/home/ragon/Pictures/background.jpg";
+in
+{
   home.packages = with pkgs; [
-    kanshi
+    unstable.shikane
     helvum
+    swaylock
+    swayidle
+    swaybg
+    wlopm
     brightnessctl
     dconf
     pwvucontrol
+    networkmanagerapplet
+    libnotify
   ];
 
   dconf = {
     settings = {
       "org/gnome/desktop/interface" = {
-        gtk-theme = "Adwaita-dark";
         color-scheme = "prefer-dark";
       };
     };
@@ -19,10 +32,7 @@
   gtk = {
     enable = true;
     gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome.gnome-themes-extra;
-    };
+    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
 
   qt = {
@@ -307,13 +317,17 @@ label:focus {
         layer = "top";
         position = "top";
         height = 15;
-        modules-left = [ "river/tags" "river/layout" ];
+        modules-left = [ "river/tags" "river/layout" "tray"];
         modules-center = [ "river/window" ];
-        modules-right = [ "tray" "wireplumber" "upower" "backlight" "cpu" "temperature" "memory" "disk" "network" "clock" ];
+        modules-right = [  "wireplumber" "upower" "backlight" "cpu" "temperature" "memory" "disk" "custom/tailscale" "network" "clock" ];
+        "river/window" = {
+          max-length = 40;
+        };
         wireplumber = {
           "format" = "{volume}% {icon}";
           "format-muted" = "";
           "on-click" = "${pkgs.pwvucontrol}/bin/pwvucontrol";
+          "on-right-click" = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           "format-icons" = [ "" "" "" ];
         };
         "backlight" = {
@@ -325,7 +339,7 @@ label:focus {
         };
         "cpu" = {
           "interval" = 10;
-          "format" = "{}% ";
+          "format" = "{:0.0f}% ";
           "max-length" = 10;
         };
         "temperature" = {
@@ -343,6 +357,15 @@ label:focus {
           format = "{specific_used:0.0f}/{specific_total:0.0f} GB 󰋊";
           unit = "GB";
           path = "/persistent";
+        };
+        "custom/tailscale" = {
+          exec = pkgs.writeScript "tailscaleWaybar.sh" ''
+            #!${pkgs.bash}/bin/bash
+            TAILNET=$(${pkgs.tailscale}/bin/tailscale status --json | ${pkgs.jq}/bin/jq -j '.MagicDNSSuffix')
+            
+            echo "''${''${TAILNET%.ts.net}:(-15)}"
+          '';
+          interval = 30;
         };
         "network" = {
           "format" = "{ifname}";
@@ -364,97 +387,116 @@ label:focus {
     xwayland.enable = true;
     settings = {
       map = {
-        normal = {
-          "Super+Shift Space" = "spawn 'rofi -show drun'";
-          "Super+Shift Return" = "spawn 'wezterm'";
-          "Super Q" = "close";
-          "Super J" = "focus-view next";
-          "Super K" = "focus-view previous";
-          "Super Up" = "focus-view next";
-          "Super Down" = "focus-view previous";
-          "Super+Shift J" = "swap next";
-          "Super+Shift K" = "swap previous";
-          "Super+Shift Up" = "swap next";
-          "Super+Shift Down" = "swap previous";
-          "Super Period" = "focus-output right";
-          "Super Comma" = "focus-output left";
-          "Super+Control Period" = "send-to-output right";
-          "Super+Control Comma" = "send-to-output left";
-          "Super Return" = "zoom";
-          "Super H" = ''send-layout-cmd rivertile "main-ratio -0.05"'';
-          "Super L" = ''send-layout-cmd rivertile "main-ratio +0.05"'';
-          "Super Left" = ''send-layout-cmd rivertile "main-ratio -0.05"'';
-          "Super Right" = ''send-layout-cmd rivertile "main-ratio +0.05"'';
-          "Super+Shift H" = ''send-layout-cmd rivertile "main-count -1"'';
-          "Super+Shift L" = ''send-layout-cmd rivertile "main-count +1"'';
-          "Super+Shift Left" = ''send-layout-cmd rivertile main-count  -1"'';
-          "Super+Shift Right" = ''send-layout-cmd rivertile main-count  +1"'';
-          # Super+Alt+{H,J,K,L} to move views
-          "Super+Alt H" = "move left 100";
-          "Super+Alt J" = "move down 100";
-          "Super+Alt K" = "move up 100";
-          "Super+Alt L" = "move right 100";
+        normal =
+          let
+            scrn = pkgs.writeScript "scrn.sh" ''
+              #!${pkgs.bash}/bin/bash
+              IMG_FILE=~/Images/screenshots/scrn-$(date +\"%Y-%m-%d-%H-%M-%S\").png
+              ${pkgs.grim}/bin/grim $IMG_FILE
+              ${pkgs.wl-clipboard}/bin/wl-copy < $IMG_FILE
+              ${pkgs.libnotify}/bin/notify-send -i $IMG_FILE -e -t 10000 "Screenshot Saved" $IMG_FILE
+            '';
+            slurpscrn = pkgs.writeScript "scurpscrn.sh" ''
+              #!${pkgs.bash}/bin/bash
+              IMG_FILE=~/Images/screenshots/scrn-$(date +\"%Y-%m-%d-%H-%M-%S\").png
+              ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - $IMG_FILE
+              ${pkgs.wl-clipboard}/bin/wl-copy < $IMG_FILE
+              ${pkgs.libnotify}/bin/notify-send -i $IMG_FILE -e -t 10000 "Screenshot Saved" $IMG_FILE
+            '';
+          in
+          {
+            "Super+Alt 4" = "spawn '${slurpscrn}'";
+            "Super+Alt 1" = "spawn '${scrn}'";
+            "Super+Shift Space" = "spawn 'rofi -show drun'";
+            "Super+Shift Return" = "spawn wezterm";
+            "Super Q" = "close";
+            "Super J" = "focus-view next";
+            "Super K" = "focus-view previous";
+            "Super Up" = "focus-view next";
+            "Super Down" = "focus-view previous";
+            "Super+Shift J" = "swap next";
+            "Super+Shift K" = "swap previous";
+            "Super+Shift Up" = "swap next";
+            "Super+Shift Down" = "swap previous";
+            "Super Period" = "focus-output right";
+            "Super Comma" = "focus-output left";
+            "Super+Control Period" = "send-to-output -current-tags right";
+            "Super+Control Comma" = "send-to-output -current-tags left";
+            "Super Return" = "zoom";
+            "Super H" = ''send-layout-cmd rivertile "main-ratio -0.05"'';
+            "Super L" = ''send-layout-cmd rivertile "main-ratio +0.05"'';
+            "Super Left" = ''send-layout-cmd rivertile "main-ratio -0.05"'';
+            "Super Right" = ''send-layout-cmd rivertile "main-ratio +0.05"'';
+            "Super+Shift H" = ''send-layout-cmd rivertile "main-count -1"'';
+            "Super+Shift L" = ''send-layout-cmd rivertile "main-count +1"'';
+            "Super+Shift Left" = ''send-layout-cmd rivertile main-count  -1"'';
+            "Super+Shift Right" = ''send-layout-cmd rivertile main-count  +1"'';
+            # Super+Alt+{H,J,K,L} to move views
+            "Super+Alt H" = "move left 100";
+            "Super+Alt J" = "move down 100";
+            "Super+Alt K" = "move up 100";
+            "Super+Alt L" = "move right 100";
 
-          # Super+Alt+Control+{H,J,K,L} to snap views to screen edges
-          "Super+Alt+Control H" = "snap left";
-          "Super+Alt+Control J" = "snap down";
-          "Super+Alt+Control K" = "snap up";
-          "Super+Alt+Control L" = "snap right";
+            # Super+Alt+Control+{H,J,K,L} to snap views to screen edges
+            "Super+Alt+Control H" = "snap left";
+            "Super+Alt+Control J" = "snap down";
+            "Super+Alt+Control K" = "snap up";
+            "Super+Alt+Control L" = "snap right";
 
-          # Super+Alt+Shift+{H,J,K,L} to resize views
-          "Super+Alt+Shift H" = "resize horizontal -100";
-          "Super+Alt+Shift J" = "resize vertical 100";
-          "Super+Alt+Shift K" = "resize vertical -100";
-          "Super+Alt+Shift L" = "resize horizontal 100";
+            # Super+Alt+Shift+{H,J,K,L} to resize views
+            "Super+Alt+Shift H" = "resize horizontal -100";
+            "Super+Alt+Shift J" = "resize vertical 100";
+            "Super+Alt+Shift K" = "resize vertical -100";
+            "Super+Alt+Shift L" = "resize horizontal 100";
 
-        } // (lib.zipAttrs (map
-          (x_int:
-            let
-              pow = n: i:
-                if i == 1 then n
-                else if i == 0 then 1
-                else n * pow n (i - 1);
-              tags = toString (pow 2 (x_int - 1));
-              x = toString x_int;
+          } // (lib.zipAttrs (map
+            (x_int:
+              let
+                pow = n: i:
+                  if i == 1 then n
+                  else if i == 0 then 1
+                  else n * pow n (i - 1);
+                tags = toString (pow 2 (x_int - 1));
+                x = toString x_int;
 
-            in
-            {
-              "Super ${x}" = "set-focused-tags ${tags}";
-              "Super+Shift ${x}" = "set-view-tags ${tags}";
-              "Super+Control ${x}" = "toggle-focused-tags ${tags}";
-              "Super+Shift+Control ${x}" = "toggle-view-tags ${tags}";
-            }
-          )
-          (lib.range 1 9)))
-        // {
-          "Super 0" = "set-focused-tags 4294967295"; # $(((1 << 32) - 1))
-          "Super+Shift 0" = "set-view-tags 4294967295"; # $(((1 << 32) - 1))
-          # Super+Space to toggle float
-          "Super Space" = "toggle-float";
+              in
+              {
+                "Super ${x}" = "set-focused-tags ${tags}";
+                "Super+Shift ${x}" = "set-view-tags ${tags}";
+                "Super+Control ${x}" = "toggle-focused-tags ${tags}";
+                "Super+Shift+Control ${x}" = "toggle-view-tags ${tags}";
+              }
+            )
+            (lib.range 1 9)))
+          // {
+            "Super 0" = "set-focused-tags 4294967295"; # $(((1 << 32) - 1))
+            "Super+Shift 0" = "set-view-tags 4294967295"; # $(((1 << 32) - 1))
+            # Super+Space to toggle float
+            "Super Space" = "toggle-float";
 
-          # Super+F to toggle fullscreen
-          "Super F" = "toggle-fullscreen";
+            # Super+F to toggle fullscreen
+            "Super F" = "toggle-fullscreen";
 
-          # Super+{Up,Right,Down,Left} to change layout orientation
-          "Super Up" = ''send-layout-cmd rivertile "main-location top"'';
-          "Super Right" = ''send-layout-cmd rivertile "main-location right"'';
-          "Super Down" = ''send-layout-cmd rivertile "main-location bottom"'';
-          "Super Left" = ''send-layout-cmd rivertile "main-location left"'';
-          # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-          "None XF86AudioRaiseVolume" = "spawn 'pamixer -i 5'";
-          "None XF86AudioLowerVolume" = "spawn 'pamixer -d 5'";
-          "None XF86AudioMute" = "spawn 'pamixer --toggle-mute'";
+            # Super+{Up,Right,Down,Left} to change layout orientation
+            "Super Up" = ''send-layout-cmd rivertile "main-location top"'';
+            "Super Right" = ''send-layout-cmd rivertile "main-location right"'';
+            "Super Down" = ''send-layout-cmd rivertile "main-location bottom"'';
+            "Super Left" = ''send-layout-cmd rivertile "main-location left"'';
+            # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
+            "None XF86AudioRaiseVolume" = "spawn 'pamixer -i 5'";
+            "None XF86AudioLowerVolume" = "spawn 'pamixer -d 5'";
+            "None XF86AudioMute" = "spawn 'pamixer --toggle-mute'";
 
-          # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
-          "None XF86AudioMedia" = "spawn 'playerctl play-pause'";
-          "None XF86AudioPlay" = "spawn 'playerctl play-pause'";
-          "None XF86AudioPrev" = "spawn 'playerctl previous'";
-          "None XF86AudioNext" = "spawn 'playerctl next'";
+            # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
+            "None XF86AudioMedia" = "spawn 'playerctl play-pause'";
+            "None XF86AudioPlay" = "spawn 'playerctl play-pause'";
+            "None XF86AudioPrev" = "spawn 'playerctl previous'";
+            "None XF86AudioNext" = "spawn 'playerctl next'";
 
-          # Control screen backlight brightness with brightnessctl (https://github.com/Hummer12007/brightnessctl)
-          "None XF86MonBrightnessUp" = "spawn 'brightnessctl set +5%'";
-          "None XF86MonBrightnessDown" = "spawn 'brightnessctl set 5%-'";
-        }
+            # Control screen backlight brightness with brightnessctl (https://github.com/Hummer12007/brightnessctl)
+            "None XF86MonBrightnessUp" = "spawn 'brightnessctl set +5%'";
+            "None XF86MonBrightnessDown" = "spawn 'brightnessctl set 5%-'";
+          }
         ;
       };
       map-pointer.normal = {
@@ -473,15 +515,23 @@ label:focus {
       input = {
         "pointer-2362-628-PIXA3854:00_093A:0274_Touchpad" = "tap enabled";
       };
+      keyboard-layout = "eu";
       xcursor-theme = "Adwaita";
       default-layout = "rivertile";
     };
     extraConfig = ''
       rivertile -view-padding 3 -outer-padding 3 &
       swayidle \
-          timeout 300 'exec swaylock -c 000000' \
-          before-sleep 'exec swaylock -c 000000' &
-      kanshi &
+          timeout 300 'swaylock -i ${backgroundImage}' \
+          timeout 600 'wlopm --off \*' resume 'wlopm --on \*' \
+          before-sleep 'swaylock -i ${backgroundImage}' &
+      swaybg -i ${backgroundImage} &
+      shikane &
+      nm-applet &
     '';
+  };
+  services.wired = {
+    enable = true;
+    config = ./wired.ron;
   };
 }

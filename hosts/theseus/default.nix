@@ -18,7 +18,19 @@
   programs.fuse.userAllowOther = true;
   programs.sway.enable = true;
   programs.nix-ld.enable = true;
+  programs.gamescope.enable = true;
+  services.gnome.sushi.enable = true;
+  services.gnome.gnome-settings-daemon.enable = true; 
+  services.gvfs.enable = true;
+  services.logind.extraConfig = ''
+    # supspend on pw button press
+    HandlePowerKey=suspend
+  '';
+  programs.kdeconnect.enable = true;
   services.power-profiles-daemon.enable = true;
+  services.printing.enable = true;
+  services.printing.drivers = with pkgs; [ gutenprint hplip splix ];
+  services.avahi.enable = true;
   programs.sway.extraSessionCommands = ''
     export NIXOS_OZONE_WL=1
   '';
@@ -26,6 +38,7 @@
     wlr.enable = true;
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    configPackages = [ pkgs.xdg-desktop-portal-gtk ];
   };
   # start bt
   hardware.bluetooth.enable = true;
@@ -35,23 +48,39 @@
   programs.light.enable = true;
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
-  # services.displayManager.defaultSession = "river";
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.enable = true;
+  services.xserver.displayManager.gdm.wayland = true;
+  programs.seahorse.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  services.gnome.gnome-online-accounts.enable = true;
+  services.gnome.core-utilities.enable = true;
+  services.displayManager.defaultSession = "river";
+  programs.river.enable = true;
   services.upower.enable = true;
   users.users.ragon.extraGroups = [ "networkmanager" "video" ];
-  programs.kde-pim = { enable = true; kmail = true; kontact = true; merkuro = true; };
   environment.systemPackages = [
     pkgs.qt6.qtwayland
   ];
-  fonts.packages = [
-    pkgs.nerdfonts
+  fonts.packages = with pkgs; [
+    nerdfonts
+    cantarell-fonts
+    dejavu_fonts
+    source-code-pro # Default monospace font in 3.32
+    source-sans
   ];
   services.pipewire = {
     enable = true;
     pulse.enable = true;
   };
   services.fwupd.enable = true;
+
+  programs.ssh.startAgent = true;
+
+  programs.evolution.enable = true;
+  services.gnome.evolution-data-server.enable = true;
+  services.flatpak.enable = true;
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
@@ -68,22 +97,26 @@
       ./swaycfg.nix
       ./work.nix
       ./river.nix
-      ./kanshi.nix
       ../../hm-modules/files.nix
+      inputs.wired.homeManagerModules.default
     ];
     ragon.helix.enable = true;
     ragon.nushell.enable = true;
+    ragon.nushell.isNixOS = true;
     ragon.zellij.enable = true;
     services.gnome-keyring.enable = true;
     home.file.".config/wezterm/wezterm.lua".text = ''
       local wezterm = require 'wezterm'
 
+      
+
       -- This will hold the configuration.
       local config = wezterm.config_builder()
 
-      config.default_prog = { 'zellij', 'attach', '-c' }
+      config.default_prog = { 'nu' }
       config.hide_tab_bar_if_only_one_tab = true
       config.max_fps = 144
+      config.font = wezterm.font 'Source Code Pro'
 
       -- This is where you actually apply your config choices
 
@@ -95,15 +128,41 @@
     '';
 
     home.packages = with pkgs; [
-      wezterm
+      inputs.wezterm.packages.${pkgs.system}.default
       element-desktop # this is not a place of honor
+      discord # shitcord
       unstable.signal-desktop
-      plexamp
+      unstable.feishin
+      unstable.plexamp
       firefox
-      gnome.seahorse
       obsidian
       thunderbird
+      orca-slicer
+      diebahn
+      vlc
+      dolphin
+      # unstable.kicad
+      unstable.devenv
+      lutris
+      libsecret
+      mixxx
+      unstable.harsh
+
+
+      broot
     ];
+    home.file.".zshrc".text = lib.mkForce ''
+      exec nu
+    '';
+    programs.nushell.extraConfig = ''
+      harsh l
+    '';
+
+    services.kdeconnect = {
+      enable = true;
+      indicator = true;
+      package = pkgs.kdePackages.kdeconnect-kde;
+    };
 
 
 
@@ -131,11 +190,35 @@
     #   };
     programs.home-manager.enable = true;
     home.stateVersion = "24.05";
+    programs.borgmatic = {
+      enable = true;
+      backups.system = {
+        location.sourceDirectories = [ "/persistent" ];
+        location.repositories = [{ path = "ssh://ragon@ds9//backups/theseus"; }];
+        location.extraConfig.exclude_if_present = [ ".nobackup" ];
+        storage.encryptionPasscommand = "${pkgs.libsecret}/bin/secret-tool lookup borg-repository system";
+        location.extraConfig.before_backup = [ "notify-send -u low -a borgmatic borgmatic \"starting backup\" -t 10000" ];
+        location.extraConfig.after_backup = [ "notify-send -u low -a borgmatic borgmatic \"finished backup\" -t 10000" ];
+        location.extraConfig.on_error = [ "notify-send -u critical -a borgmatic borgmatic \"backup failed\"" ];
+        location.extraConfig.ssh_command = "ssh -i /home/ragon/.ssh/id_ed25519";
+        retention = {
+          keepHourly = 24;
+          keepDaily = 7;
+          keepWeekly = 4;
+          keepMonthly = 12;
+          keepYearly = 2;
+        };
+      };
+    };
+    services.borgmatic.enable = true;
   };
 
   ragon = {
     user.enable = true;
     persist.enable = true;
+    persist.extraDirectories = [
+      "/var/lib/bluetooth"
+    ];
     services = {
       ssh.enable = true;
       tailscale.enable = true;

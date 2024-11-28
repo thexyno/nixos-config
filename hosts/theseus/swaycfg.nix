@@ -1,119 +1,119 @@
 { pkgs, config, inputs, ... }: {
-  imports = [ inputs.ironbar.homeManagerModules.default ];
+  # imports = [ inputs.ironbar.homeManagerModules.default ];
   home.packages = with pkgs; [
     slurp
     grim
-    mako
+    # mako
     firefox
     # light installed via programs.light
     playerctl
     jq
     rofi
-    inputs.swaymonad.defaultPackage.x86_64-linux
+    # inputs.swaymonad.defaultPackage.x86_64-linux
     swaylock
   ];
-  programs.ironbar = {
-    enable = true;
-    style = ''
-      @define-color color_bg #282828;
-      @define-color color_bg_dark #3c3836;
-      @define-color color_border #665c54;
-      @define-color color_border_active #7c6f64;
-      @define-color color_text #ebdbb2;
-      @define-color color_urgent #cc241d;
-      * {
-          font-family: Source Sans Pro Nerd Font, sans-serif;
-          font-size: 15px;
-          border: none;
-          border-radius: 0;
-      }
+  # programs.ironbar = {
+  #   enable = false;
+  #   style = ''
+  #     @define-color color_bg #282828;
+  #     @define-color color_bg_dark #3c3836;
+  #     @define-color color_border #665c54;
+  #     @define-color color_border_active #7c6f64;
+  #     @define-color color_text #ebdbb2;
+  #     @define-color color_urgent #cc241d;
+  #     * {
+  #         font-family: Source Sans Pro Nerd Font, sans-serif;
+  #         font-size: 15px;
+  #         border: none;
+  #         border-radius: 0;
+  #     }
       
-      box, menubar, button {
-          background-color: @color_bg;
-          background-image: none;
-          box-shadow: none;
-      }
+  #     box, menubar, button {
+  #         background-color: @color_bg;
+  #         background-image: none;
+  #         box-shadow: none;
+  #     }
       
-      button, label {
-          color: @color_text;
-      }
+  #     button, label {
+  #         color: @color_text;
+  #     }
       
-      button:hover {
-          background-color: @color_bg_dark;
-      }
+  #     button:hover {
+  #         background-color: @color_bg_dark;
+  #     }
       
-      scale trough {
-          min-width: 1px;
-          min-height: 2px;
-      }
+  #     scale trough {
+  #         min-width: 1px;
+  #         min-height: 2px;
+  #     }
       
-      /* #bar {
-          border-top: 1px solid @color_border;
-      } */
+  #     /* #bar {
+  #         border-top: 1px solid @color_border;
+  #     } */
       
-      .popup {
-          border: 1px solid @color_border;
-          padding: 1em;
-      }
-    '';
-    config = {
-      position = "top";
-      height = 20;
-      start = [
-        { type = "workspaces"; }
-        { type = "sway_mode"; }
-      ];
-      center = [
-        {
-          type = "focused";
-          show_icon = true;
-          show_title = true;
-          icon_size = 10;
-          truncate = "end";
-        }
-      ];
-      end = [
-        { type = "music"; player_name = "mpris"; }
-        {
-          type = "volume";
-          icons = {
-            volume_high = "󰕾";
-            volume_medium = "󰖀";
-            volume_low = "󰕿";
-            muted = "󰝟";
-          };
-          format = "{icon} {percentage}%";
-          max_volume = 100;
-        }
-        {
-          type = "upower";
-          format = "{icon} {percentage}%";
-        }
-        {
-          type = "sys_info";
-          format = [
-            "  {cpu_percent}%"
-            " {temp_c:k10temp-Tctl}°C"
-            " {memory_used}/{memory_total}GB"
-            "󰋊 {disk_used:/persistent}/{disk_total:/persistent}GB"
-            "󰓢 {net_down:wlan0}/{net_up:wlan0} Mbps"
-            # "󰖡 {load_average:1} | {load_average:5} | {load_average:15}"
-          ];
-          interval = {
-            "cpu" = 1;
-            "disks" = 300;
-            "memory" = 30;
-            "networks" = 3;
-            "temps" = 5;
-          };
-        }
-        {
-          type = "clock";
-          format = "%Y-%m-%dT%H:%M:%S%z";
-        }
-      ];
-    };
-  };
+  #     .popup {
+  #         border: 1px solid @color_border;
+  #         padding: 1em;
+  #     }
+  #   '';
+  #   config = {
+  #     position = "top";
+  #     height = 20;
+  #     start = [
+  #       { type = "workspaces"; }
+  #       { type = "sway_mode"; }
+  #     ];
+  #     center = [
+  #       {
+  #         type = "focused";
+  #         show_icon = true;
+  #         show_title = true;
+  #         icon_size = 10;
+  #         truncate = "end";
+  #       }
+  #     ];
+  #     end = [
+  #       { type = "music"; player_name = "mpris"; }
+  #       {
+  #         type = "volume";
+  #         icons = {
+  #           volume_high = "󰕾";
+  #           volume_medium = "󰖀";
+  #           volume_low = "󰕿";
+  #           muted = "󰝟";
+  #         };
+  #         format = "{icon} {percentage}%";
+  #         max_volume = 100;
+  #       }
+  #       {
+  #         type = "upower";
+  #         format = "{icon} {percentage}%";
+  #       }
+  #       {
+  #         type = "sys_info";
+  #         format = [
+  #           "  {cpu_percent}%"
+  #           " {temp_c:k10temp-Tctl}°C"
+  #           " {memory_used}/{memory_total}GB"
+  #           "󰋊 {disk_used:/persistent}/{disk_total:/persistent}GB"
+  #           "󰓢 {net_down:wlan0}/{net_up:wlan0} Mbps"
+  #           # "󰖡 {load_average:1} | {load_average:5} | {load_average:15}"
+  #         ];
+  #         interval = {
+  #           "cpu" = 1;
+  #           "disks" = 300;
+  #           "memory" = 30;
+  #           "networks" = 3;
+  #           "temps" = 5;
+  #         };
+  #       }
+  #       {
+  #         type = "clock";
+  #         format = "%Y-%m-%dT%H:%M:%S%z";
+  #       }
+  #     ];
+  #   };
+  # };
 
   # TODO: change to home-manager module somehow
   home.file.".config/sway/config".text = ''
@@ -239,7 +239,7 @@
         }
         bindsym $mod+Shift+e mode "$mode_system"
 
-        exec_always "pkill -f 'python3? .+/swaymonad.py';  swaymonad"
+        # exec_always "pkill -f 'python3? .+/swaymonad.py';  swaymonad"
     bindsym $mod+Return nop promote_window
 
     bindsym $mod+j nop focus_next_window

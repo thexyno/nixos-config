@@ -5,43 +5,36 @@
     utils.url = "github:numtide/flake-utils";
 
     ## nixos/nix-darwin dependencies
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-24.05-darwin";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     agenix.url = "github:ryantm/agenix/main";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # programs
     xynoblog.url = "github:thexyno/blog";
     xynoblog.inputs.nixpkgs.follows = "nixpkgs";
-    lolpizza.url = "github:thexyno/lolpizza2";
-    lolpizza.inputs.nixpkgs.follows = "nixpkgs";
     x.url = "github:thexyno/x";
     x.inputs.nixpkgs.follows = "nixpkgs";
-    imab.url = "github:ulyssa/iamb";
-    imab.inputs.nixpkgs.follows = "nixpkgs";
     helix.url = "github:helix-editor/helix";
-    ironbar = {
-      url = "github:JakeStanger/ironbar";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    swaymonad = {
-      url = "github:nicolasavru/swaymonad";
-      inputs.nixpkgs.follows = "nixpkgs"; # not mandatory but recommended
-    };
-    kmonad = {
+    wezterm.url = "github:wez/wezterm?dir=nix";
+    wezterm.inputs.nixpkgs.follows = "nixpkgs";
+    wired.inputs.nixpkgs.follows = "nixpkgs";
+    wired.url = "github:Toqozz/wired-notify";
 
-      url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
+
+    kmonad = {
+      url = "git+https://github.com/jokesper/kmonad?dir=nix&ref=feat-tap-overlap";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -102,6 +95,7 @@
     , lolpizza
     , lix-module
     , kmonad
+    , wired
     , x
     , ...
     }:
@@ -113,6 +107,7 @@
 
       overlays = [
         self.overlays.default
+        wired.overlays.default
       ];
       genPkgsWithOverlays = system: import nixpkgs {
         inherit system overlays;
