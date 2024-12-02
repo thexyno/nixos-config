@@ -527,11 +527,12 @@ label:focus {
           before-sleep 'swaylock -i ${backgroundImage}' &
       swaybg -i ${backgroundImage} &
       shikane &
+      ${pkgs.mako}/bin/mako &
       nm-applet &
     '';
   };
-  services.wired = {
-    enable = true;
-    config = ./wired.ron;
-  };
+  # services.wired = {
+  #   enable = true;
+  #   config = ./wired.ron;
+  # };
 }

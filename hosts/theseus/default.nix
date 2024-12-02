@@ -12,6 +12,18 @@
       ../../nixos-modules/user
     ];
 
+  # For mount.cifs, required unless domain name resolution is not needed.
+  environment.systemPackages = [ pkgs.cifs-utils ];
+
+  ragon.agenix.secrets.smbSecrets = { };
+  fileSystems."/data" = {
+    device = "//ds9.kangaroo-galaxy.ts.net/data";
+    fsType = "cifs";
+    options = let
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+
+      in ["${automount_opts},credentials=${config.age.secrets.smbSecrets.path},uid=1000,gid=100"];
+  };
   # Don't Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/4cd8dbb3-8eea-48ff-87b1-92945be291ac";
@@ -59,9 +71,6 @@
   programs.river.enable = true;
   services.upower.enable = true;
   users.users.ragon.extraGroups = [ "networkmanager" "video" ];
-  environment.systemPackages = [
-    pkgs.qt6.qtwayland
-  ];
   fonts.packages = with pkgs; [
     nerdfonts
     cantarell-fonts
@@ -147,6 +156,7 @@
       libsecret
       mixxx
       unstable.harsh
+      libreoffice-qt6-fresh
 
 
       broot
@@ -201,6 +211,7 @@
         location.extraConfig.after_backup = [ "notify-send -u low -a borgmatic borgmatic \"finished backup\" -t 10000" ];
         location.extraConfig.on_error = [ "notify-send -u critical -a borgmatic borgmatic \"backup failed\"" ];
         location.extraConfig.ssh_command = "ssh -i /home/ragon/.ssh/id_ed25519";
+        location.extraConfig.one_file_system = true;
         retention = {
           keepHourly = 24;
           keepDaily = 7;

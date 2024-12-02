@@ -174,6 +174,20 @@
     virtualHosts."xyno.systems".extraConfig = ''
       redir https://xyno.space{uri}
     '';
+    virtualHosts."robotgirl.cloud".extraConfig = ''
+        handle / {
+           header Content-Type text/html
+           header Access-Control-Allow-Origin "*"
+           respond `<!DOCTYPE html><html><head><title>beep</title></head><body>
+          <h2>
+          beep :3
+          </h2>
+          <p>
+all the robots are on <a href="https://catgirl.cloud">catgirl.cloud</a> mew :3
+</p>
+          </body></head>` 200
+        }
+    '';
   };
 
   services.forgejo = {

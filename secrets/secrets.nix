@@ -32,8 +32,6 @@ in
   "gitlabSecretFile.age".publicKeys = pubkeys.ragon.host "picard";
   "gitlabDBFile.age".publicKeys = pubkeys.ragon.host "picard";
   "gitlabOTPFile.age".publicKeys = pubkeys.ragon.host "picard";
-  "prometheusBlackboxConfig.yaml.age".publicKeys = pubkeys.ragon.host "beliskner";
-  "vpnConfig.age".publicKeys = pubkeys.ragon.host "beliskner";
   "gitlabJWSFile.age".publicKeys = pubkeys.ragon.host "picard";
   "nextcloudAdminPass.age".publicKeys = pubkeys.ragon.host "picard";
   "picardSharenoteEnv.age".publicKeys = pubkeys.ragon.host "picard";
@@ -50,6 +48,7 @@ in
   "autheliaJwtSecret.age".publicKeys = pubkeys.ragon.host "picard";
   "autheliaEmail.age".publicKeys = pubkeys.ragon.host "picard";
   "autheliaHedgedoc.age".publicKeys = pubkeys.ragon.host "picard";
+  "smbSecrets.age".publicKeys = pubkeys.ragon.computers;
 
   # ovpn
   "ovpnDe.age".publicKeys = pubkeys.ragon.host "picard";
