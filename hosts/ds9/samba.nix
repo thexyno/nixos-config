@@ -1,17 +1,17 @@
 { config, pkgs, lib, ... }: {
-  services.samba.extraConfig = ''
-    min protocol = SMB3
-    vfs objects = acl_xattr catia fruit streams_xattr
-    fruit:nfs_aces = no
-    inherit permissions = yes
-    fruit:posix_rename = yes
-    fruit:resource = xattr
-    fruit:model = MacSamba
-    fruit:veto_appledouble = no
-    fruit:wipe_intentionally_left_blank_rfork = yes 
-    fruit:delete_empty_adfiles = yes 
-    fruit:metadata = stream
-  '';
+  # services.samba.extraConfig = ''
+  #   min protocol = SMB3
+  #   vfs objects = acl_xattr catia fruit streams_xattr
+  #   fruit:nfs_aces = no
+  #   inherit permissions = yes
+  #   fruit:posix_rename = yes
+  #   fruit:resource = xattr
+  #   fruit:model = MacSamba
+  #   fruit:veto_appledouble = no
+  #   fruit:wipe_intentionally_left_blank_rfork = yes 
+  #   fruit:delete_empty_adfiles = yes 
+  #   fruit:metadata = stream
+  # '';
 
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
