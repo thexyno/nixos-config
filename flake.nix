@@ -136,7 +136,7 @@
               home-manager.nixosModules.home-manager
               kmonad.nixosModules.default
               xynoblog.nixosModule
-              lolpizza.nixosModule
+              # lolpizza.nixosModule
               x.nixosModule
               ({ config, ... }: lib.mkMerge [{
                 nixpkgs.pkgs = pkgs;

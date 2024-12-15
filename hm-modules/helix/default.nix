@@ -9,7 +9,7 @@ in
       jsonnet-language-server
       jsonnet
       nixpkgs-fmt
-      omnisharp-roslyn
+      # omnisharp-roslyn
       ## ts
       nodePackages_latest.prettier
       typescript

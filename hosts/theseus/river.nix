@@ -1,8 +1,8 @@
 { lib, pkgs, config, inputs, ... }:
 let
   # backgroundImage = builtins.fetchurl {
-    # url = "https://gruvbox-wallpapers.pages.dev/wallpapers/anime/wallhaven-2e2xyx.jpg";
-    # sha256 = "1zw1a8x20bp9mn9lx18mxzgzvzi02ss57r4q1lc9f14fsmzphnlq";
+  # url = "https://gruvbox-wallpapers.pages.dev/wallpapers/anime/wallhaven-2e2xyx.jpg";
+  # sha256 = "1zw1a8x20bp9mn9lx18mxzgzvzi02ss57r4q1lc9f14fsmzphnlq";
   # };
   backgroundImage = "/home/ragon/Pictures/background.jpg";
 in
@@ -44,11 +44,6 @@ in
     };
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-    configPackages = with pkgs; [ xdg-desktop-portal-gtk ];
-  };
   programs.waybar = {
     enable = true;
     systemd.enable = true;
@@ -57,7 +52,7 @@ in
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: "Source Sans Pro Nerd Font";
-    font-size: 13px;
+    font-size: 12px;
 }
 
 window#waybar {
@@ -92,7 +87,7 @@ window#waybar.chromium {
 }*/
 
 #tags button {
-    padding: 0 5px;
+    padding: 0 2px;
     background-color: #282828;
     color: #ebdbb2;
     /* Use box-shadow instead of border so the text isn't offset */
@@ -103,7 +98,7 @@ window#waybar.chromium {
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-#workspaces button:hover {
+#tags button:hover {
     background: rgba(0, 0, 0, 0.2);
 /*    box-shadow: inset 0 -3px #fbf1c7;
 */
@@ -146,7 +141,7 @@ window#waybar.chromium {
 #custom-poweroff,
 #custom-suspend,
 #mpd {
-    padding: 0 5px;
+    padding: 0 2px;
     background-color: #282828;
     color: #ebdbb2;
 }
@@ -154,7 +149,7 @@ window#waybar.chromium {
 #window,
 #workspaces,
 #tags  {
-    margin: 0 4px;
+    margin: 0 2px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -167,16 +162,13 @@ window#waybar.chromium {
     margin-right: 0;
 }
 
-#clock {
-    color: #8ec07c;
-}
 
 #battery {
     color: #d3869b;
 }
 
 #battery.charging, #battery.plugged {
-    color: #d3869b;
+    color: #98971a;
 }
 
 @keyframes blink {
@@ -214,29 +206,28 @@ label:focus {
 }
 
 #memory {
-    color: #b8bb26;
+    color: #FCF434; /* enby yellow */
+}
+#disk {
+    color: #FFFFFF; /* enby white */
+}
+#network {
+    color: #9C59D1; /* enby purple */
+}
+#clock {
+    color: #000000;
+    /*color: #2C2C2C; enby black */
 }
 
-#network {
-    color: #fb4934;
-}
 
 #network.disconnected {
     background-color: #fbf1c7;
     color: #9d0006;
 }
 
-/*#disk {
-    background-color: #964B00;
-}*/
 
-#pulseaudio {
+#wireplumber {
     color: #fe8019;
-}
-
-#pulseaudio.muted {
-    background-color: #fbf1c7;
-    color: #af3a03;
 }
 
 #tray {
@@ -317,44 +308,79 @@ label:focus {
         layer = "top";
         position = "top";
         height = 15;
-        modules-left = [ "river/tags" "river/layout" "tray"];
-        modules-center = [ "river/window" ];
-        modules-right = [  "wireplumber" "upower" "backlight" "cpu" "temperature" "memory" "disk" "custom/tailscale" "network" "clock" ];
+        modules-left = [ "river/tags" "river/layout" "river/window" ];
+        modules-right = [ "tray" "power_profiles_daemon" "idle_inhibitor" "wireplumber" "battery" "backlight" "cpu" "temperature" "memory" "disk" "custom/tailscale" "network" "clock" ];
         "river/window" = {
           max-length = 40;
         };
         wireplumber = {
-          "format" = "{volume}% {icon}";
-          "format-muted" = "";
+          "format" = "{icon}  {volume}%";
+          "format-muted" = "  MUTE";
           "on-click" = "${pkgs.pwvucontrol}/bin/pwvucontrol";
-          "on-right-click" = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          "on-click-right" = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           "format-icons" = [ "" "" "" ];
         };
         "backlight" = {
           "device" = "amdgpu_bl1";
-          "format" = "{percent}% {icon}";
-          "format-icons" = [ "" "" ];
+          "format" = "{icon} {percent}%";
+          "format-icons" = [ "󰃚" "󰃛" "󰃜" "󰃝" "󰃞" "󰃟" "󰃠" ];
           "on-scroll-up" = "${pkgs.brightnessctl}/bin/brightnessctl s +10";
           "on-scroll-down" = "${pkgs.brightnessctl}/bin/brightnessctl s 10-";
         };
+        "idle_inhibitor" = {
+          format = "{icon} ";
+          format-icons = {
+            "activated" = "󰅶";
+            "deactivated" = "󰾪";
+          };
+        };
+        battery = {
+          "states" = {
+            "warning" = 30;
+            "critical" = 15;
+          };
+          "format" = "{icon}  {capacity}%";
+          "format-icons" = [ "" "" "" "" "" ];
+          "tooltip-format" = "Capacity: {capacity}%\nPower Draw: {power:0.2f}W\n{timeTo}\nCycles: {cycles}";
+          "max-length" = 25;
+        };
         "cpu" = {
           "interval" = 10;
-          "format" = "{:0.0f}% ";
+          "format" = "  {:0.0f}%";
           "max-length" = 10;
         };
         "temperature" = {
-          "format" = "{temperatureC}°C ";
+          "format" = " {temperatureC}°C";
         };
         memory = {
           interval = 30;
-          format = "{used:0.0f}/{total:0.0f} GB ";
+          format = " {used:0.0f}/{total:0.0f}GB";
         };
         clock = {
           interval = 1;
           format = "{:%Y-%m-%dT%H:%M:%S%z}";
+          "tooltip-format" = "<tt><small>{calendar}</small></tt>";
+          "calendar" = {
+            "mode" = "year";
+            "mode-mon-col" = 3;
+            "weeks-pos" = "right";
+            "on-scroll" = 1;
+            "format" = {
+              "months" = "<span color='#ffead3'><b>{}</b></span>";
+              "days" = "<span color='#ecc6d9'><b>{}</b></span>";
+              "weeks" = "<span color='#99ffdd'><b>W{}</b></span>";
+              "weekdays" = "<span color='#ffcc66'><b>{}</b></span>";
+              "today" = "<span color='#ff6699'><b><u>{}</u></b></span>";
+            };
+          };
+          "actions" = {
+            "on-click-right" = "mode";
+            "on-scroll-up" = "shift_up";
+            "on-scroll-down" = "shift_down";
+          };
         };
         disk = {
-          format = "{specific_used:0.0f}/{specific_total:0.0f} GB 󰋊";
+          format = "󰋊 {specific_used:0.0f}/{specific_total:0.0f}GB";
           unit = "GB";
           path = "/persistent";
         };
@@ -369,12 +395,12 @@ label:focus {
         };
         "network" = {
           "format" = "{ifname}";
-          "format-wifi" = "{essid} ({signalStrength}%) ";
-          "format-ethernet" = "{ipaddr}/{cidr} 󰊗";
-          "format-disconnected" = "";
-          "tooltip-format" = "{ifname} via {gwaddr} 󰊗";
-          "tooltip-format-wifi" = "{essid} ({signalStrength}%) ";
-          "tooltip-format-ethernet" = "{ifname} ";
+          "format-wifi" = "󰖩 {essid}";
+          "format-ethernet" = "󰈀 {ifname}";
+          "format-disconnected" = "󰖪";
+          "tooltip-format" = "{ifname} via {gwaddr}\n{ipaddr}/{cidr}";
+          "tooltip-format-wifi" = "{essid} ({signaldBm} dBm) {frequency} GHz\n{ipaddr}/{cidr}";
+          "tooltip-format-ethernet" = "{ifname}\n{ipaddr}/{cidr}";
           "tooltip-format-disconnected" = "Disconnected";
           "max-length" = 50;
         };
@@ -518,9 +544,13 @@ label:focus {
       keyboard-layout = "eu";
       xcursor-theme = "Adwaita";
       default-layout = "rivertile";
+      rule-add = {
+        "-title 'Picture-in-Picture'" = "float";
+        "-app-id 'com.saivert.pwvucontrol'" = "float";
+      };
     };
     extraConfig = ''
-      rivertile -view-padding 3 -outer-padding 3 &
+      rivertile -view-padding 0 -outer-padding 0 &
       swayidle \
           timeout 300 'swaylock -i ${backgroundImage}' \
           timeout 600 'wlopm --off \*' resume 'wlopm --on \*' \

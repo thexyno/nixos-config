@@ -198,6 +198,14 @@ in
       handle @bzzt {
         reverse_proxy http://127.0.0.1:5002
       }
+      @jellyfin host j.hailsatan.eu
+      handle @jellyfin {
+        reverse_proxy http://jellyfin:8096 {
+          transport http {
+            resolvers 10.88.0.1 # podman dns
+          }
+        }
+      }
       handle {
         abort
       }

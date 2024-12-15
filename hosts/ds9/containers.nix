@@ -173,6 +173,16 @@ in
       "nodered-data:/data"
     ];
   };
+  virtualisation.oci-containers.containers.jellyfin = {
+    image = "jellyfin/jellyfin:latest";
+    user = "1000:100";
+    extraOptions = [ "--network=podman" "--mount" "type=bind,source=/data/media,destination=/media,ro=true,relabel=private"];
+    volumes = [
+      "jellyfin-config:/config"
+      "jellyfin-cache:/cache"
+    ];
+  };
+
 
 
 }

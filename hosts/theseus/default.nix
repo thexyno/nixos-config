@@ -10,20 +10,47 @@
       ../../nixos-modules/system/agenix.nix
       ../../nixos-modules/system/persist.nix
       ../../nixos-modules/user
+      # ./gnome.nix
     ];
 
   # For mount.cifs, required unless domain name resolution is not needed.
   environment.systemPackages = [ pkgs.cifs-utils ];
+  nix.extraOptions = # devenv
+   ''
+        trusted-users = root ragon
+    '';
 
-  ragon.agenix.secrets.smbSecrets = { };
-  fileSystems."/data" = {
-    device = "//ds9.kangaroo-galaxy.ts.net/data";
-    fsType = "cifs";
-    options = let
-      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
 
-      in ["${automount_opts},credentials=${config.age.secrets.smbSecrets.path},uid=1000,gid=100"];
+  hardware.keyboard.zsa.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+    config = {
+      river = {
+        "org.freedesktop.impl.portal.Secret" = [
+          "gnome-keyring"
+        ];
+        default = [
+          "gtk"
+        ];
+        "org.freedesktop.impl.portal.Screenshot" = "wlr";
+        "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+      };
+
+
+    };
   };
+  ragon.agenix.secrets.smbSecrets = { };
+  # fileSystems."/data" = {
+  #   device = "//ds9.kangaroo-galaxy.ts.net/data";
+  #   fsType = "cifs";
+  #   options = let
+  #     automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+
+  #     in ["${automount_opts},credentials=${config.age.secrets.smbSecrets.path},uid=1000,gid=100"];
+  # };
   # Don't Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/4cd8dbb3-8eea-48ff-87b1-92945be291ac";
@@ -41,17 +68,12 @@
   programs.kdeconnect.enable = true;
   services.power-profiles-daemon.enable = true;
   services.printing.enable = true;
-  services.printing.drivers = with pkgs; [ gutenprint hplip splix ];
+  programs.system-config-printer.enable = true;
+  services.printing.drivers = with pkgs; [ gutenprint hplip splix ptouch-driver ];
   services.avahi.enable = true;
   programs.sway.extraSessionCommands = ''
     export NIXOS_OZONE_WL=1
   '';
-  xdg.portal = {
-    wlr.enable = true;
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    configPackages = [ pkgs.xdg-desktop-portal-gtk ];
-  };
   # start bt
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
@@ -77,10 +99,28 @@
     dejavu_fonts
     source-code-pro # Default monospace font in 3.32
     source-sans
+    b612
+    
   ];
   services.pipewire = {
     enable = true;
+    raopOpenFirewall = true; # airplay
     pulse.enable = true;
+    extraConfig.pipewire = {
+      "9-clock-allow-higher" = {
+        "context.properties" = {
+          "default.clock.allowed-rates" = [ "44100" "48000" "96000" "192000"];
+        };
+      };
+      "10-raop-discover" = {
+        "context.modules" = [
+          {
+            name = "libpipewire-module-raop-discover";
+            args = {};
+          }
+        ];
+      };
+    };
   };
   services.fwupd.enable = true;
 
@@ -135,6 +175,9 @@
       -- and finally, return the configuration to wezterm
       return config
     '';
+    services.syncthing.enable = true;
+    services.syncthing.tray.enable = true;
+    services.syncthing.tray.command = "syncthingtray --wait";
 
     home.packages = with pkgs; [
       inputs.wezterm.packages.${pkgs.system}.default
@@ -157,6 +200,9 @@
       mixxx
       unstable.harsh
       libreoffice-qt6-fresh
+      inkscape
+      easyeffects
+      dune3d
 
 
       broot
@@ -229,6 +275,7 @@
     persist.enable = true;
     persist.extraDirectories = [
       "/var/lib/bluetooth"
+      "/var/lib/flatpak"
     ];
     services = {
       ssh.enable = true;
