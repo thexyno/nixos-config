@@ -16,8 +16,8 @@
   # For mount.cifs, required unless domain name resolution is not needed.
   environment.systemPackages = [ pkgs.cifs-utils ];
   nix.extraOptions = # devenv
-   ''
-        trusted-users = root ragon
+    ''
+      trusted-users = root ragon
     '';
 
 
@@ -59,7 +59,7 @@
   programs.nix-ld.enable = true;
   programs.gamescope.enable = true;
   services.gnome.sushi.enable = true;
-  services.gnome.gnome-settings-daemon.enable = true; 
+  services.gnome.gnome-settings-daemon.enable = true;
   services.gvfs.enable = true;
   services.logind.extraConfig = ''
     # supspend on pw button press
@@ -67,18 +67,24 @@
   '';
   programs.kdeconnect.enable = true;
   services.power-profiles-daemon.enable = true;
-  services.printing.enable = true;
-  programs.system-config-printer.enable = true;
-  services.printing.drivers = with pkgs; [ gutenprint hplip splix ptouch-driver ];
-  services.avahi.enable = true;
   programs.sway.extraSessionCommands = ''
     export NIXOS_OZONE_WL=1
   '';
   # start bt
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
-
   # end bt
+  # start printing
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+
+  services.printing.enable = true;
+
+  # end printing
   programs.light.enable = true;
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
@@ -100,7 +106,7 @@
     source-code-pro # Default monospace font in 3.32
     source-sans
     b612
-    
+
   ];
   services.pipewire = {
     enable = true;
@@ -109,14 +115,14 @@
     extraConfig.pipewire = {
       "9-clock-allow-higher" = {
         "context.properties" = {
-          "default.clock.allowed-rates" = [ "44100" "48000" "96000" "192000"];
+          "default.clock.allowed-rates" = [ "44100" "48000" "96000" "192000" ];
         };
       };
       "10-raop-discover" = {
         "context.modules" = [
           {
             name = "libpipewire-module-raop-discover";
-            args = {};
+            args = { };
           }
         ];
       };
@@ -203,6 +209,7 @@
       inkscape
       easyeffects
       dune3d
+      ptyxis
 
 
       broot

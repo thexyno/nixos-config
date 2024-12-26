@@ -16,6 +16,7 @@ in
     wlopm
     brightnessctl
     dconf
+    playerctl
     pwvucontrol
     networkmanagerapplet
     libnotify
@@ -434,7 +435,7 @@ label:focus {
             "Super+Alt 4" = "spawn '${slurpscrn}'";
             "Super+Alt 1" = "spawn '${scrn}'";
             "Super+Shift Space" = "spawn 'rofi -show drun'";
-            "Super+Shift Return" = "spawn wezterm";
+            "Super+Shift Return" = "spawn ptyxis";
             "Super Q" = "close";
             "Super J" = "focus-view next";
             "Super K" = "focus-view previous";
