@@ -86,8 +86,11 @@
 
   # end printing
   programs.light.enable = true;
-  networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.backend = "iwd";
+  # networking.networkmanager.enable = true;
+  # networking.networkmanager.wifi.backend = "iwd";
+  networking.wireless.iwd.enable = true;
+  networking.useDHCP = lib.mkDefault true;
+
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
@@ -98,7 +101,7 @@
   services.displayManager.defaultSession = "river";
   programs.river.enable = true;
   services.upower.enable = true;
-  users.users.ragon.extraGroups = [ "networkmanager" "video" ];
+  users.users.ragon.extraGroups = [ "networkmanager" "video" "netdev" ];
   fonts.packages = with pkgs; [
     nerdfonts
     cantarell-fonts
@@ -211,6 +214,7 @@
       dune3d
       ptyxis
 
+filezilla
 
       broot
     ];
@@ -283,6 +287,7 @@
     persist.extraDirectories = [
       "/var/lib/bluetooth"
       "/var/lib/flatpak"
+      "/var/lib/iwd"
     ];
     services = {
       ssh.enable = true;

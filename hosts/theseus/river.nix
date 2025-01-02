@@ -18,7 +18,8 @@ in
     dconf
     playerctl
     pwvucontrol
-    networkmanagerapplet
+    # networkmanagerapplet
+    iwgtk
     libnotify
   ];
 
@@ -559,7 +560,7 @@ label:focus {
       swaybg -i ${backgroundImage} &
       shikane &
       ${pkgs.mako}/bin/mako &
-      nm-applet &
+      iwgtk -i &
     '';
   };
   # services.wired = {
