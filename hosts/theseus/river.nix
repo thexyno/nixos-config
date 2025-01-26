@@ -5,6 +5,11 @@ let
   # sha256 = "1zw1a8x20bp9mn9lx18mxzgzvzi02ss57r4q1lc9f14fsmzphnlq";
   # };
   backgroundImage = "/home/ragon/Pictures/background.jpg";
+  pow = n: i:
+    if i == 1 then n
+    else if i == 0 then 1
+    else n * pow n (i - 1);
+  tag = n: toString (pow 2 (n - 1));
 in
 {
   home.packages = with pkgs; [
@@ -19,6 +24,7 @@ in
     playerctl
     pwvucontrol
     # networkmanagerapplet
+    mako
     iwgtk
     libnotify
   ];
@@ -30,6 +36,14 @@ in
       };
     };
   };
+
+  home.file.".config/mako/config".text = ''
+    font=Source Sans Pro Nerd Font
+    background-color=#1d2021ff
+    border-color=#3c3836FF
+    text-color=#ebdbb2ff
+    progress-color=over #928374FF
+  '';
 
   gtk = {
     enable = true;
@@ -61,7 +75,7 @@ window#waybar {
 /*    background-color: rgba(43, 48, 59, 0.5);
     border-bottom: 3px solid rgba(100, 114, 125, 0.5);*/
     color: #a89984;
-    background-color: #282828;
+    background-color: #1d2021;
 /*    transition-property: background-color;
     transition-duration: .5s;*/
 }
@@ -90,7 +104,7 @@ window#waybar.chromium {
 
 #tags button {
     padding: 0 2px;
-    background-color: #282828;
+    background-color: #1d2021;
     color: #ebdbb2;
     /* Use box-shadow instead of border so the text isn't offset */
     box-shadow: inset 0 -3px transparent;
@@ -144,7 +158,7 @@ window#waybar.chromium {
 #custom-suspend,
 #mpd {
     padding: 0 2px;
-    background-color: #282828;
+    background-color: #1d2021;
     color: #ebdbb2;
 }
 
@@ -181,7 +195,7 @@ window#waybar.chromium {
 }
 
 #battery.critical:not(.charging) {
-    background-color: #282828;
+    background-color: #1d2021;
     color: #d3869b;
     animation-name: blink;
     animation-duration: 0.5s;
@@ -214,10 +228,10 @@ label:focus {
     color: #FFFFFF; /* enby white */
 }
 #network {
-    color: #9C59D1; /* enby purple */
+    color: #b8bb26; /* enby green */
 }
 #clock {
-    color: #000000;
+    color: #9C59D1; /* enby purple */
     /*color: #2C2C2C; enby black */
 }
 
@@ -241,7 +255,7 @@ label:focus {
 }
 
 #idle_inhibitor {
-    background-color: #282828;
+    background-color: #1d2021;
     color: #ebdbb2;
 }
 
@@ -431,12 +445,14 @@ label:focus {
               ${pkgs.wl-clipboard}/bin/wl-copy < $IMG_FILE
               ${pkgs.libnotify}/bin/notify-send -i $IMG_FILE -e -t 10000 "Screenshot Saved" $IMG_FILE
             '';
+
           in
           {
             "Super+Alt 4" = "spawn '${slurpscrn}'";
             "Super+Alt 1" = "spawn '${scrn}'";
             "Super+Shift Space" = "spawn 'rofi -show drun'";
-            "Super+Shift Return" = "spawn ptyxis";
+            "Super+Shift A" = "spawn alacritty";
+            "Super+Shift F" = "spawn nautilus";
             "Super Q" = "close";
             "Super J" = "focus-view next";
             "Super K" = "focus-view previous";
@@ -457,8 +473,8 @@ label:focus {
             "Super Right" = ''send-layout-cmd rivertile "main-ratio +0.05"'';
             "Super+Shift H" = ''send-layout-cmd rivertile "main-count -1"'';
             "Super+Shift L" = ''send-layout-cmd rivertile "main-count +1"'';
-            "Super+Shift Left" = ''send-layout-cmd rivertile main-count  -1"'';
-            "Super+Shift Right" = ''send-layout-cmd rivertile main-count  +1"'';
+            "Super+Shift Left" = ''send-layout-cmd rivertile "main-count  -1"'';
+            "Super+Shift Right" = ''send-layout-cmd rivertile "main-count  +1"'';
             # Super+Alt+{H,J,K,L} to move views
             "Super+Alt H" = "move left 100";
             "Super+Alt J" = "move down 100";
@@ -480,10 +496,6 @@ label:focus {
           } // (lib.zipAttrs (map
             (x_int:
               let
-                pow = n: i:
-                  if i == 1 then n
-                  else if i == 0 then 1
-                  else n * pow n (i - 1);
                 tags = toString (pow 2 (x_int - 1));
                 x = toString x_int;
 
@@ -549,9 +561,16 @@ label:focus {
       rule-add = {
         "-title 'Picture-in-Picture'" = "float";
         "-app-id 'com.saivert.pwvucontrol'" = "float";
+        "-app-id 'org.gnome.NautilusPreviewer'" = "float";
+        "-app-id 'Signal'" = "tags ${tag 9}"; # signal
+        "-app-id 'Cinny'" = "tags ${tag 9}"; # cinny
+        "-app-id 'FFPWA-01JHNYASHBQB122KMCDPEZ65JA'" = "tags ${tag 9}"; # yt music
+        "-app-id 'org.gnome.evolution'" = "tags ${tag 8}"; # evolution
+        "-app-id 'obsidian'" = "tags ${tag 1}"; # obsidian
       };
     };
     extraConfig = ''
+      export XDG_CURRENT_DESKTOP=river
       rivertile -view-padding 0 -outer-padding 0 &
       swayidle \
           timeout 300 'swaylock -i ${backgroundImage}' \
@@ -560,7 +579,13 @@ label:focus {
       swaybg -i ${backgroundImage} &
       shikane &
       ${pkgs.mako}/bin/mako &
-      iwgtk -i &
+      # iwgtk likes to crash when restarting iwd
+      (while true; do iwgtk -i; sleep 10; done) &
+      # now autostarting stuff thats always open anyways
+      obsidian &
+      signal-desktop &
+      cinny-desktop &
+      evolution &
     '';
   };
   # services.wired = {

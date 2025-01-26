@@ -4,7 +4,7 @@
     pkgs.unstable.dotnet-sdk_9
     pkgs.unstable.jetbrains.rider
     # pkgs.jetbrains.datagrip
-    (pkgs.firefox-devedition.overrideAttrs (super: self: { meta.priority = 1; }))
+    (pkgs.unstable.firefox-devedition.overrideAttrs (super: self: { meta.priority = 1; }))
   ];
   
 }

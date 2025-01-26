@@ -17,7 +17,7 @@
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-1.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-2.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -26,11 +26,11 @@
     xynoblog.inputs.nixpkgs.follows = "nixpkgs";
     x.url = "github:thexyno/x";
     x.inputs.nixpkgs.follows = "nixpkgs";
-    helix.url = "github:helix-editor/helix";
-    wezterm.url = "github:wez/wezterm?dir=nix";
-    wezterm.inputs.nixpkgs.follows = "nixpkgs";
+    helix.url = "github:SofusA/helix-pull-diagnostics/pull-diagnostics";
     wired.inputs.nixpkgs.follows = "nixpkgs";
     wired.url = "github:Toqozz/wired-notify";
+    roslyn-language-server.url = "github:sofusa/roslyn-language-server";
+    roslyn-language-server.inputs.nixpkgs.follows = "nixpkgs";
 
 
     kmonad = {

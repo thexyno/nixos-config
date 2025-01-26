@@ -4,7 +4,7 @@
     slurp
     grim
     # mako
-    firefox
+    # firefox
     # light installed via programs.light
     playerctl
     jq

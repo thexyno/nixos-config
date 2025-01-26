@@ -78,11 +78,12 @@
   services.avahi = {
     enable = true;
     nssmdns4 = true;
+    nssmdns6 = true;
     openFirewall = true;
   };
-
-
   services.printing.enable = true;
+
+
 
   # end printing
   programs.light.enable = true;
@@ -101,7 +102,7 @@
   services.displayManager.defaultSession = "river";
   programs.river.enable = true;
   services.upower.enable = true;
-  users.users.ragon.extraGroups = [ "networkmanager" "video" "netdev" ];
+  users.users.ragon.extraGroups = [ "networkmanager" "video" "netdev" "plugdev" "dialout" "tape" "uucp" ];
   fonts.packages = with pkgs; [
     nerdfonts
     cantarell-fonts
@@ -187,15 +188,18 @@
     services.syncthing.enable = true;
     services.syncthing.tray.enable = true;
     services.syncthing.tray.command = "syncthingtray --wait";
+    programs.firefox.nativeMessagingHosts = [ pkgs.unstable.firefoxpwa ];
+    programs.firefox.enable = true;
+
 
     home.packages = with pkgs; [
-      inputs.wezterm.packages.${pkgs.system}.default
+      # inputs.wezterm.packages.${pkgs.system}.default
       element-desktop # this is not a place of honor
       discord # shitcord
       unstable.signal-desktop
-      unstable.feishin
+      unstable.firefoxpwa
       unstable.plexamp
-      firefox
+      # firefox
       obsidian
       thunderbird
       orca-slicer
@@ -213,18 +217,17 @@
       easyeffects
       dune3d
       ptyxis
+      appimage-run
 
-filezilla
+      # filezilla
 
       broot
     ];
     home.file.".zshrc".text = lib.mkForce ''
-      exec nu
+      # we're using nushell as our interactive shell
+      # so if zsh gets spawned by our terminal emulator, exec nu
+      cat /proc/$PPID/cmdline | grep -q alacritty && exec nu
     '';
-    programs.nushell.extraConfig = ''
-      harsh l
-    '';
-
     services.kdeconnect = {
       enable = true;
       indicator = true;
@@ -257,6 +260,41 @@ filezilla
     #   };
     programs.home-manager.enable = true;
     home.stateVersion = "24.05";
+    programs.alacritty = {
+      enable = true;
+      settings = {
+        font.normal.family = "JetBrainsMono NerdFont";
+        colors = {
+          primary = {
+            # hard contrast
+            background = "#1d2021";
+            # normal background = "#282828";
+            # soft contrast background = = "#32302f"
+            foreground = "#ebdbb2";
+          };
+          normal = {
+            black = "#282828";
+            red = "#cc241d";
+            green = "#98971a";
+            yellow = "#d79921";
+            blue = "#458588";
+            magenta = "#b16286";
+            cyan = "#689d6a";
+            white = "#a89984";
+          };
+          bright = {
+            black = "#928374";
+            red = "#fb4934";
+            green = "#b8bb26";
+            yellow = "#fabd2f";
+            blue = "#83a598";
+            magenta = "#d3869b";
+            cyan = "#8ec07c";
+            white = "#ebdbb2";
+          };
+        };
+      };
+    };
     programs.borgmatic = {
       enable = true;
       backups.system = {
