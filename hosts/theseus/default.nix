@@ -188,7 +188,7 @@
     services.syncthing.enable = true;
     services.syncthing.tray.enable = true;
     services.syncthing.tray.command = "syncthingtray --wait";
-    programs.firefox.nativeMessagingHosts = [ pkgs.unstable.firefoxpwa ];
+    programs.firefox.nativeMessagingHosts = [ pkgs.unstable.firefoxpwa pkgs.unstable.keepassxc ];
     programs.firefox.enable = true;
 
 
@@ -218,6 +218,7 @@
       dune3d
       ptyxis
       appimage-run
+      unstable.keepassxc
 
       # filezilla
 
@@ -326,6 +327,7 @@
       "/var/lib/bluetooth"
       "/var/lib/flatpak"
       "/var/lib/iwd"
+      "/var/log" #lol
     ];
     services = {
       ssh.enable = true;

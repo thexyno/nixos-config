@@ -10,6 +10,7 @@ let
     else if i == 0 then 1
     else n * pow n (i - 1);
   tag = n: toString (pow 2 (n - 1));
+  scratchTag = tag 20;
 in
 {
   home.packages = with pkgs; [
@@ -511,6 +512,8 @@ label:focus {
           // {
             "Super 0" = "set-focused-tags 4294967295"; # $(((1 << 32) - 1))
             "Super+Shift 0" = "set-view-tags 4294967295"; # $(((1 << 32) - 1))
+            "Super P" = "toggle-focused-tags ${scratchTag}";
+            "Super+Shift P" = "set-view-tags ${scratchTag}";
             # Super+Space to toggle float
             "Super Space" = "toggle-float";
 
@@ -558,19 +561,23 @@ label:focus {
       keyboard-layout = "eu";
       xcursor-theme = "Adwaita";
       default-layout = "rivertile";
+      spawn-tagmask = "4293918719"; # (( ((1 << 32) - 1) ^ (1 << 20) )) all but scratch tag
       rule-add = {
         "-title 'Picture-in-Picture'" = "float";
         "-app-id 'com.saivert.pwvucontrol'" = "float";
+        "-app-id 'KeePassXC'" = "float";
         "-app-id 'org.gnome.NautilusPreviewer'" = "float";
         "-app-id 'Signal'" = "tags ${tag 9}"; # signal
-        "-app-id 'Cinny'" = "tags ${tag 9}"; # cinny
+        "-app-id 'Element'" = "tags ${tag 9}"; # cinny
         "-app-id 'FFPWA-01JHNYASHBQB122KMCDPEZ65JA'" = "tags ${tag 9}"; # yt music
         "-app-id 'org.gnome.evolution'" = "tags ${tag 8}"; # evolution
         "-app-id 'obsidian'" = "tags ${tag 1}"; # obsidian
+        "-app-id 'KeePassXC' " = "tags ${scratchTag}"; 
       };
     };
     extraConfig = ''
       export XDG_CURRENT_DESKTOP=river
+      export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent
       rivertile -view-padding 0 -outer-padding 0 &
       swayidle \
           timeout 300 'swaylock -i ${backgroundImage}' \
@@ -584,8 +591,9 @@ label:focus {
       # now autostarting stuff thats always open anyways
       obsidian &
       signal-desktop &
-      cinny-desktop &
+      element-desktop &
       evolution &
+      ${pkgs.appimage-run}/bin/appimage-run /home/ragon/AppImages/KeePassXC-2.8.0-snapshot-x86_64.AppImage &
     '';
   };
   # services.wired = {

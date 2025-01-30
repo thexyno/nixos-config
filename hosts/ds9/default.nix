@@ -95,7 +95,7 @@ in
     group = "minecraft";
   };
   users.groups.minecraft = { };
-  environment.systemPackages = [ pkgs.jdk17 pkgs.borgbackup ];
+  environment.systemPackages = [ pkgs.jdk17 pkgs.borgbackup pkgs.beets ];
 
   services.smartd = {
     enable = true;
