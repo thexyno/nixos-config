@@ -120,6 +120,8 @@ in
     ZED_SCRUB_AFTER_RESILVER = true;
   };
 
+  services.tailscaleAuth.enable = true;
+  services.tailscaleAuth.group = config.services.caddy.group;
   systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.desec.path;
   services.caddy = {
     # ragon.services.caddy is enabled
@@ -146,69 +148,83 @@ in
       }
     '';
     virtualHosts."*.hailsatan.eu".extraConfig = ''
-      @immich host immich.hailsatan.eu
-      handle @immich {
-        reverse_proxy http://immich-server:3001 {
-          transport http {
-            resolvers 10.88.0.1 # podman dns
-          }
-        }
-      }
-      @nd host nd.hailsatan.eu
-      handle @nd {
-        reverse_proxy http://navidrome:4533 {
-          transport http {
-            resolvers 10.88.0.1 # podman dns
-          }
-        }
-      }
-      @cd host cd.hailsatan.eu
-      handle @cd {
-        reverse_proxy http://changedetection:5000 {
-          transport http {
-            resolvers 10.88.0.1 # podman dns
-          }
-        }
-      }
-      @grafana host grafana.hailsatan.eu
-      handle @grafana {
-        reverse_proxy http://grafana:3000 {
-          transport http {
-            resolvers 10.88.0.1 # podman dns
-          }
-        }
-      }
-      @node-red host node-red.hailsatan.eu
-      handle @node-red {
-        reverse_proxy http://node-red:1880 {
-          transport http {
-            resolvers 10.88.0.1 # podman dns
-          }
-        }
-      }
-      @bzzt-api host bzzt-api.hailsatan.eu
-      handle @bzzt-api {
-        reverse_proxy http://127.0.0.1:5001
-      }
-      @bzzt-lcg host bzzt-lcg.hailsatan.eu
-      handle @bzzt-lcg {
-        reverse_proxy http://127.0.0.1:5003
-      }
-      @bzzt host bzzt.hailsatan.eu
-      handle @bzzt {
-        reverse_proxy http://127.0.0.1:5002
-      }
-      @jellyfin host j.hailsatan.eu
-      handle @jellyfin {
-        reverse_proxy http://jellyfin:8096 {
-          transport http {
-            resolvers 10.88.0.1 # podman dns
-          }
-        }
-      }
-      handle {
-        abort
-      }
+            @immich host immich.hailsatan.eu
+            handle @immich {
+              reverse_proxy http://immich-server:3001 {
+                transport http {
+                  resolvers 10.88.0.1 # podman dns
+                }
+              }
+            }
+            @lms host lms.hailsatan.eu
+            handle @lms {
+              forward_auth unix//run/tailscale-nginx-auth/tailscale-nginx-auth.sock {
+      	        uri /auth
+      	        header_up Remote-Addr {remote_host}
+      	        header_up Remote-Port {remote_port}
+      	        header_up Original-URI {uri}
+      	        copy_headers {
+      	        	Tailscale-User>X-Webauth-User
+      	        	Tailscale-Name>X-Webauth-Name
+      	        	Tailscale-Login>X-Webauth-Login
+      	        	Tailscale-Tailnet>X-Webauth-Tailnet
+      	        	Tailscale-Profile-Picture>X-Webauth-Profile-Picture
+      	        }
+              } 
+
+              reverse_proxy http://lms:5082 {
+                transport http {
+                  resolvers 10.88.0.1 # podman dns
+                }
+              }
+            }
+            @cd host cd.hailsatan.eu
+            handle @cd {
+              reverse_proxy http://changedetection:5000 {
+                transport http {
+                  resolvers 10.88.0.1 # podman dns
+                }
+              }
+            }
+            @grafana host grafana.hailsatan.eu
+            handle @grafana {
+              reverse_proxy http://grafana:3000 {
+                transport http {
+                  resolvers 10.88.0.1 # podman dns
+                }
+              }
+            }
+            @node-red host node-red.hailsatan.eu
+            handle @node-red {
+              reverse_proxy http://node-red:1880 {
+                transport http {
+                  resolvers 10.88.0.1 # podman dns
+                }
+              }
+            }
+            @bzzt-api host bzzt-api.hailsatan.eu
+            handle @bzzt-api {
+              reverse_proxy http://127.0.0.1:5001
+            }
+            @bzzt-lcg host bzzt-lcg.hailsatan.eu
+            handle @bzzt-lcg {
+              reverse_proxy http://127.0.0.1:5003
+            }
+            @bzzt host bzzt.hailsatan.eu
+            handle @bzzt {
+              reverse_proxy http://127.0.0.1:5002
+            }
+            @jellyfin host j.hailsatan.eu
+            handle @jellyfin {
+              reverse_proxy http://jellyfin:8096 {
+                transport http {
+                  resolvers 10.88.0.1 # podman dns
+                }
+              }
+            }
+            handle {
+              abort
+            }
     '';
   };
 

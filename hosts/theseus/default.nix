@@ -306,7 +306,7 @@
         location.extraConfig.before_backup = [ "notify-send -u low -a borgmatic borgmatic \"starting backup\" -t 10000" ];
         location.extraConfig.after_backup = [ "notify-send -u low -a borgmatic borgmatic \"finished backup\" -t 10000" ];
         location.extraConfig.on_error = [ "notify-send -u critical -a borgmatic borgmatic \"backup failed\"" ];
-        location.extraConfig.ssh_command = "ssh -i /home/ragon/.ssh/id_ed25519";
+        # location.extraConfig.ssh_command = "ssh -i /home/ragon/.ssh/id_ed25519";
         location.extraConfig.one_file_system = true;
         retention = {
           keepHourly = 24;

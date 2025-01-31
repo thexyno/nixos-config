@@ -125,19 +125,31 @@ in
     ];
   };
   # navidrome
-  virtualisation.oci-containers.containers.navidrome = {
-    user = "1000:100";
-    image = "deluan/navidrome:latest";
+  virtualisation.oci-containers.containers.lms = {
+    # don't tell mom
+    # user = "1000:100";
+    image = "epoupon/lms:latest";
+    cmd = ["/lms.conf"];
     extraOptions = [ "--network=podman" ];
-    volumes = [
-      "navidrome-data:/data"
-      "/data/media/music:/music:ro"
-    ];
-    environment = {
-      ND_SCANSCHEDULE = "1h";
-      ND_SESSIONTIMEOUT = "900h";
-      ND_BASEURL = "https://nd.hailsatan.eu";
-    };
+    volumes =
+      let
+        lmsConfig = pkgs.writeText "lms-config" ''
+          original-ip-header = "X-Forwarded-For";
+          behind-reverse-proxy = true;
+          trusted-proxies =
+          (
+          	"10.88.0.1"
+          );
+          authentication-backend = "http-headers";
+          http-headers-login-field = "X-Webauth-User";
+        '';
+      in
+      [
+        "lightweight-music-server-data:/var/lms:rw"
+        "${lmsConfig}:/lms.conf"
+        "/data/media/beets/music:/music:ro"
+      ];
+    environment = { };
   };
 
   # changedetection
@@ -176,7 +188,7 @@ in
   virtualisation.oci-containers.containers.jellyfin = {
     image = "jellyfin/jellyfin:latest";
     user = "1000:100";
-    extraOptions = [ "--network=podman" "--mount" "type=bind,source=/data/media,destination=/media,ro=true,relabel=private"];
+    extraOptions = [ "--network=podman" "--mount" "type=bind,source=/data/media,destination=/media,ro=true,relabel=private" ];
     volumes = [
       "jellyfin-config:/config"
       "jellyfin-cache:/cache"
