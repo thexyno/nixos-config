@@ -129,7 +129,7 @@ in
     # don't tell mom
     # user = "1000:100";
     image = "epoupon/lms:latest";
-    cmd = ["/lms.conf"];
+    cmd = [ "/lms.conf" ];
     extraOptions = [ "--network=podman" ];
     volumes =
       let
@@ -176,6 +176,8 @@ in
     environment = {
       GF_SERVER_ROOT_URL = "https://grafana.hailsatan.eu/";
       GF_INSTALL_PLUGINS = "";
+      GF_FEATURE_TOGGLES_ENABLE = "featureToggleAdminPage, regressionTransformation";
+      GF_FEATURE_MANAGEMENT_ALLOW_EDITING = "true";
     };
   };
   virtualisation.oci-containers.containers.node-red = {
