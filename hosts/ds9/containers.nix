@@ -29,25 +29,25 @@ in
     fsType = "zfs";
   };
   # plex
-  networking.firewall = {
-    allowedTCPPorts = [ 32400 3005 8324 32469 ];
-    allowedUDPPorts = [ 1900 5353 32410 32412 32413 32414 ];
-  };
-  virtualisation.oci-containers.containers.plex = {
-    image = "docker.io/plexinc/pms-docker";
-    extraOptions = [ "--network=host" ];
-    environment = {
-      TZ = "Europe/Berlin";
-      PLEX_UID = "1000";
-      PLEX_GID = "100";
-    };
+  # networking.firewall = {
+  #   allowedTCPPorts = [ 32400 3005 8324 32469 ];
+  #   allowedUDPPorts = [ 1900 5353 32410 32412 32413 32414 ];
+  # };
+  # virtualisation.oci-containers.containers.plex = {
+  #   image = "docker.io/plexinc/pms-docker";
+  #   extraOptions = [ "--network=host" ];
+  #   environment = {
+  #     TZ = "Europe/Berlin";
+  #     PLEX_UID = "1000";
+  #     PLEX_GID = "100";
+  #   };
 
-    volumes = [
-      "/data/media:/data/media"
-      "plex-transcode:/transcode"
-      "plex-db:/config"
-    ];
-  };
+  #   volumes = [
+  #     "/data/media:/data/media"
+  #     "plex-transcode:/transcode"
+  #     "plex-db:/config"
+  #   ];
+  # };
   # postgres
   ragon.agenix.secrets.ds9PostgresEnv = { };
   systemd.services."podman-db-network" = {
@@ -125,32 +125,32 @@ in
     ];
   };
   # navidrome
-  virtualisation.oci-containers.containers.lms = {
-    # don't tell mom
-    # user = "1000:100";
-    image = "epoupon/lms:latest";
-    cmd = [ "/lms.conf" ];
-    extraOptions = [ "--network=podman" ];
-    volumes =
-      let
-        lmsConfig = pkgs.writeText "lms-config" ''
-          original-ip-header = "X-Forwarded-For";
-          behind-reverse-proxy = true;
-          trusted-proxies =
-          (
-          	"10.88.0.1"
-          );
-          authentication-backend = "http-headers";
-          http-headers-login-field = "X-Webauth-User";
-        '';
-      in
-      [
-        "lightweight-music-server-data:/var/lms:rw"
-        "${lmsConfig}:/lms.conf"
-        "/data/media/beets/music:/music:ro"
-      ];
-    environment = { };
-  };
+  # virtualisation.oci-containers.containers.lms = {
+  #   # don't tell mom
+  #   # user = "1000:100";
+  #   image = "epoupon/lms:latest";
+  #   cmd = [ "/lms.conf" ];
+  #   extraOptions = [ "--network=podman" ];
+  #   volumes =
+  #     let
+  #       lmsConfig = pkgs.writeText "lms-config" ''
+  #         original-ip-header = "X-Forwarded-For";
+  #         behind-reverse-proxy = true;
+  #         trusted-proxies =
+  #         (
+  #         	"10.88.0.1"
+  #         );
+  #         authentication-backend = "http-headers";
+  #         http-headers-login-field = "X-Webauth-User";
+  #       '';
+  #     in
+  #     [
+  #       "lightweight-music-server-data:/var/lms:rw"
+  #       "${lmsConfig}:/lms.conf"
+  #       "/data/media/beets/music:/music:ro"
+  #     ];
+  #   environment = { };
+  # };
 
   # changedetection
   systemd.services."podman-cd-network" = {
@@ -196,6 +196,60 @@ in
       "jellyfin-cache:/cache"
     ];
   };
+  # archivebox
+  systemd.services."podman-archivebox-network" = {
+    script = ''
+      ${pkgs.podman}/bin/podman network create archivebox-net --internal --ipv6 --ignore
+    '';
+  };
+  virtualisation.oci-containers.containers.archivebox = {
+    image = "archivebox/archivebox:latest";
+    environment = {
+      ALLOWED_HOSTS = "*"; # set this to the hostname(s) you're going to serve the site from!
+      CSRF_TRUSTED_ORIGINS = "https://archive.hailsatan.eu"; # you MUST set this to the server's URL for admin login and the REST API to work
+      PUBLIC_INDEX = "True"; # set to False to prevent anonymous users from viewing snapshot list
+      PUBLIC_SNAPSHOTS = "True"; # set to False to prevent anonymous users from viewing snapshot content
+      PUBLIC_ADD_VIEW = "False"; # set to True to allow anonymous users to submit new URLs to archive
+      SEARCH_BACKEND_ENGINE = "sonic"; # tells ArchiveBox to use sonic container below for fast full-text search
+      SEARCH_BACKEND_HOST_NAME = "archivebox_sonic";
+      SEARCH_BACKEND_PASSWORD = "SomeSecretPassword";
+    };
+    extraOptions = [ "--network=archivebox-net" "--network=podman"];
+    volumes = [
+      "/data/media/archivebox:/data"
+    ];
+  };
+  virtualisation.oci-containers.containers.archivebox_scheduler = {
+    image = "archivebox/archivebox:latest";
+    cmd = ["schedule" "--foreground" "--update" "--every=day"];
+    environment = {
+      TIMEOUT = "120";
+      ALLOWED_HOSTS = "*"; # set this to the hostname(s) you're going to serve the site from!
+      CSRF_TRUSTED_ORIGINS = "https://archive.hailsatan.eu"; # you MUST set this to the server's URL for admin login and the REST API to work
+      PUBLIC_INDEX = "True"; # set to False to prevent anonymous users from viewing snapshot list
+      PUBLIC_SNAPSHOTS = "True"; # set to False to prevent anonymous users from viewing snapshot content
+      PUBLIC_ADD_VIEW = "False"; # set to True to allow anonymous users to submit new URLs to archive
+      SEARCH_BACKEND_ENGINE = "sonic"; # tells ArchiveBox to use sonic container below for fast full-text search
+      SEARCH_BACKEND_HOST_NAME = "archivebox_sonic";
+      SEARCH_BACKEND_PASSWORD = "SomeSecretPassword";
+    };
+    extraOptions = [ "--network=archivebox-net" "--network=podman"];
+    volumes = [
+      "/data/media/archivebox:/data"
+    ];
+  };
+  virtualisation.oci-containers.containers.archivebox_sonic = {
+    image = "archivebox/sonic:latest";
+    environment = {
+      SEARCH_BACKEND_PASSWORD = "SomeSecretPassword";
+    };
+    extraOptions = [ "--network=archivebox-net"];
+    volumes = [
+      "archivebox-sonic:/data"
+    ];
+  };
+
+
 
 
 

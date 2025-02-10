@@ -21,6 +21,11 @@
     '';
 
 
+
+  users.extraGroups.plugdev = { };
+  services.udev.packages = [ pkgs.openocd pkgs.probe-rs-tools ];
+
+
   hardware.keyboard.zsa.enable = true;
 
   xdg.portal = {

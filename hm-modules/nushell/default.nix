@@ -64,8 +64,8 @@ in
            } 
           $env.EDITOR = "hx"
           $env.VISUAL = "hx"
-          alias no = open
-          alias open = ^open
+          # alias no = open
+          # alias open = ^open
           alias l = ls -al
           alias ll = ls -l
           alias ga = git add

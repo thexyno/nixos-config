@@ -156,28 +156,6 @@ in
                 }
               }
             }
-            @lms host lms.hailsatan.eu
-            handle @lms {
-              forward_auth unix//run/tailscale-nginx-auth/tailscale-nginx-auth.sock {
-      	        uri /auth
-      	        header_up Remote-Addr {remote_host}
-      	        header_up Remote-Port {remote_port}
-      	        header_up Original-URI {uri}
-      	        copy_headers {
-      	        	Tailscale-User>X-Webauth-User
-      	        	Tailscale-Name>X-Webauth-Name
-      	        	Tailscale-Login>X-Webauth-Login
-      	        	Tailscale-Tailnet>X-Webauth-Tailnet
-      	        	Tailscale-Profile-Picture>X-Webauth-Profile-Picture
-      	        }
-              } 
-
-              reverse_proxy http://lms:5082 {
-                transport http {
-                  resolvers 10.88.0.1 # podman dns
-                }
-              }
-            }
             @cd host cd.hailsatan.eu
             handle @cd {
               reverse_proxy http://changedetection:5000 {
@@ -213,6 +191,14 @@ in
             @bzzt host bzzt.hailsatan.eu
             handle @bzzt {
               reverse_proxy http://127.0.0.1:5002
+            }
+            @archivebox host archivebox.hailsatan.eu
+            handle @archivebox {
+              reverse_proxy http://archivebox:8000 {
+                transport http {
+                  resolvers 10.88.0.1 # podman dns
+                }
+              }
             }
             @jellyfin host j.hailsatan.eu
             handle @jellyfin {
