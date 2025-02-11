@@ -159,7 +159,7 @@ in
     virtualHosts."*.hailsatan.eu".extraConfig = ''
       import blockBots
       # tailscale only
-      bind 100.83.96.25
+      bind [fd7a:115c:a1e0:ab12:4843:cd96:6253:6019]
       @immich host immich.hailsatan.eu
       handle @immich {
         import podmanRedir http://immich-server:3001 
