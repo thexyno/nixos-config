@@ -120,8 +120,24 @@ in
     ZED_SCRUB_AFTER_RESILVER = true;
   };
 
-  services.tailscaleAuth.enable = true;
-  services.tailscaleAuth.group = config.services.caddy.group;
+  # dyndns
+
+  systemd.services."dyndns-refresh" = {
+  script = ''
+    set -eu
+    export PATH=$PATH:${pkgs.curl}/bin
+    ${pkgs.bash}/bin/bash ${config.age.secrets.ds9DynDns.path}
+  '';
+  serviceConfig = {
+    Type = "oneshot";
+    User = "root";
+  };
+  startAt = "*:0/10";
+};
+
+
+  # services.tailscaleAuth.enable = true;
+  # services.tailscaleAuth.group = config.services.caddy.group;
   systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.desec.path;
   services.caddy = {
     # ragon.services.caddy is enabled
@@ -232,6 +248,7 @@ in
 
   ragon = {
     agenix.secrets."desec" = { };
+    agenix.secrets."ds9DynDns" = { };
     user.enable = true;
     persist.enable = true;
     persist.extraDirectories = [ "/home/nia" "/var/lib/syncthing" "/var/lib/minecraft" "/var/lib/bzzt" "/var/lib/rancher" "/etc/rancher" "/root/.cache" ];
