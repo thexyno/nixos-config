@@ -125,92 +125,84 @@ in
   systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.desec.path;
   services.caddy = {
     # ragon.services.caddy is enabled
+    extraConfig = ''
+      (blockBots) {
+        @botForbidden header_regexp User-Agent "(?i)AdsBot-Google|Amazonbot|anthropic-ai|Applebot|Applebot-Extended|AwarioRssBot|AwarioSmartBot|Bytespider|CCBot|ChatGPT|ChatGPT-User|Claude-Web|ClaudeBot|cohere-ai|DataForSeoBot|Diffbot|FacebookBot|Google-Extended|GPTBot|ImagesiftBot|magpie-crawler|omgili|Omgilibot|peer39_crawler|PerplexityBot|YouBot"
+
+        handle @botForbidden   {
+          redir https://hil-speed.hetzner.com/10GB.bin
+        }
+      }
+      (podmanRedir) {
+        reverse_proxy {args[:]} {
+          transport http {
+            resolvers 10.88.0.1 # podman dns
+          }
+        }
+      }
+    '';
     globalConfig = ''
       acme_dns desec {
         token "{$TOKEN}"
       }
     '';
-    virtualHosts."http://*.hailsatan.eu".extraConfig = ''
-      @bzzt-api host bzzt-api.hailsatan.eu
-      handle @bzzt-api {
-        reverse_proxy http://127.0.0.1:5001
-      }
-      @bzzt-lcg host bzzt-lcg.hailsatan.eu
-      handle @bzzt-lcg {
-        reverse_proxy http://127.0.0.1:5003
-      }
-      @bzzt host bzzt.hailsatan.eu
-      handle @bzzt {
-        reverse_proxy http://127.0.0.1:5002
-      }
-      handle {
-        abort
+    virtualHosts."*.hailsatan.eu ".logFormat = ''
+      output file ${config.services.caddy.logDir}/access-*hailsatan.eu_internet.log
+    '';
+    virtualHosts."*.hailsatan.eu ".extraConfig = ''
+      import blockBots
+      @jellyfin host j.hailsatan.eu
+      handle @jellyfin {
+        import podmanRedir http://jellyfin:8096 
       }
     '';
     virtualHosts."*.hailsatan.eu".extraConfig = ''
-            @immich host immich.hailsatan.eu
-            handle @immich {
-              reverse_proxy http://immich-server:3001 {
-                transport http {
-                  resolvers 10.88.0.1 # podman dns
-                }
-              }
-            }
-            @cd host cd.hailsatan.eu
-            handle @cd {
-              reverse_proxy http://changedetection:5000 {
-                transport http {
-                  resolvers 10.88.0.1 # podman dns
-                }
-              }
-            }
-            @grafana host grafana.hailsatan.eu
-            handle @grafana {
-              reverse_proxy http://grafana:3000 {
-                transport http {
-                  resolvers 10.88.0.1 # podman dns
-                }
-              }
-            }
-            @node-red host node-red.hailsatan.eu
-            handle @node-red {
-              reverse_proxy http://node-red:1880 {
-                transport http {
-                  resolvers 10.88.0.1 # podman dns
-                }
-              }
-            }
-            @bzzt-api host bzzt-api.hailsatan.eu
-            handle @bzzt-api {
-              reverse_proxy http://127.0.0.1:5001
-            }
-            @bzzt-lcg host bzzt-lcg.hailsatan.eu
-            handle @bzzt-lcg {
-              reverse_proxy http://127.0.0.1:5003
-            }
-            @bzzt host bzzt.hailsatan.eu
-            handle @bzzt {
-              reverse_proxy http://127.0.0.1:5002
-            }
-            @archivebox host archivebox.hailsatan.eu
-            handle @archivebox {
-              reverse_proxy http://archivebox:8000 {
-                transport http {
-                  resolvers 10.88.0.1 # podman dns
-                }
-              }
-            }
-            @jellyfin host j.hailsatan.eu
-            handle @jellyfin {
-              reverse_proxy http://jellyfin:8096 {
-                transport http {
-                  resolvers 10.88.0.1 # podman dns
-                }
-              }
-            }
-            handle {
-              reverse_proxy http://127.0.0.1:8001
-            }
+      import blockBots
+      # tailscale only
+      bind 100.83.96.25
+      @immich host immich.hailsatan.eu
+      handle @immich {
+        import podmanRedir http://immich-server:3001 
+      }
+      @cd host cd.hailsatan.eu
+      handle @cd {
+        import podmanRedir http://changedetection:5000 
+      }
+      @grafana host grafana.hailsatan.eu
+      handle @grafana {
+        import podmanRedir http://grafana:3000 
+      }
+      @node-red host node-red.hailsatan.eu
+      handle @node-red {
+        import podmanRedir http://node-red:1880 
+      }
+
+      
+      # @bzzt-api host bzzt-api.hailsatan.eu
+      # handle @bzzt-api {
+      #   reverse_proxy http://127.0.0.1:5001
+      # }
+      # @bzzt-lcg host bzzt-lcg.hailsatan.eu
+      # handle @bzzt-lcg {
+      #   reverse_proxy http://127.0.0.1:5003
+      # }
+      # @bzzt host bzzt.hailsatan.eu
+      # handle @bzzt {
+      #   reverse_proxy http://127.0.0.1:5002
+      # }
+      
+      
+      @archivebox host archivebox.hailsatan.eu
+      handle @archivebox {
+        import podmanRedir http://archivebox:8000 
+      }
+      @jellyfin host j.hailsatan.eu
+      handle @jellyfin {
+        import podmanRedir http://jellyfin:8096 
+      }
+      handle {
+        reverse_proxy http://127.0.0.1:8001
+      }
     '';
   };
 
