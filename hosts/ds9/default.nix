@@ -44,6 +44,10 @@ in
   programs.mosh.enable = true;
   security.sudo.wheelNeedsPassword = false;
   networking.useDHCP = true;
+  networking.useNetworkd = true;
+  systemd.network.networks."enp1s0f1".ipv6AcceptRAConfig = {
+    Token = "prefixstable";
+  };
   networking.bridges."br0".interfaces = [ ];
   networking.hostId = "7b4c2932";
   networking.firewall.allowedTCPPorts = [ 9000 25565 80 443 ];
@@ -126,7 +130,7 @@ in
   systemd.services."dyndns-refresh" = {
   script = ''
     set -eu
-    export PATH=$PATH:${pkgs.curl}/bin
+    export PATH=$PATH:${pkgs.curl}/bin:${pkgs.jq}/bin:${pkgs.iproute2}/bin
     ${pkgs.bash}/bin/bash ${config.age.secrets.ds9DynDns.path}
   '';
   serviceConfig = {
