@@ -72,19 +72,19 @@
       }
     '';
     virtualHosts."*.ragon.xyz".extraConfig = ''
-      @8081 host 8081.ragon.xyz
-      handle @8081 {
-        reverse_proxy http://[::1]:8081
-      }
-      @files host files.ragon.xyz
-      handle @files {
-        encode zstd gzip
-        root * /srv/www
-        file_server browse
-        basicauth * {
-          {$BAUSER} {$BAPASSWD}
-        }
-      }
+      # @8081 host 8081.ragon.xyz
+      # handle @8081 {
+      #   reverse_proxy http://[::1]:8081
+      # }
+      # @files host files.ragon.xyz
+      # handle @files {
+      #   encode zstd gzip
+      #   root * /srv/www
+      #   file_server browse
+      #   basicauth * {
+      #     {$BAUSER} {$BAPASSWD}
+      #   }
+      # }
       @bw host bw.ragon.xyz
       handle @bw {
         reverse_proxy http://${config.services.vaultwarden.config.rocketAddress}:${toString config.services.vaultwarden.config.rocketPort}
@@ -257,7 +257,7 @@ all the robots are on <a href="https://catgirl.cloud">catgirl.cloud</a> mew :3
     })
   ];
   services.xynoblog.enable = true;
-  services.lolpizza2.enable = true;
+  # services.lolpizza2.enable = true;
   programs.mosh.enable = true;
 
   home-manager.users.ragon = { pkgs, lib, inputs, config, ... }: {

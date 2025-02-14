@@ -31,6 +31,7 @@
     wired.url = "github:Toqozz/wired-notify";
     roslyn-language-server.url = "github:sofusa/roslyn-language-server";
     roslyn-language-server.inputs.nixpkgs.follows = "nixpkgs";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
 
     kmonad = {
@@ -92,7 +93,7 @@
     , darwin
     , utils
     , xynoblog
-    , lolpizza
+    # , lolpizza
     , lix-module
     , kmonad
     , wired

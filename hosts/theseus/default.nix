@@ -63,6 +63,7 @@
   programs.sway.enable = true;
   programs.nix-ld.enable = true;
   programs.gamescope.enable = true;
+  programs.wireshark.enable = true;
   services.gnome.sushi.enable = true;
   services.gnome.gnome-settings-daemon.enable = true;
   services.gvfs.enable = true;
@@ -107,7 +108,7 @@
   services.displayManager.defaultSession = "river";
   programs.river.enable = true;
   services.upower.enable = true;
-  users.users.ragon.extraGroups = [ "networkmanager" "video" "netdev" "plugdev" "dialout" "tape" "uucp" ];
+  users.users.ragon.extraGroups = [ "networkmanager" "video" "netdev" "plugdev" "dialout" "tape" "uucp" "wireshark" ];
   fonts.packages = with pkgs; [
     nerdfonts
     cantarell-fonts
@@ -224,6 +225,8 @@
       ptyxis
       appimage-run
       unstable.keepassxc
+      # unstable.zenbrowser
+      inputs.zen-browser.packages."${pkgs.system}".default
 
       # filezilla
 
