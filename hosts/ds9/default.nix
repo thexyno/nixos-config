@@ -183,7 +183,7 @@ in
       bind [fd7a:115c:a1e0:ab12:4843:cd96:6253:6019]
       @immich host immich.hailsatan.eu
       handle @immich {
-        import podmanRedir http://immich-server:3001 
+        import podmanRedir http://immich-server:2283
       }
       @cd host cd.hailsatan.eu
       handle @cd {

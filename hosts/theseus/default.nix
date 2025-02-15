@@ -27,6 +27,7 @@
 
 
   hardware.keyboard.zsa.enable = true;
+  services.tailscale.useRoutingFeatures = lib.mkForce "client";
 
   xdg.portal = {
     enable = true;
