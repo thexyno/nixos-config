@@ -197,6 +197,10 @@ in
       handle @node-red {
         import podmanRedir http://node-red:1880 
       }
+      @labello host labello.hailsatan.eu
+      handle @labello {
+        import podmanRedir http://labello:4242
+      }
 
       
       # @bzzt-api host bzzt-api.hailsatan.eu

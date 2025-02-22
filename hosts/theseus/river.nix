@@ -26,7 +26,8 @@ in
     pwvucontrol
     # networkmanagerapplet
     mako
-    iwgtk
+    impala
+    # iwgtk
     libnotify
   ];
 
@@ -54,10 +55,11 @@ in
 
   qt = {
     enable = true;
-    platformTheme.name = "Adwaita-dark";
+    # platformTheme.name = "Adwaita-dark";
+    platformTheme.name = "Fusion";
     style = {
-      name = "Adwaita-dark";
-      package = pkgs.adwaita-qt;
+      name = "Fusion";
+      # package = pkgs.adwaita-qt;
     };
   };
 
@@ -333,7 +335,8 @@ label:focus {
         wireplumber = {
           "format" = "{icon}  {volume}%";
           "format-muted" = "  MUTE";
-          "on-click" = "${pkgs.pwvucontrol}/bin/pwvucontrol";
+          # "on-click" = "${pkgs.pwvucontrol}/bin/pwvucontrol";
+          "on-click" = "${pkgs.pavucontrol}/bin/pavucontrol";
           "on-click-right" = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           "format-icons" = [ "" "" "" ];
         };
@@ -401,16 +404,17 @@ label:focus {
           unit = "GB";
           path = "/persistent";
         };
-        "custom/tailscale" = {
-          exec = pkgs.writeScript "tailscaleWaybar.sh" ''
-            #!${pkgs.bash}/bin/bash
-            TAILNET=$(${pkgs.tailscale}/bin/tailscale status --json | ${pkgs.jq}/bin/jq -j '.MagicDNSSuffix')
+        # "custom/tailscale" = {
+        #   exec = pkgs.writeScript "tailscaleWaybar.sh" ''
+        #     #!${pkgs.bash}/bin/bash
+        #     TAILNET=$(${pkgs.tailscale}/bin/tailscale status --json | ${pkgs.jq}/bin/jq -j '.MagicDNSSuffix')
             
-            echo "''${''${TAILNET%.ts.net}:(-15)}"
-          '';
-          interval = 30;
-        };
+        #     echo "''${''${TAILNET%.ts.net}:(-15)}"
+        #   '';
+        #   interval = 30;
+        # };
         "network" = {
+          "on-click" = "${pkgs.alacritty}/bin/alacritty --class floating-alacritty -e ${pkgs.impala}/bin/impala";
           "format" = "{ifname}";
           "format-wifi" = "󰖩 {essid}";
           "format-ethernet" = "󰈀 {ifname}";
@@ -564,7 +568,8 @@ label:focus {
       spawn-tagmask = "4293918719"; # (( ((1 << 32) - 1) ^ (1 << 20) )) all but scratch tag
       rule-add = {
         "-title 'Picture-in-Picture'" = "float";
-        "-app-id 'com.saivert.pwvucontrol'" = "float";
+        "-app-id 'floating-alacritty'" = "float";
+        "-app-id 'org.pulseaudio.pavucontrol'" = "float";
         "-app-id 'KeePassXC'" = "float";
         "-app-id 'org.gnome.NautilusPreviewer'" = "float";
         "-app-id 'Signal'" = "tags ${tag 9}"; # signal
@@ -587,7 +592,7 @@ label:focus {
       shikane &
       ${pkgs.mako}/bin/mako &
       # iwgtk likes to crash when restarting iwd
-      (while true; do iwgtk -i; sleep 10; done) &
+      # (while true; do iwgtk -i; sleep 10; done) &
       # now autostarting stuff thats always open anyways
       obsidian &
       signal-desktop &
