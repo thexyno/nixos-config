@@ -161,6 +161,28 @@ in
           }
         }
       }
+      (podmanRedirWithAuth) {
+        route {
+        # always forward outpost path to actual outpost
+          reverse_proxy /outpost.goauthentik.io/* http://authentik-server:9000 {
+            transport http {
+              resolvers 10.88.0.1 # podman dns
+            }
+          }
+          forward_auth http://authentik-server:9000 {
+            transport http {
+              resolvers 10.88.0.1 # podman dns
+            }
+            uri /outpost.goauthentik.io/auth/caddy
+            copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Entitlements X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+          }
+          reverse_proxy {args[:]} {
+            transport http {
+              resolvers 10.88.0.1 # podman dns
+            }
+          }
+        }
+      }
     '';
     globalConfig = ''
       acme_dns desec {
@@ -179,6 +201,10 @@ in
       @auth host auth.hailsatan.eu
       handle @auth {
         import podmanRedir http://authentik-server:9000
+      }
+      @grafana host grafana.hailsatan.eu
+      handle @grafana {
+        import podmanRedirWithAuth http://grafana:3000 
       }
       handle {
         abort
@@ -199,7 +225,7 @@ in
       }
       @grafana host grafana.hailsatan.eu
       handle @grafana {
-        import podmanRedir http://grafana:3000 
+        import podmanRedirWithAuth http://grafana:3000 
       }
       @node-red host node-red.hailsatan.eu
       handle @node-red {

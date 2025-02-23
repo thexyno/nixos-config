@@ -171,9 +171,27 @@ in
   virtualisation.oci-containers.containers.grafana = {
     image = "grafana/grafana-oss:latest";
     extraOptions = [ "--network=podman" "--network=db-net" ];
-    volumes = [
-      "grafana-data:/var/lib/grafana"
-    ];
+    volumes =
+      let
+        ini = pkgs.writeText "grafana.ini" ''
+          [users]
+          allow_sign_up = false
+          auto_assign_org = true
+          auto_assign_org_role = Editor
+        
+          [auth.proxy]
+          enabled = true
+          headers = Name:X-Authentik-Username Email:X-Authentik-Email Groups:X-Authentik-Groups
+          header_name = X-Authentik-Username
+          header_property = username
+          auto_sign_up = true
+        '';
+      in
+      [
+        "grafana-data:/var/lib/grafana"
+        "${ini}:/etc/grafana/grafana.ini"
+
+      ];
     environment = {
       GF_SERVER_ROOT_URL = "https://grafana.hailsatan.eu/";
       GF_INSTALL_PLUGINS = "";
