@@ -309,24 +309,28 @@
     };
     programs.borgmatic = {
       enable = true;
-      backups.system = {
-        location.sourceDirectories = [ "/persistent" ];
-        location.repositories = [{ path = "ssh://ragon@ds9//backups/theseus"; }];
-        location.extraConfig.exclude_if_present = [ ".nobackup" ];
-        storage.encryptionPasscommand = "${pkgs.libsecret}/bin/secret-tool lookup borg-repository system";
-        location.extraConfig.before_backup = [ "notify-send -u low -a borgmatic borgmatic \"starting backup\" -t 10000" ];
-        location.extraConfig.after_backup = [ "notify-send -u low -a borgmatic borgmatic \"finished backup\" -t 10000" ];
-        location.extraConfig.on_error = [ "notify-send -u critical -a borgmatic borgmatic \"backup failed\"" ];
-        # location.extraConfig.ssh_command = "ssh -i /home/ragon/.ssh/id_ed25519";
-        location.extraConfig.one_file_system = true;
-        retention = {
-          keepHourly = 24;
-          keepDaily = 7;
-          keepWeekly = 4;
-          keepMonthly = 12;
-          keepYearly = 2;
+      backups.system =
+        let
+          notify = "${pkgs.libnotify}/bin/notify-send";
+        in
+        {
+          location.sourceDirectories = [ "/persistent" ];
+          location.repositories = [{ path = "ssh://ragon@ds9//backups/theseus"; }];
+          location.extraConfig.exclude_if_present = [ ".nobackup" ];
+          storage.encryptionPasscommand = "${pkgs.libsecret}/bin/secret-tool lookup borg-repository system";
+          location.extraConfig.before_backup = [ "${notify} -u low -a borgmatic borgmatic \"starting backup\" -t 10000" ];
+          location.extraConfig.after_backup = [ "${notify} -u low -a borgmatic borgmatic \"finished backup\" -t 10000" ];
+          location.extraConfig.on_error = [ "${notify} -u critical -a borgmatic borgmatic \"backup failed\"" ];
+          # location.extraConfig.ssh_command = "ssh -i /home/ragon/.ssh/id_ed25519";
+          location.extraConfig.one_file_system = true;
+          retention = {
+            keepHourly = 24;
+            keepDaily = 7;
+            keepWeekly = 4;
+            keepMonthly = 12;
+            keepYearly = 2;
+          };
         };
-      };
     };
     services.borgmatic.enable = true;
   };

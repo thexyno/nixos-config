@@ -462,6 +462,26 @@
         "type": "github"
       }
     },
+    "quadlet-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1739316033,
+        "narHash": "sha256-yHBsu5I2GOTaMzqEYXfDWzEH+pTpNKp/Ew/8x+cVCZg=",
+        "owner": "SEIAROTg",
+        "repo": "quadlet-nix",
+        "rev": "31e4175bdc1cee453f66cada21f9dd6eb90e507f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SEIAROTg",
+        "repo": "quadlet-nix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -477,6 +497,7 @@
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-master": "nixpkgs-master",
         "pandoc-latex-template": "pandoc-latex-template",
+        "quadlet-nix": "quadlet-nix",
         "roslyn-language-server": "roslyn-language-server",
         "spoons": "spoons",
         "utils": "utils",

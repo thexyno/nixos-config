@@ -176,6 +176,14 @@ in
       handle @jellyfin {
         import podmanRedir http://jellyfin:8096 
       }
+      @auth host auth.hailsatan.eu
+      handle @auth {
+        import podmanRedir http://authentik-server:9000
+      }
+      handle {
+        abort
+      }
+      
     '';
     virtualHosts."*.hailsatan.eu".extraConfig = ''
       import blockBots
