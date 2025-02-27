@@ -25,16 +25,16 @@ in
         allowFreeURL = true;
         email = false;
         oauth2 = {
+          providerName = "authentik";
           clientID = "$CLIENT_ID";
           clientSecret = "$CLIENT_SECRET";
-          providerName = "xyno.systems SSO";
-          authorizationURL = "https://sso.xyno.systems/api/oidc/authorize";
-          tokenURL = "https://sso.xyno.systems/api/oidc/token";
-          userProfileURL = "https://sso.xyno.systems/api/oidc/userinfo";
-          scope = "openid profile email";
-          userProfileUsernameAttr = "sub";
-          userProfileEmailAttr = "email";
+          scope = "openid email profile";
+          userProfileURL = "https://auth.hailsatan.eu/application/o/userinfo/";
+          tokenURL = "https://auth.hailsatan.eu/application/o/token/";
+          authorizationURL = "https://auth.hailsatan.eu/application/o/authorize/";
+          userProfileUsernameAttr = "preferred_username";
           userProfileDisplayNameAttr = "name";
+          userProfileEmailAttr = "email";
         };
         domain = "${cfg.domain}";
         db = {

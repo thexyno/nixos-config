@@ -211,7 +211,7 @@
       # firefox
       obsidian
       thunderbird
-      orca-slicer
+      # unstable.orca-slicer
       diebahn
       vlc
       dolphin

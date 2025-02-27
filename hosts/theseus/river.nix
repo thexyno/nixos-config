@@ -4,6 +4,16 @@ let
   # url = "https://gruvbox-wallpapers.pages.dev/wallpapers/anime/wallhaven-2e2xyx.jpg";
   # sha256 = "1zw1a8x20bp9mn9lx18mxzgzvzi02ss57r4q1lc9f14fsmzphnlq";
   # };
+  setRandomBackground = pkgs.writeScript "setBackground.sh" ''
+    #!/${pkgs.bash}/bin/bash
+    while true; do
+      FILENAME=''$(${pkgs.findutils}/bin/find /home/ragon/Pictures/backgrounds -type f | ${pkgs.coreutils}/bin/shuf -n 1)
+      ${pkgs.swaybg}/bin/swaybg -i $FILENAME -m fill &
+      PID=$!
+      sleep 1200
+      kill $PID
+    done
+  '';
   backgroundImage = "/home/ragon/Pictures/background.jpg";
   pow = n: i:
     if i == 1 then n
@@ -588,7 +598,8 @@ label:focus {
           timeout 300 'swaylock -i ${backgroundImage}' \
           timeout 600 'wlopm --off \*' resume 'wlopm --on \*' \
           before-sleep 'swaylock -i ${backgroundImage}' &
-      swaybg -i ${backgroundImage} &
+      # swaybg -i ${backgroundImage} &
+      ${setRandomBackground} &
       shikane &
       ${pkgs.mako}/bin/mako &
       # iwgtk likes to crash when restarting iwd
@@ -598,7 +609,8 @@ label:focus {
       signal-desktop &
       element-desktop &
       evolution &
-      ${pkgs.appimage-run}/bin/appimage-run /home/ragon/AppImages/KeePassXC-2.8.0-snapshot-x86_64.AppImage &
+      # ${pkgs.appimage-run}/bin/appimage-run /home/ragon/AppImages/KeePassXC-2.8.0-snapshot-x86_64.AppImage &
+      keepassxc &
     '';
   };
   # services.wired = {
