@@ -4,6 +4,7 @@
     inputs.quadlet-nix.nixosModules.quadlet
   ];
   ragon.agenix.secrets.ds9AuthentikEnv = { };
+  ragon.agenix.secrets.ds9AuthentikLdapEnv = { };
   virtualisation.quadlet =
     {
       containers = {
@@ -53,6 +54,20 @@
           config.age.secrets.ds9AuthentikEnv.path
         ];
         authentik-worker.serviceConfig.TimeoutStartSec = "60";
+        authentik-ldap.containerConfig.image = "ghcr.io/goauthentik/ldap:2024.12.3";
+
+        authentik-ldap.containerConfig.networks = [
+          "podman"
+          "authentik-net"
+        ];
+        authentik-ldap.containerConfig.environments = {
+          AUTHENTIK_HOST = "http://authentik-server:9000";
+          AUTHENTIK_INSECURE = "true";
+        };
+        authentik-ldap.containerConfig.environmentFiles = [
+          config.age.secrets.ds9AuthentikLdapEnv.path
+        ];
+        authentik-ldap.serviceConfig.TimeoutStartSec = "60";
         authentik-redis.containerConfig.image = "docker.io/library/redis:alpine";
         authentik-redis.containerConfig.networks = [
           "authentik-net"
