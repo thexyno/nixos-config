@@ -153,6 +153,12 @@ in
         handle @botForbidden   {
           redir https://hil-speed.hetzner.com/10GB.bin
         }
+        handle /robots.txt {
+          respond <<TXT
+          User-Agent: *
+          Disallow: /
+          TXT 200
+        }
       }
       (podmanRedir) {
         reverse_proxy {args[:]} {
@@ -205,6 +211,9 @@ in
       @grafana host grafana.hailsatan.eu
       handle @grafana {
         import podmanRedirWithAuth http://grafana:3000 
+      }
+      handle {
+        import podmanRedirWithAuth http://127.0.0.1:8001
       }
       handle {
         abort
