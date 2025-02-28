@@ -22,7 +22,7 @@ let
   '';
 in
 {
-  imports = [ ./authentik.nix ];
+  imports = [ ./authentik.nix ./part-db.nix ];
   networking.firewall.interfaces."podman+".allowedUDPPorts = [ 53 ];
   networking.firewall.interfaces."podman+".allowedTCPPorts = [ 12300 3001 ];
   fileSystems."/var/lib/containers" = {
@@ -222,12 +222,14 @@ in
     '';
   };
   virtualisation.oci-containers.containers.archivebox = {
-    image = "archivebox/archivebox:latest";
+    image = "archivebox/archivebox:dev";
     environment = {
       ALLOWED_HOSTS = "*"; # set this to the hostname(s) you're going to serve the site from!
       CSRF_TRUSTED_ORIGINS = "https://archive.hailsatan.eu"; # you MUST set this to the server's URL for admin login and the REST API to work
-      PUBLIC_INDEX = "True"; # set to False to prevent anonymous users from viewing snapshot list
-      PUBLIC_SNAPSHOTS = "True"; # set to False to prevent anonymous users from viewing snapshot content
+      REVERSE_PROXY_USER_HEADER="X-Authentik-Username";
+      REVERSE_PROXY_WHITELIST="10.88.0.1/32";
+      PUBLIC_INDEX = "False"; # set to False to prevent anonymous users from viewing snapshot list
+      PUBLIC_SNAPSHOTS = "False"; # set to False to prevent anonymous users from viewing snapshot content
       PUBLIC_ADD_VIEW = "False"; # set to True to allow anonymous users to submit new URLs to archive
       SEARCH_BACKEND_ENGINE = "sonic"; # tells ArchiveBox to use sonic container below for fast full-text search
       SEARCH_BACKEND_HOST_NAME = "archivebox_sonic";

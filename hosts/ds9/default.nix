@@ -212,64 +212,37 @@ in
       handle @grafana {
         import podmanRedirWithAuth http://grafana:3000 
       }
-      handle {
-        import podmanRedirWithAuth http://127.0.0.1:8001
+      @hoard host hoard.hailsatan.eu
+      handle @hoard {
+        import podmanRedirWithAuth http://partdb-server:80
       }
-      handle {
-        abort
-      }
-      
-    '';
-    virtualHosts."*.hailsatan.eu".extraConfig = ''
-      import blockBots
-      # tailscale only
-      bind [fd7a:115c:a1e0:ab12:4843:cd96:6253:6019]
       @immich host immich.hailsatan.eu
       handle @immich {
-        import podmanRedir http://immich-server:2283
+        import podmanRedirWithAuth http://immich-server:2283
       }
       @cd host cd.hailsatan.eu
       handle @cd {
-        import podmanRedir http://changedetection:5000 
-      }
-      @grafana host grafana.hailsatan.eu
-      handle @grafana {
-        import podmanRedirWithAuth http://grafana:3000 
+        import podmanRedirWithAuth http://changedetection:5000 
       }
       @node-red host node-red.hailsatan.eu
       handle @node-red {
-        import podmanRedir http://node-red:1880 
+        import podmanRedirWithAuth http://node-red:1880 
       }
       @labello host labello.hailsatan.eu
       handle @labello {
-        import podmanRedir http://labello:4242
+        import podmanRedirWithAuth http://labello:4242
       }
-
-      
-      # @bzzt-api host bzzt-api.hailsatan.eu
-      # handle @bzzt-api {
-      #   reverse_proxy http://127.0.0.1:5001
-      # }
-      # @bzzt-lcg host bzzt-lcg.hailsatan.eu
-      # handle @bzzt-lcg {
-      #   reverse_proxy http://127.0.0.1:5003
-      # }
-      # @bzzt host bzzt.hailsatan.eu
-      # handle @bzzt {
-      #   reverse_proxy http://127.0.0.1:5002
-      # }
-      
-      
       @archivebox host archivebox.hailsatan.eu
       handle @archivebox {
-        import podmanRedir http://archivebox:8000 
-      }
-      @jellyfin host j.hailsatan.eu
-      handle @jellyfin {
-        import podmanRedir http://jellyfin:8096 
+        handle /api/* {
+          import podmanRedir http://archivebox:8000
+        }
+        handle {
+          import podmanRedirWithAuth http://archivebox:8000 
+        }
       }
       handle {
-        reverse_proxy http://127.0.0.1:8001
+        import podmanRedirWithAuth http://127.0.0.1:8001
       }
     '';
   };
