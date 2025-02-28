@@ -22,7 +22,7 @@ let
   '';
 in
 {
-  imports = [ ./authentik.nix ];
+  imports = [ ./authentik.nix ./part-db.nix ];
   networking.firewall.interfaces."podman+".allowedUDPPorts = [ 53 ];
   networking.firewall.interfaces."podman+".allowedTCPPorts = [ 12300 3001 ];
   fileSystems."/var/lib/containers" = {

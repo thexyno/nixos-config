@@ -207,6 +207,7 @@
       discord # shitcord
       unstable.signal-desktop
       unstable.firefoxpwa
+    mosh
       unstable.plexamp
       # firefox
       obsidian
