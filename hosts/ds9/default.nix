@@ -180,7 +180,7 @@ in
               resolvers 10.88.0.1 # podman dns
             }
             uri /outpost.goauthentik.io/auth/caddy
-            copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Entitlements X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+            copy_headers X-Authentik-Username X-Copyparty-Group X-Authentik-Groups X-Authentik-Entitlements X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
           }
           reverse_proxy {args[:]} {
             transport http {
@@ -239,6 +239,22 @@ in
         }
         handle {
           import podmanRedirWithAuth http://archivebox:8000 
+        }
+      }
+      @copyparty host c.hailsatan.eu
+      handle @copyparty {
+        handle /shr/* {
+          import podmanRedir http://copyparty:3923
+        }
+        @noauth {
+          method GET OPTIONS HEAD
+          path /noauth/*
+        }
+        handle @noauth {
+          import podmanRedir http://copyparty:3923
+        }
+        handle {
+          import podmanRedirWithAuth http://copyparty:3923
         }
       }
       handle {
