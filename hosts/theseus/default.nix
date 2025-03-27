@@ -1,17 +1,22 @@
-{ config, inputs, pkgs, lib, ... }:
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./kmonad.nix
+  config,
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  imports = [
+    ./hardware-configuration.nix
+    ./kmonad.nix
 
-      ../../nixos-modules/networking/tailscale.nix
-      ../../nixos-modules/services/ssh.nix
-      ../../nixos-modules/system/agenix.nix
-      ../../nixos-modules/system/persist.nix
-      ../../nixos-modules/user
-      # ./gnome.nix
-    ];
+    ../../nixos-modules/networking/tailscale.nix
+    ../../nixos-modules/services/ssh.nix
+    ../../nixos-modules/system/agenix.nix
+    ../../nixos-modules/system/persist.nix
+    ../../nixos-modules/user
+    # ./gnome.nix
+  ];
 
   # For mount.cifs, required unless domain name resolution is not needed.
   environment.systemPackages = [ pkgs.cifs-utils ];
@@ -20,11 +25,11 @@
       trusted-users = root ragon
     '';
 
-
-
   users.extraGroups.plugdev = { };
-  services.udev.packages = [ pkgs.openocd pkgs.probe-rs-tools ];
-
+  services.udev.packages = [
+    pkgs.openocd
+    pkgs.probe-rs-tools
+  ];
 
   hardware.keyboard.zsa.enable = true;
   services.tailscale.useRoutingFeatures = lib.mkForce "client";
@@ -45,7 +50,6 @@
         "org.freedesktop.impl.portal.ScreenCast" = "wlr";
       };
 
-
     };
   };
   ragon.agenix.secrets.smbSecrets = { };
@@ -59,7 +63,8 @@
   # };
   # Don't Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
-  boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/4cd8dbb3-8eea-48ff-87b1-92945be291ac";
+  boot.initrd.luks.devices.cryptroot.device =
+    "/dev/disk/by-uuid/4cd8dbb3-8eea-48ff-87b1-92945be291ac";
   programs.fuse.userAllowOther = true;
   programs.sway.enable = true;
   programs.nix-ld.enable = true;
@@ -91,9 +96,6 @@
   services.printing.enable = true;
   services.printing.logLevel = "debug";
 
-
-
-
   # end printing
   programs.light.enable = true;
   # networking.networkmanager.enable = true;
@@ -111,7 +113,16 @@
   services.displayManager.defaultSession = "river";
   programs.river.enable = true;
   services.upower.enable = true;
-  users.users.ragon.extraGroups = [ "networkmanager" "video" "netdev" "plugdev" "dialout" "tape" "uucp" "wireshark" ];
+  users.users.ragon.extraGroups = [
+    "networkmanager"
+    "video"
+    "netdev"
+    "plugdev"
+    "dialout"
+    "tape"
+    "uucp"
+    "wireshark"
+  ];
   fonts.packages = with pkgs; [
     nerdfonts
     cantarell-fonts
@@ -128,7 +139,12 @@
     extraConfig.pipewire = {
       "9-clock-allow-higher" = {
         "context.properties" = {
-          "default.clock.allowed-rates" = [ "44100" "48000" "96000" "192000" ];
+          "default.clock.allowed-rates" = [
+            "44100"
+            "48000"
+            "96000"
+            "192000"
+          ];
         };
       };
       "10-raop-discover" = {
@@ -156,185 +172,202 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
-  home-manager.users.ragon = { pkgs, lib, inputs, config, ... }: {
-    imports = [
-      ../../hm-modules/helix
-      ../../hm-modules/nushell
-      ../../hm-modules/zellij
-      ../../hm-modules/cli.nix
-      ./swaycfg.nix
-      ./work.nix
-      ./river.nix
-      ../../hm-modules/files.nix
-      inputs.wired.homeManagerModules.default
-    ];
-    ragon.helix.enable = true;
-    ragon.nushell.enable = true;
-    ragon.nushell.isNixOS = true;
-    ragon.zellij.enable = true;
-    services.gnome-keyring.enable = true;
-    home.file.".config/wezterm/wezterm.lua".text = ''
-      local wezterm = require 'wezterm'
-
-      
-
-      -- This will hold the configuration.
-      local config = wezterm.config_builder()
-
-      config.default_prog = { 'nu' }
-      config.hide_tab_bar_if_only_one_tab = true
-      config.max_fps = 144
-      config.font = wezterm.font 'Source Code Pro'
-
-      -- This is where you actually apply your config choices
-
-      -- For example, changing the color scheme:
-      config.color_scheme = 'Gruvbox Dark (Gogh)'
-
-      -- and finally, return the configuration to wezterm
-      return config
-    '';
-    services.syncthing.enable = true;
-    services.syncthing.tray.enable = true;
-    services.syncthing.tray.command = "syncthingtray --wait";
-    programs.firefox.nativeMessagingHosts = [ pkgs.unstable.firefoxpwa pkgs.unstable.keepassxc ];
-    programs.firefox.enable = true;
-
-
-    home.packages = with pkgs; [
-      # inputs.wezterm.packages.${pkgs.system}.default
-      element-desktop # this is not a place of honor
-      discord # shitcord
-      unstable.signal-desktop
-      unstable.firefoxpwa
-    mosh
-      unstable.plexamp
-      # firefox
-      obsidian
-      thunderbird
-      # unstable.orca-slicer
-      diebahn
-      vlc
-      dolphin
-      # unstable.kicad
-      unstable.devenv
-      lutris
-      libsecret
-      mixxx
-      unstable.harsh
-      libreoffice-qt6-fresh
-      inkscape
-      easyeffects
-      dune3d
-      ptyxis
-      appimage-run
-      unstable.keepassxc
-      # unstable.zenbrowser
-      inputs.zen-browser.packages."${pkgs.system}".default
-
-      # filezilla
-
-      broot
-    ];
-    home.file.".zshrc".text = lib.mkForce ''
-      # we're using nushell as our interactive shell
-      # so if zsh gets spawned by our terminal emulator, exec nu
-      cat /proc/$PPID/cmdline | grep -q alacritty && exec nu
-    '';
-    services.kdeconnect = {
-      enable = true;
-      indicator = true;
-      package = pkgs.kdePackages.kdeconnect-kde;
-    };
+  home-manager.users.ragon =
+    {
+      pkgs,
+      lib,
+      inputs,
+      config,
+      ...
+    }:
+    {
+      imports = [
+        ../../hm-modules/helix
+        ../../hm-modules/nushell
+        ../../hm-modules/zellij
+        ../../hm-modules/cli.nix
+        ./swaycfg.nix
+        ./work.nix
+        ./river.nix
+        ../../hm-modules/files.nix
+        inputs.wired.homeManagerModules.default
+      ];
+      ragon.helix.enable = true;
+      ragon.nushell.enable = true;
+      ragon.nushell.isNixOS = true;
+      ragon.zellij.enable = true;
+      services.gnome-keyring.enable = true;
+      home.file.".config/wezterm/wezterm.lua".text = ''
+        local wezterm = require 'wezterm'
 
 
 
-    # home.persistence."/persistent/home/ragon" =
-    #   {
-    #     directories = [
-    #       ".mozilla"
-    #       ".cache"
-    #       ".ssh"
-    #       "docs"
-    #       "Images"
-    #       "Downloads"
-    #       "Music"
-    #       "Pictures"
-    #       "Documents"
-    #       "Videos"
-    #       "VirtualBox VMs"
-    #       ".gnupg"
-    #       ".ssh"
-    #       ".local/share/keyrings"
-    #       ".local/share/direnv"
-    #       ".local/share/Steam"
-    #     ];
-    #     allowOther = true;
-    #   };
-    programs.home-manager.enable = true;
-    home.stateVersion = "24.05";
-    programs.alacritty = {
-      enable = true;
-      settings = {
-        font.normal.family = "JetBrainsMono NerdFont";
-        colors = {
-          primary = {
-            # hard contrast
-            background = "#1d2021";
-            # normal background = "#282828";
-            # soft contrast background = = "#32302f"
-            foreground = "#ebdbb2";
-          };
-          normal = {
-            black = "#282828";
-            red = "#cc241d";
-            green = "#98971a";
-            yellow = "#d79921";
-            blue = "#458588";
-            magenta = "#b16286";
-            cyan = "#689d6a";
-            white = "#a89984";
-          };
-          bright = {
-            black = "#928374";
-            red = "#fb4934";
-            green = "#b8bb26";
-            yellow = "#fabd2f";
-            blue = "#83a598";
-            magenta = "#d3869b";
-            cyan = "#8ec07c";
-            white = "#ebdbb2";
+        -- This will hold the configuration.
+        local config = wezterm.config_builder()
+
+        config.default_prog = { 'nu' }
+        config.hide_tab_bar_if_only_one_tab = true
+        config.max_fps = 144
+        config.font = wezterm.font 'Source Code Pro'
+
+        -- This is where you actually apply your config choices
+
+        -- For example, changing the color scheme:
+        config.color_scheme = 'Gruvbox Dark (Gogh)'
+
+        -- and finally, return the configuration to wezterm
+        return config
+      '';
+      services.syncthing.enable = true;
+      services.syncthing.tray.enable = true;
+      services.syncthing.tray.command = "syncthingtray --wait";
+      programs.firefox.nativeMessagingHosts = [
+        pkgs.unstable.firefoxpwa
+        pkgs.unstable.keepassxc
+      ];
+      programs.firefox.enable = true;
+
+      home.packages = with pkgs; [
+        # inputs.wezterm.packages.${pkgs.system}.default
+        element-desktop # this is not a place of honor
+        discord # shitcord
+        unstable.signal-desktop
+        unstable.firefoxpwa
+        mosh
+        unstable.plexamp
+        # firefox
+        obsidian
+        thunderbird
+        # unstable.orca-slicer
+        diebahn
+        vlc
+        dolphin
+        # unstable.kicad
+        unstable.devenv
+        lutris
+        libsecret
+        mixxx
+        unstable.harsh
+        libreoffice-qt6-fresh
+        inkscape
+        easyeffects
+        dune3d
+        ptyxis
+        appimage-run
+        unstable.keepassxc
+        # unstable.zenbrowser
+        inputs.zen-browser.packages."${pkgs.system}".default
+
+        aerc
+        w3m
+
+        # filezilla
+
+        broot
+      ];
+      home.file.".zshrc".text = lib.mkForce ''
+        # we're using nushell as our interactive shell
+        # so if zsh gets spawned by our terminal emulator, exec nu
+        cat /proc/$PPID/cmdline | grep -q alacritty && exec nu
+      '';
+      services.kdeconnect = {
+        enable = true;
+        indicator = true;
+        package = pkgs.kdePackages.kdeconnect-kde;
+      };
+
+      # home.persistence."/persistent/home/ragon" =
+      #   {
+      #     directories = [
+      #       ".mozilla"
+      #       ".cache"
+      #       ".ssh"
+      #       "docs"
+      #       "Images"
+      #       "Downloads"
+      #       "Music"
+      #       "Pictures"
+      #       "Documents"
+      #       "Videos"
+      #       "VirtualBox VMs"
+      #       ".gnupg"
+      #       ".ssh"
+      #       ".local/share/keyrings"
+      #       ".local/share/direnv"
+      #       ".local/share/Steam"
+      #     ];
+      #     allowOther = true;
+      #   };
+      programs.home-manager.enable = true;
+      home.stateVersion = "24.05";
+      programs.alacritty = {
+        enable = true;
+        settings = {
+          font.normal.family = "JetBrainsMono NerdFont";
+          colors = {
+            primary = {
+              # hard contrast
+              background = "#1d2021";
+              # normal background = "#282828";
+              # soft contrast background = = "#32302f"
+              foreground = "#ebdbb2";
+            };
+            normal = {
+              black = "#282828";
+              red = "#cc241d";
+              green = "#98971a";
+              yellow = "#d79921";
+              blue = "#458588";
+              magenta = "#b16286";
+              cyan = "#689d6a";
+              white = "#a89984";
+            };
+            bright = {
+              black = "#928374";
+              red = "#fb4934";
+              green = "#b8bb26";
+              yellow = "#fabd2f";
+              blue = "#83a598";
+              magenta = "#d3869b";
+              cyan = "#8ec07c";
+              white = "#ebdbb2";
+            };
           };
         };
       };
-    };
-    programs.borgmatic = {
-      enable = true;
-      backups.system =
-        let
-          notify = "${pkgs.libnotify}/bin/notify-send";
-        in
-        {
-          location.sourceDirectories = [ "/persistent" ];
-          location.repositories = [{ path = "ssh://ragon@ds9//backups/theseus"; }];
-          location.extraConfig.exclude_if_present = [ ".nobackup" ];
-          storage.encryptionPasscommand = "${pkgs.libsecret}/bin/secret-tool lookup borg-repository system";
-          location.extraConfig.before_backup = [ "${notify} -u low -a borgmatic borgmatic \"starting backup\" -t 10000" ];
-          location.extraConfig.after_backup = [ "${notify} -u low -a borgmatic borgmatic \"finished backup\" -t 10000" ];
-          location.extraConfig.on_error = [ "${notify} -u critical -a borgmatic borgmatic \"backup failed\"" ];
-          # location.extraConfig.ssh_command = "ssh -i /home/ragon/.ssh/id_ed25519";
-          location.extraConfig.one_file_system = true;
-          retention = {
-            keepHourly = 24;
-            keepDaily = 7;
-            keepWeekly = 4;
-            keepMonthly = 12;
-            keepYearly = 2;
+      programs.borgmatic = {
+        enable = true;
+        backups.system =
+          let
+            notify = "${pkgs.libnotify}/bin/notify-send";
+          in
+          {
+            location.sourceDirectories = [ "/persistent" ];
+            location.repositories = [ { path = "ssh://ragon@ds9//backups/theseus"; } ];
+            location.extraConfig.exclude_if_present = [ ".nobackup" ];
+            storage.encryptionPasscommand = "${pkgs.libsecret}/bin/secret-tool lookup borg-repository system";
+            location.extraConfig.before_backup = [
+              "${notify} -u low -a borgmatic borgmatic \"starting backup\" -t 10000"
+            ];
+            location.extraConfig.after_backup = [
+              "${notify} -u low -a borgmatic borgmatic \"finished backup\" -t 10000"
+            ];
+            location.extraConfig.on_error = [
+              "${notify} -u critical -a borgmatic borgmatic \"backup failed<br>maybe unlock keepass\""
+            ];
+            location.extraConfig.ssh_command = "ssh -o  IdentityAgent=/run/user/1000/ssh-agent";
+            location.extraConfig.one_file_system = true;
+            retention = {
+              keepHourly = 24;
+              keepDaily = 7;
+              keepWeekly = 4;
+              keepMonthly = 12;
+              keepYearly = 2;
+            };
           };
-        };
+      };
+      services.borgmatic.enable = true;
     };
-    services.borgmatic.enable = true;
-  };
 
   ragon = {
     user.enable = true;
@@ -343,7 +376,7 @@
       "/var/lib/bluetooth"
       "/var/lib/flatpak"
       "/var/lib/iwd"
-      "/var/log" #lol
+      "/var/log" # lol
     ];
     services = {
       ssh.enable = true;

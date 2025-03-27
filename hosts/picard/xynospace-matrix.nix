@@ -59,12 +59,16 @@ in
       }
     ];
   };
-  containers.xynospace-matrix = let ms = config.age.secrets.matrixSecrets.path; in {
+  containers.xynospace-matrix = let ms = config.age.secrets.matrixSecrets.path; unst = pkgs.unstable; in {
     config = { config, pkgs, ... }: {
+      nixpkgs.overlays = [(self: super: {
+        matrix-synapse-unwrapped = unst.matrix-synapse-unwrapped;
+      })];
       system.stateVersion = stateVer;
       networking.firewall.allowedTCPPorts = [ 8008 ];
       services.matrix-synapse = {
         enable = true;
+        # package = unst.matrix-synapse;
         settings.server_name = serverName;
         extraConfigFiles = [ "/host${ms}" ];
         settings.experimental.msc3575_enabled = true; 
