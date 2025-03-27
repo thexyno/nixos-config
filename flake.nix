@@ -32,8 +32,6 @@
     helix.url = "github:SofusA/helix-pull-diagnostics/pull-diagnostics";
     wired.inputs.nixpkgs.follows = "nixpkgs";
     wired.url = "github:Toqozz/wired-notify";
-    roslyn-language-server.url = "github:sofusa/roslyn-language-server";
-    roslyn-language-server.inputs.nixpkgs.follows = "nixpkgs";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
 
@@ -209,7 +207,10 @@
     let pkgs = nixpkgs.legacyPackages.${system}; in
     {
       devShell = pkgs.mkShell {
-        buildInputs = with pkgs; [ lefthook nixpkgs-fmt inputs.agenix.packages.${system}.agenix ];
+        buildInputs = with pkgs; [
+            pkgs.nixfmt-rfc-style
+            pkgs.nil
+          lefthook inputs.agenix.packages.${system}.agenix ];
       };
       packages = lib.my.mapModules ./packages (p: pkgs.callPackage p { inputs = inputs; });
     });
