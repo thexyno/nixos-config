@@ -20,7 +20,7 @@
       "mail-state:/var/mail-state/"
       "mail-logs:/var/log/mail/"
       "mail-config:/tmp/docker-mailserver/"
-      "/var/lib/caddy/.local/share/caddy/certificates/acme.zerossl.com-v2-dv90/wildcard_.hailsatan.eu:/srv/tls/meow" # it hates this
+      "/var/lib/caddy/.local/share/caddy/certificates/acme.zerossl.com-v2-dv90/wildcard_.hailsatan.eu:/srv/tls/meow:ro" # it hates this
     ];
     environment = {
       TZ = "Europe/Berlin";
@@ -28,6 +28,7 @@
       LOG_LEVEL = "info";
       ENABLE_CLAMAV = "0";
       ENABLE_FAIL2BAN = "0";
+      TLS_LEVEL = "intermediate"; # printers ahhh
       SSL_TYPE = "manual";
       SSL_CERT_PATH = "/srv/tls/meow/wildcard_.hailsatan.eu.crt";
       SSL_KEY_PATH = "/srv/tls/meow/wildcard_.hailsatan.eu.key";
