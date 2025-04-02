@@ -12,6 +12,7 @@
       ./xynospace-matrix.nix
       ./plausible.nix
       ./obsidianshare.nix
+      ./mail.nix
       # ./ts-ovpn.nix
 
       ../../nixos-modules/system/persist.nix
@@ -60,7 +61,7 @@
   services.postgresql.package = pkgs.postgresql_13;
 
   systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.desec.path;
-  networking.firewall.allowedTCPPorts = [ 80 443 config.services.forgejo.settings.server.SSH_PORT ];
+  networking.firewall.allowedTCPPorts = [ 80 443 config.services.forgejo.settings.server.SSH_PORT 25 143 465 587 993 ];
   networking.firewall.allowedUDPPorts = [ 443 ];
   services.caddy = {
     logFormat = "level INFO";
@@ -70,6 +71,9 @@
       acme_dns desec {
         token "{$TOKEN}"
       }
+    '';
+    virtualHosts."*.hailsatan.eu".extraConfig = ''
+      reverse_proxy https://j.hailsatan.eu
     '';
     virtualHosts."*.ragon.xyz".extraConfig = ''
       # @8081 host 8081.ragon.xyz

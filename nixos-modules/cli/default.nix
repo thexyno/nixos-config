@@ -3,7 +3,6 @@ with lib;
 with lib.my;
 let
   cfg = config.ragon.cli;
-  ragon = config.ragon;
 in
 {
   options.ragon.cli.enable = lib.mkEnableOption "Enables ragons CLI stuff";

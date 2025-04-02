@@ -1,0 +1,6 @@
+[language-server.nil]
+command = "nil"
+[[language]]
+name = "nix"
+formatter = {command = "nixfmt"}
+language-servers = [ "nil" ]
