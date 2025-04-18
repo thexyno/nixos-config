@@ -447,6 +447,7 @@ in
       "/data/media/movies:/data/media/movies:ro"
       "/data/media/audiobooks:/data/media/audiobooks:ro"
       "/data/media/books:/data/media/books:ro"
+      "/data/media/games:/data/media/games:ro"
       "/data/media/beets:/data/media/music:ro"
       "/data/media/copyparty:/data/media/copyparty"
       "/data/media/copyparty/cfg:/cfg"
