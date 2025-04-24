@@ -61,6 +61,7 @@ in
   #   ];
   # };
   # postgres
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
   ragon.agenix.secrets.ds9PostgresEnv = { };
   systemd.services."podman-db-network" = {
     script = ''
