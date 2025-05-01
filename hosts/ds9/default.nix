@@ -219,7 +219,7 @@ in
       }
       @immich host immich.hailsatan.eu
       handle @immich {
-        import podmanRedirWithAuth http://immich-server:2283
+        import podmanRedir http://immich-server:2283
       }
       @cd host cd.hailsatan.eu
       handle @cd {
