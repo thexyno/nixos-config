@@ -39,6 +39,8 @@
   boot.loader.systemd-boot.enable = false;
 
   services.syncthing.enable = true;
+  services.syncthing.group = "users";
+  services.syncthing.user = "ragon";
 
 
   networking.interfaces."ens3" = {
@@ -60,6 +62,8 @@
   users.mutableUsers = false;
 
   services.postgresql.package = pkgs.postgresql_13;
+
+  
 
   systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.desec.path;
   networking.firewall.allowedTCPPorts = [ 80 443 config.services.forgejo.settings.server.SSH_PORT 25 143 465 587 993 ];
