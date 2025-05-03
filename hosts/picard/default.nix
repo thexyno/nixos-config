@@ -75,6 +75,9 @@
     virtualHosts."*.hailsatan.eu".extraConfig = ''
       reverse_proxy https://j.hailsatan.eu
     '';
+    virtualHosts."l621.net".extraConfig = ''
+      reverse_proxy http://127.0.0.1:8186
+    '';
     virtualHosts."*.ragon.xyz".extraConfig = ''
       # @8081 host 8081.ragon.xyz
       # handle @8081 {
