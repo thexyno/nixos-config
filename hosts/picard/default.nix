@@ -13,6 +13,7 @@
       ./plausible.nix
       ./obsidianshare.nix
       ./mail.nix
+      ./gotosocial.nix
       # ./ts-ovpn.nix
 
       ../../nixos-modules/system/persist.nix
