@@ -334,33 +334,19 @@ in
     image = "telegnom/labello:latest";
     environment = {
       LAB_PRINTER_DEVICE = "tcp://10.0.10.240:9100";
-      LABELLO_DOWNLOAD_FONT = "yes";
+      # LABELLO_DOWNLOAD_FONT = "yes";
     };
     extraOptions = [ "--network=podman" ];
     volumes =
       let
-        fonts = pkgs.symlinkJoin {
-          name = "labello-fonts";
-          paths = with pkgs; [
-            # nerdfonts.override { fonts = ["b612"]}
-            noto-fonts
-            # noto-fonts-cjk-sans
-            noto-fonts-emoji
-            liberation_ttf
-            fira-code
-            fira-code-symbols
-            # dina-font
-            # proggyfonts
-            b612
-            source-sans
-            source-serif
-            source-code-pro
-            corefonts
-          ];
-        };
+        fonts = pkgs.runCommandNoCC "labello-fonts" {} ''
+            mkdir $out
+            cp ${pkgs.roboto}/share/fonts/truetype/* $out
+            cp ${pkgs.roboto-mono}/share/fonts/truetype/* $out
+          '';
       in
       [
-        # "${fonts}:/opt/labelo/fonts"
+        "${fonts}:/opt/labello/fonts"
         # "/nix/store:/nix/store"
       ];
   };
