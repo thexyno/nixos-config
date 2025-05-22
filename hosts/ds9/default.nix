@@ -308,7 +308,7 @@ in
       tailscale.enable = true;
       tailscale.exitNode = true;
       tailscale.extraUpCommands = "--advertise-routes=10.0.0.0/16";
-      libvirt.enable = true;
+      # libvirt.enable = true;
       # paperless.enable = true;
     };
 

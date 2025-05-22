@@ -26,6 +26,13 @@
       #upload_rate_limit = "4000";
       encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.borgmaticEncryptionKey.path}";
       compression = "auto,zstd,10";
+      extra_borg_options = {
+        init = "--lock-wait 600";
+        create = "--lock-wait 600";
+        prune = "--lock-wait 600";
+        compact = "--lock-wait 600";
+        check = "--lock-wait 600";
+      };
       ssh_command = "ssh -o ServerAliveInterval=10 -o ServerAliveCountMax=30 -o GlobalKnownHostsFile=${config.age.secrets.gatebridgeHostKeys.path} -i ${config.age.secrets.ds9OffsiteBackupSSH.path}";
       before_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})/start" ];
       after_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.ds9SyncoidHealthCheckUrl.path})" ];
