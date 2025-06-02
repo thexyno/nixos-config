@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 with pkgs;
 
@@ -13,12 +13,12 @@ caddy.override {
 
       nativeBuildInputs = [
         cacert
+        git
         go
       ];
 
       plugins = [
-        "github.com/caddy-dns/ionos@751e8e24162290ee74bea465ae733a2bf49551a6"
-        "github.com/caddy-dns/desec@822a6a2014b221e8fa589fbcfd0395abe9ee90f6"
+        "github.com/caddy-dns/desec@v1.0.1"
       ];
 
       configurePhase = ''
@@ -28,7 +28,7 @@ caddy.override {
       '';
 
       buildPhase = ''
-        ${xcaddy}/bin/xcaddy build "${caddy.src.rev}" ${lib.concatMapStringsSep " " (plugin: "--with ${plugin}") plugins}
+        ${xcaddy}/bin/xcaddy build "${lib.last (lib.splitString "/" caddy.src.rev)}" ${lib.concatMapStringsSep " " (plugin: "--with ${plugin}") plugins}
         cd buildenv*
         go mod vendor
       '';
@@ -37,7 +37,7 @@ caddy.override {
         cp -r --reflink=auto . $out
       '';
 
-      outputHash = "sha256-Z2KQu4qayqaRudKfcxK4tLQ383//JZJ8q5vtX9/IX0I=";
+      outputHash = "sha256-ZNimtuxtSz1mRZ9V0h/0jAyvwGb+OvfZSzHRaySTEWU=";
       outputHashMode = "recursive";
     };
 
