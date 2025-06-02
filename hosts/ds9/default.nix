@@ -1,34 +1,40 @@
-{ config, inputs, pkgs, lib, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 let
   pubkeys = import ../../data/pubkeys.nix;
   caddy-with-plugins = import ./custom-caddy.nix { inherit pkgs; };
 in
 {
-  imports =
-    [
-      ./hardware-configuration.nix
+  imports = [
+    ./hardware-configuration.nix
 
-      ./containers.nix
-      ./backup.nix
-      # ./plex.nix
-      ./samba.nix
-      ./paperless.nix
+    ./containers.nix
+    ./backup.nix
+    # ./plex.nix
+    ./samba.nix
+    ./paperless.nix
+    ./maubot.nix
 
-      ../../nixos-modules/networking/tailscale.nix
-      ../../nixos-modules/services/docker.nix
-      ../../nixos-modules/services/libvirt.nix
-      ../../nixos-modules/services/msmtp.nix
-      # ../../nixos-modules/services/paperless.nix
-      # ../../nixos-modules/services/photoprism.nix
-      ../../nixos-modules/services/samba.nix
-      ../../nixos-modules/services/ssh.nix
-      ../../nixos-modules/services/caddy
-      ../../nixos-modules/system/agenix.nix
-      ../../nixos-modules/system/fs.nix
-      ../../nixos-modules/system/persist.nix
-      ../../nixos-modules/system/security.nix
-      ../../nixos-modules/user
-    ];
+    ../../nixos-modules/networking/tailscale.nix
+    ../../nixos-modules/services/docker.nix
+    ../../nixos-modules/services/libvirt.nix
+    ../../nixos-modules/services/msmtp.nix
+    # ../../nixos-modules/services/paperless.nix
+    # ../../nixos-modules/services/photoprism.nix
+    ../../nixos-modules/services/samba.nix
+    ../../nixos-modules/services/ssh.nix
+    ../../nixos-modules/services/caddy
+    ../../nixos-modules/system/agenix.nix
+    ../../nixos-modules/system/fs.nix
+    ../../nixos-modules/system/persist.nix
+    ../../nixos-modules/system/security.nix
+    ../../nixos-modules/user
+  ];
 
   # Don't Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -51,7 +57,12 @@ in
   };
   networking.bridges."br0".interfaces = [ ];
   networking.hostId = "7b4c2932";
-  networking.firewall.allowedTCPPorts = [ 9000 25565 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    9000
+    25565
+    80
+    443
+  ];
   networking.firewall.allowedUDPPorts = [ 443 ]; # http3 :3
   boot.initrd.network = {
     enable = true;
@@ -80,7 +91,11 @@ in
   users.users.nia = {
     createHome = true;
     isNormalUser = true;
-    extraGroups = [ "docker" "podman" "wheel" ];
+    extraGroups = [
+      "docker"
+      "podman"
+      "wheel"
+    ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDq+jk1Bi8/x0lYDiVi/iVnp9nEleocoQ+xHmlpDt9Qs"
     ];
@@ -101,7 +116,11 @@ in
     group = "minecraft";
   };
   users.groups.minecraft = { };
-  environment.systemPackages = [ pkgs.jdk17 pkgs.borgbackup pkgs.beets ];
+  environment.systemPackages = [
+    pkgs.jdk17
+    pkgs.borgbackup
+    pkgs.beets
+  ];
 
   services.smartd = {
     enable = true;
@@ -129,18 +148,17 @@ in
   # dyndns
 
   systemd.services."dyndns-refresh" = {
-  script = ''
-    set -eu
-    export PATH=$PATH:${pkgs.curl}/bin:${pkgs.jq}/bin:${pkgs.iproute2}/bin
-    ${pkgs.bash}/bin/bash ${config.age.secrets.ds9DynDns.path}
-  '';
-  serviceConfig = {
-    Type = "oneshot";
-    User = "root";
+    script = ''
+      set -eu
+      export PATH=$PATH:${pkgs.curl}/bin:${pkgs.jq}/bin:${pkgs.iproute2}/bin
+      ${pkgs.bash}/bin/bash ${config.age.secrets.ds9DynDns.path}
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+    startAt = "*:0/10";
   };
-  startAt = "*:0/10";
-};
-
 
   # services.tailscaleAuth.enable = true;
   # services.tailscaleAuth.group = config.services.caddy.group;
@@ -181,7 +199,7 @@ in
               resolvers 10.88.0.1 # podman dns
             }
             uri /outpost.goauthentik.io/auth/caddy
-            copy_headers X-Authentik-Username X-Copyparty-Group X-Authentik-Groups X-Authentik-Entitlements X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+            copy_headers X-Authentik-Username X-Copyparty-Group X-Authentik-Groups X-Authentik-Entitlements X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version X-Grafana-Role
           }
           reverse_proxy {args[:]} {
             transport http {
@@ -195,6 +213,12 @@ in
       acme_dns desec {
         token "{$TOKEN}"
       }
+      metrics {
+        per_host
+      }
+      servers {
+        trusted_proxies static 100.96.45.2/32 fd7a:115c:a1e0:ab12:4843:cd96:6260:2d02/128
+      }
     '';
     virtualHosts."*.hailsatan.eu ".logFormat = ''
       output file ${config.services.caddy.logDir}/access-*hailsatan.eu_internet.log
@@ -203,7 +227,14 @@ in
       import blockBots
       @jellyfin host j.hailsatan.eu
       handle @jellyfin {
+        handle /metrics* {
+          abort
+        }
         import podmanRedir http://jellyfin:8096 
+      }
+      @mautrix-signal host mautrix-signal.hailsatan.eu
+      handle @mautrix-signal {
+        import podmanRedir http://mautrix-signal:29328
       }
       @auth host auth.hailsatan.eu
       handle @auth {
@@ -248,12 +279,18 @@ in
       }
       @copyparty host c.hailsatan.eu
       handle @copyparty {
+        @proxy {
+          header_regexp Cookie authentik_proxy_([a-zA-Z0-9])
+        }
+        handle @proxy {
+          import podmanRedirWithAuth http://copyparty:3923
+        }
         handle /shr/* {
           import podmanRedir http://copyparty:3923
         }
         @noauth {
           method GET OPTIONS HEAD
-          path /noauth/*
+          path_regexp ^\/(noauth(\/.*|)|[a-z.]+\.(css|js)|[1-9].png)$
         }
         handle @noauth {
           import podmanRedir http://copyparty:3923
@@ -268,21 +305,72 @@ in
     '';
   };
 
-  home-manager.users.ragon = { pkgs, lib, inputs, config, ... }: {
-    imports = [
-      # ../../hm-modules/nvim
-      ../../hm-modules/helix
-      # ../../hm-modules/zsh
-      ../../hm-modules/tmux
-      # ../../hm-modules/xonsh
-      ../../hm-modules/cli.nix
-      ../../hm-modules/files.nix
-    ];
-    # ragon.xonsh.enable = true;
+  services.prometheus = {
+    enable = true;
+    exporters.node = {
+      enable = true;
+      enabledCollectors = [ "systemd" ];
+    };
+    scrapeConfigs = [
 
-    programs.home-manager.enable = true;
-    home.stateVersion = "23.11";
+      {
+        job_name = "jellyfin";
+        static_configs = [
+          {
+            targets = [
+              "127.0.0.1:8096"
+            ];
+          }
+        ];
+      }
+      {
+        job_name = "caddy";
+        static_configs = [
+          {
+            targets = [
+              "localhost:2019"
+              "picard.kangaroo-galaxy.ts.net:2019"
+            ];
+          }
+        ];
+      }
+      {
+        job_name = "node";
+        static_configs = [
+          {
+            targets = [
+              "localhost:${toString config.services.prometheus.exporters.node.port}"
+              "picard.kangaroo-galaxy.ts.net:${toString config.services.prometheus.exporters.node.port}"
+            ];
+          }
+        ];
+      }
+    ];
   };
+
+  home-manager.users.ragon =
+    {
+      pkgs,
+      lib,
+      inputs,
+      config,
+      ...
+    }:
+    {
+      imports = [
+        # ../../hm-modules/nvim
+        ../../hm-modules/helix
+        # ../../hm-modules/zsh
+        ../../hm-modules/tmux
+        # ../../hm-modules/xonsh
+        ../../hm-modules/cli.nix
+        ../../hm-modules/files.nix
+      ];
+      # ragon.xonsh.enable = true;
+
+      programs.home-manager.enable = true;
+      home.stateVersion = "23.11";
+    };
 
   # begin kube
   # services.k3s = {
@@ -297,7 +385,16 @@ in
     agenix.secrets."ds9DynDns" = { };
     user.enable = true;
     persist.enable = true;
-    persist.extraDirectories = [ "/home/nia" "/var/lib/syncthing" "/var/lib/minecraft" "/var/lib/bzzt" "/var/lib/rancher" "/etc/rancher" "/root/.cache" ];
+    persist.extraDirectories = [
+      "/home/nia"
+      "/var/lib/syncthing"
+      "/var/lib/minecraft"
+      "/var/lib/bzzt"
+      "/var/lib/rancher"
+      "/etc/rancher"
+      "/root/.cache"
+      "/var/lib/${config.services.prometheus.stateDir}"
+    ];
 
     services = {
       caddy.enable = true;

@@ -77,6 +77,9 @@ in
         settings.database.args.database = "matrix-synapse-xynospace";
         settings.database.args.host = hostAddress;
         settings.database.args.password = "synapse";
+        settings.app_service_config_files = [
+          "/var/lib/signalbot.yaml"
+        ];
         settings.listeners = [
           {
             port = 8008;

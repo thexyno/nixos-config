@@ -207,6 +207,7 @@ in
     ];
   };
 
+  networking.firewall.interfaces."podman0".allowedTCPPorts = [ 9090 ];
   virtualisation.oci-containers.containers.grafana = {
     image = "grafana/grafana-oss:latest";
     extraOptions = [
@@ -219,11 +220,11 @@ in
           [users]
           allow_sign_up = false
           auto_assign_org = true
-          auto_assign_org_role = Editor
+          auto_assign_org_role = Viewer
 
           [auth.proxy]
           enabled = true
-          headers = Name:X-Authentik-Username Email:X-Authentik-Email Groups:X-Authentik-Groups
+          headers = Name:X-Authentik-Username Email:X-Authentik-Email Role:X-Grafana-Role
           header_name = X-Authentik-Username
           header_property = username
           auto_sign_up = true
@@ -258,6 +259,8 @@ in
       "--network=podman"
       "--mount"
       "type=bind,source=/data/media,destination=/media,ro=true,relabel=private"
+      "-p"
+      "127.0.0.1:8096:8096"
     ];
     volumes = [
       "jellyfin-config:/config"

@@ -7,7 +7,7 @@ in
   config = lib.mkIf cfg.enable {
     services.caddy = {
       enable = true;
-      package = import ./custom-caddy.nix { inherit pkgs; };
+      package = import ./custom-caddy.nix { inherit lib; pkgs = pkgs.unstable; };
     };
     ragon.persist.extraDirectories = [ config.services.caddy.dataDir ];
   };
