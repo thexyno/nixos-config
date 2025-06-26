@@ -19,6 +19,8 @@ in
     ./samba.nix
     ./paperless.nix
     ./maubot.nix
+    ./woodpecker.nix
+    ./attic.nix
 
     ../../nixos-modules/networking/tailscale.nix
     ../../nixos-modules/services/docker.nix
@@ -235,6 +237,14 @@ in
       @mautrix-signal host mautrix-signal.hailsatan.eu
       handle @mautrix-signal {
         import podmanRedir http://mautrix-signal:29328
+      }
+      @woodpecker host woodpecker.hailsatan.eu
+      handle @woodpecker {
+        import podmanRedir http://woodpecker-server:8000
+      }
+      @attic host attic.hailsatan.eu
+      handle @attic {
+        reverse_proxy http://[::1]:8089
       }
       @auth host auth.hailsatan.eu
       handle @auth {

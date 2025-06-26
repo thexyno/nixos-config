@@ -21,6 +21,9 @@ in
   "ds9PostgresEnv.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9ImmichEnv.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9AuthentikEnv.age".publicKeys = pubkeys.ragon.host "ds9";
+  "ds9WoodpeckerEnv.age".publicKeys = pubkeys.ragon.host "ds9";
+  "ds9AtticEnv.age".publicKeys = pubkeys.ragon.host "ds9";
+  "ds9WoodpeckerAgentSecretEnv.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9PartDbEnv.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9AuthentikLdapEnv.age".publicKeys = pubkeys.ragon.host "ds9";
   "gatebridgeHostKeys.age".publicKeys = pubkeys.ragon.server;

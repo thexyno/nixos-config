@@ -33,6 +33,8 @@
     wired.inputs.nixpkgs.follows = "nixpkgs";
     wired.url = "github:Toqozz/wired-notify";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    attic.url = "github:zhaofengli/attic";
+    attic.inputs.nixpkgs.follows = "nixpkgs";
 
 
     kmonad = {

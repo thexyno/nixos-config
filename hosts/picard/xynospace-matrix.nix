@@ -79,6 +79,7 @@ in
         settings.database.args.password = "synapse";
         settings.app_service_config_files = [
           "/var/lib/signalbot.yaml"
+          "/var/lib/doublepuppet.yaml"
         ];
         settings.listeners = [
           {
