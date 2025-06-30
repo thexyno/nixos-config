@@ -2,34 +2,39 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, lib, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./xynospace-matrix.nix
-      ./plausible.nix
-      ./obsidianshare.nix
-      ./mail.nix
-      ./gotosocial.nix
-      # ./ts-ovpn.nix
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./xynospace-matrix.nix
+    ./plausible.nix
+    ./obsidianshare.nix
+    ./mail.nix
+    ./gotosocial.nix
+    # ./ts-ovpn.nix
 
-      ../../nixos-modules/system/persist.nix
-      ../../nixos-modules/system/agenix.nix
-      ../../nixos-modules/system/fs.nix
-      ../../nixos-modules/system/security.nix
-      ../../nixos-modules/services/ssh.nix
-      ../../nixos-modules/services/msmtp.nix
-      ../../nixos-modules/services/caddy
-      ../../nixos-modules/services/bitwarden.nix
-      ../../nixos-modules/networking/tailscale.nix
-      ../../nixos-modules/services/authelia.nix
-      ../../nixos-modules/services/hedgedoc.nix
-      ../../nixos-modules/services/ts3.nix
-      ../../nixos-modules/user
-    ];
+    ../../nixos-modules/system/persist.nix
+    ../../nixos-modules/system/agenix.nix
+    ../../nixos-modules/system/fs.nix
+    ../../nixos-modules/system/security.nix
+    ../../nixos-modules/services/ssh.nix
+    ../../nixos-modules/services/msmtp.nix
+    ../../nixos-modules/services/caddy
+    ../../nixos-modules/services/bitwarden.nix
+    ../../nixos-modules/networking/tailscale.nix
+    # ../../nixos-modules/services/authelia.nix
+    ../../nixos-modules/services/hedgedoc.nix
+    ../../nixos-modules/services/ts3.nix
+    ../../nixos-modules/user
+  ];
 
   documentation.enable = false;
   documentation.nixos.enable = false;
@@ -42,7 +47,6 @@
   services.syncthing.group = "users";
   services.syncthing.user = "ragon";
 
-
   networking.interfaces."ens3" = {
     ipv6 = {
       addresses = [
@@ -53,8 +57,14 @@
       ];
     };
   };
-  networking.defaultGateway6 = { address = "fe80::1"; interface = "enp0s3"; };
-  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+  networking.defaultGateway6 = {
+    address = "fe80::1";
+    interface = "enp0s3";
+  };
+  networking.nameservers = [
+    "1.1.1.1"
+    "8.8.8.8"
+  ];
   # networking.interfaces.eno1.useDHCP = true;
   networking.hostId = "7c21236a";
 
@@ -63,12 +73,26 @@
 
   services.postgresql.package = pkgs.postgresql_13;
 
-  
-
   systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.desec.path;
-  networking.firewall.allowedTCPPorts = [ 80 443 config.services.forgejo.settings.server.SSH_PORT 25 143 465 587 993 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+    config.services.forgejo.settings.server.SSH_PORT
+    25
+    143
+    465
+    587
+    993
+  ];
   networking.firewall.allowedUDPPorts = [ 443 ];
-  services.prometheus.exporters.node = { enable = true; enabledCollectors = [ "systemd" ]; };
+  services.prometheus.exporters.node = {
+    enable = true;
+    enabledCollectors = [ "systemd" ];
+  };
+  services.prometheus.exporters.postgres = {
+    enable = true;
+    runAsLocalSuperUser = true;
+  };
   services.caddy = {
     logFormat = "level INFO";
     enable = true;
@@ -118,10 +142,16 @@
     virtualHosts."xyno.space".extraConfig =
       let
         fqdn = "matrix.xyno.space";
-        wkServer = { "m.server" = "${fqdn}:443"; };
+        wkServer = {
+          "m.server" = "${fqdn}:443";
+        };
         wkClient = {
-          "m.homeserver" = { "base_url" = "https://${fqdn}"; };
-          "m.identity_server" = { "base_url" = "https://vector.im"; };
+          "m.homeserver" = {
+            "base_url" = "https://${fqdn}";
+          };
+          "m.identity_server" = {
+            "base_url" = "https://vector.im";
+          };
           # "org.matrix.msc3575.proxy" = { "url" = "https://slidingsync.ragon.xyz"; };
         };
       in
@@ -175,19 +205,19 @@
       handle @md {
         reverse_proxy http://[::1]:${toString config.services.hedgedoc.settings.port}
       }
-      @sso host sso.xyno.systems
-      handle @sso {
-        reverse_proxy http://127.0.0.1:9091
-      }
-      @git host git.xyno.systems
-      handle @git {
-        reverse_proxy http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}
-      }
+      # @sso host sso.xyno.systems
+      # handle @sso {
+      #   reverse_proxy http://127.0.0.1:9091
+      # }
+      # @git host git.xyno.systems
+      # handle @git {
+      #   reverse_proxy http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}
+      # }
       @notes host notes.xyno.systems
       handle @notes {
         reverse_proxy http://127.0.0.1:8086
       }
-      
+
       handle {
         abort
       }
@@ -196,43 +226,43 @@
       redir https://xyno.space{uri}
     '';
     virtualHosts."robotgirl.cloud".extraConfig = ''
-        handle / {
-           header Content-Type text/html
-           header Access-Control-Allow-Origin "*"
-           respond `<!DOCTYPE html><html><head><title>beep</title></head><body>
-          <h2>
-          beep :3
-          </h2>
-          <p>
-all the robots are on <a href="https://catgirl.cloud">catgirl.cloud</a> mew :3
-</p>
-          </body></head>` 200
-        }
+              handle / {
+                 header Content-Type text/html
+                 header Access-Control-Allow-Origin "*"
+                 respond `<!DOCTYPE html><html><head><title>beep</title></head><body>
+                <h2>
+                beep :3
+                </h2>
+                <p>
+      all the robots are on <a href="https://catgirl.cloud">catgirl.cloud</a> mew :3
+      </p>
+                </body></head>` 200
+              }
     '';
   };
 
-  services.forgejo = {
-    enable = true;
-    lfs.enable = true;
-    settings = {
-      global.APP_NAME = "xyno.systems git";
-      session.COOKIE_SECURE = true;
-      server.DOMAIN = "git.xyno.systems";
-      server.ROOT_URL = "https://git.xyno.systems/";
-      server.HTTP_PORT = 3031;
-      server.HTTP_HOST = "127.0.0.1";
-      service.DISABLE_REGISTRATION = false;
-      service.ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
-      service.SHOW_REGISTRATION_BUTTON = false;
+  # services.forgejo = {
+  #   enable = true;
+  #   lfs.enable = true;
+  #   settings = {
+  #     global.APP_NAME = "xyno.systems git";
+  #     session.COOKIE_SECURE = true;
+  #     server.DOMAIN = "git.xyno.systems";
+  #     server.ROOT_URL = "https://git.xyno.systems/";
+  #     server.HTTP_PORT = 3031;
+  #     server.HTTP_HOST = "127.0.0.1";
+  #     service.DISABLE_REGISTRATION = false;
+  #     service.ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
+  #     service.SHOW_REGISTRATION_BUTTON = false;
 
-      openid = {
-        ENABLE_OPENID_SIGNIN = false;
-        ENABLE_OPENID_SIGNUP = true;
-        WHITELISTED_URIS = "sso.xyno.systems";
-      };
+  #     openid = {
+  #       ENABLE_OPENID_SIGNIN = false;
+  #       ENABLE_OPENID_SIGNUP = true;
+  #       WHITELISTED_URIS = "sso.xyno.systems";
+  #     };
 
-    };
-  };
+  #   };
+  # };
 
   ragon.agenix.secrets."desec" = { };
 
@@ -252,8 +282,14 @@ all the robots are on <a href="https://catgirl.cloud">catgirl.cloud</a> mew :3
     configurations."picard-ds9" = {
       source_directories = [ "/persistent" ];
       repositories = [
-        { label = "ds9"; path = "ssh://picardbackup@ds9/backups/picard/borgmatic"; }
-        { label = "gatebridge"; path = "ssh://root@gatebridge/media/backup/picard"; }
+        {
+          label = "ds9";
+          path = "ssh://picardbackup@ds9/backups/picard/borgmatic";
+        }
+        {
+          label = "gatebridge";
+          path = "ssh://root@gatebridge/media/backup/picard";
+        }
       ];
       exclude_if_present = [ ".nobackup" ];
       encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticPassword.path}";
@@ -265,10 +301,22 @@ all the robots are on <a href="https://catgirl.cloud">catgirl.cloud</a> mew :3
         keep_monthly = 12;
         keep_yearly = 10;
       };
-      before_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticHealthCheckUrl.path})/start" ];
-      after_actions = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticHealthCheckUrl.path})" ];
-      on_error = [ "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticHealthCheckUrl.path})/fail" ];
-      postgresql_databases = [{ name = "all"; pg_dump_command = "${pkgs.postgresql}/bin/pg_dumpall"; pg_restore_command = "${pkgs.postgresql}/bin/pg_restore"; }];
+      before_actions = [
+        "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticHealthCheckUrl.path})/start"
+      ];
+      after_actions = [
+        "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticHealthCheckUrl.path})"
+      ];
+      on_error = [
+        "${pkgs.curl}/bin/curl -fss -m 10 --retry 5 -o /dev/null $(${pkgs.coreutils}/bin/cat ${config.age.secrets.picardResticHealthCheckUrl.path})/fail"
+      ];
+      postgresql_databases = [
+        {
+          name = "all";
+          pg_dump_command = "${pkgs.postgresql}/bin/pg_dumpall";
+          pg_restore_command = "${pkgs.postgresql}/bin/pg_restore";
+        }
+      ];
     };
   };
 
@@ -281,23 +329,39 @@ all the robots are on <a href="https://catgirl.cloud">catgirl.cloud</a> mew :3
   # services.lolpizza2.enable = true;
   programs.mosh.enable = true;
 
-  home-manager.users.ragon = { pkgs, lib, inputs, config, ... }: {
-    imports = [
-      # ../../hm-modules/nvim
-      # ../../hm-modules/zsh
-      ../../hm-modules/tmux
-      ../../hm-modules/cli.nix
-      ../../hm-modules/files.nix
-    ];
+  home-manager.users.ragon =
+    {
+      pkgs,
+      lib,
+      inputs,
+      config,
+      ...
+    }:
+    {
+      imports = [
+        # ../../hm-modules/nvim
+        # ../../hm-modules/zsh
+        ../../hm-modules/tmux
+        ../../hm-modules/cli.nix
+        ../../hm-modules/files.nix
+      ];
 
-    programs.home-manager.enable = true;
-    home.stateVersion = "23.11";
-  };
+      programs.home-manager.enable = true;
+      home.stateVersion = "23.11";
+    };
 
   ragon = {
     user.enable = true;
     persist.enable = true;
-    persist.extraDirectories = [ "/var/lib/nixos-containers" "/srv/www" config.services.caddy.dataDir "/var/lib/syncthing" "/var/lib/${config.services.xynoblog.stateDirectory}" "/var/lib/postgresql" config.services.forgejo.stateDir ];
+    persist.extraDirectories = [
+      "/var/lib/nixos-containers"
+      "/srv/www"
+      config.services.caddy.dataDir
+      "/var/lib/syncthing"
+      "/var/lib/${config.services.xynoblog.stateDirectory}"
+      "/var/lib/postgresql"
+      config.services.forgejo.stateDir
+    ];
 
     services = {
       caddy.enable = true;
@@ -306,7 +370,7 @@ all the robots are on <a href="https://catgirl.cloud">catgirl.cloud</a> mew :3
       bitwarden.enable = true;
       tailscale.enable = true;
       hedgedoc.enable = true;
-      authelia.enable = true;
+      # authelia.enable = true;
       ts3.enable = true;
     };
 

@@ -5,13 +5,17 @@
   inputs,
   ...
 }:
+let
+  stateDir = "/var/lib/atticd2";
+in
 {
   # imports = [ inputs.attic.nixosModules.atticd ];
   ragon.agenix.secrets.ds9AtticEnv = { };
   ragon.persist.extraDirectories = [
-    "/var/lib/atticd"
+    stateDir
   ];
-  
+
+  systemd.services.atticd.serviceConfig.ReadWritePaths = [ stateDir ];
   services.atticd = {
     enable = true;
 
@@ -20,6 +24,11 @@
 
     settings = {
       listen = "[::]:8089";
+      database.url = "sqlite://${stateDir}/server.db?mode=rwc";
+      storage = {
+        type = "local";
+        path = "${stateDir}/storage";
+      };
 
       jwt = { };
 

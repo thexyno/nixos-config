@@ -72,6 +72,7 @@ in
     image = "docker.io/tensorchord/pgvecto-rs:pg16-v0.2.1";
     extraOptions = [
       "--network=db-net"
+      "--network=podman"
       "--health-cmd"
       "pg_isready -U postgres"
     ];
@@ -82,6 +83,7 @@ in
     environmentFiles = [
       config.age.secrets.ds9PostgresEnv.path
     ];
+    ports = [ "5432:5432"];
     volumes = [
       "${postgres-multi-db}:/docker-entrypoint-initdb.d/create-multiple-postgresql-databases.sh"
       "postgres:/var/lib/postgresql/data"

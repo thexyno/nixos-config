@@ -299,11 +299,15 @@ in
           import podmanRedir http://copyparty:3923
         }
         @noauth {
-          method GET OPTIONS HEAD
           path_regexp ^\/(noauth(\/.*|)|[a-z.]+\.(css|js)|[1-9].png)$
         }
+        @getoptionshead {
+          method GET OPTIONS HEAD
+        }
         handle @noauth {
-          import podmanRedir http://copyparty:3923
+          handle @getoptionshead {
+            import podmanRedir http://copyparty:3923
+          }
         }
         handle {
           import podmanRedirWithAuth http://copyparty:3923
@@ -321,14 +325,18 @@ in
       enable = true;
       enabledCollectors = [ "systemd" ];
     };
+    exporters.postgres = {
+      enable = true;
+      environmentFile = config.age.secrets.ds9PostgresExporterEnv.path;
+    };
     scrapeConfigs = [
-
       {
-        job_name = "jellyfin";
+        job_name = "postgres";
         static_configs = [
           {
             targets = [
-              "127.0.0.1:8096"
+              "localhost:${toString config.services.prometheus.exporters.postgres.port}"
+              "picard.kangaroo-galaxy.ts.net:${toString config.services.prometheus.exporters.postgres.port}"
             ];
           }
         ];
@@ -393,6 +401,7 @@ in
   ragon = {
     agenix.secrets."desec" = { };
     agenix.secrets."ds9DynDns" = { };
+    agenix.secrets."ds9PostgresExporterEnv" = { };
     user.enable = true;
     persist.enable = true;
     persist.extraDirectories = [

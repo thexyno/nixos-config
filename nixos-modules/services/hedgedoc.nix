@@ -10,10 +10,10 @@ in
       default = "md.xyno.systems";
     };
   config = lib.mkIf cfg.enable {
-    ragon.agenix.secrets.autheliaHedgedoc = { owner = "authelia-main"; };
-    services.authelia.instances.main.settingsFiles = [
-      config.age.secrets.autheliaHedgedoc.path
-    ];
+    # ragon.agenix.secrets.autheliaHedgedoc = { owner = "authelia-main"; };
+    # services.authelia.instances.main.settingsFiles = [
+    #   config.age.secrets.autheliaHedgedoc.path
+    # ];
     services.hedgedoc = {
       enable = true;
       environmentFile = "${config.age.secrets.hedgedocSecret.path}";
