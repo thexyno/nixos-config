@@ -379,11 +379,7 @@ in
             /data/media/copyparty/srv
             accs:
               A: @admin
-          [/noauth]  # accessible without auth public
-            /data/media/copyparty/srv/noauth
-            accs:
-              A: @admin
-              g: *
+              r: *
           [/dump]
             /data/media/copyparty/srv/dump
             flags:

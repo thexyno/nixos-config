@@ -76,6 +76,10 @@ in
         settings.database.name = "psycopg2";
         settings.database.args.database = "matrix-synapse-xynospace";
         settings.database.args.host = hostAddress;
+        settings.ip_range_whitelist = [
+          "2a03:4000:6:8120::1/128"
+          "37.120.178.81/32"
+        ];
         settings.database.args.password = "synapse";
         settings.app_service_config_files = [
           "/var/lib/signalbot.yaml"

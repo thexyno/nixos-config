@@ -19,6 +19,7 @@
     ./obsidianshare.nix
     ./mail.nix
     ./gotosocial.nix
+    ./ntfy.nix
     # ./ts-ovpn.nix
 
     ../../nixos-modules/system/persist.nix
@@ -216,6 +217,10 @@
       @notes host notes.xyno.systems
       handle @notes {
         reverse_proxy http://127.0.0.1:8086
+      }
+      @ntfy host ntfy.xyno.systems
+      handle @ntfy {
+        reverse_proxy http://127.0.0.1:15992
       }
 
       handle {

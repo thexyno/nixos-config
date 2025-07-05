@@ -289,26 +289,29 @@ in
       }
       @copyparty host c.hailsatan.eu
       handle @copyparty {
-        @proxy {
-          header_regexp Cookie authentik_proxy_([a-zA-Z0-9])
-        }
-        handle @proxy {
-          import podmanRedirWithAuth http://copyparty:3923
-        }
+        # @proxy {
+        #   header_regexp Cookie authentik_proxy_([a-zA-Z0-9])
+        # }
+        # handle @proxy {
+        #   import podmanRedirWithAuth http://copyparty:3923
+        # }
         handle /shr/* {
           import podmanRedir http://copyparty:3923
         }
-        @noauth {
-          path_regexp ^\/(noauth(\/.*|)|[a-z.]+\.(css|js)|[1-9].png)$
+        handle /.cpr/* {
+          import podmanRedir http://copyparty:3923
         }
-        @getoptionshead {
-          method GET OPTIONS HEAD
-        }
-        handle @noauth {
-          handle @getoptionshead {
-            import podmanRedir http://copyparty:3923
-          }
-        }
+        # @noauth {
+        #   path_regexp ^\/(noauth(\/.*|)|[a-z.]+\.(css|js)|[1-9].png)$
+        # }
+        # @getoptionshead {
+        #   method GET OPTIONS HEAD
+        # }
+        # handle @noauth {
+        #   handle @getoptionshead {
+        #     import podmanRedir http://copyparty:3923
+        #   }
+        # }
         handle {
           import podmanRedirWithAuth http://copyparty:3923
         }
