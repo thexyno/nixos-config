@@ -5,6 +5,7 @@
   inputs,
   ...
 }:
+  let version = "2025.6.3"; in 
 {
   imports = [
     inputs.quadlet-nix.nixosModules.quadlet
@@ -13,7 +14,7 @@
   ragon.agenix.secrets.ds9AuthentikLdapEnv = { };
   virtualisation.quadlet = {
     containers = {
-      authentik-server.containerConfig.image = "ghcr.io/goauthentik/server:2025.2.3";
+      authentik-server.containerConfig.image = "ghcr.io/goauthentik/server:${version}";
 
       authentik-server.containerConfig.exec = "server";
       authentik-server.containerConfig.networks = [
@@ -36,7 +37,7 @@
       authentik-server.containerConfig.environmentFiles = [
         config.age.secrets.ds9AuthentikEnv.path
       ];
-      authentik-worker.containerConfig.image = "ghcr.io/goauthentik/server:2025.2.3";
+      authentik-worker.containerConfig.image = "ghcr.io/goauthentik/server:${version}";
 
       authentik-worker.containerConfig.exec = "worker";
       authentik-worker.containerConfig.networks = [
@@ -59,7 +60,7 @@
         config.age.secrets.ds9AuthentikEnv.path
       ];
       authentik-worker.serviceConfig.TimeoutStartSec = "60";
-      authentik-ldap.containerConfig.image = "ghcr.io/goauthentik/ldap:2025.2.3";
+      authentik-ldap.containerConfig.image = "ghcr.io/goauthentik/ldap:${version}";
 
       authentik-ldap.containerConfig.networks = [
         "podman"
