@@ -338,7 +338,7 @@ in
   virtualisation.oci-containers.containers.labello = {
     image = "telegnom/labello:latest";
     environment = {
-      LAB_PRINTER_DEVICE = "tcp://10.0.10.240:9100";
+      LAB_PRINTER_DEVICE = "tcp://BRN008077572A96.lan:9100";
       # LABELLO_DOWNLOAD_FONT = "yes";
     };
     extraOptions = [ "--network=podman" ];
