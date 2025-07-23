@@ -212,6 +212,7 @@ in
       }
     '';
     globalConfig = ''
+      acme_ca https://acme-v02.api.letsencrypt.org/directory # hard coded so zerossl doesn't get used
       acme_dns desec {
         token "{$TOKEN}"
       }
