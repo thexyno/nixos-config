@@ -175,8 +175,12 @@
         handle /api/event {
           reverse_proxy http://127.0.0.1:${toString config.services.plausible.server.port}
         }
-
-        reverse_proxy http://[::1]${config.services.xynoblog.listen}
+        redir /post/nix-darwin-introduction /posts/nix-darwin-introduction/ 301
+        redir /post/nixos-utm-rosetta /posts/nixos-utm-rosetta/ 301
+        redir /post/nix-store-nfs /posts/nix-store-nfs/ 301
+        redir /post/parcel-quicktemplate /posts/parcel-quicktemplate/ 301
+        root * /srv/www/xynospace
+        file_server
       '';
     virtualHosts."*.xyno.space".extraConfig = ''
       @stats host stats.xyno.space
@@ -331,7 +335,7 @@
       zfs = super.zfs.override { enableMail = true; };
     })
   ];
-  services.xynoblog.enable = true;
+  # services.xynoblog.enable = true;
   # services.lolpizza2.enable = true;
   programs.mosh.enable = true;
 
@@ -364,7 +368,7 @@
       "/srv/www"
       config.services.caddy.dataDir
       "/var/lib/syncthing"
-      "/var/lib/${config.services.xynoblog.stateDirectory}"
+      # "/var/lib/${config.services.xynoblog.stateDirectory}"
       "/var/lib/postgresql"
       config.services.forgejo.stateDir
     ];
