@@ -109,6 +109,13 @@
       }
     '';
     virtualHosts."*.hailsatan.eu".extraConfig = ''
+      tls ssl@xyno.systems {
+        propagation_delay 1m
+      ca https://acme-v02.api.letsencrypt.org/directory # hard coded so zerossl doesn't get used
+      dns desec {
+        token "{$TOKEN}"
+      }
+      }
       reverse_proxy https://ds9.kangaroo-galaxy.ts.net {
         transport http {
           tls_server_name {host}
@@ -117,29 +124,6 @@
     '';
     virtualHosts."l621.net".extraConfig = ''
       reverse_proxy http://127.0.0.1:8186
-    '';
-    virtualHosts."*.ragon.xyz".extraConfig = ''
-      # @8081 host 8081.ragon.xyz
-      # handle @8081 {
-      #   reverse_proxy http://[::1]:8081
-      # }
-      # @files host files.ragon.xyz
-      # handle @files {
-      #   encode zstd gzip
-      #   root * /srv/www
-      #   file_server browse
-      #   basicauth * {
-      #     {$BAUSER} {$BAPASSWD}
-      #   }
-      # }
-      @bw host bw.ragon.xyz
-      handle @bw {
-        reverse_proxy http://${config.services.vaultwarden.config.rocketAddress}:${toString config.services.vaultwarden.config.rocketPort}
-      }
-
-      handle {
-        abort
-      }
     '';
     virtualHosts."xyno.space".extraConfig =
       let
@@ -227,6 +211,11 @@
       handle @ntfy {
         reverse_proxy http://127.0.0.1:15992
       }
+      @bw host bw.xyno.systems
+      handle @bw {
+        reverse_proxy http://${config.services.vaultwarden.config.rocketAddress}:${toString config.services.vaultwarden.config.rocketPort}
+      }
+
 
       handle {
         abort

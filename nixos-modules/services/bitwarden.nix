@@ -7,7 +7,7 @@ in
   options.ragon.services.bitwarden.domain =
     lib.mkOption {
       type = lib.types.str;
-      default = "bw.ragon.xyz";
+      default = "bw.xyno.systems";
     };
   config = lib.mkIf cfg.enable {
     services.vaultwarden = {

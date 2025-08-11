@@ -5,7 +5,7 @@
     utils.url = "github:numtide/flake-utils";
 
     ## nixos/nix-darwin dependencies
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-24.05-darwin";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     agenix.url = "github:ryantm/agenix/main";
@@ -20,7 +20,7 @@
     quadlet-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-2.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3-1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -36,6 +36,8 @@
     attic.url = "github:zhaofengli/attic";
     attic.inputs.nixpkgs.follows = "nixpkgs";
 
+    synapse.url = "github:element-hq/synapse?rev=4054d956f75056ace9edc729ee488edcbf00d1a2";
+    synapse.flake = false;
 
     kmonad = {
       url = "git+https://github.com/jokesper/kmonad?dir=nix&ref=feat-tap-overlap";

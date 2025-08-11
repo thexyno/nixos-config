@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib,inputs, ... }:
 let
   fqdn = "matrix.xyno.space";
   serverName = "xyno.space";
@@ -62,7 +62,12 @@ in
   containers.xynospace-matrix = let ms = config.age.secrets.matrixSecrets.path; unst = pkgs.unstable; in {
     config = { config, pkgs, ... }: {
       nixpkgs.overlays = [(self: super: {
-        matrix-synapse-unwrapped = unst.matrix-synapse-unwrapped;
+        matrix-synapse-unwrapped = super.matrix-synapse-unwrapped.overrideAttrs (super: self: {
+          src = inputs.synapse;
+          # cargoHash = "sha256-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=";
+
+          
+        });
       })];
       system.stateVersion = stateVer;
       networking.firewall.allowedTCPPorts = [ 8008 ];
