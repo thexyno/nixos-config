@@ -199,10 +199,10 @@
       # handle @sso {
       #   reverse_proxy http://127.0.0.1:9091
       # }
-      # @git host git.xyno.systems
-      # handle @git {
-      #   reverse_proxy http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}
-      # }
+      @git host git.xyno.systems
+      handle @git {
+        reverse_proxy http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}
+      }
       @notes host notes.xyno.systems
       handle @notes {
         reverse_proxy http://127.0.0.1:8086
@@ -240,28 +240,28 @@
     '';
   };
 
-  # services.forgejo = {
-  #   enable = true;
-  #   lfs.enable = true;
-  #   settings = {
-  #     global.APP_NAME = "xyno.systems git";
-  #     session.COOKIE_SECURE = true;
-  #     server.DOMAIN = "git.xyno.systems";
-  #     server.ROOT_URL = "https://git.xyno.systems/";
-  #     server.HTTP_PORT = 3031;
-  #     server.HTTP_HOST = "127.0.0.1";
-  #     service.DISABLE_REGISTRATION = false;
-  #     service.ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
-  #     service.SHOW_REGISTRATION_BUTTON = false;
+  services.forgejo = {
+    enable = true;
+    lfs.enable = true;
+    settings = {
+      global.APP_NAME = "xyno.systems git";
+      session.COOKIE_SECURE = true;
+      server.DOMAIN = "git.xyno.systems";
+      server.ROOT_URL = "https://git.xyno.systems/";
+      server.HTTP_PORT = 3031;
+      server.HTTP_HOST = "127.0.0.1";
+      service.DISABLE_REGISTRATION = false;
+      service.ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
+      service.SHOW_REGISTRATION_BUTTON = false;
 
-  #     openid = {
-  #       ENABLE_OPENID_SIGNIN = false;
-  #       ENABLE_OPENID_SIGNUP = true;
-  #       WHITELISTED_URIS = "sso.xyno.systems";
-  #     };
+      openid = {
+        ENABLE_OPENID_SIGNIN = false;
+        ENABLE_OPENID_SIGNUP = true;
+        WHITELISTED_URIS = "auth.hailsatan.eu";
+      };
 
-  #   };
-  # };
+    };
+  };
 
   ragon.agenix.secrets."desec" = { };
 

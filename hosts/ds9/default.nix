@@ -129,12 +129,9 @@ in
     extraOptions = [ "--interval=7200" ];
     notifications.test = true;
   };
-  nixpkgs.overlays = [
-    (self: super: {
-      zfs = super.zfs.override { enableMail = true; };
-    })
-  ];
+  
 
+  services.zfs.zed.enableMail = true;
   services.zfs.zed.settings = {
     ZED_EMAIL_ADDR = [ "root" ];
     ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";

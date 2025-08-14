@@ -22,7 +22,7 @@
     nix = "spool/local/nix";
     varlog = "spool/local/journal";
     persistent = "spool/safe/persist";
-    arcSize = 8;
+    arcSize = 16;
   };
 
   services.sanoid.datasets."rpool/content/safe/data/media" = { };
