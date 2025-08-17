@@ -21,6 +21,7 @@ in
     ./maubot.nix
     ./woodpecker.nix
     ./attic.nix
+    ./ytdl-sub.nix
 
     ../../nixos-modules/networking/tailscale.nix
     ../../nixos-modules/services/docker.nix
@@ -90,18 +91,18 @@ in
   # Immutable users due to tmpfs
   users.mutableUsers = false;
 
-  users.users.nia = {
-    createHome = true;
-    isNormalUser = true;
-    extraGroups = [
-      "docker"
-      "podman"
-      "wheel"
-    ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDq+jk1Bi8/x0lYDiVi/iVnp9nEleocoQ+xHmlpDt9Qs"
-    ];
-  };
+  # users.users.nia = {
+  #   createHome = true;
+  #   isNormalUser = true;
+  #   extraGroups = [
+  #     "docker"
+  #     "podman"
+  #     "wheel"
+  #   ];
+  #   openssh.authorizedKeys.keys = [
+  #     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDq+jk1Bi8/x0lYDiVi/iVnp9nEleocoQ+xHmlpDt9Qs"
+  #   ];
+  # };
   users.users.bzzt = {
     description = "bzzt server service user";
     home = "/var/lib/bzzt";
