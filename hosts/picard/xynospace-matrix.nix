@@ -81,6 +81,12 @@ in
         settings.database.name = "psycopg2";
         settings.database.args.database = "matrix-synapse-xynospace";
         settings.database.args.host = hostAddress;
+        settings.trusted_key_servers = [
+          { server_name = "catgirl.cloud"; }
+          { server_name = "kif.rocks"; }
+          { server_name = "fachschaften.org"; }
+          { server_name = "matrix.org"; }
+        ];
         settings.ip_range_whitelist = [
           "2a03:4000:6:8120::1/128"
           "37.120.178.81/32"
