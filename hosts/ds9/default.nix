@@ -225,6 +225,10 @@ in
       output file ${config.services.caddy.logDir}/access-*hailsatan.eu_internet.log
     '';
     virtualHosts."*.hailsatan.eu ".extraConfig = ''
+      @vanitygpg host vanitygpg.hailsatan.eu
+      handle @vanitygpg {
+        reverse_proxy h2c://[::1]:29328
+      }
       import blockBots
       @jellyfin host j.hailsatan.eu
       handle @jellyfin {
