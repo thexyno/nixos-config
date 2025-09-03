@@ -20,7 +20,7 @@
       "mail-state:/var/mail-state/"
       "mail-logs:/var/log/mail/"
       "mail-config:/tmp/docker-mailserver/"
-      "/var/lib/caddy/.local/share/caddy/certificates/acme.zerossl.com-v2-dv90/wildcard_.hailsatan.eu:/srv/tls/meow:ro" # it hates this
+      "/var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/wildcard_.hailsatan.eu:/srv/tls/meow:ro" # it hates this
     ];
     environment = {
       TZ = "Europe/Berlin";
