@@ -76,7 +76,7 @@ in
       "--health-cmd"
       "pg_isready -U postgres"
     ];
-    dependsOn = [ "db-network" ];
+    # dependsOn = [ "db-network" ];
     environment = {
       POSTGRES_INITDB_ARGS = "--data-checksums";
     };
@@ -91,13 +91,13 @@ in
   };
   # immich
   ragon.agenix.secrets.ds9ImmichEnv = { };
-  systemd.services."podman-immich-network" = {
-    script = ''
-      echo "Creating immich network"
-      ${pkgs.podman}/bin/podman network exists immich-net || ${pkgs.podman}/bin/podman network create immich-net --internal --ipv6
-      echo "Created immich network"
-    '';
-  };
+  # systemd.services."podman-immich-network" = {
+  #   script = ''
+  #     echo "Creating immich network"
+  #     ${pkgs.podman}/bin/podman network exists immich-net || ${pkgs.podman}/bin/podman network create immich-net --internal --ipv6
+  #     echo "Created immich network"
+  #   '';
+  # };
   virtualisation.oci-containers.containers.immich-redis = {
     image = "docker.io/valkey/valkey:7.2.6-alpine";
     environment.TZ = "Europe/Berlin";
@@ -109,7 +109,7 @@ in
     environmentFiles = [
       config.age.secrets.ds9ImmichEnv.path
     ];
-    dependsOn = [ "immich-network" ];
+    # dependsOn = [ "immich-network" ];
   };
   virtualisation.oci-containers.containers.immich-server = {
     user = "1000:100";
@@ -120,7 +120,7 @@ in
       "--network=db-net"
     ];
     dependsOn = [
-      "immich-network"
+      # "immich-network"
       "immich-redis"
       "postgres"
     ];
@@ -147,7 +147,7 @@ in
       "--network=podman"
     ];
     dependsOn = [
-      "immich-network"
+      # "immich-network"
       "immich-redis"
       "postgres"
     ];

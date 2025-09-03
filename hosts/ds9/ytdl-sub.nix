@@ -119,6 +119,7 @@ in
           "~Murder Drones" = {
             s01_url = "https://www.youtube.com/playlist?list=PLHovnlOusNLiJz3sm0d5i2Evwa2LDLdrg";
             tv_show_collection_episode_ordering = "playlist-index";
+            tv_show_directory = "/data/media/yt";
           };
         };
       };

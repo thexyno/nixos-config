@@ -3,7 +3,7 @@
 with pkgs;
 
 caddy.override {
-  buildGoModule = args: buildGoModule (args // {
+  buildGo125Module = args: buildGo125Module (args // {
     src = stdenv.mkDerivation rec {
       pname = "caddy-using-xcaddy-${xcaddy.version}";
       inherit (caddy) version;
@@ -37,7 +37,7 @@ caddy.override {
         cp -r --reflink=auto . $out
       '';
 
-      outputHash = "sha256-r4+WK8UhGLAuIvdV6uiH2bMh/SjTfY4CzKcpHU0Gu5s=";
+      outputHash = "sha256-a2GeG7TYBnCz30jBKQmmQz8Y3vutRpa+tboaahJ5xeQ=";
       outputHashMode = "recursive";
     };
 
