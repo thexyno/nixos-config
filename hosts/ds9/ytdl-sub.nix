@@ -113,10 +113,7 @@ in
           # only_recent_date_range = "30days";
         };
         "Jellyfin TV Show by Date | Sponsorblock | Only Recent | Max 1080p" = mapAttrs' (
-          n: v:
-          nameValuePair "= ${n}" (
-            builtins.listToAttrs (builtins.map (x: (nameValuePair x "https://youtube.com/@${x}")) v)
-          )
+          n: v: nameValuePair "= ${n}" (genAttrs v (x: "https://youtube.com/@${x}"))
         ) channels;
         "Jellyfin TV Show Collection | Sponsorblock" = {
           "~Murder Drones" = {
