@@ -78,7 +78,7 @@ in
   services.ytdl-sub = {
     instances.default = {
       enable = true;
-      schedule = "0/6:0";
+      schedule = "0/2:0";
       config = {
         presets."Sponsorblock" = {
           ytdl_options.cookiefile = "/data/media/yt/cookies.Personal.txt";
@@ -119,7 +119,7 @@ in
           "~Murder Drones" = {
             s01_url = "https://www.youtube.com/playlist?list=PLHovnlOusNLiJz3sm0d5i2Evwa2LDLdrg";
             tv_show_collection_episode_ordering = "playlist-index";
-            tv_show_directory = "/data/media/yt";
+            tv_show_directory = "/data/media/tv";
           };
         };
       };
