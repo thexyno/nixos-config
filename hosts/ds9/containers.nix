@@ -83,7 +83,7 @@ in
     environmentFiles = [
       config.age.secrets.ds9PostgresEnv.path
     ];
-    ports = [ "5432:5432"];
+    ports = [ "5432:5432" ];
     volumes = [
       "${postgres-multi-db}:/docker-entrypoint-initdb.d/create-multiple-postgresql-databases.sh"
       "postgres:/var/lib/postgresql/data"
@@ -199,7 +199,7 @@ in
   };
 
   virtualisation.oci-containers.containers.changedetection = {
-    image = "dgtlmoon/changedetection.io";
+    image = "ghcr.io/dgtlmoon/changedetection.io";
     extraOptions = [
       "--network=podman"
       "--network=cd-net"
@@ -207,6 +207,24 @@ in
     volumes = [
       "changedetection-data:/datastore"
     ];
+    environment = {
+      PLAYWRIGHT_DRIVER_URL = "ws://changedetection-chrome:3000";
+      HIDE_REFERER = "true";
+      USE_X_SETTINGS = "1";
+    };
+  };
+  virtualisation.oci-containers.containers.changedetection-chrome = {
+    image = "dgtlmoon/sockpuppetbrowser:latest";
+    extraOptions = [
+      "--network=podman"
+      "--network=cd-net"
+    ];
+    environment = {
+      SCREEN_WIDTH = "1920";
+      SCREEN_HEIGHT = "1024";
+      SCREEN_DEPTH = "16";
+      MAX_CONCURRENT_CHROME_PROCESSES = "10";
+    };
   };
 
   networking.firewall.interfaces."podman0".allowedTCPPorts = [ 9090 ];
@@ -344,11 +362,11 @@ in
     extraOptions = [ "--network=podman" ];
     volumes =
       let
-        fonts = pkgs.runCommandNoCC "labello-fonts" {} ''
-            mkdir $out
-            cp ${pkgs.roboto}/share/fonts/truetype/* $out
-            cp ${pkgs.roboto-mono}/share/fonts/truetype/* $out
-          '';
+        fonts = pkgs.runCommandNoCC "labello-fonts" { } ''
+          mkdir $out
+          cp ${pkgs.roboto}/share/fonts/truetype/* $out
+          cp ${pkgs.roboto-mono}/share/fonts/truetype/* $out
+        '';
       in
       [
         "${fonts}:/opt/labello/fonts"
