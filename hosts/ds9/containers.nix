@@ -29,7 +29,6 @@ in
 {
   imports = [
     ./authentik.nix
-    ./part-db.nix
   ];
   networking.firewall.interfaces."podman+".allowedUDPPorts = [ 53 ];
   networking.firewall.interfaces."podman+".allowedTCPPorts = [

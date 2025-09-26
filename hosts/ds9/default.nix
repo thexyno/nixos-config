@@ -22,6 +22,7 @@ in
     ./woodpecker.nix
     ./attic.nix
     ./ytdl-sub.nix
+    ./snipe-it.nix
 
     ../../nixos-modules/networking/tailscale.nix
     ../../nixos-modules/services/docker.nix
@@ -257,10 +258,6 @@ in
       handle @grafana {
         import podmanRedirWithAuth http://grafana:3000 
       }
-      @hoard host hoard.hailsatan.eu
-      handle @hoard {
-        import podmanRedirWithAuth http://partdb-server:80
-      }
       @immich host immich.hailsatan.eu
       handle @immich {
         import podmanRedir http://immich-server:2283
@@ -289,6 +286,12 @@ in
         handle {
           import podmanRedirWithAuth http://archivebox:8000 
         }
+      }
+      @snipe-it host snipe-it.hailsatan.eu
+      handle @snipe-it {
+        root * ${pkgs.snipe-it}/share/php/snipe-it/public
+        php_fastcgi unix//${config.services.phpfpm.pools."snipe-it".socket}
+        file_server
       }
       @copyparty host c.hailsatan.eu
       handle @copyparty {
