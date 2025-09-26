@@ -19,6 +19,7 @@ in
   "ds9SyncoidHealthCheckUrl.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9DynDns.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9SnipeIt.age".publicKeys = pubkeys.ragon.host "ds9";
+  "ds9GristEnv.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9PostgresEnv.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9ImmichEnv.age".publicKeys = pubkeys.ragon.host "ds9";
   "ds9AuthentikEnv.age".publicKeys = pubkeys.ragon.host "ds9";

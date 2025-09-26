@@ -15,6 +15,7 @@ in
 
     ./containers.nix
     ./backup.nix
+    ./grist.nix
     # ./plex.nix
     ./samba.nix
     ./paperless.nix
@@ -286,6 +287,11 @@ in
         handle {
           import podmanRedirWithAuth http://archivebox:8000 
         }
+      }
+      @grist host grist.hailsatan.eu
+      handle @grist {
+          import podmanRedir http://grist:8484
+        
       }
       @snipe-it host snipe-it.hailsatan.eu
       handle @snipe-it {
