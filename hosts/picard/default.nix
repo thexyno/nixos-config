@@ -195,6 +195,22 @@
       }
     '';
     virtualHosts."*.xyno.systems".extraConfig = ''
+      @lost host lost.xyno.systems
+      handle @lost {
+        handle /register {
+          header ?Set-Cookie lost-registered=true
+          respond registered 200
+        }
+        @lost-registered {
+          header Cookie *lost-registered=true*
+        } 
+        handle @lost-registered {
+          redir https://snipe-it.hailsatan.eu/hardware{uri}
+        }
+        handle {
+          redir https://xyno.space/contact?utm-source=lost&utm-content={uri}
+        }
+      }
       @md host md.xyno.systems
       handle @md {
         reverse_proxy http://[::1]:${toString config.services.hedgedoc.settings.port}

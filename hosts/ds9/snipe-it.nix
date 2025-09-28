@@ -28,6 +28,7 @@ with lib;
   };
   ragon.persist.extraDirectories = [
     config.services.snipe-it.dataDir
+    "/var/lib/mysql"
   ];
 
 }
