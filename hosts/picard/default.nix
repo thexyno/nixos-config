@@ -167,6 +167,8 @@
         redir /post/nixos-utm-rosetta /posts/nixos-utm-rosetta/ 301
         redir /post/nix-store-nfs /posts/nix-store-nfs/ 301
         redir /post/parcel-quicktemplate /posts/parcel-quicktemplate/ 301
+        redir /posts.rss /atom.xml 301
+        redir /posts.atom /atom.xml 301
         root * /srv/www/xynospace
         file_server
       '';

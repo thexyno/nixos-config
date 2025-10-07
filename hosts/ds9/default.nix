@@ -227,11 +227,28 @@ in
       output file ${config.services.caddy.logDir}/access-*hailsatan.eu_internet.log
     '';
     virtualHosts."*.hailsatan.eu ".extraConfig = ''
-      @vanitygpg host vanitygpg.hailsatan.eu
-      handle @vanitygpg {
-        reverse_proxy h2c://[::1]:29328
-      }
       import blockBots
+      @blog host blog.hailsatan.eu
+      handle @blog {
+        route {
+        # always forward outpost path to actual outpost
+          reverse_proxy /outpost.goauthentik.io/* http://authentik-server:9000 {
+            transport http {
+              resolvers 10.88.0.1 # podman dns
+            }
+          }
+          forward_auth http://authentik-server:9000 {
+            transport http {
+              resolvers 10.88.0.1 # podman dns
+            }
+            uri /outpost.goauthentik.io/auth/caddy
+            copy_headers X-Authentik-Username X-Copyparty-Group X-Authentik-Groups X-Authentik-Entitlements X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version X-Grafana-Role
+          }
+          root * /srv/www/xynospace
+          file_server
+          
+        }
+      }
       @jellyfin host j.hailsatan.eu
       handle @jellyfin {
         handle /metrics* {
@@ -427,6 +444,7 @@ in
       "/var/lib/rancher"
       "/etc/rancher"
       "/root/.cache"
+      "/srv/www"
       "/var/lib/${config.services.prometheus.stateDir}"
     ];
 
