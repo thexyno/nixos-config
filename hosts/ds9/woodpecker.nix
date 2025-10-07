@@ -21,7 +21,8 @@
         ];
         containerConfig.environments = {
           WOODPECKER_HOST = "https://woodpecker.hailsatan.eu";
-          WOODPECKER_OPEN = "false";
+          WOODPECKER_OPEN = "true";
+          WOODPECKER_ADMIN = "xyno";
         };
         containerConfig.environmentFiles = [
           config.age.secrets.ds9WoodpeckerEnv.path
@@ -39,9 +40,11 @@
         ];
         containerConfig.environments = {
           WOODPECKER_SERVER = "woodpecker-server:9000";
+          BACKEND_DOCKER_ENABLE_IPV6 = "true";
         };
         containerConfig.networks = [
           "woodpecker-net"
+          "podman"
         ];
       };
     };
