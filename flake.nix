@@ -29,7 +29,7 @@
     xynoblog.inputs.nixpkgs.follows = "nixpkgs";
     x.url = "github:thexyno/x";
     x.inputs.nixpkgs.follows = "nixpkgs";
-    helix.url = "github:SofusA/helix-pull-diagnostics/pull-diagnostics";
+    # helix.url = "github:SofusA/helix-pull-diagnostics/pull-diagnostics";
     wired.inputs.nixpkgs.follows = "nixpkgs";
     wired.url = "github:Toqozz/wired-notify";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";

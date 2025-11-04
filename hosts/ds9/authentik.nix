@@ -5,7 +5,7 @@
   inputs,
   ...
 }:
-  let version = "2025.8.1"; in 
+  let version = "2025.10.1"; in 
 {
   imports = [
     inputs.quadlet-nix.nixosModules.quadlet
