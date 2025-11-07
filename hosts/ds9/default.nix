@@ -24,6 +24,7 @@ in
     ./attic.nix
     ./ytdl-sub.nix
     ./snipe-it.nix
+    ./radicale.nix
 
     ../../nixos-modules/networking/tailscale.nix
     ../../nixos-modules/services/docker.nix
@@ -201,7 +202,23 @@ in
               resolvers 10.88.0.1 # podman dns
             }
             uri /outpost.goauthentik.io/auth/caddy
-            copy_headers X-Authentik-Username X-Copyparty-Group X-Authentik-Groups X-Authentik-Entitlements X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version X-Grafana-Role
+            copy_headers {
+              X-Authentik-Username
+              X-Copyparty-Group
+              X-Authentik-Groups
+              X-Authentik-Entitlements
+              X-Authentik-Email
+              X-Authentik-Name
+              X-Authentik-Uid
+              X-Authentik-Jwt
+              X-Authentik-Meta-Jwks
+              X-Authentik-Meta-Outpost
+              X-Authentik-Meta-Provider
+              X-Authentik-Meta-App
+              X-Authentik-Meta-Version
+              X-Grafana-Role
+              X-Authentik-Username>X-Remote-User
+            } 
           }
           reverse_proxy {args[:]} {
             transport http {
@@ -271,6 +288,10 @@ in
       @auth host auth.hailsatan.eu
       handle @auth {
         import podmanRedir http://authentik-server:9000
+      }
+      @radicale host radicale.hailsatan.eu
+      handle @radicale {
+        import podmanRedirWithAuth http://[::1]:5232
       }
       @grafana host grafana.hailsatan.eu
       handle @grafana {
