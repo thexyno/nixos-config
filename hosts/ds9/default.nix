@@ -25,6 +25,7 @@ in
     ./ytdl-sub.nix
     ./snipe-it.nix
     ./radicale.nix
+    ./lms.nix
 
     ../../nixos-modules/networking/tailscale.nix
     ../../nixos-modules/services/docker.nix
@@ -296,6 +297,14 @@ in
       @grafana host grafana.hailsatan.eu
       handle @grafana {
         import podmanRedirWithAuth http://grafana:3000 
+      }
+      @lms host lms.hailsatan.eu
+      handle @lms {
+        handle /rest* {
+          
+        import podmanRedir http://localhost:5082 
+        }
+        import podmanRedirWithAuth http://localhost:5082 
       }
       @immich host immich.hailsatan.eu
       handle @immich {

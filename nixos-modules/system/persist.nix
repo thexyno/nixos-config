@@ -9,7 +9,7 @@ in
     default = [ ];
   };
   options.ragon.persist.extraDirectories = lib.mkOption {
-    type = lib.types.listOf lib.types.str;
+    type = lib.types.listOf lib.types.anything;
     default = [ ];
   };
   options.ragon.persist.baseDir = lib.mkOption {
