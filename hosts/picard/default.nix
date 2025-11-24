@@ -120,10 +120,10 @@
         token "{$TOKEN}"
       }
       }
-      reverse_proxy https://ds9.kangaroo-galaxy.ts.net {
-        transport http {
-          tls_server_name {host}
-        }
+      reverse_proxy http://ds9.kangaroo-galaxy.ts.net {
+        # transport http {
+        #   tls_server_name {host}
+        # }
       }
     '';
     virtualHosts."l621.net".extraConfig = ''
