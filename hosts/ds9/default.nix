@@ -11,7 +11,7 @@ let
 in
 {
   imports = [
-    ./hardware-configuration.nix
+    # ./hardware-configuration.nix
 
     ./containers.nix
     ./backup.nix
@@ -43,8 +43,12 @@ in
     ../../nixos-modules/user
   ];
 
+  boot.isContainer = true;
+   services.resolved.enable = true;
+   networking.useHostResolvConf = false;
+
   # Don't Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.enable = true;
 
   # power save stuffzies
   services.udev.path = [ pkgs.hdparm ];
@@ -57,12 +61,12 @@ in
 
   programs.mosh.enable = true;
   security.sudo.wheelNeedsPassword = false;
-  networking.useDHCP = true;
-  networking.useNetworkd = true;
-  systemd.network.networks."enp1s0f1".ipv6AcceptRAConfig = {
-    Token = "prefixstable";
-  };
-  networking.bridges."br0".interfaces = [ ];
+  networking.useDHCP = false;
+  # networking.useNetworkd = true;
+  # systemd.network.networks."enp1s0f1".ipv6AcceptRAConfig = {
+  #   Token = "prefixstable";
+  # };
+  # networking.bridges."br0".interfaces = [ ];
   networking.hostId = "7b4c2932";
   networking.firewall.allowedTCPPorts = [
     9000
@@ -238,13 +242,13 @@ in
         per_host
       }
       servers {
-        trusted_proxies static 100.96.45.2/32 fd7a:115c:a1e0:ab12:4843:cd96:6260:2d02/128
+        trusted_proxies static 100.96.45.2/32 fd7a:115c:a1e0:ab12:4843:cd96:6260:2d02/128 169.254.0.0/16 192.168.100.10/32
       }
     '';
-    virtualHosts."*.hailsatan.eu ".logFormat = ''
+    virtualHosts."http://*.hailsatan.eu ".logFormat = ''
       output file ${config.services.caddy.logDir}/access-*hailsatan.eu_internet.log
     '';
-    virtualHosts."*.hailsatan.eu ".extraConfig = ''
+    virtualHosts."http://*.hailsatan.eu ".extraConfig = ''
       import blockBots
       @blog host blog.hailsatan.eu
       handle @blog {

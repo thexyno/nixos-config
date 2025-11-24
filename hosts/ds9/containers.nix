@@ -35,10 +35,10 @@ in
     12300
     3001
   ];
-  fileSystems."/var/lib/containers" = {
-    device = "spool/safe/containers";
-    fsType = "zfs";
-  };
+  # fileSystems."/var/lib/containers" = {
+  #   device = "spool/safe/containers";
+  #   fsType = "zfs";
+  # };
   # plex
   # networking.firewall = {
   #   allowedTCPPorts = [ 32400 3005 8324 32469 ];
