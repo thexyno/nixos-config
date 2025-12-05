@@ -25,7 +25,7 @@ in
     ./ytdl-sub.nix
     ./snipe-it.nix
     ./radicale.nix
-    ./lms.nix
+    # ./lms.nix
 
     ../../nixos-modules/networking/tailscale.nix
     ../../nixos-modules/services/docker.nix
@@ -156,6 +156,7 @@ in
   # dyndns
 
   systemd.services."dyndns-refresh" = {
+    enable = false;
     script = ''
       set -eu
       export PATH=$PATH:${pkgs.curl}/bin:${pkgs.jq}/bin:${pkgs.iproute2}/bin
@@ -242,7 +243,7 @@ in
         per_host
       }
       servers {
-        trusted_proxies static 100.96.45.2/32 fd7a:115c:a1e0:ab12:4843:cd96:6260:2d02/128 169.254.0.0/16 192.168.100.10/32
+        trusted_proxies static 100.96.45.2/32 fd7a:115c:a1e0:ab12:4843:cd96:6260:2d02/128 169.254.0.0/16 192.168.100.10/24
       }
     '';
     virtualHosts."http://*.hailsatan.eu ".logFormat = ''
@@ -301,14 +302,6 @@ in
       @grafana host grafana.hailsatan.eu
       handle @grafana {
         import podmanRedirWithAuth http://grafana:3000 
-      }
-      @lms host lms.hailsatan.eu
-      handle @lms {
-        handle /rest* {
-          
-        import podmanRedir http://localhost:5082 
-        }
-        import podmanRedirWithAuth http://localhost:5082 
       }
       @immich host immich.hailsatan.eu
       handle @immich {

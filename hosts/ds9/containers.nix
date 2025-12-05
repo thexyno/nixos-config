@@ -381,7 +381,7 @@ in
         copypartyCfg = ''
           [global]
             xff-src: 10.88.0.1/24
-            idp-h-usr: X-Authentik-Username
+            idp-h-usr: X-Remote-User
             idp-h-grp: X-Copyparty-Group
             e2dsa  # enable file indexing and filesystem scanning
             e2ts   # enable multimedia indexing
