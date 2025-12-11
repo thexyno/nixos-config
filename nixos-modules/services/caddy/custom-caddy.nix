@@ -3,7 +3,7 @@
 with pkgs;
 
 caddy.override {
-  buildGo125Module = args: buildGo125Module (args // {
+  buildGoModule = args: buildGoModule (args // {
     src = stdenv.mkDerivation rec {
       pname = "caddy-using-xcaddy-${xcaddy.version}";
       inherit (caddy) version;

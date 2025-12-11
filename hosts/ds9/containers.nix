@@ -271,21 +271,21 @@ in
       "nodered-data:/data"
     ];
   };
-  virtualisation.oci-containers.containers.jellyfin = {
-    image = "jellyfin/jellyfin:latest";
-    user = "1000:100";
-    extraOptions = [
-      "--network=podman"
-      "--mount"
-      "type=bind,source=/data/media,destination=/media,ro=true,relabel=private"
-      "-p"
-      "127.0.0.1:8096:8096"
-    ];
-    volumes = [
-      "jellyfin-config:/config"
-      "jellyfin-cache:/cache"
-    ];
-  };
+  # virtualisation.oci-containers.containers.jellyfin = {
+  #   image = "jellyfin/jellyfin:latest";
+  #   user = "1000:100";
+  #   extraOptions = [
+  #     "--network=podman"
+  #     "--mount"
+  #     "type=bind,source=/data/media,destination=/media,ro=true,relabel=private"
+  #     "-p"
+  #     "127.0.0.1:8096:8096"
+  #   ];
+  #   volumes = [
+  #     "jellyfin-config:/config"
+  #     "jellyfin-cache:/cache"
+  #   ];
+  # };
   # archivebox
   systemd.services."podman-archivebox-network" = {
     script = ''
