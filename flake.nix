@@ -19,10 +19,10 @@
     quadlet-nix.url = "github:SEIAROTg/quadlet-nix";
     quadlet-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3-1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # lix-module = {
+    #   url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3-1.tar.gz";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # programs
     xynoblog.url = "github:thexyno/blog";
@@ -99,7 +99,7 @@
     , utils
     , xynoblog
     # , lolpizza
-    , lix-module
+    # , lix-module
     , kmonad
     , wired
     , x
@@ -114,6 +114,15 @@
       overlays = [
         self.overlays.default
         wired.overlays.default
+        (final: prev: {
+          inherit (final.unstable.lixPackageSets.latest)
+            nixpkgs-review
+            nix-direnv
+            nix-eval-jobs
+            nix-fast-build
+            colmena
+            ;
+        })
       ];
       genPkgsWithOverlays = system: import nixpkgs {
         inherit system overlays;
@@ -136,7 +145,7 @@
             inherit system;
             specialArgs = { inherit lib inputs; };
             modules = [
-              lix-module.nixosModules.default
+              # lix-module.nixosModules.default
               agenix.nixosModules.age
               impermanence.nixosModules.impermanence
               home-manager.nixosModules.home-manager
@@ -176,7 +185,7 @@
                 home-manager.extraSpecialArgs = { inherit inputs pkgs; };
               }
               ./darwin-common.nix
-              lix-module.nixosModules.default
+              # lix-module.nixosModules.default
             ] ++ extraModules;
           };
 

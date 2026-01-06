@@ -18,7 +18,7 @@ in
     ./grist.nix
     # ./plex.nix
     ./samba.nix
-    ./paperless.nix
+    # ./paperless.nix
     ./maubot.nix
     ./woodpecker.nix
     ./attic.nix
@@ -319,10 +319,10 @@ in
       handle @labello {
         import podmanRedirWithAuth http://labello:4242
       }
-      @paperless host paperless.hailsatan.eu
-      handle @paperless {
-        import podmanRedirWithAuth http://paperless-server:8000
-      }
+      # @paperless host paperless.hailsatan.eu
+      # handle @paperless {
+      #   import podmanRedirWithAuth http://paperless-server:8000
+      # }
       @archivebox host archivebox.hailsatan.eu
       handle @archivebox {
         handle /api/* {

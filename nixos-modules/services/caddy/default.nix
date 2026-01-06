@@ -14,7 +14,7 @@ in
       enable = true;
       # package = import ./custom-caddy.nix { inherit lib; pkgs = pkgs.unstable; };
       package = pkgs.caddy.withPlugins {
-        hash = "sha256-SQ5mEd8MwzSbrmweQcB4Dm2vtAEVBdL0mLocimJ/FdQ=";
+        hash = "sha256-Vts9yFfwXxN1A291uoYg9CjYGsLsvygZIldqdlavxeI=";
         plugins = [
           "github.com/caddy-dns/desec@v1.0.1"
         ];
