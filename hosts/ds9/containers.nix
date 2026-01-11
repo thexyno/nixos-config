@@ -363,8 +363,8 @@ in
       let
         fonts = pkgs.runCommandNoCC "labello-fonts" { } ''
           mkdir $out
-          cp ${pkgs.roboto}/share/fonts/truetype/* $out
-          cp ${pkgs.roboto-mono}/share/fonts/truetype/* $out
+          cp ${pkgs.roboto}/share/fonts/**/*.ttf $out || true
+          cp ${pkgs.roboto-mono}/share/fonts/**/*.ttf $out || true
         '';
       in
       [
