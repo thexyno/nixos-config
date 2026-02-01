@@ -19,7 +19,7 @@
     # ./obsidianshare.nix
     ./mail.nix
     # ./gotosocial.nix
-    ./ntfy.nix
+    # ./ntfy.nix
     # ./ts-ovpn.nix
 
     ../../nixos-modules/system/persist.nix
@@ -126,9 +126,9 @@
         # }
       }
     '';
-    virtualHosts."l621.net".extraConfig = ''
-      reverse_proxy http://127.0.0.1:8186
-    '';
+    # virtualHosts."l621.net".extraConfig = ''
+    #   reverse_proxy http://127.0.0.1:8186
+    # '';
     virtualHosts."xyno.space".extraConfig =
       let
         fqdn = "matrix.xyno.space";
@@ -225,10 +225,10 @@
       handle @git {
         reverse_proxy http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}
       }
-      @notes host notes.xyno.systems
-      handle @notes {
-        reverse_proxy http://127.0.0.1:8086
-      }
+      # @notes host notes.xyno.systems
+      # handle @notes {
+      #   reverse_proxy http://127.0.0.1:8086
+      # }
       @ntfy host ntfy.xyno.systems
       handle @ntfy {
         reverse_proxy http://127.0.0.1:15992
