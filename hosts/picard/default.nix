@@ -29,11 +29,11 @@
     ../../nixos-modules/services/ssh.nix
     ../../nixos-modules/services/msmtp.nix
     ../../nixos-modules/services/caddy
-    ../../nixos-modules/services/bitwarden.nix
-    ../../nixos-modules/networking/tailscale.nix
+    # ../../nixos-modules/services/bitwarden.nix
+    # ../../nixos-modules/networking/tailscale.nix
     # ../../nixos-modules/services/authelia.nix
-    ../../nixos-modules/services/hedgedoc.nix
-    ../../nixos-modules/services/ts3.nix
+    # ../../nixos-modules/services/hedgedoc.nix
+    # ../../nixos-modules/services/ts3.nix
     ../../nixos-modules/user
   ];
 
@@ -112,23 +112,6 @@
         per_host
       }
     '';
-    virtualHosts."*.hailsatan.eu".extraConfig = ''
-      tls ssl@xyno.systems {
-        propagation_delay 1m
-      ca https://acme-v02.api.letsencrypt.org/directory # hard coded so zerossl doesn't get used
-      dns desec {
-        token "{$TOKEN}"
-      }
-      }
-      reverse_proxy http://ds9.kangaroo-galaxy.ts.net {
-        # transport http {
-        #   tls_server_name {host}
-        # }
-      }
-    '';
-    # virtualHosts."l621.net".extraConfig = ''
-    #   reverse_proxy http://127.0.0.1:8186
-    # '';
     virtualHosts."xyno.space".extraConfig =
       let
         fqdn = "matrix.xyno.space";
@@ -213,28 +196,6 @@
           redir https://xyno.space/contact?utm-source=lost&utm-content={uri}
         }
       }
-      @md host md.xyno.systems
-      handle @md {
-        reverse_proxy http://[::1]:${toString config.services.hedgedoc.settings.port}
-      }
-      # @sso host sso.xyno.systems
-      # handle @sso {
-      #   reverse_proxy http://127.0.0.1:9091
-      # }
-      @git host git.xyno.systems
-      handle @git {
-        reverse_proxy http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}
-      }
-      # @notes host notes.xyno.systems
-      # handle @notes {
-      #   reverse_proxy http://127.0.0.1:8086
-      # }
-      @ntfy host ntfy.xyno.systems
-      handle @ntfy {
-        reverse_proxy http://127.0.0.1:15992
-      }
-
-
       handle {
         abort
       }
@@ -258,28 +219,6 @@
     '';
   };
 
-  services.forgejo = {
-    enable = true;
-    lfs.enable = true;
-    settings = {
-      global.APP_NAME = "xyno.systems git";
-      session.COOKIE_SECURE = true;
-      server.DOMAIN = "git.xyno.systems";
-      server.ROOT_URL = "https://git.xyno.systems/";
-      server.HTTP_PORT = 3031;
-      server.HTTP_HOST = "127.0.0.1";
-      service.DISABLE_REGISTRATION = false;
-      service.ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
-      service.SHOW_REGISTRATION_BUTTON = false;
-
-      openid = {
-        ENABLE_OPENID_SIGNIN = false;
-        ENABLE_OPENID_SIGNUP = true;
-        WHITELISTED_URIS = "auth.hailsatan.eu";
-      };
-
-    };
-  };
 
   ragon.agenix.secrets."desec" = { };
 
@@ -385,10 +324,10 @@
       ssh.enable = true;
       msmtp.enable = true;
       # bitwarden.enable = true;
-      tailscale.enable = true;
-      hedgedoc.enable = true;
+      # tailscale.enable = true;
+      # hedgedoc.enable = true;
       # authelia.enable = true;
-      ts3.enable = true;
+      # ts3.enable = true;
     };
 
   };
