@@ -233,10 +233,6 @@
       handle @ntfy {
         reverse_proxy http://127.0.0.1:15992
       }
-      @bw host bw.xyno.systems
-      handle @bw {
-        reverse_proxy http://${config.services.vaultwarden.config.rocketAddress}:${toString config.services.vaultwarden.config.rocketPort}
-      }
 
 
       handle {
@@ -388,7 +384,7 @@
       caddy.enable = true;
       ssh.enable = true;
       msmtp.enable = true;
-      bitwarden.enable = true;
+      # bitwarden.enable = true;
       tailscale.enable = true;
       hedgedoc.enable = true;
       # authelia.enable = true;
