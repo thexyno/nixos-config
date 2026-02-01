@@ -16,9 +16,9 @@
     ./hardware-configuration.nix
     ./xynospace-matrix.nix
     ./plausible.nix
-    ./obsidianshare.nix
+    # ./obsidianshare.nix
     ./mail.nix
-    ./gotosocial.nix
+    # ./gotosocial.nix
     ./ntfy.nix
     # ./ts-ovpn.nix
 

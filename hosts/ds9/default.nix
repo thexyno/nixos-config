@@ -15,14 +15,14 @@ in
 
     ./containers.nix
     ./backup.nix
-    ./grist.nix
+    # ./grist.nix
     # ./plex.nix
     ./samba.nix
     # ./paperless.nix
     ./maubot.nix
     ./woodpecker.nix
     ./attic.nix
-    ./ytdl-sub.nix
+    # ./ytdl-sub.nix
     ./snipe-it.nix
     ./radicale.nix
     # ./lms.nix
@@ -33,7 +33,7 @@ in
     ../../nixos-modules/services/msmtp.nix
     # ../../nixos-modules/services/paperless.nix
     # ../../nixos-modules/services/photoprism.nix
-    ../../nixos-modules/services/samba.nix
+    # ../../nixos-modules/services/samba.nix
     ../../nixos-modules/services/ssh.nix
     ../../nixos-modules/services/caddy
     ../../nixos-modules/system/agenix.nix
