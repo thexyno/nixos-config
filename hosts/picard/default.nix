@@ -160,21 +160,6 @@
       handle @stats {
         reverse_proxy http://127.0.0.1:${toString config.services.plausible.server.port}
       }
-      @matrix host matrix.xyno.space
-      handle @matrix {
-        handle /_matrix/* {
-          reverse_proxy http://192.168.100.11:8008
-        }
-        handle /notifications {
-          reverse_proxy http://192.168.100.11:8008
-        }
-        handle /_synapse/client/* {
-          reverse_proxy http://192.168.100.11:8008
-        }
-        handle /health {
-          reverse_proxy http://192.168.100.11:8008
-        }
-      }
       handle {
         abort
       }

@@ -17,14 +17,14 @@ in
     ./backup.nix
     # ./grist.nix
     # ./plex.nix
-    ./samba.nix
+    # ./samba.nix
     # ./paperless.nix
     ./maubot.nix
     ./woodpecker.nix
     ./attic.nix
     # ./ytdl-sub.nix
     ./snipe-it.nix
-    ./radicale.nix
+    # ./radicale.nix
     # ./lms.nix
 
     ../../nixos-modules/networking/tailscale.nix
@@ -295,18 +295,18 @@ in
       handle @auth {
         import podmanRedir http://authentik-server:9000
       }
-      @radicale host radicale.hailsatan.eu
-      handle @radicale {
-        import podmanRedirWithAuth http://[::1]:5232
-      }
+      # @radicale host radicale.hailsatan.eu
+      # handle @radicale {
+      #   import podmanRedirWithAuth http://[::1]:5232
+      # }
       @grafana host grafana.hailsatan.eu
       handle @grafana {
         import podmanRedirWithAuth http://grafana:3000 
       }
-      @immich host immich.hailsatan.eu
-      handle @immich {
-        import podmanRedir http://immich-server:2283
-      }
+      # @immich host immich.hailsatan.eu
+      # handle @immich {
+      #   import podmanRedir http://immich-server:2283
+      # }
       @cd host cd.hailsatan.eu
       handle @cd {
         import podmanRedirWithAuth http://changedetection:5000 
@@ -342,35 +342,6 @@ in
         root * ${pkgs.snipe-it}/share/php/snipe-it/public
         php_fastcgi unix//${config.services.phpfpm.pools."snipe-it".socket}
         file_server
-      }
-      @copyparty host c.hailsatan.eu
-      handle @copyparty {
-        # @proxy {
-        #   header_regexp Cookie authentik_proxy_([a-zA-Z0-9])
-        # }
-        # handle @proxy {
-        #   import podmanRedirWithAuth http://copyparty:3923
-        # }
-        handle /shr/* {
-          import podmanRedir http://copyparty:3923
-        }
-        handle /.cpr/* {
-          import podmanRedir http://copyparty:3923
-        }
-        # @noauth {
-        #   path_regexp ^\/(noauth(\/.*|)|[a-z.]+\.(css|js)|[1-9].png)$
-        # }
-        # @getoptionshead {
-        #   method GET OPTIONS HEAD
-        # }
-        # handle @noauth {
-        #   handle @getoptionshead {
-        #     import podmanRedir http://copyparty:3923
-        #   }
-        # }
-        handle {
-          import podmanRedirWithAuth http://copyparty:3923
-        }
       }
       handle {
         import podmanRedirWithAuth http://127.0.0.1:8001

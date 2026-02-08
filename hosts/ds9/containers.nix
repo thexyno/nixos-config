@@ -97,71 +97,71 @@ in
   #     echo "Created immich network"
   #   '';
   # };
-  virtualisation.oci-containers.containers.immich-redis = {
-    image = "docker.io/valkey/valkey:7.2.6-alpine";
-    environment.TZ = "Europe/Berlin";
-    extraOptions = [
-      "--health-cmd"
-      "valkey-cli ping || exit 1"
-      "--network=immich-net"
-    ];
-    environmentFiles = [
-      config.age.secrets.ds9ImmichEnv.path
-    ];
-    # dependsOn = [ "immich-network" ];
-  };
-  virtualisation.oci-containers.containers.immich-server = {
-    user = "1000:100";
-    image = "ghcr.io/immich-app/immich-server:release";
-    extraOptions = [
-      "--network=podman"
-      "--network=immich-net"
-      "--network=db-net"
-    ];
-    dependsOn = [
-      # "immich-network"
-      "immich-redis"
-      "postgres"
-    ];
-    ports = [ "8765:3001" ];
-    volumes = [
-      "/data/immich:/usr/src/app/upload"
-    ];
-    environment = {
-      IMICH_HOST = "0.0.0.0";
-      DB_HOSTNAME = "postgres";
-      REDIS_HOSTNAME = "immich-redis";
-      TZ = "Europe/Berlin";
-    };
-    environmentFiles = [
-      config.age.secrets.ds9ImmichEnv.path
-    ];
-  };
-  virtualisation.oci-containers.containers.immich-machine-learning = {
-    user = "1000:100";
-    image = "ghcr.io/immich-app/immich-machine-learning:release";
-    extraOptions = [
-      "--network=immich-net"
-      "--network=db-net"
-      "--network=podman"
-    ];
-    dependsOn = [
-      # "immich-network"
-      "immich-redis"
-      "postgres"
-    ];
-    volumes = [
-      "immich-model-cache:/cache"
-    ];
-    environment = {
-      DB_HOSTNAME = "postgres";
-      REDIS_HOSTNAME = "immich-redis";
-      TZ = "Europe/Berlin";
-    };
-    environmentFiles = [
-      config.age.secrets.ds9ImmichEnv.path
-    ];
-  };
+  # virtualisation.oci-containers.containers.immich-redis = {
+  #   image = "docker.io/valkey/valkey:7.2.6-alpine";
+  #   environment.TZ = "Europe/Berlin";
+  #   extraOptions = [
+  #     "--health-cmd"
+  #     "valkey-cli ping || exit 1"
+  #     "--network=immich-net"
+  #   ];
+  #   environmentFiles = [
+  #     config.age.secrets.ds9ImmichEnv.path
+  #   ];
+  #   # dependsOn = [ "immich-network" ];
+  # };
+  # virtualisation.oci-containers.containers.immich-server = {
+  #   user = "1000:100";
+  #   image = "ghcr.io/immich-app/immich-server:release";
+  #   extraOptions = [
+  #     "--network=podman"
+  #     "--network=immich-net"
+  #     "--network=db-net"
+  #   ];
+  #   dependsOn = [
+  #     # "immich-network"
+  #     "immich-redis"
+  #     "postgres"
+  #   ];
+  #   ports = [ "8765:3001" ];
+  #   volumes = [
+  #     "/data/immich:/usr/src/app/upload"
+  #   ];
+  #   environment = {
+  #     IMICH_HOST = "0.0.0.0";
+  #     DB_HOSTNAME = "postgres";
+  #     REDIS_HOSTNAME = "immich-redis";
+  #     TZ = "Europe/Berlin";
+  #   };
+  #   environmentFiles = [
+  #     config.age.secrets.ds9ImmichEnv.path
+  #   ];
+  # };
+  # virtualisation.oci-containers.containers.immich-machine-learning = {
+  #   user = "1000:100";
+  #   image = "ghcr.io/immich-app/immich-machine-learning:release";
+  #   extraOptions = [
+  #     "--network=immich-net"
+  #     "--network=db-net"
+  #     "--network=podman"
+  #   ];
+  #   dependsOn = [
+  #     # "immich-network"
+  #     "immich-redis"
+  #     "postgres"
+  #   ];
+  #   volumes = [
+  #     "immich-model-cache:/cache"
+  #   ];
+  #   environment = {
+  #     DB_HOSTNAME = "postgres";
+  #     REDIS_HOSTNAME = "immich-redis";
+  #     TZ = "Europe/Berlin";
+  #   };
+  #   environmentFiles = [
+  #     config.age.secrets.ds9ImmichEnv.path
+  #   ];
+  # };
   # navidrome
   # virtualisation.oci-containers.containers.lms = {
   #   # don't tell mom
@@ -372,96 +372,96 @@ in
         # "/nix/store:/nix/store"
       ];
   };
-  virtualisation.oci-containers.containers.copyparty = {
-    image = "docker.io/copyparty/ac:latest";
-    extraOptions = [ "--network=podman" ];
-    ports = [ ];
-    volumes =
-      let
-        copypartyCfg = ''
-          [global]
-            xff-src: 10.88.0.1/24
-            idp-h-usr: X-Remote-User
-            idp-h-grp: X-Copyparty-Group
-            e2dsa  # enable file indexing and filesystem scanning
-            e2ts   # enable multimedia indexing
-            ansi   # enable colors in log messages
-            re-maxage: 3600   # rescan every something
-            hist: /data/media/copyparty/cache
-            name: the gayest storage in the west
-            no-robots
-            shr: /shr
-            shr-adm: @admin
-          [/]
-            /data/media/copyparty/srv
-            accs:
-              A: @admin
-              r: *
-          [/dump]
-            /data/media/copyparty/srv/dump
-            flags:
-              dedup
-            accs:
-              A: @admin
-              w: *
-          [/pub]
-            /data/media/copyparty/srv/pub
-            flags:
-              dedup
-            accs:
-              A: @admin
-              rw: *
-          [/tv]
-            /data/media/tv
-            flags:
-              hist: /data/media/copyparty/hist/tv
-            accs:
-              r: *
-          [/movies]
-            /data/media/movies
-            flags:
-              hist: /data/media/copyparty/hist/movies
-            accs:
-              r: *
-          [/books]
-            /data/media/books
-            flags:
-              hist: /data/media/copyparty/hist/books
-            accs:
-              r: *
-          [/audiobooks]
-            /data/media/audiobooks
-            flags:
-              hist: /data/media/copyparty/hist/audiobooks
-            accs:
-              r: *
-          [/music]
-            /data/media/music
-            flags:
-              hist: /data/media/copyparty/hist/music
-            accs:
-              r: *
-          [/games]
-            /data/media/games
-            flags:
-              hist: /data/media/copyparty/hist/games
-            accs:
-              r: *
-        '';
-        cpp = pkgs.writeText "copyparty.conf" copypartyCfg;
-      in
-      [
+  # virtualisation.oci-containers.containers.copyparty = {
+  #   image = "docker.io/copyparty/ac:latest";
+  #   extraOptions = [ "--network=podman" ];
+  #   ports = [ ];
+  #   volumes =
+  #     let
+  #       copypartyCfg = ''
+  #         [global]
+  #           xff-src: 10.88.0.1/24
+  #           idp-h-usr: X-Remote-User
+  #           idp-h-grp: X-Copyparty-Group
+  #           e2dsa  # enable file indexing and filesystem scanning
+  #           e2ts   # enable multimedia indexing
+  #           ansi   # enable colors in log messages
+  #           re-maxage: 3600   # rescan every something
+  #           hist: /data/media/copyparty/cache
+  #           name: the gayest storage in the west
+  #           no-robots
+  #           shr: /shr
+  #           shr-adm: @admin
+  #         [/]
+  #           /data/media/copyparty/srv
+  #           accs:
+  #             A: @admin
+  #             r: *
+  #         [/dump]
+  #           /data/media/copyparty/srv/dump
+  #           flags:
+  #             dedup
+  #           accs:
+  #             A: @admin
+  #             w: *
+  #         [/pub]
+  #           /data/media/copyparty/srv/pub
+  #           flags:
+  #             dedup
+  #           accs:
+  #             A: @admin
+  #             rw: *
+  #         [/tv]
+  #           /data/media/tv
+  #           flags:
+  #             hist: /data/media/copyparty/hist/tv
+  #           accs:
+  #             r: *
+  #         [/movies]
+  #           /data/media/movies
+  #           flags:
+  #             hist: /data/media/copyparty/hist/movies
+  #           accs:
+  #             r: *
+  #         [/books]
+  #           /data/media/books
+  #           flags:
+  #             hist: /data/media/copyparty/hist/books
+  #           accs:
+  #             r: *
+  #         [/audiobooks]
+  #           /data/media/audiobooks
+  #           flags:
+  #             hist: /data/media/copyparty/hist/audiobooks
+  #           accs:
+  #             r: *
+  #         [/music]
+  #           /data/media/music
+  #           flags:
+  #             hist: /data/media/copyparty/hist/music
+  #           accs:
+  #             r: *
+  #         [/games]
+  #           /data/media/games
+  #           flags:
+  #             hist: /data/media/copyparty/hist/games
+  #           accs:
+  #             r: *
+  #       '';
+  #       cpp = pkgs.writeText "copyparty.conf" copypartyCfg;
+  #     in
+  #     [
 
-        "/data/media/tv:/data/media/tv:ro"
-        "/data/media/movies:/data/media/movies:ro"
-        "/data/media/audiobooks:/data/media/audiobooks:ro"
-        "/data/media/books:/data/media/books:ro"
-        "/data/media/games:/data/media/games:ro"
-        "/data/media/beets:/data/media/music:ro"
-        "/data/media/copyparty:/data/media/copyparty"
-        "/data/media/copyparty/cfg:/cfg"
-        "${cpp}:/cfg/copyparty.conf"
-      ];
-  };
+  #       "/data/media/tv:/data/media/tv:ro"
+  #       "/data/media/movies:/data/media/movies:ro"
+  #       "/data/media/audiobooks:/data/media/audiobooks:ro"
+  #       "/data/media/books:/data/media/books:ro"
+  #       "/data/media/games:/data/media/games:ro"
+  #       "/data/media/beets:/data/media/music:ro"
+  #       "/data/media/copyparty:/data/media/copyparty"
+  #       "/data/media/copyparty/cfg:/cfg"
+  #       "${cpp}:/cfg/copyparty.conf"
+  #     ];
+  # };
 
 }
