@@ -14,10 +14,10 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./xynospace-matrix.nix
+    # ./xynospace-matrix.nix
     ./plausible.nix
     # ./obsidianshare.nix
-    ./mail.nix
+    # ./mail.nix
     # ./gotosocial.nix
     # ./ntfy.nix
     # ./ts-ovpn.nix

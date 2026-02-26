@@ -14,14 +14,14 @@ in
     # ./hardware-configuration.nix
 
     ./containers.nix
-    ./backup.nix
+    # ./backup.nix
     # ./grist.nix
     # ./plex.nix
     # ./samba.nix
     # ./paperless.nix
     ./maubot.nix
     ./woodpecker.nix
-    ./attic.nix
+    # ./attic.nix
     # ./ytdl-sub.nix
     ./snipe-it.nix
     # ./radicale.nix

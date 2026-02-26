@@ -1,3 +1,9 @@
+# DEPRECATED
+
+this config got replaced by https://git.xyno.systems/xyno/nix-configs
+
+
+
 # my nixos/nix-darwin Configs
 
 ## Folder structure
